@@ -1,222 +1,213 @@
-# 知識生產器 (Knowledge Production System)
+# Knowledge Production System
 
-以Claude Code為核心、Agents與Skills驅動的學術文獻處理系統
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-## 🎯 專案特色
+**學術文獻處理與知識生產系統** - 基於Claude Code與多LLM的智能化學術工作流
 
-- 🤖 **AI驅動**: 整合Claude Code與Ollama本地LLM
-- 📚 **智能知識庫**: Markdown + SQLite混合架構，支援全文搜索
-- 🎨 **多風格輸出**: 7種學術風格 × 5種詳細程度 × 3種語言
-- 🔗 **模組化設計**: 可重用的Skills和智能Agents
-- 📊 **豐富格式**: 支援PDF、Markdown、PPTX、JSON等多種格式
+## 🎯 核心功能
 
-## 🚀 快速開始
+### 📄 PDF文獻分析
+- 智能提取論文結構（標題、作者、摘要、章節）
+- 支援兩種提取引擎（pdfplumber、PyPDF2）
+- 字元限制：50,000（可配置）
 
-### 安裝依賴
+### 📊 多風格學術簡報生成
+支援8種學術風格 × 5種詳細程度 × 3種語言：
 
-```bash
-pip install -r requirements.txt
-```
+**學術風格**：
+- Classic Academic（經典學術）
+- Modern Academic（現代學術）⭐ 推薦
+- Clinical（臨床導向）
+- Research Methods（研究方法）
+- Literature Review（文獻回顧）
+- Case Analysis（案例分析）
+- Teaching（教學導向）
+- Zettelkasten（原子筆記）
 
-### 初始化知識庫
+**輸出格式**：
+- PowerPoint (PPTX) - 16:9寬螢幕，智能排版
+- Markdown - 相容Marp/reveal.js
+- Both - 同時生成兩種格式
 
-```python
-from src.knowledge_base import KnowledgeBaseManager
-kb = KnowledgeBaseManager()
-print(kb.get_stats())
-```
+### 🗂️ Zettelkasten原子筆記系統
 
-### 分析論文
+創新功能：
+- ✅ **核心概念直接擷取原文**（不翻譯、不改寫）
+- ✅ **語義化ID格式**（`領域-日期-序號`）
+- ✅ **AI/人類筆記分離**（`[AI Agent]` + `[Human] TODO`）
+- ✅ **概念連結網絡**（基於/導向/相關/對比）
+- ✅ **Mermaid視覺化**（概念網絡圖）
+- ✅ **雙檔案輸出**（索引 + 獨立卡片）
 
-```bash
-# 在Claude Code中執行
-/analyze-paper paper.pdf --add-to-kb
-```
+### 🤖 多LLM後端支持
 
-## 📖 使用示例
+- **Ollama**（本地）：完全離線、數據隱私
+- **Google Gemini**：速度快、品質高
+- **OpenAI**：GPT-4、GPT-3.5
+- **Anthropic Claude**：推理能力強
 
-### 提取PDF內容
+自動故障轉移與提供者偵測。
 
-```python
-from src.extractors import PDFExtractor
+### 📚 混合式知識庫
 
-extractor = PDFExtractor(max_chars=50000)
-result = extractor.extract("paper.pdf")
-
-print(f"標題: {result['structure']['title']}")
-print(f"作者: {', '.join(result['structure']['authors'])}")
-print(f"摘要: {result['structure']['abstract'][:200]}...")
-```
-
-### 管理知識庫
-
-```python
-from src.knowledge_base import KnowledgeBaseManager
-
-kb = KnowledgeBaseManager()
-
-# 新增論文
-paper_id = kb.add_paper(
-    file_path="papers/smith_2024.md",
-    title="Deep Learning for Medical Diagnosis",
-    authors=["John Smith", "Jane Doe"],
-    year=2024,
-    keywords=["deep learning", "medical"],
-    content="完整內容..."
-)
-
-# 搜索論文
-results = kb.search_papers("deep learning medical")
-
-# 查看統計
-stats = kb.get_stats()
-print(f"論文總數: {stats['total_papers']}")
-```
-
-## 🛠️ 核心模組
-
-| 模組 | 功能 | 狀態 |
-|------|------|------|
-| **pdf-extractor** | PDF提取與結構分析 | ✅ 已完成 |
-| **kb-connector** | 知識庫管理與索引 | ✅ 已完成 |
-| **slide-maker** | 多風格簡報生成 | 📅 計劃中 |
-| **note-writer** | 結構化筆記撰寫 | 📅 計劃中 |
-| **viz-generator** | 科學視覺化生成 | 📅 計劃中 |
-
-## 📚 學術風格
-
-基於SciMaker Journal Club的7種學術風格：
-
-1. 📖 **經典學術**: 傳統學術語言
-2. 🎯 **現代學術**: 視覺化與數據導向
-3. 🏥 **臨床導向**: 臨床應用與病例
-4. 🔬 **研究方法**: 方法論與統計
-5. 📊 **文獻回顧**: 系統性文獻整理
-6. 💡 **案例分析**: 深入個案分析
-7. 🎓 **教學導向**: 易懂的教學風格
-
-## 🗂️ 專案結構
-
-```
-claude_lit_workflow/
-├── 📄 analyze_paper.py          # 主工具：論文分析
-├── 📄 kb_manage.py              # 主工具：知識庫管理
-├── 📖 README.md / CLAUDE.md     # 文檔
-│
-├── .claude/              # Claude Code配置
-│   ├── skills/          # Skills定義
-│   ├── agents/          # Agents定義
-│   └── commands/        # Slash Commands
-│
-├── src/                 # 核心源碼
-│   ├── extractors/      # PDF提取器
-│   ├── generators/      # 生成器（待開發）
-│   ├── knowledge_base/  # 知識庫管理
-│   └── utils/           # 工具函數
-│
-├── knowledge_base/      # 知識存儲
-│   ├── papers/         # Markdown筆記
-│   ├── metadata/       # 元數據
-│   └── index.db       # SQLite數據庫
-│
-├── templates/          # 模板庫
-│   ├── prompts/       # Prompt模板
-│   └── styles/        # 學術風格定義
-│
-├── examples/           # 示例腳本
-│   ├── demo_kb_features.py
-│   └── kb_interactive.py
-│
-├── output/             # 輸出文件
-├── config/             # 配置
-└── scripts/            # 輔助腳本
-```
-
-📋 詳細說明請參考 [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
-
-## ⚙️ 配置
-
-主配置文件: `config/settings.yaml`
-
-```yaml
-llm:
-  default_backend: "ollama"
-  ollama:
-    base_url: "http://localhost:11434"
-
-pdf:
-  max_characters: 50000
-  extraction_method: "pdfplumber"
-
-slides:
-  default_style: "modern_academic"
-  default_detail: "standard"
-```
-
-## 📋 Slash Commands
-
-### /analyze-paper
-
-分析學術論文並提取關鍵信息
-
-```bash
-/analyze-paper paper.pdf --add-to-kb --format all
-```
-
-更多命令開發中...
-
-## 🔗 與SciMaker整合
-
-本專案整合了SciMaker的以下資源：
-
-- ✅ Journal Club的22個prompt模板
-- ✅ 7種學術風格定義
-- ✅ Ollama本地LLM整合模式
-- 🔄 Persona記憶系統（可選）
-
-## 📝 文檔
-
-- **完整文檔**: [CLAUDE.md](CLAUDE.md)
-- **開發指南**: 見CLAUDE.md中的「開發指南」章節
-- **Skills文檔**: `.claude/skills/` 目錄
-- **Commands文檔**: `.claude/commands/` 目錄
-
-## 🛣️ 路線圖
-
-### v0.1.0 (當前) ✅
-- [x] 基礎架構建立
-- [x] PDF提取器實作
-- [x] 知識庫管理系統
-- [x] /analyze-paper命令
-
-### v0.2.0 (計劃中)
-- [ ] slide-maker Skill
-- [ ] note-writer Skill
-- [ ] literature-analyzer Agent
-- [ ] 批量處理功能
-
-### v0.3.0 (未來)
-- [ ] viz-generator Skill
-- [ ] 知識圖譜視覺化
-- [ ] 向量搜索整合
-- [ ] Web介面
-
-## 🤝 貢獻
-
-歡迎貢獻！請參考 [CLAUDE.md](CLAUDE.md) 了解開發指南。
-
-## 📄 授權
-
-MIT License
-
-## 🙏 致謝
-
-- 基於SciMaker的Journal Club模組逆向工程成果
-- 感謝Claude Code提供的AI驅動開發環境
-- 感謝Ollama提供的本地LLM推理能力
+- Markdown筆記 + SQLite索引
+- 全文搜索（FTS5）
+- 主題分類與標籤
+- 論文引用關係
 
 ---
 
-**最後更新**: 2024-10-27
-**版本**: 0.1.0-alpha
-**維護者**: Claude Code Agent
+## 🚀 快速開始
+
+### 安裝
+
+```bash
+# 克隆倉庫
+git clone https://github.com/your-username/knowledge-production-system.git
+cd knowledge-production-system
+
+# 安裝依賴
+pip install -r requirements.txt
+
+# 初始化知識庫
+python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"
+```
+
+### 配置API密鑰
+
+創建 `.env` 文件：
+
+```bash
+# 選擇一個或多個LLM提供者
+GOOGLE_API_KEY=your-google-api-key
+OPENAI_API_KEY=your-openai-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
+
+# Ollama（本地，無需API key）
+OLLAMA_URL=http://localhost:11434
+```
+
+### 基本使用
+
+```bash
+# 1. 分析論文
+python analyze_paper.py paper.pdf --add-to-kb
+
+# 2. 生成簡報（現代學術風格）
+python make_slides.py "研究主題" --pdf paper.pdf --style modern_academic --format both
+
+# 3. 生成Zettelkasten筆記
+python make_slides.py "論文標題" --pdf paper.pdf --style zettelkasten --domain YourField
+
+# 4. 從知識庫生成
+python make_slides.py "主題" --from-kb 1 --style teaching --format markdown
+```
+
+---
+
+## 📖 詳細文檔
+
+- [快速開始指南](QUICKSTART.md)
+- [專案結構](PROJECT_STRUCTURE.md)
+- [開發文檔](CLAUDE.md)（包含完整設計理念）
+
+---
+
+## 🎨 使用範例
+
+### 範例1：教學簡報
+
+```bash
+python make_slides.py "深度學習基礎" \
+  --pdf paper.pdf \
+  --style teaching \
+  --detail comprehensive \
+  --language chinese \
+  --format markdown \
+  --slides 25
+```
+
+**輸出**：535行Markdown簡報，循序漸進、概念詳解
+
+### 範例2：Zettelkasten筆記
+
+```bash
+python make_slides.py "Cognitive Science Research" \
+  --pdf paper.pdf \
+  --style zettelkasten \
+  --domain CogSci \
+  --detail standard
+```
+
+**輸出**：
+```
+output/zettel_CogSci_20251028/
+├── zettel_index.md          # 索引+網絡圖
+└── zettel_cards/
+    ├── CogSci-20251028-001.md
+    ├── CogSci-20251028-002.md
+    └── ...
+```
+
+每張卡片包含：
+- 英文原文核心概念（直接擷取）
+- 中文詳細說明
+- AI批判性思考
+- 人類筆記TODO區域
+- 概念連結網絡
+
+---
+
+## 🏗️ 系統架構
+
+```
+claude_lit_workflow/
+├── src/
+│   ├── extractors/          # PDF提取
+│   ├── generators/          # 簡報與筆記生成
+│   └── knowledge_base/      # 知識庫管理
+├── templates/
+│   ├── markdown/            # Markdown模板
+│   ├── prompts/             # LLM Prompt
+│   └── styles/              # 學術風格定義
+├── config/
+│   └── settings.yaml        # 系統配置
+└── knowledge_base/          # 知識儲存
+    ├── papers/              # Markdown筆記
+    └── index.db             # SQLite索引
+```
+
+---
+
+## 🤝 貢獻
+
+歡迎貢獻！請遵循以下步驟：
+
+1. Fork本倉庫
+2. 創建功能分支（`git checkout -b feature/AmazingFeature`）
+3. 提交更改（`git commit -m 'Add some AmazingFeature'`）
+4. 推送到分支（`git push origin feature/AmazingFeature`）
+5. 開啟Pull Request
+
+---
+
+## 📄 授權
+
+本專案採用 MIT License - 詳見 [LICENSE](LICENSE) 文件
+
+---
+
+## 🙏 致謝
+
+- 基於Claude Code開發環境
+- Prompt工程參考學術簡報最佳實踐
+- Zettelkasten方法論
+
+---
+
+## 📧 聯繫
+
+有問題或建議？歡迎開啟Issue討論！
+
+**專案狀態**：Alpha v0.4.0 - 積極開發中
