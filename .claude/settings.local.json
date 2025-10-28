@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''''D:\\Apps\\LLM\\SciMaker\\journal_club'''' -Recurse | Select-Object FullName\")",
+      "Bash(powershell:*)"
+    ],
+    "additionalDirectories": [
+      "D:\\Apps\\LLM\\SciMaker",
+      "D:\\core\\research\\Program_verse\\+\\pdf"
+    ]
+  }
+}

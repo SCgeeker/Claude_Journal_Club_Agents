@@ -1,0 +1,222 @@
+# 知識生產器 (Knowledge Production System)
+
+以Claude Code為核心、Agents與Skills驅動的學術文獻處理系統
+
+## 🎯 專案特色
+
+- 🤖 **AI驅動**: 整合Claude Code與Ollama本地LLM
+- 📚 **智能知識庫**: Markdown + SQLite混合架構，支援全文搜索
+- 🎨 **多風格輸出**: 7種學術風格 × 5種詳細程度 × 3種語言
+- 🔗 **模組化設計**: 可重用的Skills和智能Agents
+- 📊 **豐富格式**: 支援PDF、Markdown、PPTX、JSON等多種格式
+
+## 🚀 快速開始
+
+### 安裝依賴
+
+```bash
+pip install -r requirements.txt
+```
+
+### 初始化知識庫
+
+```python
+from src.knowledge_base import KnowledgeBaseManager
+kb = KnowledgeBaseManager()
+print(kb.get_stats())
+```
+
+### 分析論文
+
+```bash
+# 在Claude Code中執行
+/analyze-paper paper.pdf --add-to-kb
+```
+
+## 📖 使用示例
+
+### 提取PDF內容
+
+```python
+from src.extractors import PDFExtractor
+
+extractor = PDFExtractor(max_chars=50000)
+result = extractor.extract("paper.pdf")
+
+print(f"標題: {result['structure']['title']}")
+print(f"作者: {', '.join(result['structure']['authors'])}")
+print(f"摘要: {result['structure']['abstract'][:200]}...")
+```
+
+### 管理知識庫
+
+```python
+from src.knowledge_base import KnowledgeBaseManager
+
+kb = KnowledgeBaseManager()
+
+# 新增論文
+paper_id = kb.add_paper(
+    file_path="papers/smith_2024.md",
+    title="Deep Learning for Medical Diagnosis",
+    authors=["John Smith", "Jane Doe"],
+    year=2024,
+    keywords=["deep learning", "medical"],
+    content="完整內容..."
+)
+
+# 搜索論文
+results = kb.search_papers("deep learning medical")
+
+# 查看統計
+stats = kb.get_stats()
+print(f"論文總數: {stats['total_papers']}")
+```
+
+## 🛠️ 核心模組
+
+| 模組 | 功能 | 狀態 |
+|------|------|------|
+| **pdf-extractor** | PDF提取與結構分析 | ✅ 已完成 |
+| **kb-connector** | 知識庫管理與索引 | ✅ 已完成 |
+| **slide-maker** | 多風格簡報生成 | 📅 計劃中 |
+| **note-writer** | 結構化筆記撰寫 | 📅 計劃中 |
+| **viz-generator** | 科學視覺化生成 | 📅 計劃中 |
+
+## 📚 學術風格
+
+基於SciMaker Journal Club的7種學術風格：
+
+1. 📖 **經典學術**: 傳統學術語言
+2. 🎯 **現代學術**: 視覺化與數據導向
+3. 🏥 **臨床導向**: 臨床應用與病例
+4. 🔬 **研究方法**: 方法論與統計
+5. 📊 **文獻回顧**: 系統性文獻整理
+6. 💡 **案例分析**: 深入個案分析
+7. 🎓 **教學導向**: 易懂的教學風格
+
+## 🗂️ 專案結構
+
+```
+claude_lit_workflow/
+├── 📄 analyze_paper.py          # 主工具：論文分析
+├── 📄 kb_manage.py              # 主工具：知識庫管理
+├── 📖 README.md / CLAUDE.md     # 文檔
+│
+├── .claude/              # Claude Code配置
+│   ├── skills/          # Skills定義
+│   ├── agents/          # Agents定義
+│   └── commands/        # Slash Commands
+│
+├── src/                 # 核心源碼
+│   ├── extractors/      # PDF提取器
+│   ├── generators/      # 生成器（待開發）
+│   ├── knowledge_base/  # 知識庫管理
+│   └── utils/           # 工具函數
+│
+├── knowledge_base/      # 知識存儲
+│   ├── papers/         # Markdown筆記
+│   ├── metadata/       # 元數據
+│   └── index.db       # SQLite數據庫
+│
+├── templates/          # 模板庫
+│   ├── prompts/       # Prompt模板
+│   └── styles/        # 學術風格定義
+│
+├── examples/           # 示例腳本
+│   ├── demo_kb_features.py
+│   └── kb_interactive.py
+│
+├── output/             # 輸出文件
+├── config/             # 配置
+└── scripts/            # 輔助腳本
+```
+
+📋 詳細說明請參考 [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+
+## ⚙️ 配置
+
+主配置文件: `config/settings.yaml`
+
+```yaml
+llm:
+  default_backend: "ollama"
+  ollama:
+    base_url: "http://localhost:11434"
+
+pdf:
+  max_characters: 50000
+  extraction_method: "pdfplumber"
+
+slides:
+  default_style: "modern_academic"
+  default_detail: "standard"
+```
+
+## 📋 Slash Commands
+
+### /analyze-paper
+
+分析學術論文並提取關鍵信息
+
+```bash
+/analyze-paper paper.pdf --add-to-kb --format all
+```
+
+更多命令開發中...
+
+## 🔗 與SciMaker整合
+
+本專案整合了SciMaker的以下資源：
+
+- ✅ Journal Club的22個prompt模板
+- ✅ 7種學術風格定義
+- ✅ Ollama本地LLM整合模式
+- 🔄 Persona記憶系統（可選）
+
+## 📝 文檔
+
+- **完整文檔**: [CLAUDE.md](CLAUDE.md)
+- **開發指南**: 見CLAUDE.md中的「開發指南」章節
+- **Skills文檔**: `.claude/skills/` 目錄
+- **Commands文檔**: `.claude/commands/` 目錄
+
+## 🛣️ 路線圖
+
+### v0.1.0 (當前) ✅
+- [x] 基礎架構建立
+- [x] PDF提取器實作
+- [x] 知識庫管理系統
+- [x] /analyze-paper命令
+
+### v0.2.0 (計劃中)
+- [ ] slide-maker Skill
+- [ ] note-writer Skill
+- [ ] literature-analyzer Agent
+- [ ] 批量處理功能
+
+### v0.3.0 (未來)
+- [ ] viz-generator Skill
+- [ ] 知識圖譜視覺化
+- [ ] 向量搜索整合
+- [ ] Web介面
+
+## 🤝 貢獻
+
+歡迎貢獻！請參考 [CLAUDE.md](CLAUDE.md) 了解開發指南。
+
+## 📄 授權
+
+MIT License
+
+## 🙏 致謝
+
+- 基於SciMaker的Journal Club模組逆向工程成果
+- 感謝Claude Code提供的AI驅動開發環境
+- 感謝Ollama提供的本地LLM推理能力
+
+---
+
+**最後更新**: 2024-10-27
+**版本**: 0.1.0-alpha
+**維護者**: Claude Code Agent

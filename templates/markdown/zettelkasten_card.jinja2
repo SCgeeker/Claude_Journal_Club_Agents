@@ -1,0 +1,53 @@
+---
+id: {{ id }}
+title: "{{ title }}"
+tags: [{{ tags|join(', ') }}]
+source: "{{ paper_title }}" ({{ year }})
+paper_id: {{ paper_id }}
+created: {{ created_date }}
+type: {{ card_type }}
+---
+
+# {{ title }}
+
+> **核心**: {{ core_summary }}
+
+## 說明
+{{ detailed_explanation }}
+
+## 連結網絡
+
+{% if foundation_links %}
+**基於** → {% for link in foundation_links %}[[{{ link }}]]{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+{% if derived_links %}
+**導向** → {% for link in derived_links %}[[{{ link }}]]{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+{% if related_links %}
+**相關** ↔ {% for link in related_links %}[[{{ link }}]]{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+{% if contrast_links %}
+**對比** ⚡ {% for link in contrast_links %}[[{{ link }}]]{% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+
+## 來源脈絡
+- 📄 **文獻**: {{ citation }}
+{% if section %}- 📍 **位置**: {{ section }}{% if page_number %}, p.{{ page_number }}{% endif %}{% endif %}
+{% if context %}- 🎯 **情境**: {{ context }}{% endif %}
+
+## 個人筆記
+
+{% if personal_notes %}
+**[AI Agent]**: {{ personal_notes }}
+
+{% endif %}
+**[Human]**: (TODO) <!-- 請在此處添加您的個人思考、批判性評論或延伸想法 -->
+
+{% if open_questions %}
+## 待解問題
+{{ open_questions }}
+{% endif %}
+
+---
+*卡片類型*: {{ card_type }}
+{% if confidence %}*信心度*: {{ confidence }}{% endif %}

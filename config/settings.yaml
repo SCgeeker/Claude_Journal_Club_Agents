@@ -1,0 +1,145 @@
+# 知識生產器系統配置
+# Knowledge Production System Configuration
+
+# === LLM後端配置 ===
+llm:
+  default_backend: "ollama"  # ollama, google, llama_cpp
+
+  ollama:
+    base_url: "http://localhost:11434"
+    api_endpoint: "/api/generate"
+    default_model: "gemma2:latest"
+    timeout: 120
+    retry_attempts: 3
+
+  google:
+    base_url: "https://generativelanguage.googleapis.com/v1beta/models"
+    api_key: ""  # 從環境變數讀取 GOOGLE_AI_API_KEY
+    default_model: "gemini-pro"
+
+  llama_cpp:
+    base_url: "http://localhost:8080"
+    api_endpoint: "/v1/chat/completions"
+    timeout: 120
+
+# === PDF處理配置 ===
+pdf:
+  max_characters: 50000  # Journal Club原始限制的5倍
+  extraction_method: "pdfplumber"  # pdfplumber 或 PyPDF2
+  fallback_to_ocr: false
+  extract_images: true
+  extract_tables: true
+
+# === 簡報生成配置 ===
+slides:
+  default_style: "modern_academic"
+  default_detail: "standard"
+  default_language: "chinese"
+  default_slide_count: 15
+  min_slides: 5
+  max_slides: 30
+
+  template_path: "templates/prompts/journal_club_template.jinja2"
+  styles_config: "templates/styles/academic_styles.yaml"
+
+  output:
+    default_format: "pptx"
+    save_directory: "output/slides"
+    filename_pattern: "{topic}_JournalClub_{timestamp}.pptx"
+
+# === 筆記生成配置 ===
+notes:
+  default_format: "markdown"
+  structure:
+    - "摘要 (Abstract)"
+    - "研究背景 (Background)"
+    - "研究方法 (Methods)"
+    - "主要結果 (Results)"
+    - "討論與結論 (Discussion & Conclusion)"
+    - "個人評論 (Personal Comments)"
+    - "相關文獻 (Related Literature)"
+    - "關鍵詞 (Keywords)"
+
+  output:
+    save_directory: "knowledge_base/papers"
+    filename_pattern: "{authors}_{year}_{title}.md"
+    metadata_format: "yaml_frontmatter"
+
+# === 知識庫配置 ===
+knowledge_base:
+  root_directory: "knowledge_base"
+  database_path: "knowledge_base/index.db"
+
+  indexing:
+    auto_index: true
+    full_text_search: true
+    vector_search: false  # 需要額外設置向量資料庫
+
+  metadata:
+    track_citations: true
+    track_topics: true
+    track_authors: true
+    auto_tagging: true
+
+  backup:
+    enabled: true
+    frequency: "daily"
+    keep_versions: 7
+
+# === 工作目錄掛載 ===
+working_directories:
+  - path: "D:\\Apps\\LLM\\SciMaker"
+    name: "SciMaker"
+    access: "read"
+    resources:
+      - "persona_files: *.memory.md"
+      - "modelfiles: Modelfile*.txt"
+      - "templates: journal_club_analysis/*"
+
+# === 批次處理配置 ===
+batch:
+  max_parallel: 3
+  timeout_per_file: 300
+  continue_on_error: true
+  generate_summary: true
+
+# === 輸出格式配置 ===
+output:
+  formats:
+    - "pptx"      # PowerPoint簡報
+    - "markdown"  # Markdown筆記
+    - "json"      # 結構化數據
+    - "html"      # HTML報告
+
+  default_formats:
+    - "pptx"
+    - "markdown"
+
+# === 日誌配置 ===
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/system.log"
+  console: true
+  format: "[{time}] {level}: {message}"
+
+# === 快取配置 ===
+cache:
+  enabled: true
+  directory: ".cache"
+  pdf_extraction: true
+  llm_responses: false  # 不快取LLM回應以確保新鮮度
+  ttl: 86400  # 24小時（秒）
+
+# === 效能配置 ===
+performance:
+  chunk_size: 10000  # 處理長文字時的分塊大小
+  max_retries: 3
+  timeout: 300
+  memory_limit: "2GB"
+
+# === UI配置 ===
+ui:
+  theme: "default"
+  language: "zh-TW"
+  show_progress: true
+  verbose: false

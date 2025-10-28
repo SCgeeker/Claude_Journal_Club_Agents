@@ -1,0 +1,47 @@
+# Environment & Secrets
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# 知識庫數據
+knowledge_base/index.db
+knowledge_base/index.db-journal
+
+# 輸出文件
+output/*.json
+output/*.pptx
+output/*.md
+!output/.gitkeep
+
+# 快取
+.cache/
+*.pyc
+
+# 日誌
+logs/*.log
+!logs/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 臨時文件
+*.tmp
+*~

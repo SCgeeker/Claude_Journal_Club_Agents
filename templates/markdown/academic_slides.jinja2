@@ -1,0 +1,44 @@
+---
+marp: true
+theme: academic
+paginate: true
+header: '{{ header_text }}'
+footer: '{{ footer_text }}'
+style: |
+  section {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  h1 { color: #2c3e50; }
+  h2 { color: #34495e; }
+---
+
+<!-- _class: title -->
+# {{ main_title }}
+
+## {{ subtitle }}
+
+{% if authors %}**{{ authors }}**{% endif %}
+{% if date %}*{{ date }}*{% endif %}
+
+---
+
+{% for slide in slides %}
+<!-- _class: content -->
+## {{ slide.title }}
+
+{% for content_item in slide['items'] %}
+- {{ content_item }}
+{% endfor %}
+
+{% if slide.notes %}
+> **備註**: {{ slide.notes }}
+{% endif %}
+
+---
+
+{% endfor %}
+
+<!-- _class: end -->
+# Thank You
+
+{% if contact %}{{ contact }}{% endif %}

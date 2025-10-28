@@ -1,0 +1,72 @@
+# Zettelkasten 卡片索引
+
+**來源論文**: {{ paper_title }}
+**作者**: {{ authors }}
+**年份**: {{ year }}
+**生成日期**: {{ generated_date }}
+**卡片總數**: {{ card_count }}
+
+---
+
+## 📚 卡片清單
+
+{% for card in cards %}
+### {{ loop.index }}. [{{ card.title }}](zettel_cards/{{ card.id }}.md)
+- **ID**: `{{ card.id }}`
+- **類型**: {{ card.type }}
+- **核心**: {{ card.core_summary }}
+- **標籤**: {% for tag in card.tags %}`{{ tag }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endfor %}
+
+---
+
+## 🗺️ 概念網絡圖
+
+```mermaid
+graph TD
+{% for card in cards %}
+    {{ card.id }}["{{ card.title }}"]
+{% endfor %}
+
+{% for card in cards %}
+{% if card.foundation_links %}
+{% for link in card.foundation_links %}
+    {{ link }} --> {{ card.id }}
+{% endfor %}
+{% endif %}
+{% if card.derived_links %}
+{% for link in card.derived_links %}
+    {{ card.id }} --> {{ link }}
+{% endfor %}
+{% endif %}
+{% if card.related_links %}
+{% for link in card.related_links %}
+    {{ card.id }} -.-> {{ link }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+```
+
+---
+
+## 🏷️ 標籤索引
+
+{% for tag, tag_cards in cards_by_tag.items() %}
+### {{ tag }}
+{% for card in tag_cards %}- [[{{ card.id }}]] {{ card.title }}
+{% endfor %}
+
+{% endfor %}
+
+---
+
+## 📖 閱讀建議順序
+
+{% for card in reading_order %}
+{{ loop.index }}. [[{{ card.id }}]] {{ card.title }}
+{% endfor %}
+
+---
+
+*本索引由 Knowledge Production System 自動生成*
