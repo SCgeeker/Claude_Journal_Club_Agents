@@ -1,0 +1,351 @@
+# 論文質量檢查規則配置
+# Quality Check Rules for Research Papers
+
+# ============================================================
+# 標題質量規則 (Title Quality Rules)
+# ============================================================
+title_checks:
+  # 無效標題模式（需要修復）
+  invalid_patterns:
+    - pattern: "^Journal Pre-proof$"
+      severity: critical
+      description: "標題為期刊預印格式標記"
+      auto_fix: extract_from_content
+
+    - pattern: "^Untitled$"
+      severity: critical
+      description: "標題為預設值"
+      auto_fix: extract_from_content
+
+    - pattern: "^https?://"
+      severity: critical
+      description: "標題為URL"
+      auto_fix: extract_from_content
+
+    - pattern: "^\\s*$"
+      severity: critical
+      description: "標題為空白"
+      auto_fix: extract_from_content
+
+    - pattern: "^N/A$|^Unknown$|^Placeholder$"
+      severity: critical
+      description: "標題為佔位符"
+      auto_fix: extract_from_content
+
+  # 可疑標題模式（警告）
+  suspicious_patterns:
+    - pattern: "^\\.pdf$"
+      severity: warning
+      description: "標題包含檔案副檔名"
+
+    - pattern: "\\b(draft|version|v\\d+|final|revised)\\b"
+      severity: info
+      description: "標題包含版本標記"
+
+    - pattern: "^.{1,10}$"
+      severity: warning
+      description: "標題過短（<10字元）"
+
+    - pattern: "^.{300,}$"
+      severity: warning
+      description: "標題過長（>300字元）"
+
+  # 標題質量指標
+  quality_metrics:
+    min_length: 10
+    max_length: 300
+    preferred_min_length: 20
+    preferred_max_length: 200
+
+# ============================================================
+# 作者質量規則 (Authors Quality Rules)
+# ============================================================
+authors_checks:
+  # 無效作者模式
+  invalid_patterns:
+    - pattern: "^Unknown$|^N/A$|^Anonymous$"
+      severity: critical
+      description: "作者為預設值"
+
+    - pattern: "^\\s*$"
+      severity: critical
+      description: "作者為空白"
+
+    - pattern: "^Author \\d+$"
+      severity: critical
+      description: "作者為編號佔位符"
+
+  # 作者格式檢查
+  format_checks:
+    - check: has_first_last_name
+      description: "檢查是否包含姓和名"
+      severity: warning
+
+    - check: no_special_characters
+      description: "檢查是否包含特殊字元"
+      severity: info
+
+    - check: proper_capitalization
+      description: "檢查大小寫是否正確"
+      severity: info
+
+  # 作者質量指標
+  quality_metrics:
+    min_authors: 1
+    max_authors: 50  # 超過50位作者較少見
+    suspicious_if_zero: true
+
+# ============================================================
+# 年份質量規則 (Year Quality Rules)
+# ============================================================
+year_checks:
+  # 有效年份範圍
+  valid_range:
+    min_year: 1900
+    max_year: 2030  # 允許即將發表的論文
+
+  # 可疑年份
+  suspicious_conditions:
+    - condition: too_old
+      threshold: 1950
+      severity: info
+      description: "論文年份較舊（<1950）"
+
+    - condition: future
+      threshold: current_year_plus_2
+      severity: warning
+      description: "論文年份過於未來"
+
+    - condition: missing
+      severity: critical
+      description: "缺少發表年份"
+
+# ============================================================
+# 摘要質量規則 (Abstract Quality Rules)
+# ============================================================
+abstract_checks:
+  # 長度檢查
+  length_checks:
+    min_length: 50
+    max_length: 5000
+    preferred_min_length: 100
+    preferred_max_length: 2000
+
+  # 內容檢查
+  content_checks:
+    - check: not_empty
+      severity: critical
+      description: "摘要不能為空"
+
+    - check: not_placeholder
+      patterns:
+        - "^N/A$"
+        - "^尚未提供摘要$"
+        - "^Abstract not available$"
+        - "^No abstract$"
+      severity: critical
+      description: "摘要為佔位符"
+
+    - check: has_meaningful_content
+      min_words: 20
+      severity: warning
+      description: "摘要內容過少（<20字）"
+
+# ============================================================
+# 關鍵詞質量規則 (Keywords Quality Rules)
+# ============================================================
+keywords_checks:
+  # 數量檢查
+  count_checks:
+    min_keywords: 1
+    max_keywords: 20
+    preferred_min: 3
+    preferred_max: 10
+
+  # 格式檢查
+  format_checks:
+    - check: not_empty_string
+      severity: warning
+      description: "關鍵詞不能為空字串"
+
+    - check: no_duplicates
+      severity: warning
+      description: "關鍵詞不應重複"
+
+    - check: reasonable_length
+      min_length: 2
+      max_length: 50
+      severity: info
+      description: "單個關鍵詞長度應合理"
+
+# ============================================================
+# 重複檢測規則 (Duplicate Detection Rules)
+# ============================================================
+duplicate_checks:
+  # 標題相似度閾值
+  title_similarity:
+    exact_match: 1.0
+    very_high: 0.95
+    high: 0.85
+    medium: 0.70
+
+  # 作者匹配權重
+  author_matching:
+    weight: 0.3
+    min_overlap: 0.5
+
+  # 年份差異容忍
+  year_tolerance:
+    same_year: 0
+    one_year_diff: 1
+    two_year_diff: 2
+
+# ============================================================
+# 外部API增強配置 (External API Enhancement)
+# ============================================================
+api_enhancement:
+  # CrossRef API
+  crossref:
+    enabled: true
+    base_url: "https://api.crossref.org/works"
+    timeout: 10
+    retry_attempts: 3
+    rate_limit: 50  # requests per second
+
+  # Semantic Scholar API
+  semantic_scholar:
+    enabled: true
+    base_url: "https://api.semanticscholar.org/v1/paper"
+    timeout: 10
+    retry_attempts: 3
+    rate_limit: 100  # requests per second
+
+  # 增強策略
+  enhancement_strategy:
+    # 當標題有效時，嘗試用API獲取完整元數據
+    on_valid_title: query_by_title
+
+    # 當標題無效時，嘗試用PDF內容提取標題後再查詢
+    on_invalid_title: extract_then_query
+
+    # 優先使用的API（按順序）
+    priority_apis:
+      - crossref
+      - semantic_scholar
+
+# ============================================================
+# 自動修復配置 (Auto-fix Configuration)
+# ============================================================
+auto_fix:
+  # 是否啟用自動修復
+  enabled: true
+
+  # 修復策略
+  strategies:
+    # 從內容提取標題
+    extract_title_from_content:
+      enabled: true
+      max_attempts: 3
+      sources:
+        - pdf_metadata
+        - first_page_header
+        - doi_lookup
+
+    # 從內容提取作者
+    extract_authors_from_content:
+      enabled: true
+      sources:
+        - pdf_metadata
+        - first_page_authors_section
+        - author_affiliations
+
+    # 從DOI獲取元數據
+    fetch_from_doi:
+      enabled: true
+      apis:
+        - crossref
+
+    # 從標題查詢元數據
+    fetch_from_title:
+      enabled: true
+      min_title_length: 10
+      apis:
+        - crossref
+        - semantic_scholar
+
+  # 修復後驗證
+  post_fix_validation:
+    enabled: true
+    re_check_quality: true
+
+# ============================================================
+# 質量評分配置 (Quality Scoring)
+# ============================================================
+quality_scoring:
+  # 各項指標權重
+  weights:
+    title: 0.25
+    authors: 0.20
+    year: 0.15
+    abstract: 0.25
+    keywords: 0.15
+
+  # 評分等級
+  score_levels:
+    excellent: 90
+    good: 75
+    acceptable: 60
+    poor: 40
+    critical: 0
+
+  # 各項評分規則
+  scoring_rules:
+    title:
+      has_valid_title: 25
+      no_suspicious_patterns: 5
+      reasonable_length: 5
+
+    authors:
+      has_authors: 15
+      proper_format: 5
+      reasonable_count: 5
+
+    year:
+      has_year: 10
+      in_valid_range: 5
+      not_suspicious: 5
+
+    abstract:
+      has_abstract: 15
+      reasonable_length: 5
+      meaningful_content: 5
+
+    keywords:
+      has_keywords: 10
+      reasonable_count: 3
+      no_duplicates: 2
+
+# ============================================================
+# 報告配置 (Report Configuration)
+# ============================================================
+report:
+  # 報告格式
+  formats:
+    - text
+    - json
+    - markdown
+
+  # 包含內容
+  include:
+    - summary_statistics
+    - critical_issues
+    - warnings
+    - recommendations
+    - quality_scores
+    - fixed_items
+
+  # 詳細程度
+  detail_levels:
+    minimal: ["summary_statistics", "critical_issues"]
+    standard: ["summary_statistics", "critical_issues", "warnings", "quality_scores"]
+    comprehensive: ["summary_statistics", "critical_issues", "warnings", "recommendations", "quality_scores", "fixed_items"]

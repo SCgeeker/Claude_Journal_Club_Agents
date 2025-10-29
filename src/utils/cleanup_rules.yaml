@@ -1,0 +1,135 @@
+# 檔案清理規則配置
+# 用於自動整理工作階段產生的文件
+
+# 輸出文件組織規則
+output_organization:
+  # PDF 分析 JSON 文件
+  paper_analysis:
+    patterns:
+      - "*_analysis.json"
+    destination: "output/paper_analysis/"
+    action: "move"
+    description: "PDF 分析結果"
+
+  # 簡報文件
+  slides:
+    patterns:
+      - "*.pptx"
+      - "*_slides.md"
+      - "*_literature_review*.pptx"
+      - "*_literature_review*.md"
+    destination: "output/slides/"
+    action: "move"
+    description: "學術簡報"
+    exclude:
+      - "templates/**"
+      - "output/**"  # 已在 output 中的不移動
+
+  # Zettelkasten 筆記資料夾
+  zettelkasten:
+    patterns:
+      - "zettel_*_20[0-9][0-9][0-9][0-9][0-9][0-9]/"  # zettel_Name_YYYYMMDD/
+      - "zettel_*_20[0-9][0-9][0-9][0-9][0-9][0-9]"   # 沒有尾部斜線的版本
+    destination: "output/zettelkasten_notes/"
+    action: "move"
+    description: "Zettelkasten 原子筆記"
+    exclude:
+      - "output/**"
+
+# 臨時文件清理規則
+temp_files:
+  # 批次處理產生的臨時腳本
+  batch_scripts:
+    patterns:
+      - "batch_*.py"
+      - "process_*.bat"
+    action: "delete"
+    description: "批次處理臨時腳本"
+    conditions:
+      # 只刪除失敗的或過期的
+      min_age_hours: 1  # 至少存在 1 小時
+      exclude_if_successful: true  # 如果有對應的成功報告就保留
+
+  # 日誌和緩存
+  logs_and_cache:
+    patterns:
+      - "*.log"
+      - "*.tmp"
+      - "__pycache__/"
+      - "**/__pycache__/"
+      - ".pytest_cache/"
+    action: "delete"
+    description: "日誌和緩存文件"
+    conditions:
+      min_age_hours: 24  # 保留 24 小時內的日誌
+
+  # 空白或很小的文件
+  empty_files:
+    patterns:
+      - "*"
+    action: "delete"
+    description: "空白文件"
+    conditions:
+      max_size_kb: 0.1  # 小於 100 bytes 的文件
+
+# 報告管理
+reports:
+  cleanup_reports:
+    pattern: "FILE_CLEANUP_REPORT_*.md"
+    keep_recent: 5  # 保留最新 5 份
+    archive_to: "docs/cleanup_history/"
+    description: "清理報告歷史"
+
+# 備份設置
+backup:
+  enabled: true
+  backup_before_cleanup: true
+  backup_items:
+    - "knowledge_base/index.db"
+    - "knowledge_base/papers/"
+  backup_path: "knowledge_base/backups/"
+  keep_recent_backups: 3
+
+# 安全設置
+safety:
+  # 絕對不會刪除的文件類型
+  protected_patterns:
+    - "*.py"  # Python 源碼（除了臨時批次腳本）
+    - "*.md"  # Markdown 文件（除了舊報告）
+    - "*.yaml"
+    - "*.json"  # JSON 配置（分析 JSON 會被移動不是刪除）
+    - "requirements.txt"
+    - ".git/**"
+    - ".gitignore"
+    - "knowledge_base/**"  # 知識庫內容
+    - "src/**"  # 源碼目錄
+    - "templates/**"  # 模板目錄
+    - "config/**"  # 配置目錄
+
+  # 需要確認的操作
+  require_confirmation:
+    - "delete"  # 刪除操作需要確認
+
+  # 乾跑模式（預設）
+  dry_run_default: true  # 預設只顯示會做什麼，不實際執行
+
+# 報告設置
+reporting:
+  generate_report: true
+  report_format: "markdown"
+  report_name_pattern: "FILE_CLEANUP_REPORT_{date}_{time}.md"
+  include_sections:
+    - "summary"
+    - "organized_files"
+    - "deleted_files"
+    - "statistics"
+    - "backup_info"
+
+  # 統計項目
+  statistics:
+    - "total_files_moved"
+    - "total_files_deleted"
+    - "space_saved"
+    - "paper_count"
+    - "zettel_count"
+    - "slides_count"
