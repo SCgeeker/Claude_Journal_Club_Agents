@@ -171,9 +171,12 @@ class SlideMaker:
         return prompt
 
     def _init_llm_clients(self):
-        """初始化LLM客戶端"""
+        """初始化LLM客戶端（僅初始化指定的provider）"""
+        # 只有在 auto 模式或明確指定時才初始化對應的客戶端
+        # 這避免了不必要的 API 初始化和錯誤
+
         # Google Gemini
-        if GOOGLE_AVAILABLE and (self.api_key or os.getenv('GOOGLE_API_KEY')):
+        if (self.llm_provider in ["auto", "google"]) and GOOGLE_AVAILABLE and (self.api_key or os.getenv('GOOGLE_API_KEY')):
             try:
                 genai.configure(api_key=self.api_key or os.getenv('GOOGLE_API_KEY'))
                 self.google_client = genai
@@ -183,7 +186,7 @@ class SlideMaker:
             self.google_client = None
 
         # OpenAI
-        if OPENAI_AVAILABLE and (self.api_key or os.getenv('OPENAI_API_KEY')):
+        if (self.llm_provider in ["auto", "openai"]) and OPENAI_AVAILABLE and (self.api_key or os.getenv('OPENAI_API_KEY')):
             try:
                 self.openai_client = openai.OpenAI(api_key=self.api_key or os.getenv('OPENAI_API_KEY'))
             except Exception:
@@ -192,7 +195,7 @@ class SlideMaker:
             self.openai_client = None
 
         # Anthropic Claude
-        if ANTHROPIC_AVAILABLE and (self.api_key or os.getenv('ANTHROPIC_API_KEY')):
+        if (self.llm_provider in ["auto", "anthropic"]) and ANTHROPIC_AVAILABLE and (self.api_key or os.getenv('ANTHROPIC_API_KEY')):
             try:
                 self.anthropic_client = anthropic.Anthropic(api_key=self.api_key or os.getenv('ANTHROPIC_API_KEY'))
             except Exception:
@@ -272,7 +275,7 @@ class SlideMaker:
         for attempt_provider in fallback_chain:
             try:
                 if attempt_provider == 'ollama':
-                    result = self.call_ollama(prompt, model or "gemmapro:latest", timeout)
+                    result = self.call_ollama(prompt, model or "gpt-oss:20b-cloud", timeout)
                     return result, 'ollama'
 
                 elif attempt_provider == 'google':
@@ -300,7 +303,7 @@ class SlideMaker:
 
     def call_ollama(self,
                    prompt: str,
-                   model: str = "gemma2:latest",
+                   model: str = "gpt-oss:20b-cloud",
                    timeout: int = 300) -> str:
         """
         調用Ollama API生成內容

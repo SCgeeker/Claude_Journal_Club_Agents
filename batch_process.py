@@ -119,6 +119,13 @@ def main():
         help='LLM 提供者（預設: google）'
     )
 
+    parser.add_argument(
+        '--model',
+        type=str,
+        default=None,
+        help='LLM 模型名稱（可選，例如：gpt-oss:20b-cloud, gemma2:latest）'
+    )
+
     # 執行選項
     parser.add_argument(
         '--workers',
@@ -157,7 +164,8 @@ def main():
         zettel_config = {
             'detail_level': args.detail,
             'card_count': args.cards,
-            'llm_provider': args.llm_provider
+            'llm_provider': args.llm_provider,
+            'model': args.model  # 支援自訂模型名稱
         }
 
     # 創建處理器

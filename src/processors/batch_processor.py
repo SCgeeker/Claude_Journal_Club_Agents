@@ -431,6 +431,7 @@ class BatchProcessor:
             detail_level = config.get('detail_level', 'detailed')
             card_count = config.get('card_count', 20)
             llm_provider = config.get('llm_provider', 'google')
+            model = config.get('model', None)
 
             # 構建命令
             cmd = [
@@ -444,6 +445,10 @@ class BatchProcessor:
                 '--llm-provider', llm_provider,
                 '--domain', domain
             ]
+
+            # 如果指定了模型，添加 --model 參數
+            if model:
+                cmd.extend(['--model', model])
 
             result = subprocess.run(
                 cmd,
@@ -472,14 +477,35 @@ class BatchProcessor:
         except Exception as e:
             raise RuntimeError(f"生成 Zettelkasten 失敗: {e}")
 
-    def _find_pdfs(self, folder_path: str) -> List[str]:
-        """在資料夾中尋找所有PDF文件"""
-        folder = Path(folder_path)
-        if not folder.exists() or not folder.is_dir():
+    def _find_pdfs(self, path: str) -> List[str]:
+        """
+        尋找PDF文件
+
+        支援:
+        - 資料夾路徑: 返回資料夾中所有PDF文件
+        - 單個PDF文件路徑: 返回包含該文件的列表
+
+        參數:
+            path: 資料夾路徑或PDF文件路徑
+
+        返回:
+            PDF文件路徑列表
+        """
+        path_obj = Path(path)
+
+        if not path_obj.exists():
             return []
 
-        pdf_files = list(folder.glob("*.pdf"))
-        return [str(f) for f in pdf_files]
+        # 如果是單個PDF文件
+        if path_obj.is_file() and path_obj.suffix.lower() == '.pdf':
+            return [str(path_obj)]
+
+        # 如果是資料夾
+        if path_obj.is_dir():
+            pdf_files = list(path_obj.glob("*.pdf"))
+            return [str(f) for f in pdf_files]
+
+        return []
 
     def retry_failed(
         self,

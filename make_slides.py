@@ -128,8 +128,8 @@ def main():
                        help='輸出格式：pptx(PowerPoint)、markdown或both（預設：pptx）')
     parser.add_argument('--domain', type=str, default='Research',
                        help='領域代碼（Zettelkasten用，如NeuroPsy、AI、CompBio等，預設：Research）')
-    parser.add_argument('--model', type=str, default='gemma2:latest',
-                       help='LLM模型名稱（預設：gemma2:latest）')
+    parser.add_argument('--model', type=str, default='gpt-oss:20b-cloud',
+                       help='LLM模型名稱（預設：gpt-oss:20b-cloud for Ollama Cloud）')
     parser.add_argument('--llm-provider', type=str, default='auto',
                        choices=['auto', 'ollama', 'google', 'openai', 'anthropic'],
                        help='LLM提供者（預設：auto自動選擇）')
@@ -341,7 +341,15 @@ def main():
             print(f"✅ 使用 {used_provider} 生成完成")
 
             # 解析並生成卡片
-            output_dir = Path(args.output) if args.output else Path(f"output/zettel_{args.domain}_{date_str}")
+            # 使用PDF檔名而非domain來命名資料夾（每篇PDF獨立）
+            if args.output:
+                output_dir = Path(args.output)
+            elif args.pdf:
+                pdf_stem = Path(args.pdf).stem
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{pdf_stem}_{date_str}")
+            else:
+                # 回退：沒有PDF時使用domain
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{args.domain}_{date_str}")
             paper_info = {
                 'title': effective_topic,
                 'authors': '',
