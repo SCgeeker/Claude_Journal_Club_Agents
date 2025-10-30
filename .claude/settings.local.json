@@ -3,7 +3,13 @@
     "allow": [
       "Bash(dir:*)",
       "Bash(powershell -Command \"Get-ChildItem -Path ''''D:\\Apps\\LLM\\SciMaker\\journal_club'''' -Recurse | Select-Object FullName\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Read(//d/core/Research/Program_verse/ACT/**)",
+      "Read(//d/core/Research/Program_verse/**)",
+      "Bash(python make_slides.py:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

@@ -9,8 +9,9 @@ import os
 import sys
 import shutil
 import yaml
+import subprocess
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
 import glob
@@ -49,6 +50,12 @@ class CleanupReport:
     total_zettel_folders: int = 0
     total_slides: int = 0
 
+    # Git 版本控制
+    git_enabled: bool = False
+    git_commit_created: bool = False
+    git_commit_message: str = ""
+    git_files_staged: List[str] = field(default_factory=list)
+
     def space_saved_readable(self) -> str:
         """轉換為可讀的空間大小"""
         bytes_val = self.space_saved_bytes
@@ -82,6 +89,9 @@ class CleanupReport:
             lines.append(f"- 💾 **節省空間**: {self.space_saved_readable()}")
         if self.backup_created:
             lines.append(f"- 📦 **備份創建**: {self.backup_path}")
+        if self.git_commit_created:
+            lines.append(f"- 🔄 **Git 提交**: {len(self.git_files_staged)} 個文件")
+            lines.append(f"  - 提交訊息: `{self.git_commit_message}`")
 
         lines.extend(["", "---", ""])
 
@@ -128,9 +138,23 @@ class CleanupReport:
         if self.total_slides > 0:
             lines.append(f"- 📊 **簡報文件**: {self.total_slides} 個")
 
+        # Git 狀態
+        if self.git_enabled:
+            lines.extend(["", "### Git 版本控制", ""])
+            if self.git_commit_created:
+                lines.append(f"- ✅ **已提交**: {len(self.git_files_staged)} 個文件")
+                lines.append("")
+                lines.append("**已提交的文件**:")
+                for f in self.git_files_staged[:20]:  # 最多顯示20個
+                    lines.append(f"  - `{f}`")
+                if len(self.git_files_staged) > 20:
+                    lines.append(f"  - ... (+{len(self.git_files_staged) - 20} 個文件)")
+            else:
+                lines.append("- ⚠️  **未提交**: Git commit 未執行")
+
         lines.extend(["", "---", ""])
         lines.append(f"**報告生成時間**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        lines.append("**清理工具版本**: v1.0.0")
+        lines.append("**清理工具版本**: v1.1.0")
 
         return "\n".join(lines)
 
@@ -151,7 +175,9 @@ class SessionOrganizer:
         project_root: str = None,
         rules_file: str = None,
         dry_run: bool = True,
-        auto_backup: bool = True
+        auto_backup: bool = True,
+        git_commit: bool = False,
+        git_auto_stage: bool = True
     ):
         """
         初始化整理器
@@ -161,10 +187,14 @@ class SessionOrganizer:
             rules_file: 清理規則文件路徑
             dry_run: 乾跑模式（只顯示不執行）
             auto_backup: 自動備份
+            git_commit: 是否自動提交到 Git
+            git_auto_stage: 是否自動 stage 整理後的文件
         """
         self.project_root = Path(project_root or os.getcwd())
         self.dry_run = dry_run
         self.auto_backup = auto_backup
+        self.git_commit = git_commit
+        self.git_auto_stage = git_auto_stage
 
         # 載入清理規則
         if rules_file is None:
@@ -176,7 +206,8 @@ class SessionOrganizer:
         now = datetime.now()
         self.report = CleanupReport(
             session_date=now.strftime("%Y-%m-%d"),
-            session_time=now.strftime("%H:%M:%S")
+            session_time=now.strftime("%H:%M:%S"),
+            git_enabled=git_commit
         )
 
     def _load_rules(self, rules_file: Path) -> dict:
@@ -221,16 +252,22 @@ class SessionOrganizer:
         # 3. 清理臨時文件
         self._cleanup_temp_files()
 
-        # 4. 更新統計
+        # 4. Git 版本控制（如果啟用）
+        if self.git_commit and not self.dry_run:
+            self._handle_git_commit()
+
+        # 5. 更新統計
         self._update_statistics()
 
-        # 5. 生成報告
+        # 6. 生成報告
         print(f"\n{'='*60}")
         print("📊 清理摘要")
         print(f"{'='*60}\n")
         print(f"✅ 整理文件: {self.report.total_moved} 個")
         print(f"🗑️  刪除文件: {self.report.total_deleted} 個")
         print(f"💾 節省空間: {self.report.space_saved_readable()}")
+        if self.report.git_commit_created:
+            print(f"🔄 Git 提交: {len(self.report.git_files_staged)} 個文件")
 
         return self.report
 
@@ -442,6 +479,210 @@ class SessionOrganizer:
             pptx_files = list(slides_dir.glob("*.pptx"))
             md_files = list(slides_dir.glob("*_slides.md"))
             self.report.total_slides = len(pptx_files) + len(md_files)
+
+    def _is_git_repository(self) -> bool:
+        """檢查是否為 Git 倉庫"""
+        try:
+            result = subprocess.run(
+                ["git", "rev-parse", "--git-dir"],
+                cwd=self.project_root,
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            return result.returncode == 0
+        except Exception:
+            return False
+
+    def _get_git_status(self) -> Dict[str, List[str]]:
+        """
+        獲取 Git 狀態
+
+        返回:
+            {
+                'modified': [...],
+                'deleted': [...],
+                'untracked': [...],
+                'staged': [...]
+            }
+        """
+        if not self._is_git_repository():
+            return {}
+
+        try:
+            result = subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.project_root,
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+
+            status = {
+                'modified': [],
+                'deleted': [],
+                'untracked': [],
+                'staged': []
+            }
+
+            for line in result.stdout.strip().split('\n'):
+                if not line:
+                    continue
+
+                # Git status --porcelain 格式: XY filename
+                # X 是 index 狀態，Y 是 working tree 狀態
+                xy = line[:2]
+                filepath = line[3:].strip()
+
+                if xy[0] in ['M', 'A', 'D', 'R', 'C']:
+                    status['staged'].append(filepath)
+
+                if xy[1] == 'M' or xy == ' M':
+                    status['modified'].append(filepath)
+                elif xy[1] == 'D' or xy == ' D':
+                    status['deleted'].append(filepath)
+                elif xy == '??':
+                    status['untracked'].append(filepath)
+
+            return status
+
+        except Exception as e:
+            print(f"⚠️  獲取 Git 狀態失敗: {e}")
+            return {}
+
+    def _handle_git_commit(self):
+        """處理 Git 提交"""
+        print("\n🔄 處理 Git 版本控制...")
+
+        if not self._is_git_repository():
+            print("   ⚠️  不是 Git 倉庫，跳過版本控制")
+            return
+
+        # 獲取 Git 狀態
+        git_status = self._get_git_status()
+
+        files_to_stage = []
+
+        # 1. 自動 stage 新增的知識庫論文
+        kb_papers = [f for f in git_status.get('untracked', [])
+                    if f.startswith('knowledge_base/papers/') and f.endswith('.md')]
+        files_to_stage.extend(kb_papers)
+
+        # 2. 自動 stage 新增的 output 目錄
+        output_dirs = [f for f in git_status.get('untracked', [])
+                      if f.startswith('output/')]
+        files_to_stage.extend(output_dirs)
+
+        # 3. 自動 stage 已刪除的文件
+        files_to_stage.extend(git_status.get('deleted', []))
+
+        # 4. 自動 stage 修改的配置文件
+        modified_configs = [f for f in git_status.get('modified', [])
+                           if f.endswith(('.yaml', '.json', 'settings.local.json'))]
+        files_to_stage.extend(modified_configs)
+
+        if not files_to_stage:
+            print("   ℹ️  沒有需要提交的文件")
+            return
+
+        print(f"   📝 準備提交 {len(files_to_stage)} 個文件...")
+
+        # Stage 文件
+        staged_files = []
+        for filepath in files_to_stage:
+            try:
+                subprocess.run(
+                    ["git", "add", filepath],
+                    cwd=self.project_root,
+                    check=True,
+                    capture_output=True,
+                    timeout=10
+                )
+                staged_files.append(filepath)
+                print(f"      ✅ {filepath}")
+            except Exception as e:
+                print(f"      ⚠️  無法 stage {filepath}: {e}")
+
+        if not staged_files:
+            print("   ⚠️  沒有成功 stage 任何文件")
+            return
+
+        # 生成提交訊息
+        commit_message = self._generate_commit_message(staged_files, git_status)
+
+        # 執行 commit
+        try:
+            subprocess.run(
+                ["git", "commit", "-m", commit_message],
+                cwd=self.project_root,
+                check=True,
+                capture_output=True,
+                timeout=30
+            )
+
+            self.report.git_commit_created = True
+            self.report.git_commit_message = commit_message.split('\n')[0]  # 只取第一行
+            self.report.git_files_staged = staged_files
+
+            print(f"\n   ✅ Git 提交成功")
+            print(f"      訊息: {self.report.git_commit_message}")
+
+        except subprocess.CalledProcessError as e:
+            print(f"   ❌ Git 提交失敗: {e}")
+            print(f"      輸出: {e.stderr.decode('utf-8', errors='ignore')}")
+        except Exception as e:
+            print(f"   ❌ Git 提交失敗: {e}")
+
+    def _generate_commit_message(self, staged_files: List[str], git_status: Dict) -> str:
+        """
+        生成 Git 提交訊息
+
+        參數:
+            staged_files: 已 stage 的文件列表
+            git_status: Git 狀態字典
+
+        返回:
+            提交訊息字串
+        """
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # 分類文件
+        papers = [f for f in staged_files if 'knowledge_base/papers/' in f]
+        outputs = [f for f in staged_files if f.startswith('output/')]
+        configs = [f for f in staged_files if f.endswith(('.yaml', '.json'))]
+        deleted = [f for f in staged_files if f in git_status.get('deleted', [])]
+
+        # 構建提交訊息
+        lines = ["Cleanup session: Organize files and update knowledge base"]
+        lines.append("")
+
+        if papers:
+            lines.append(f"- Add {len(papers)} paper(s) to knowledge base")
+
+        if outputs:
+            # 統計不同類型的output
+            slides = len([f for f in outputs if 'slides' in f])
+            zettel = len([f for f in outputs if 'zettelkasten' in f])
+            analysis = len([f for f in outputs if 'analysis' in f])
+
+            if slides:
+                lines.append(f"- Add {slides} slide file(s)")
+            if zettel:
+                lines.append(f"- Add {zettel} zettelkasten folder(s)")
+            if analysis:
+                lines.append(f"- Add {analysis} analysis file(s)")
+
+        if deleted:
+            lines.append(f"- Remove {len(deleted)} deleted file(s)")
+
+        if configs:
+            lines.append(f"- Update configuration file(s)")
+
+        lines.append("")
+        lines.append(f"🤖 Generated by Session Organizer")
+        lines.append(f"📅 {timestamp}")
+
+        return "\n".join(lines)
 
     def save_report(self, output_path: str = None) -> str:
         """
