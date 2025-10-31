@@ -1,9 +1,9 @@
 # Zettelkasten 卡片索引
 
-**來源論文**: AI Literacy
+**來源論文**: Critical AI Literacy for Psychologists
 **作者**: 
 **年份**: 2025
-**生成日期**: 2025-10-31 00:38
+**生成日期**: 2025-10-31 11:04
 **卡片總數**: 12
 
 ---
@@ -11,88 +11,88 @@
 ## 📚 卡片清單
 
 
-### 1. [AI Literacy Critical for Psychologists](zettel_cards/CogSci-20251031-001.md)
+### 1. [AI作為統計模型的核心定義](zettel_cards/CogSci-20251031-001.md)
 - **ID**: `CogSci-20251031-001`
 - **類型**: 
-- **核心**: Critical Artificial Intelligence Literacy for Psychologists
-- **標籤**: `AI`, `Literacy`, `Psychology`
+- **核心**: "Herein we take the stance that AI is most usefully seen as a series of technology products that have the following properties: • are sophisticated statistical models"
+- **標籤**: `AI定義`, `統計模型`, `心理學方法論`, `概念澄清`
 
 
-### 2. [AI Products as Statistical Models](zettel_cards/CogSci-20251031-002.md)
+### 2. [AI產品的四大核心特性](zettel_cards/CogSci-20251031-002.md)
 - **ID**: `CogSci-20251031-002`
 - **類型**: 
-- **核心**: AI products are statistical models, akin to logistic regression, which all statistics psychologists undergraduate students are required to have a familiarity with.
-- **標籤**: `AI`, `Statistics`, `Methodology`
+- **核心**: "• depend on vast swaths of data, which is mostly stolen or otherwise unethically obtained or refined"
+- **標籤**: `AI倫理`, `數據來源`, `技術特性`, `社會影響`
 
 
-### 3. [Displacement of Experimental Participants](zettel_cards/CogSci-20251031-003.md)
+### 3. [參與者位移問題](zettel_cards/CogSci-20251031-003.md)
 - **ID**: `CogSci-20251031-003`
 - **類型**: 
-- **核心**: the displacement of experimental participants with opaque AI products;
-- **標籤**: `Ethics`, `AI`, `Displacement`
+- **核心**: "Displacement of Participants: I can use AI instead of participants to perform tasks and generate data"
+- **標籤**: `研究方法論`, `參與者角色`, `數據生成`, `科學有效性`
 
 
-### 4. [Outsourcing of Programming and Theory](zettel_cards/CogSci-20251031-004.md)
+### 4. [編程技能退化問題](zettel_cards/CogSci-20251031-004.md)
 - **ID**: `CogSci-20251031-004`
 - **類型**: 
-- **核心**: the outsourcing of programming, writing, and scientific theorizing to such models.
-- **標籤**: `AI`, `Open Science`, `Methodology`
+- **核心**: "Outsourcing Programming to Companies: I can use AI for programming experimental paradigms and statistical analyses"
+- **標籤**: `技能退化`, `專業能力`, `學術自主性`, `開源科學`
 
 
-### 5. [Ghostwriter & Plagiarism Risk](zettel_cards/CogSci-20251031-005.md)
+### 5. [學術寫作自動化問題](zettel_cards/CogSci-20251031-005.md)
 - **ID**: `CogSci-20251031-005`
 - **類型**: 
-- **核心**: The fabrication of ‘I can use AI for understanding non‑existent citations which makes claims worse than baseless because they appear supported by prior work’.
-- **標籤**: `AI`, `Ethics`, `Plagiarism`
+- **核心**: "Ghostwriter in the Machine: I can use AI for understanding the literature and for scholarly writing"
+- **標籤**: `學術誠信`, `寫作自動化`, `引用問題`, `學術責任`
 
 
-### 6. [End of Scientific Theory](zettel_cards/CogSci-20251031-006.md)
+### 6. [科學理論外包問題](zettel_cards/CogSci-20251031-006.md)
 - **ID**: `CogSci-20251031-006`
 - **類型**: 
-- **核心**: The End of Scientific Theory – This not only adds to the displacement of work from its evidential and historical basis, but also impedes our theorising about phenomena and systems under study.
-- **標籤**: `AI`, `Theory`, `Methodology`
+- **核心**: "The End of Scientific Theory: I can outsource verbal theorising to AI or use it as a formal cognitive model"
+- **標籤**: `科學理論`, `理論建構`, `認知模型`, `科學責任`
 
 
-### 7. [Equivocation of Human‑Human & Human‑AI Relationships](zettel_cards/CogSci-20251031-007.md)
+### 7. [人機關係等同性問題](zettel_cards/CogSci-20251031-007.md)
 - **ID**: `CogSci-20251031-007`
 - **類型**: 
-- **核心**: Seeing client‑therapist, student‑teacher, patient‑doctor, friendship, or romantic relationships Human & Human‑AI as equivalent to those between people and artifacts.
-- **標籤**: `AI`, `Ethics`, `Relationships`
+- **核心**: "Equivocation of Human-Human & Human-AI: Seeing client-therapist, student-teacher, patient-doctor, friendship, or romantic relationships as equivalent to those between people and artifacts"
+- **標籤**: `關係等同性`, `社會心理學`, `去人性化的風險`, `互動分類`
 
 
-### 8. [Data‑centric Hyperempiricism Crisis](zettel_cards/CogSci-20251031-008.md)
+### 8. [現代AI作為研究不端行為](zettel_cards/CogSci-20251031-008.md)
 - **ID**: `CogSci-20251031-008`
 - **類型**: 
-- **核心**: In the 2010s, a crisis started in data‑centric hyperempiricist chology.
-- **標籤**: `Psychology`, `Crisis`, `Data`
+- **核心**: "Ultimately, contemporary artificial intelligence is research misconduct"
+- **標籤**: `研究不端`, `科學誠信`, `學術責任`, `定義問題`
 
 
-### 9. [AI Solutionism in Social Psychology](zettel_cards/CogSci-20251031-009.md)
+### 9. [統計學種族歧視的歷史背景](zettel_cards/CogSci-20251031-009.md)
 - **ID**: `CogSci-20251031-009`
 - **類型**: 
-- **核心**: AI solutionism has come for social psych.
-- **標籤**: `AI`, `Psychology`, `Solutionism`
+- **核心**: "Most serious are the eugenics roots of modern statistics and psychometrics, which gave rise to pseudoscientific theories like physiognomy and phrenology, which in turn provided scientific cover for racism, sexism, classism, ableism, and ultimately genocide"
+- **標籤**: `歷史背景`, `種族歧視`, `心理測量學`, `統計學批判`
 
 
-### 10. [AI Surrogates Definition](zettel_cards/CogSci-20251031-010.md)
+### 10. [心理學重複危機與方法論問題](zettel_cards/CogSci-20251031-010.md)
 - **ID**: `CogSci-20251031-010`
 - **類型**: 
-- **核心**: AI surrogates are AI models used to simulate human research participants to generate new knowledge about human cognition and behavior.
-- **標籤**: `AI`, `Simulation`, `Psychology`
+- **核心**: "In the 2010s, a crisis started in data-centric hyperempiricist disciplines, infamously including social psychology, resulting in a loss of faith in our data, our use of statistical methods, and ultimately our published work"
+- **標籤**: `重複危機`, `方法論問題`, `社會心理學`, `統計方法`
 
 
-### 11. [Indirect Data Doubling (Double‑Dipping)](zettel_cards/CogSci-20251031-011.md)
+### 11. [關鍵AI素養的核心能力](zettel_cards/CogSci-20251031-011.md)
 - **ID**: `CogSci-20251031-011`
 - **類型**: 
-- **核心**: The output can contain indirect original input data (i.e. doubledipping).
-- **標籤**: `AI`, `Ethics`, `Data Integrity`
+- **核心**: "As is knowing basic open science principles. Therefore, it should come as no shock that assuming the mantle of the non-expert here is inappropriate, and in fact may even be a form of QRP to abandon critical thinking"
+- **標籤**: `AI素養`, `開源科學`, `批判性思維`, `專業能力`
 
 
-### 12. [Ethical Data Sourcing for AI](zettel_cards/CogSci-20251031-012.md)
+### 12. [學術責任, 制度性問題, 道德勇氣, 專業完整性](zettel_cards/CogSci-20251031-012.md)
 - **ID**: `CogSci-20251031-012`
 - **類型**: 
-- **核心**: The provision of the data used in these models indicates that it is not ethically sourced, falling below standards for our discipline …
-- **標籤**: `AI`, `Ethics`, `Data`
+- **核心**: "if our colleagues are, accidentally or otherwise, promoting such ideas in exchange for salary, grants, or citations, how are we as academic psychologists meant to react?"
+- **標籤**: `學術責任`, `制度性問題`, `道德勇氣`, `專業完整性`
 
 
 
@@ -103,45 +103,39 @@
 ```mermaid
 graph TD
 
-    CogSci-20251031-001["AI Literacy Critical for Psychologists"]
+    CogSci-20251031-001["AI作為統計模型的核心定義"]
 
-    CogSci-20251031-002["AI Products as Statistical Models"]
+    CogSci-20251031-002["AI產品的四大核心特性"]
 
-    CogSci-20251031-003["Displacement of Experimental Participants"]
+    CogSci-20251031-003["參與者位移問題"]
 
-    CogSci-20251031-004["Outsourcing of Programming and Theory"]
+    CogSci-20251031-004["編程技能退化問題"]
 
-    CogSci-20251031-005["Ghostwriter & Plagiarism Risk"]
+    CogSci-20251031-005["學術寫作自動化問題"]
 
-    CogSci-20251031-006["End of Scientific Theory"]
+    CogSci-20251031-006["科學理論外包問題"]
 
-    CogSci-20251031-007["Equivocation of Human‑Human & Human‑AI Relationships"]
+    CogSci-20251031-007["人機關係等同性問題"]
 
-    CogSci-20251031-008["Data‑centric Hyperempiricism Crisis"]
+    CogSci-20251031-008["現代AI作為研究不端行為"]
 
-    CogSci-20251031-009["AI Solutionism in Social Psychology"]
+    CogSci-20251031-009["統計學種族歧視的歷史背景"]
 
-    CogSci-20251031-010["AI Surrogates Definition"]
+    CogSci-20251031-010["心理學重複危機與方法論問題"]
 
-    CogSci-20251031-011["Indirect Data Doubling (Double‑Dipping)"]
+    CogSci-20251031-011["關鍵AI素養的核心能力"]
 
-    CogSci-20251031-012["Ethical Data Sourcing for AI"]
-
-
+    CogSci-20251031-012["學術責任, 制度性問題, 道德勇氣, 專業完整性"]
 
 
 
 
-    CogSci-20251031-001 --> CogSci-20251031-002
+
 
     CogSci-20251031-001 --> CogSci-20251031-003
 
-    CogSci-20251031-001 --> CogSci-20251031-009
+    CogSci-20251031-001 --> CogSci-20251031-004
 
-
-
-
-    CogSci-20251031-001 -.-> CogSci-20251031-007
 
 
 
@@ -152,32 +146,30 @@ graph TD
 
 
 
-    CogSci-20251031-002 --> CogSci-20251031-010
+    CogSci-20251031-002 --> CogSci-20251031-005
 
 
 
 
-    CogSci-20251031-002 -.-> CogSci-20251031-006
+    CogSci-20251031-002 -.-> CogSci-20251031-007
 
 
 
 
 
     CogSci-20251031-001 --> CogSci-20251031-003
+
+    CogSci-20251031-002 --> CogSci-20251031-003
 
 
 
 
     CogSci-20251031-003 --> CogSci-20251031-006
 
-    CogSci-20251031-003 --> CogSci-20251031-011
-
-    CogSci-20251031-003 --> CogSci-20251031-012
 
 
 
-
-    CogSci-20251031-003 -.-> CogSci-20251031-004
+    CogSci-20251031-003 -.-> CogSci-20251031-008
 
 
 
@@ -188,56 +180,62 @@ graph TD
 
 
 
-    CogSci-20251031-004 --> CogSci-20251031-005
+    CogSci-20251031-004 --> CogSci-20251031-010
 
 
 
 
-    CogSci-20251031-004 -.-> CogSci-20251031-002
+    CogSci-20251031-004 -.-> CogSci-20251031-005
 
 
 
 
 
-    CogSci-20251031-004 --> CogSci-20251031-005
+    CogSci-20251031-001 --> CogSci-20251031-005
 
+    CogSci-20251031-002 --> CogSci-20251031-005
+
+
+
+
+    CogSci-20251031-005 --> CogSci-20251031-012
 
 
 
 
     CogSci-20251031-005 -.-> CogSci-20251031-004
 
-    CogSci-20251031-005 -.-> CogSci-20251031-002
+    CogSci-20251031-005 -.-> CogSci-20251031-006
 
 
 
 
 
-    CogSci-20251031-003 --> CogSci-20251031-006
+    CogSci-20251031-001 --> CogSci-20251031-006
 
 
 
 
-    CogSci-20251031-006 --> CogSci-20251031-004
-
-    CogSci-20251031-006 --> CogSci-20251031-011
+    CogSci-20251031-006 --> CogSci-20251031-007
 
 
 
 
-    CogSci-20251031-006 -.-> CogSci-20251031-002
+    CogSci-20251031-006 -.-> CogSci-20251031-005
 
-
-
-
-
-    CogSci-20251031-002 --> CogSci-20251031-007
+    CogSci-20251031-006 -.-> CogSci-20251031-008
 
 
 
 
 
-    CogSci-20251031-007 -.-> CogSci-20251031-001
+    CogSci-20251031-003 --> CogSci-20251031-007
+
+
+
+
+
+    CogSci-20251031-007 -.-> CogSci-20251031-006
 
 
 
@@ -245,63 +243,75 @@ graph TD
 
     CogSci-20251031-001 --> CogSci-20251031-008
 
+    CogSci-20251031-002 --> CogSci-20251031-008
 
+    CogSci-20251031-003 --> CogSci-20251031-008
 
+    CogSci-20251031-004 --> CogSci-20251031-008
 
-    CogSci-20251031-008 --> CogSci-20251031-009
+    CogSci-20251031-005 --> CogSci-20251031-008
 
-
-
-
-    CogSci-20251031-008 -.-> CogSci-20251031-005
-
-
-
-
-
-    CogSci-20251031-008 --> CogSci-20251031-009
+    CogSci-20251031-006 --> CogSci-20251031-008
 
 
 
 
-
-    CogSci-20251031-009 -.-> CogSci-20251031-003
-
+    CogSci-20251031-008 --> CogSci-20251031-012
 
 
 
 
-    CogSci-20251031-001 --> CogSci-20251031-010
+    CogSci-20251031-008 -.-> CogSci-20251031-009
 
 
 
 
 
-    CogSci-20251031-010 -.-> CogSci-20251031-002
+
+    CogSci-20251031-009 --> CogSci-20251031-001
+
+
+
+
+    CogSci-20251031-009 -.-> CogSci-20251031-008
 
 
 
 
 
-    CogSci-20251031-003 --> CogSci-20251031-011
+
+    CogSci-20251031-010 --> CogSci-20251031-008
+
+
+
+
+    CogSci-20251031-010 -.-> CogSci-20251031-009
 
 
 
 
 
-    CogSci-20251031-011 -.-> CogSci-20251031-012
+    CogSci-20251031-001 --> CogSci-20251031-011
+
+
+
+
+    CogSci-20251031-011 --> CogSci-20251031-012
+
+
+
+
+    CogSci-20251031-011 -.-> CogSci-20251031-004
 
 
 
 
 
-    CogSci-20251031-003 --> CogSci-20251031-012
+    CogSci-20251031-008 --> CogSci-20251031-012
+
+    CogSci-20251031-011 --> CogSci-20251031-012
 
 
-
-
-
-    CogSci-20251031-012 -.-> CogSci-20251031-011
 
 
 
@@ -312,103 +322,223 @@ graph TD
 ## 🏷️ 標籤索引
 
 
-### AI
-- [[CogSci-20251031-001]] AI Literacy Critical for Psychologists
-- [[CogSci-20251031-002]] AI Products as Statistical Models
-- [[CogSci-20251031-003]] Displacement of Experimental Participants
-- [[CogSci-20251031-004]] Outsourcing of Programming and Theory
-- [[CogSci-20251031-005]] Ghostwriter & Plagiarism Risk
-- [[CogSci-20251031-006]] End of Scientific Theory
-- [[CogSci-20251031-007]] Equivocation of Human‑Human & Human‑AI Relationships
-- [[CogSci-20251031-009]] AI Solutionism in Social Psychology
-- [[CogSci-20251031-010]] AI Surrogates Definition
-- [[CogSci-20251031-011]] Indirect Data Doubling (Double‑Dipping)
-- [[CogSci-20251031-012]] Ethical Data Sourcing for AI
+### AI定義
+- [[CogSci-20251031-001]] AI作為統計模型的核心定義
 
 
 
-### Literacy
-- [[CogSci-20251031-001]] AI Literacy Critical for Psychologists
+### 統計模型
+- [[CogSci-20251031-001]] AI作為統計模型的核心定義
 
 
 
-### Psychology
-- [[CogSci-20251031-001]] AI Literacy Critical for Psychologists
-- [[CogSci-20251031-008]] Data‑centric Hyperempiricism Crisis
-- [[CogSci-20251031-009]] AI Solutionism in Social Psychology
-- [[CogSci-20251031-010]] AI Surrogates Definition
+### 心理學方法論
+- [[CogSci-20251031-001]] AI作為統計模型的核心定義
 
 
 
-### Statistics
-- [[CogSci-20251031-002]] AI Products as Statistical Models
+### 概念澄清
+- [[CogSci-20251031-001]] AI作為統計模型的核心定義
 
 
 
-### Methodology
-- [[CogSci-20251031-002]] AI Products as Statistical Models
-- [[CogSci-20251031-004]] Outsourcing of Programming and Theory
-- [[CogSci-20251031-006]] End of Scientific Theory
+### AI倫理
+- [[CogSci-20251031-002]] AI產品的四大核心特性
 
 
 
-### Ethics
-- [[CogSci-20251031-003]] Displacement of Experimental Participants
-- [[CogSci-20251031-005]] Ghostwriter & Plagiarism Risk
-- [[CogSci-20251031-007]] Equivocation of Human‑Human & Human‑AI Relationships
-- [[CogSci-20251031-011]] Indirect Data Doubling (Double‑Dipping)
-- [[CogSci-20251031-012]] Ethical Data Sourcing for AI
+### 數據來源
+- [[CogSci-20251031-002]] AI產品的四大核心特性
 
 
 
-### Displacement
-- [[CogSci-20251031-003]] Displacement of Experimental Participants
+### 技術特性
+- [[CogSci-20251031-002]] AI產品的四大核心特性
 
 
 
-### Open Science
-- [[CogSci-20251031-004]] Outsourcing of Programming and Theory
+### 社會影響
+- [[CogSci-20251031-002]] AI產品的四大核心特性
 
 
 
-### Plagiarism
-- [[CogSci-20251031-005]] Ghostwriter & Plagiarism Risk
+### 研究方法論
+- [[CogSci-20251031-003]] 參與者位移問題
 
 
 
-### Theory
-- [[CogSci-20251031-006]] End of Scientific Theory
+### 參與者角色
+- [[CogSci-20251031-003]] 參與者位移問題
 
 
 
-### Relationships
-- [[CogSci-20251031-007]] Equivocation of Human‑Human & Human‑AI Relationships
+### 數據生成
+- [[CogSci-20251031-003]] 參與者位移問題
 
 
 
-### Crisis
-- [[CogSci-20251031-008]] Data‑centric Hyperempiricism Crisis
+### 科學有效性
+- [[CogSci-20251031-003]] 參與者位移問題
 
 
 
-### Data
-- [[CogSci-20251031-008]] Data‑centric Hyperempiricism Crisis
-- [[CogSci-20251031-012]] Ethical Data Sourcing for AI
+### 技能退化
+- [[CogSci-20251031-004]] 編程技能退化問題
 
 
 
-### Solutionism
-- [[CogSci-20251031-009]] AI Solutionism in Social Psychology
+### 專業能力
+- [[CogSci-20251031-004]] 編程技能退化問題
+- [[CogSci-20251031-011]] 關鍵AI素養的核心能力
 
 
 
-### Simulation
-- [[CogSci-20251031-010]] AI Surrogates Definition
+### 學術自主性
+- [[CogSci-20251031-004]] 編程技能退化問題
 
 
 
-### Data Integrity
-- [[CogSci-20251031-011]] Indirect Data Doubling (Double‑Dipping)
+### 開源科學
+- [[CogSci-20251031-004]] 編程技能退化問題
+- [[CogSci-20251031-011]] 關鍵AI素養的核心能力
+
+
+
+### 學術誠信
+- [[CogSci-20251031-005]] 學術寫作自動化問題
+
+
+
+### 寫作自動化
+- [[CogSci-20251031-005]] 學術寫作自動化問題
+
+
+
+### 引用問題
+- [[CogSci-20251031-005]] 學術寫作自動化問題
+
+
+
+### 學術責任
+- [[CogSci-20251031-005]] 學術寫作自動化問題
+- [[CogSci-20251031-008]] 現代AI作為研究不端行為
+- [[CogSci-20251031-012]] 學術責任, 制度性問題, 道德勇氣, 專業完整性
+
+
+
+### 科學理論
+- [[CogSci-20251031-006]] 科學理論外包問題
+
+
+
+### 理論建構
+- [[CogSci-20251031-006]] 科學理論外包問題
+
+
+
+### 認知模型
+- [[CogSci-20251031-006]] 科學理論外包問題
+
+
+
+### 科學責任
+- [[CogSci-20251031-006]] 科學理論外包問題
+
+
+
+### 關係等同性
+- [[CogSci-20251031-007]] 人機關係等同性問題
+
+
+
+### 社會心理學
+- [[CogSci-20251031-007]] 人機關係等同性問題
+- [[CogSci-20251031-010]] 心理學重複危機與方法論問題
+
+
+
+### 去人性化的風險
+- [[CogSci-20251031-007]] 人機關係等同性問題
+
+
+
+### 互動分類
+- [[CogSci-20251031-007]] 人機關係等同性問題
+
+
+
+### 研究不端
+- [[CogSci-20251031-008]] 現代AI作為研究不端行為
+
+
+
+### 科學誠信
+- [[CogSci-20251031-008]] 現代AI作為研究不端行為
+
+
+
+### 定義問題
+- [[CogSci-20251031-008]] 現代AI作為研究不端行為
+
+
+
+### 歷史背景
+- [[CogSci-20251031-009]] 統計學種族歧視的歷史背景
+
+
+
+### 種族歧視
+- [[CogSci-20251031-009]] 統計學種族歧視的歷史背景
+
+
+
+### 心理測量學
+- [[CogSci-20251031-009]] 統計學種族歧視的歷史背景
+
+
+
+### 統計學批判
+- [[CogSci-20251031-009]] 統計學種族歧視的歷史背景
+
+
+
+### 重複危機
+- [[CogSci-20251031-010]] 心理學重複危機與方法論問題
+
+
+
+### 方法論問題
+- [[CogSci-20251031-010]] 心理學重複危機與方法論問題
+
+
+
+### 統計方法
+- [[CogSci-20251031-010]] 心理學重複危機與方法論問題
+
+
+
+### AI素養
+- [[CogSci-20251031-011]] 關鍵AI素養的核心能力
+
+
+
+### 批判性思維
+- [[CogSci-20251031-011]] 關鍵AI素養的核心能力
+
+
+
+### 制度性問題
+- [[CogSci-20251031-012]] 學術責任, 制度性問題, 道德勇氣, 專業完整性
+
+
+
+### 道德勇氣
+- [[CogSci-20251031-012]] 學術責任, 制度性問題, 道德勇氣, 專業完整性
+
+
+
+### 專業完整性
+- [[CogSci-20251031-012]] 學術責任, 制度性問題, 道德勇氣, 專業完整性
 
 
 
@@ -418,29 +548,29 @@ graph TD
 ## 📖 閱讀建議順序
 
 
-1. [[CogSci-20251031-005]] Ghostwriter & Plagiarism Risk
+1. [[CogSci-20251031-007]] 人機關係等同性問題
 
-2. [[CogSci-20251031-006]] End of Scientific Theory
+2. [[CogSci-20251031-009]] 統計學種族歧視的歷史背景
 
-3. [[CogSci-20251031-007]] Equivocation of Human‑Human & Human‑AI Relationships
+3. [[CogSci-20251031-010]] 心理學重複危機與方法論問題
 
-4. [[CogSci-20251031-009]] AI Solutionism in Social Psychology
+4. [[CogSci-20251031-012]] 學術責任, 制度性問題, 道德勇氣, 專業完整性
 
-5. [[CogSci-20251031-010]] AI Surrogates Definition
+5. [[CogSci-20251031-004]] 編程技能退化問題
 
-6. [[CogSci-20251031-011]] Indirect Data Doubling (Double‑Dipping)
+6. [[CogSci-20251031-005]] 學術寫作自動化問題
 
-7. [[CogSci-20251031-012]] Ethical Data Sourcing for AI
+7. [[CogSci-20251031-006]] 科學理論外包問題
 
-8. [[CogSci-20251031-002]] AI Products as Statistical Models
+8. [[CogSci-20251031-008]] 現代AI作為研究不端行為
 
-9. [[CogSci-20251031-004]] Outsourcing of Programming and Theory
+9. [[CogSci-20251031-011]] 關鍵AI素養的核心能力
 
-10. [[CogSci-20251031-008]] Data‑centric Hyperempiricism Crisis
+10. [[CogSci-20251031-003]] 參與者位移問題
 
-11. [[CogSci-20251031-003]] Displacement of Experimental Participants
+11. [[CogSci-20251031-002]] AI產品的四大核心特性
 
-12. [[CogSci-20251031-001]] AI Literacy Critical for Psychologists
+12. [[CogSci-20251031-001]] AI作為統計模型的核心定義
 
 
 ---

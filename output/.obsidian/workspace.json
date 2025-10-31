@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_index.md",
+                "file": "zettelkasten_notes/zettel_Guest-2025a_GPT_20251031/zettel_index.md",
                 "mode": "source",
                 "source": false
               },
@@ -171,8 +171,10 @@
   },
   "active": "e157900d7508c80b",
   "lastOpenFiles": [
-    "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_cards/CogSci-20251031-011.md",
     "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_index.md",
+    "zettelkasten_notes/zettel_Guest-2025a_GPT_20251031/zettel_index.md",
+    "zettelkasten_notes/zettel_Glenberg2002_20251029/zettel_index.md",
+    "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_cards/CogSci-20251031-011.md",
     "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_cards/CogSci-20251031-009.md",
     "zettelkasten_notes/zettel_Guest-2025a_20251031/zettel_cards/CogSci-20251031-010.md",
     "zettel_CogSci_20251031/zettel_index.md",
@@ -196,8 +198,6 @@
     "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-035.md",
     "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-034.md",
     "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-033.md",
-    "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-032.md",
-    "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-031.md",
-    "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-030.md"
+    "zettel_CogSci_20251031/zettel_cards/CogSci-20251031-032.md"
   ]
 }

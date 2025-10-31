@@ -98,6 +98,16 @@ class SlideMaker:
         if styles_config is None:
             styles_config = Path(__file__).parent.parent.parent / "templates" / "styles" / "academic_styles.yaml"
 
+        # 雲端模型推薦配置
+        self.CLOUD_MODEL_RECOMMENDATIONS = {
+            'zettelkasten': 'minimax-m2:cloud',  # 230B，深度思考和概念提取
+            'research_methods': 'minimax-m2:cloud',  # 需要嚴謹分析
+            'literature_review': 'minimax-m2:cloud',  # 需要綜合分析
+            'modern_academic': 'gpt-oss:20b-cloud',  # 平衡效能
+            'teaching': 'phi3.5:cloud',  # 快速清晰的教學內容
+            'default': 'gpt-oss:20b-cloud'  # 通用預設
+        }
+
         with open(styles_config, 'r', encoding='utf-8') as f:
             self.styles_config = yaml.safe_load(f)
 
@@ -306,15 +316,21 @@ class SlideMaker:
                    model: str = "gpt-oss:20b-cloud",
                    timeout: int = 300) -> str:
         """
-        調用Ollama API生成內容
+        調用Ollama API生成內容（支援本地和雲端模型）
 
         Args:
             prompt: 提示詞
-            model: 模型名稱
+            model: 模型名稱（支援 :cloud 後綴的雲端模型）
             timeout: 超時時間（秒）
 
         Returns:
             生成的內容
+
+        支援的雲端模型：
+            - minimax-m2:cloud (230B, 支援thinking)
+            - gpt-oss:20b-cloud (20B)
+            - qwen2.5-coder:cloud (3.1B, 程式碼分析)
+            - phi3.5:cloud (3.8B, 通用任務)
         """
         api_endpoint = f"{self.ollama_url}/api/generate"
 
