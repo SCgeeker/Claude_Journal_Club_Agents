@@ -34,45 +34,70 @@
 - ✅ **批次處理目錄結構修復** (2025-10-31)
 - ✅ **--model 參數支援測試通過** (gpt-oss:20b-cloud)
 
-### 🎯 下一步建議 (P0優先級)
+### 🎯 下一步建議 (更新: 2025-10-31)
 
-#### **優先任務: 修復 auto_link 功能**
+#### **P0 優先級 - 立即執行**
 
-**問題**: 自動關聯成功率 0% (644張卡片，0張關聯成功)
+1. **驗證批次處理功能**
+   ```bash
+   # 批次處理4篇論文測試（使用實際路徑）
+   python batch_process.py \
+     --folder "D:\core\research\Program_verse\+\pdf" \
+     --domain CogSci \
+     --add-to-kb \
+     --generate-zettel \
+     --model "gpt-oss:20b-cloud" \
+     --workers 2
 
-**解決方案**:
-1. 為 papers 表添加 `cite_key` 欄位
-2. 實作 `auto_link_zettel_papers_v2()` 算法
-   - 使用 BibTeX cite_key 精確匹配
-   - 保留標題模糊匹配作為 fallback
-3. 整合到 Agent workflows
+   # 或指定特定文件
+   python batch_process.py \
+     --files "Guest-2025a.pdf" "Vigly-2025.pdf" \
+     --domain CogSci \
+     --add-to-kb \
+     --generate-zettel
+   ```
 
-**預期成果**:
-- 成功率: 0% → 80%+
-- 性能: 提升 95%
-- 工作量: 3.5 小時
+2. **添加核心配置到版本控制**
+   - `.claude/agents/` - Agent 配置文件
+   - `src/agents/` - Agent 實作代碼
 
-**詳見**: `OPTION_C_EVALUATION_REPORT.md`
+#### **P1 優先級 - 近期任務**
+
+1. **修復 auto_link 功能** (成功率 0% → 80%+)
+   - 實作 `cite_key` 欄位
+   - 部署 `auto_link_v2()` 算法
+   - 預計工作量: 3.5 小時
+   - 詳見: `OPTION_C_EVALUATION_REPORT.md`
+
+2. **啟動 Phase 2 開發**
+   - relation-finder Skill (3-4天)
+   - concept-mapper Skill (2-3天)
+   - 元數據增強功能 (4.5小時)
 
 ---
 
 ### 📝 快速啟動指令
 
 ```bash
-# Phase 2 任務 (待執行)
-# 1. 修復 auto_link 功能
-python migrations/add_cite_key_column.py
-python -m pytest test_auto_link_v2.py
+# 1. 測試批次處理（當前任務）
+python batch_process.py --files "*.pdf" --domain CogSci --add-to-kb --generate-zettel
 
-# 2. 實作 relation-finder
-# (待規劃)
+# 2. 檢查知識庫質量
+python check_quality.py --critical-only
 
-# 3. 實作 concept-mapper
-# (待規劃)
+# 3. 搜尋 Zettelkasten
+python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBaseManager(); print(kb.search_zettel('AI literacy'))"
 
-# 查看詳細報告
-cat FINAL_IMPLEMENTATION_REPORT_20251030.md
+# 4. 清理工作環境
+python cleanup_session.py --auto --session batch
+
+# 5. 查看關鍵報告
+cat DEV_SUMMARY_20251031.md
 cat OPTION_C_EVALUATION_REPORT.md
+
+# 6. 添加 Agent 到版本控制
+git add .claude/agents/ src/agents/
+git commit -m "feat: 添加 KB Manager Agent 實作"
 ```
 
 ---
@@ -753,6 +778,7 @@ OLLAMA_URL=http://localhost:11434
 
 ---
 
-**文檔精簡完成**: 2025-10-30 17:30
-**原版本**: 2,152行 → **精簡版**: ~1,000行 (精簡53%)
-**備份文件**: `AGENT_SKILL_DESIGN_v1.2_backup_20251030.md`
+**文檔最後更新**: 2025-10-31 01:45
+**當前版本**: v2.1 (精簡版)
+**總行數**: ~750行
+**備份位置**: `archive/AGENT_SKILL_DESIGN_v1.2_backup_20251030.md`
