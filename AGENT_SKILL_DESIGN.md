@@ -19,9 +19,11 @@
 | **1.4 MVP Agent** | ✅ 完成 | `src/agents/kb_manager_agent.py` (380行)<br>`.claude/agents/knowledge-integrator/`<br>`workflows.yaml` (750行)<br>`instructions.md` (387行) | **額外交付**<br>6個workflows<br>5個Skills整合 |
 | **1.5 文檔與測試** | ✅ 完成 | CLAUDE.md更新<br>完整實施報告<br>選項C評估報告 | 手動測試指南 |
 
-**Phase 1 達成率**: **100%** (原計畫 + MVP Agent 額外交付)
+**Phase 1 達成率**: **100%** (原計畫 + MVP Agent 額外交付 + 修復優化)
 
-**總代碼生產**: ~7,275行 (Python + YAML + Markdown)
+**總代碼生產**: ~7,300行 (Python + YAML + Markdown)
+
+**文檔歸檔**: 18個報告文件移至 `archive/` 結構化存儲
 
 **測試結果**:
 - ✅ 644張 Zettelkasten 卡片索引（100%成功率）
@@ -461,7 +463,7 @@ link_stats = kb.auto_link_zettel_papers(similarity_threshold=0.7)
 
 ### Phase 1: 核心基礎設施 ✅ (完成)
 
-**狀態**: ✅ 100% 完成 (2025-10-30)
+**狀態**: ✅ 100% 完成 (2025-10-31)
 
 | 任務 | 狀態 | 交付物 |
 |------|------|--------|
@@ -475,7 +477,9 @@ link_stats = kb.auto_link_zettel_papers(similarity_threshold=0.7)
 - 644張Zettelkasten卡片索引（100%成功率）
 - 質量檢查發現79個問題
 - MVP Agent（6個workflows）
-- 7,275行代碼
+- 7,300行代碼
+- **批次處理修復**（目錄結構 + --model參數）
+- **文檔歸檔**（18個報告文件）
 
 **已知問題**:
 - auto_link功能需優化（0%成功率）
@@ -543,11 +547,12 @@ gantt
     quality-checker       :done, p1-2, 2025-10-29, 1d
     Zettel整合            :done, p1-3, 2025-10-30, 1d
     MVP Agent             :done, p1-4, 2025-10-30, 1d
+    批次處理修復          :done, p1-5, 2025-10-31, 1d
 
     section Phase 2 (待執行)
-    修復auto_link         :p2-0, 2025-10-31, 1d
-    relation-finder       :p2-1, 2025-11-01, 4d
-    concept-mapper        :p2-2, 2025-11-05, 3d
+    修復auto_link         :p2-0, 2025-11-01, 1d
+    relation-finder       :p2-1, 2025-11-02, 4d
+    concept-mapper        :p2-2, 2025-11-06, 3d
     元數據增強            :p2-3, 2025-11-08, 1d
     測試補充              :p2-4, 2025-11-09, 5d
 
