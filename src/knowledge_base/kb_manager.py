@@ -1260,13 +1260,12 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         similarity_threshold: float = 0.7
     ) -> Dict[str, Any]:
         """
-        改進版自動關聯（使用 BibTeX cite_key）
+        改進版自動關聯（多層匹配策略）
 
         策略：
-        1. 從 Zettelkasten 資料夾名稱提取 cite_key
-           例如: zettel_Her2012a_20251029 → cite_key: Her2012a
-        2. 使用 cite_key 精確匹配（O(1) 查找）
-        3. 失敗則退回標題模糊匹配（舊算法）
+        1. cite_key 精確匹配（從 zettel_id 或 papers 表提取）
+        2. 文件名作者-年份匹配（如 "Ahrens2016" → 作者姓氏 + 年份）
+        3. 標題模糊匹配（fallback）
 
         Args:
             bib_file: BibTeX 文件路徑（用於建立 cite_key 映射）
@@ -1279,6 +1278,7 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 'skipped': int,
                 'method_breakdown': {
                     'cite_key': int,
+                    'author_year': int,
                     'fuzzy_match': int
                 }
             }
@@ -1295,11 +1295,17 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             'skipped': 0,
             'method_breakdown': {
                 'cite_key': 0,
+                'author_year': 0,
                 'fuzzy_match': 0
             }
         }
 
-        # Step 1: 建立 cite_key → paper_id 映射
+        # 輔助函數：規範化 cite_key（支援多種格式）
+        def normalize_cite_key(author: str, year: int) -> str:
+            """將作者-年份規範化為 Zotero 格式: author-year"""
+            return f"{author.lower()}-{year}"
+
+        # Step 1: 建立 cite_key → paper_id 映射（支援多種格式）
         print("\n[BUILD] 建立 cite_key 映射...")
         cursor.execute("""
             SELECT id, cite_key
@@ -1309,9 +1315,14 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
         cite_key_to_paper_id = {}
         for paper_id, cite_key in cursor.fetchall():
+            # 原始格式（如 "Yi-2009"）
             cite_key_to_paper_id[cite_key.lower()] = paper_id
 
-        print(f"[OK] 建立 {len(cite_key_to_paper_id)} 個 cite_key 映射")
+            # 移除連字符格式（如 "Yi2009"）
+            cite_key_normalized = cite_key.replace('-', '').replace('_', '').lower()
+            cite_key_to_paper_id[cite_key_normalized] = paper_id
+
+        print(f"[OK] 建立 {len(cite_key_to_paper_id)} 個 cite_key 映射（含格式變體）")
 
         # Step 2: 獲取所有未關聯的卡片
         cursor.execute("""
@@ -1336,13 +1347,37 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             matched = False
             match_method = None
 
-            # 方法1: 從 zettel_id 提取 cite_key
-            # 格式: Linguistics-20251029-001 或 zettel_Her2012a_20251029
-            cite_key_match = re.search(r'zettel_([A-Za-z]+\d{4}[a-z]?)', zettel_id)
+            # 方法1: 從 source_info 或 zettel_id 提取 cite_key
+            # 優先從 source_info 提取（更可靠）
+            cite_key_candidates = []
 
+            # 1a. 從 source_info 提取作者-年份（含可選後綴）
+            # 支援格式: "Ahrens2016_xxx" 或 "Ahrens-2016a_xxx"
+            if source_info:
+                author_year_in_source = re.match(r'"([A-Za-z]+)[-_]?(\d{4})([a-z]?)', source_info)
+                if author_year_in_source:
+                    author = author_year_in_source.group(1)
+                    year = author_year_in_source.group(2)
+                    suffix = author_year_in_source.group(3) if len(author_year_in_source.groups()) > 2 else ''
+
+                    # 生成多種可能的 cite_key 格式（含/不含後綴）
+                    for sep in ['-', '', '_']:
+                        for sfx in ['', suffix] if suffix else ['']:
+                            cite_key_candidates.append(f"{author.lower()}{sep}{year}{sfx}")
+
+                    # 常見格式優先（去重）
+                    cite_key_candidates = list(dict.fromkeys(cite_key_candidates))
+
+            # 1b. 從 zettel_id 提取（fallback）
+            # 格式: zettel_Her2012a_20251029
+            cite_key_match = re.search(r'zettel_([A-Za-z]+[-_]?\d{4}[a-z]?)', zettel_id)
             if cite_key_match:
-                cite_key = cite_key_match.group(1).lower()
+                extracted = cite_key_match.group(1).lower()
+                cite_key_candidates.append(extracted)
+                cite_key_candidates.append(extracted.replace('-', '').replace('_', ''))
 
+            # 嘗試匹配所有候選 cite_key
+            for cite_key in cite_key_candidates:
                 if cite_key in cite_key_to_paper_id:
                     paper_id = cite_key_to_paper_id[cite_key]
 
@@ -1357,8 +1392,77 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                     stats['linked'] += 1
                     stats['method_breakdown']['cite_key'] += 1
                     matched = True
+                    break
 
-            # 方法2: Fallback 到標題模糊匹配
+            if matched:
+                continue  # 進入下一張卡片
+
+            # 方法2: 從 source_info 提取作者-年份-關鍵詞進行匹配
+            if not matched and source_info:
+                # 嘗試從文件名提取作者、年份和關鍵詞
+                # 支援格式: "Ahrens2016_xxx", "Ahrens-2016_xxx", "Ahrens_2016_xxx"
+                author_year_match = re.match(r'"([A-Za-z]+)[-_]?(\d{4})_?(.+?)"', source_info)
+
+                if author_year_match:
+                    author_lastname = author_year_match.group(1).lower()
+                    year = int(author_year_match.group(2))
+                    keywords_str = author_year_match.group(3) if len(author_year_match.groups()) > 2 else ""
+
+                    # 將駝峰式或底線分隔的關鍵詞轉換為列表
+                    # Reference_Grammar → [reference, grammar]
+                    # Mental_Simulation → [mental, simulation]
+                    keywords = re.findall(r'[A-Z][a-z]+|[a-z]+', keywords_str)
+                    keywords = [kw.lower() for kw in keywords if len(kw) > 2]
+
+                    # 在 papers 表中查找匹配的論文
+                    # 優先匹配年份，但如果沒有年份則只匹配作者姓氏
+                    best_candidate = None
+                    best_score = 0
+
+                    for paper_id, paper_title, paper_year, paper_cite_key in papers:
+                        if not paper_title:
+                            continue
+
+                        title_lower = paper_title.lower()
+                        cite_key_lower = (paper_cite_key or '').lower()
+
+                        # 計算匹配分數
+                        score = 0
+
+                        # 1. 作者姓氏匹配 (+0.3)
+                        if author_lastname in title_lower or author_lastname in cite_key_lower:
+                            score += 0.3
+
+                        # 2. 關鍵詞匹配 (+0.1 per keyword, max +0.4)
+                        keyword_match_count = sum(1 for kw in keywords if kw in title_lower)
+                        score += min(keyword_match_count * 0.1, 0.4)
+
+                        # 3. 年份匹配 (+0.3)
+                        if paper_year and paper_year == year:
+                            score += 0.3
+
+                        # 至少需要作者匹配或2個以上關鍵詞匹配
+                        if score < 0.2:
+                            continue
+
+                        if score > best_score:
+                            best_score = score
+                            best_candidate = paper_id
+
+                    # 如果找到匹配（分數至少 0.2），則關聯
+                    if best_candidate and best_score >= 0.2:
+                        cursor.execute("""
+                            UPDATE zettel_cards
+                            SET paper_id = ?, updated_at = CURRENT_TIMESTAMP
+                            WHERE card_id = ?
+                        """, (best_candidate, card_id))
+
+                        print(f"  [AUTHOR_YEAR] {zettel_id} → Paper #{best_candidate} (author={author_lastname}, year={year}, score={best_score:.2f})")
+                        stats['linked'] += 1
+                        stats['method_breakdown']['author_year'] += 1
+                        matched = True
+
+            # 方法3: Fallback 到標題模糊匹配
             if not matched and source_info:
                 # 從 source_info 提取標題
                 title_match = re.match(r'"([^"]+)"\s*\((\d{4})\)', source_info)
@@ -1419,8 +1523,9 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         print("[STATS] 自動關聯統計")
         print("=" * 70)
         print(f"總卡片數: {len(unlinked_cards)}")
-        print(f"成功關聯: {stats['linked']} ({stats['linked']/len(unlinked_cards)*100:.1f}%)")
+        print(f"成功關聯: {stats['linked']} ({stats['linked']/len(unlinked_cards)*100:.1f}%)" if len(unlinked_cards) > 0 else "成功關聯: 0")
         print(f"  - cite_key 匹配: {stats['method_breakdown']['cite_key']}")
+        print(f"  - 作者-年份匹配: {stats['method_breakdown']['author_year']}")
         print(f"  - 標題模糊匹配: {stats['method_breakdown']['fuzzy_match']}")
         print(f"未匹配: {stats['unmatched']}")
         print(f"跳過: {stats['skipped']}")

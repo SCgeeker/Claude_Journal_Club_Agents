@@ -1,0 +1,28 @@
+{
+  "zettel_id": "Linguistics-20251029-001",
+  "title": "\"Mass Noun (Mass Noun)\"",
+  "content": "<已省略，共 819 字元>",
+  "card_type": "concept",
+  "domain": "Linguistics",
+  "tags": [
+    "Mass Noun",
+    "Non-Count Noun",
+    "Common Noun"
+  ],
+  "source_info": "\"Chinese Classifiers and Count Nouns\" (2025)",
+  "file_path": "D:\\core\\research\\claude_lit_workflow\\output\\zettelkasten_notes\\zettel_Linguistics_20251029\\zettel_cards\\Linguistics-20251029-001.md",
+  "created_at": "2025-10-29",
+  "core_concept": "I use mass noun interchangeably with non-count noun, and noun with common noun.",
+  "description": "Mass Noun（不可數名詞）與 Non-Count Noun（非計數名詞）在本論文中被視為同義詞，且Noun（名詞）指的是Common Noun（普通名詞）。這是理解後續論述的基礎，因為論文探討了在classifier languages中，名詞是否都屬於mass noun。",
+  "ai_notes": "[AI Agent] 這是一個重要的定義，確立了論文使用的術語。但是，需要注意的是，不同的語言學家對這些術語的定義可能存在差異。在閱讀其他文獻時，應當注意其定義是否與本文一致。",
+  "human_notes": "(TODO) <!-- 請在此處添加您的個人思考、批判性評論或延伸想法 -->",
+  "links": [
+    {
+      "relation_type": "導向",
+      "target_ids": [
+        "Linguistics-20251029-002",
+        "Linguistics-20251029-003"
+      ]
+    }
+  ]
+}

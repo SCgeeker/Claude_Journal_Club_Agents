@@ -9,7 +9,16 @@
       "Bash(python make_slides.py:*)",
       "Bash(git log:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(pip install:*)",
+      "Bash(python src/integrations/bibtex_parser.py:*)",
+      "Bash(python src/integrations/zotero_scanner.py:*)",
+      "Bash(python:*)",
+      "Bash(sqlite3:*)",
+      "Bash(tasklist /FI \"IMAGENAME eq cmd.exe\" /FO TABLE)",
+      "Bash(tasklist:*)",
+      "WebFetch(domain:docs.ollama.com)",
+      "Bash(move:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

@@ -1,9 +1,9 @@
 # Agent & Skill 架構設計方案
 
-**文檔版本**: v2.0 (精簡版)
-**最後更新**: 2025-10-30 17:30
-**狀態**: Phase 1 完成 ✅ | Phase 2-4 待實施
-**基於**: Phase 1 完整實施成果
+**文檔版本**: v2.1 (精簡版)
+**最後更新**: 2025-10-31 01:00
+**狀態**: Phase 1 完成 ✅ + 修復優化 | Phase 2-4 待實施
+**基於**: Phase 1 完整實施成果 + 批次處理修復
 
 ---
 
@@ -15,7 +15,7 @@
 |------|------|--------|------|
 | **1.1 batch-processor** | ✅ 完成 | `src/processors/batch_processor.py` (570行)<br>`batch_process.py` (237行)<br>`.claude/skills/batch-processor.md` | 2個PDF測試通過 |
 | **1.2 quality-checker** | ✅ 完成 | `src/checkers/quality_checker.py` (801行)<br>`check_quality.py` (312行)<br>`quality_rules.yaml` (290行) | 30篇論文檢查完成 |
-| **1.3 Zettelkasten整合** | ✅ 完成 | `src/integrations/bibtex_parser.py`<br>`src/integrations/zotero_scanner.py`<br>`kb_manager.py` (Zettel功能)<br>`test_zettel_full_index.py` | **644張卡片索引成功**<br>100%成功率 |
+| **1.3 Zettelkasten整合** | ✅ 完成+修復 | `src/integrations/bibtex_parser.py`<br>`src/integrations/zotero_scanner.py`<br>`kb_manager.py` (Zettel功能)<br>`test_zettel_full_index.py` | **644張卡片索引成功**<br>100%成功率<br>**修復目錄結構** (10-31) |
 | **1.4 MVP Agent** | ✅ 完成 | `src/agents/kb_manager_agent.py` (380行)<br>`.claude/agents/knowledge-integrator/`<br>`workflows.yaml` (750行)<br>`instructions.md` (387行) | **額外交付**<br>6個workflows<br>5個Skills整合 |
 | **1.5 文檔與測試** | ✅ 完成 | CLAUDE.md更新<br>完整實施報告<br>選項C評估報告 | 手動測試指南 |
 
@@ -25,10 +25,12 @@
 
 **測試結果**:
 - ✅ 644張 Zettelkasten 卡片索引（100%成功率）
-- ✅ 33個資料夾完整處理
+- ✅ 34個資料夾完整處理（新增 Guest-2025a）
 - ✅ 2,847個連結關係
 - ✅ 5/5搜索查詢通過
 - ✅ 質量檢查發現79個問題
+- ✅ **批次處理目錄結構修復** (2025-10-31)
+- ✅ **--model 參數支援測試通過** (gpt-oss:20b-cloud)
 
 ### 🎯 下一步建議 (P0優先級)
 
@@ -287,13 +289,15 @@ result = agent.quality_audit(
 
 #### 1. batch-processor (批次處理器)
 
-**狀態**: ✅ 完成 (2025-10-29)
+**狀態**: ✅ 完成+修復 (2025-10-31)
 
 **核心功能**:
 - 平行批次處理PDF文件（ThreadPoolExecutor）
 - 支援知識庫和Zettelkasten生成
 - 完整錯誤處理（skip/retry/stop）
 - Windows路徑支援
+- **修復輸出目錄結構** (每個PDF獨立資料夾)
+- **新增 --model 參數支援** (自訂LLM模型)
 
 **實作**:
 - `src/processors/batch_processor.py` (570行)
@@ -646,9 +650,10 @@ claude_lit_workflow/
 ├── analyze_paper.py                  ✅
 ├── requirements.txt
 ├── CLAUDE.md                         ✅ 更新
-├── AGENT_SKILL_DESIGN.md             ✅ 本文件（精簡版）
+├── AGENT_SKILL_DESIGN.md             ✅ 本文件（v2.1精簡版）
 ├── FINAL_IMPLEMENTATION_REPORT_20251030.md  ✅
-└── OPTION_C_EVALUATION_REPORT.md     ✅
+├── OPTION_C_EVALUATION_REPORT.md     ✅
+└── DEV_SUMMARY_20251031.md          ✅ 今日開發總結
 ```
 
 ---

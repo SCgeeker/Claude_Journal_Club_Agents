@@ -1108,3 +1108,151 @@ output/zettel_AI_20251028/
 - 生成21張高品質文獻回顧風格投影片
 - 內容準確度大幅提升（從幻覺內容→正確反映原文）
 - 格式問題完全解決
+
+---
+
+### 本次更新 (2025-10-30) ⭐ Workflows重新設計
+
+**🎯 重大更新：KB Manager Agent工作流程重新設計**
+
+本次更新重新設計了KB Manager Agent的工作流結構，明確區分兩種獨立的工作流程，提升用戶體驗和系統清晰度。
+
+#### **核心變更**:
+
+**1. 工作流重新命名和職責分離**
+- `batch_import` → **`batch_import_papers`**（批次導入論文到知識庫）
+  - 專注於「知識庫管理」單一職責
+  - 移除 `generate_zettel` 參數（避免混淆）
+  - `domain` 移除默認值，強制用戶選擇（支援自定義領域）
+
+- `generate_notes` → **`batch_generate_zettel`**（批次生成Zettelkasten）
+  - 重新命名反映批次處理能力（流程A）
+  - `source` 支援 folder_path（批次）、pdf_path（單篇）和 paper_id
+  - `domain` 移除默認值，強制用戶選擇（支援自定義領域）
+  - 新增 `add_to_kb` 和 `auto_link` 參數（默認為 true）
+  - 提升優先級為 `high`
+
+- `generate_slides` → 保持不變（流程B）
+  - 明確標註：**只生成簡報**，不生成Zettelkasten
+  - 不在對話中詢問「是否生成Zettelkasten」
+
+**2. 參數設計改進**
+- **domain 支援自定義**: 保留 ["CogSci", "Linguistics", "AI", "Research", "Other"] 預設選項，同時允許輸入自定義領域名稱
+- **batch_generate_zettel 新增參數**:
+  - `add_to_kb`: default = true（自動加入知識庫）
+  - `auto_link`: default = true（自動關聯論文）
+  - `source`: 支援資料夾/PDF/paper_id（統一入口）
+
+**3. 技術實施**:
+
+**修改檔案**:
+| 檔案 | 修改內容 | 行數 |
+|------|---------|------|
+| `workflows.yaml` | 重新命名、調整參數、移除generate_zettel | ~50行 |
+| `instructions.md` | 新增流程A章節、更新流程B說明、範例對話 | ~100行 |
+| `batch_processor.py` | 支援單個PDF文件路徑 | ~30行 |
+
+**batch_processor.py 增強**:
+```python
+def _find_pdfs(self, path: str) -> List[str]:
+    """
+    支援:
+    - 資料夾路徑: 返回所有PDF文件
+    - 單個PDF路徑: 返回包含該文件的列表
+    """
+    path_obj = Path(path)
+
+    if path_obj.is_file() and path_obj.suffix.lower() == '.pdf':
+        return [str(path_obj)]  # 支援單個PDF ✅
+
+    if path_obj.is_dir():
+        return [str(f) for f in path_obj.glob("*.pdf")]
+
+    return []
+```
+
+#### **工作流程對比**:
+
+| 項目 | 流程A（batch_generate_zettel） | 流程B（generate_slides） |
+|------|-------------------------------|-------------------------|
+| **用途** | 批次生成Zettelkasten原子筆記 | 生成學術簡報（PPTX/Markdown） |
+| **輸入** | 資料夾/PDF/paper_id | PDF/paper_id/topic |
+| **批次支援** | ✅ 是 | ❌ 否（單篇） |
+| **生成Zettelkasten** | ✅ 是（主要功能） | ❌ 否 |
+| **生成簡報** | ❌ 否 | ✅ 是（主要功能） |
+| **知識庫整合** | ✅ 自動（add_to_kb=true） | ✅ 自動 |
+| **自動關聯論文** | ✅ 是（auto_link=true） | N/A |
+
+#### **範例對話**:
+
+**流程A（批次生成Zettelkasten）**:
+```
+用戶: 批次處理 D:\pdfs\mental_simulation 並生成Zettelkasten
+Agent: 好的！請問這些論文屬於哪個領域？（必填）
+      1. CogSci（認知科學）
+      2. Linguistics（語言學）
+      3. AI（人工智慧）
+      4. Research（通用研究）
+      5. Other（或輸入自定義領域）
+
+用戶: CogSci
+
+Agent: 每篇論文生成多少張卡片？(默認：20)
+
+用戶: 默認
+
+Agent: ✅ 開始處理...
+      [1/15] 處理中: paper1.pdf → 生成20張卡片
+      ...
+      完成！卡片總數: 300張
+      已加入知識庫並自動關聯（成功率: 95%）
+```
+
+**流程B（只生成簡報）**:
+```
+用戶: 為 Crockett-2025.pdf 生成簡報
+Agent: 好的！請告訴我簡報主題？
+
+用戶: AI 代理者與認知科學研究
+
+Agent: 選擇簡報風格：
+      1. modern_academic（現代學術）
+      2. teaching（教學導向）
+      ...
+
+用戶: teaching
+
+Agent: ✅ 簡報生成完成！
+      文件路徑: output/AI代理者_teaching.pptx
+      （不詢問「是否生成Zettelkasten」）⚠️
+```
+
+#### **文檔更新**:
+- ✅ `workflows.yaml`: 工作流重新命名和參數調整
+- ✅ `instructions.md`: 新增流程A章節、更新流程B說明
+- ✅ `batch_processor.py`: 支援單個PDF文件
+- ✅ `WORKFLOWS_REDESIGN_FEASIBILITY.md`: 完整可行性評估報告
+- ✅ `KB_MANAGER_WORKFLOW_REVIEW.md`: 工作流程確認報告
+
+#### **驗收標準**:
+- ✅ 流程A支援批次和單篇處理
+- ✅ 流程B只生成簡報，不提示Zettelkasten
+- ✅ domain支援自定義領域名稱
+- ✅ 參數互不衝突，職責分離清晰
+- ✅ 向後兼容，保留原有結構
+
+#### **影響範圍**:
+- 用戶體驗: 更清晰的工作流選擇
+- Agent引導: 明確的意圖識別和引導邏輯
+- 系統架構: 職責分離，易於維護
+
+#### **下一步**:
+- 準備進入 Phase 2 開發（relation-finder、concept-mapper）
+- 基於新的工作流結構開發後續功能
+- 持續優化用戶體驗和系統穩定性
+
+---
+
+**更新時間**: 2025-10-30 22:00
+**實施工作量**: 3小時（符合預估）
+**狀態**: ✅ **工作流重新設計完成**
