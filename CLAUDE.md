@@ -397,6 +397,479 @@ for id1, id2, similarity in duplicates:
 3. **批次修復**: 先用`--critical-only`找出嚴重問題，再逐一修復
 4. **重複偵測**: 新增大量論文後執行，避免知識庫膨脹
 
+---
+
+## 向量搜索系統 (Vector Search) ✅ NEW
+
+**Phase 1.5** 完成實作！基於向量嵌入的語義搜索系統，支援論文和 Zettelkasten 卡片的智能檢索。
+
+### 系統架構
+
+```
+src/embeddings/
+├── providers/
+│   ├── gemini_embedder.py    # Google Gemini Embedding-001 (768維)
+│   └── ollama_embedder.py    # 本地 Qwen3-Embedding-4B (2560維)
+├── vector_db.py               # ChromaDB 封裝
+└── __init__.py
+
+generate_embeddings.py         # 批次生成腳本
+kb_manage.py                   # CLI整合（semantic-search, similar, hybrid-search）
+chroma_db/                     # ChromaDB 持久化目錄
+```
+
+### 核心組件
+
+#### 1. GeminiEmbedder (src/embeddings/providers/gemini_embedder.py)
+
+Google Gemini Embedding-001 API 封裝，提供雲端高品質向量生成。
+
+```python
+from src.embeddings.providers import GeminiEmbedder
+
+embedder = GeminiEmbedder()
+# 模型: models/embedding-001
+# 維度: 768
+# 成本: $0.00015/1K tokens
+# 速率: 60 requests/min
+
+# 單個文本嵌入
+embedding = embedder.embed("深度學習應用", task_type="retrieval_document")
+
+# 批次嵌入（最多100個/批次）
+texts = ["文本1", "文本2", "文本3"]
+embeddings = embedder.embed_batch(texts, batch_size=100)
+
+# 成本估算
+cost = embedder.estimate_cost(texts)
+print(f"預估成本: ${cost:.4f}")
+```
+
+**特性**:
+- 自動速率限制（60 req/min）
+- 支援兩種任務類型：`retrieval_document`（文檔）和 `retrieval_query`（查詢）
+- 批次處理優化
+- 精確的成本估算
+
+#### 2. OllamaEmbedder (src/embeddings/providers/ollama_embedder.py)
+
+本地 Qwen3-Embedding-4B 模型封裝，完全免費的備用方案。
+
+```python
+from src.embeddings.providers import OllamaEmbedder
+
+embedder = OllamaEmbedder()
+# 模型: qwen3-embedding:4b
+# 維度: 2560
+# 成本: $0 (本地免費)
+# 速度: ~8.6 秒/文本 (CPU)
+
+# 檢查服務狀態
+info = embedder.get_info()
+print(f"服務可用: {info['service_available']}")
+
+# 嵌入文本
+embedding = embedder.embed("測試文本")
+```
+
+**特性**:
+- 完全本地運行，數據隱私
+- 自動檢查 Ollama 服務和模型可用性
+- 保守的速率限制（20 req/min，避免資源耗盡）
+- 適合大規模離線處理
+
+**安裝 Ollama 模型**:
+```bash
+# 啟動 Ollama
+ollama serve
+
+# 下載模型
+ollama pull qwen3-embedding:4b
+```
+
+#### 3. VectorDatabase (src/embeddings/vector_db.py)
+
+ChromaDB 封裝類，提供向量存儲和語義搜索功能。
+
+```python
+from src.embeddings.vector_db import VectorDatabase
+
+db = VectorDatabase(persist_directory="chroma_db")
+
+# 插入/更新論文向量
+db.upsert_papers(
+    embeddings=embeddings,      # numpy array or list
+    documents=texts,             # 文本內容
+    ids=["paper_1", "paper_2"], # 唯一ID
+    metadatas=[{...}, {...}]    # 元數據字典
+)
+
+# 語義搜索論文
+results = db.semantic_search_papers(
+    query_embedding=query_vec,
+    n_results=10,
+    where={"year": {"$gte": 2020}}  # 可選過濾條件
+)
+
+# 尋找相似論文
+similar = db.find_similar_papers(
+    paper_id="paper_14",
+    n_results=5,
+    exclude_self=True
+)
+
+# 統計信息
+stats = db.get_stats()
+print(f"論文向量數: {stats['papers_count']}")
+print(f"Zettelkasten 向量數: {stats['zettel_count']}")
+```
+
+**資料集合**:
+- `papers`: 論文向量集合
+- `zettelkasten`: Zettelkasten 卡片向量集合
+
+**支援的操作**:
+- `upsert`: 插入/更新向量
+- `semantic_search`: 語義搜索
+- `get_by_id`: 根據 ID 獲取
+- `find_similar`: 尋找相似內容
+- `delete`: 刪除向量
+- `reset`: 清空集合
+
+#### 4. 批次生成腳本 (generate_embeddings.py)
+
+為知識庫中的所有論文和 Zettelkasten 卡片批次生成向量嵌入。
+
+```bash
+# 為所有內容生成嵌入（需確認成本）
+python generate_embeddings.py --provider gemini
+
+# 自動確認（用於自動化）
+python generate_embeddings.py --provider gemini --yes
+
+# 只處理論文
+python generate_embeddings.py --papers-only --limit 10
+
+# 只處理 Zettelkasten
+python generate_embeddings.py --zettel-only
+
+# 使用 Ollama（免費但較慢）
+python generate_embeddings.py --provider ollama
+
+# 查看統計
+python generate_embeddings.py --stats
+```
+
+**文本組合策略**:
+
+**論文** (from `papers` table):
+```
+標題: {title}
+作者: {authors}
+摘要: {abstract}
+關鍵詞: {keywords}
+內容: {markdown_content[:2000]}  # 如果元數據不足
+```
+
+**Zettelkasten** (from `zettel_cards` table):
+```
+標題: {title}
+核心概念: {core_concept}
+描述: {description}
+內容: {content[:1500]}
+```
+
+**成本估算**:
+- 31篇論文 + 52張卡片 = 83個向量
+- 實際成本: ~$0.0173
+- 單次查詢: ~$0.00001
+
+### kb_manage.py CLI 整合
+
+系統提供三個強大的語義搜索命令，整合到知識庫管理工具中。
+
+#### 命令 1: semantic-search - 語義搜索
+
+根據自然語言查詢，搜索相關的論文或 Zettelkasten 卡片。
+
+```bash
+# 搜索論文
+python kb_manage.py semantic-search "深度學習應用" --type papers --limit 5
+
+# 搜索 Zettelkasten 卡片
+python kb_manage.py semantic-search "認知科學" --type zettel --limit 3
+
+# 搜索所有類型（默認）
+python kb_manage.py semantic-search "機器學習" --type all
+
+# 使用 Ollama（免費但較慢）
+python kb_manage.py semantic-search "AI研究" --provider ollama
+
+# 顯示詳細信息（摘要/內容預覽）
+python kb_manage.py semantic-search "語言學" --verbose
+```
+
+**輸出範例**:
+```
+============================================================
+🔍 語義搜索: '認知科學'
+提供者: GEMINI
+============================================================
+
+生成查詢向量...
+
+📄 搜索論文 (top 3):
+------------------------------------------------------------
+
+1. [38.6%] 華語分類詞的界定與教學上的分級
+   ID: 5
+   作者: ...
+   年份: 未知
+
+2. [34.2%] International Journal of Computer Processing
+   ID: 7
+   ...
+```
+
+**參數說明**:
+| 參數 | 說明 | 可選值 | 默認值 |
+|------|------|--------|--------|
+| `query` | 搜索查詢（必需） | 任意文字 | - |
+| `--type` | 搜索類型 | papers / zettel / all | all |
+| `--limit` | 返回數量 | 整數 | 5 |
+| `--provider` | 嵌入提供者 | gemini / ollama | gemini |
+| `--verbose, -v` | 顯示詳細信息 | 標記 | False |
+
+#### 命令 2: similar - 尋找相似內容
+
+根據論文或卡片 ID，尋找最相似的其他內容。
+
+```bash
+# 尋找與論文 14 相似的論文
+python kb_manage.py similar 14 --limit 5
+
+# 尋找與卡片相似的卡片
+python kb_manage.py similar zettel_CogSci-20251029-001 --limit 3
+
+# 也可以用 paper_ 前綴
+python kb_manage.py similar paper_14 --limit 5
+```
+
+**輸出範例**:
+```
+============================================================
+🔍 尋找與論文相似的內容
+論文: Journal of Cognitive Psychology
+============================================================
+
+📄 相似論文 (top 3):
+------------------------------------------------------------
+
+1. [71.8%] PsychonBullRev(2018)25:1968–1972
+   ID: 29
+   作者: Participant Nonnaivet, Open Science, A.Zwaan
+
+2. [68.1%] Educational Psychology
+   ID: 26
+   ...
+```
+
+**特性**:
+- 自動排除自身（`exclude_self=True`）
+- 高相似度結果（通常 60-80%）
+- 適合發現相關研究和連結知識
+
+**參數說明**:
+| 參數 | 說明 | 示例 |
+|------|------|------|
+| `id` | 論文ID或卡片ID（必需） | 14, paper_14, zettel_xxx |
+| `--limit` | 返回數量（默認: 5） | 3, 10, 20 |
+
+#### 命令 3: hybrid-search - 混合搜索
+
+結合全文搜索（FTS）和語義搜索，提供更全面的結果。
+
+```bash
+# 混合搜索
+python kb_manage.py hybrid-search "machine learning" --limit 10
+
+# 使用 Ollama
+python kb_manage.py hybrid-search "深度學習" --provider ollama
+```
+
+**輸出範例**:
+```
+============================================================
+🔍 混合搜索: 'machine learning'
+提供者: GEMINI
+============================================================
+
+📝 全文搜索結果:
+------------------------------------------------------------
+1. [FTS] LinguisticsVanguard2022
+   ID: 8
+2. [FTS] International Journal
+   ID: 7
+
+🔍 語義搜索結果:
+------------------------------------------------------------
+生成查詢向量...
+1. [22.6%] HCOMP2022 Proceedings
+   ID: 30
+...
+
+✨ 混合結果 (兩種方法的聯集):
+------------------------------------------------------------
+
+1. [SEM 22.6%] HCOMP2022 Proceedings
+   ID: 30
+   作者: ...
+
+2. [FTS + SEM 19.3%] Psychological Science
+   ID: 23
+   ...
+
+統計:
+  全文搜索: 2 篇
+  語義搜索: 5 篇
+  共同結果: 0 篇
+  總計: 7 篇
+```
+
+**特性**:
+- 結合關鍵詞匹配（FTS）和語義理解（向量搜索）
+- 按語義相似度排序
+- 標註每個結果的來源（FTS / SEM / 兩者）
+- 提供統計摘要
+
+**參數說明**:
+| 參數 | 說明 | 默認值 |
+|------|------|--------|
+| `query` | 搜索查詢（必需） | - |
+| `--limit` | 返回數量 | 10 |
+| `--provider` | 嵌入提供者 | gemini |
+
+### 使用工作流
+
+**典型場景 1: 初次設置**
+
+```bash
+# 1. 安裝依賴
+pip install chromadb tqdm google-generativeai numpy
+
+# 2. 設置 API Key（~/.bashrc 或 .env）
+export GOOGLE_API_KEY="your-api-key-here"
+
+# 3. 生成所有向量嵌入
+python generate_embeddings.py --provider gemini --yes
+
+# 4. 測試搜索
+python kb_manage.py semantic-search "認知科學" --limit 3
+```
+
+**場景 2: 新增論文後更新**
+
+```bash
+# 分析並加入知識庫
+python analyze_paper.py new_paper.pdf --add-to-kb
+
+# 只為新論文生成嵌入（假設是 ID 32）
+# 目前需要重新生成所有，未來可優化為增量更新
+python generate_embeddings.py --papers-only --yes
+
+# 驗證
+python kb_manage.py similar 32 --limit 5
+```
+
+**場景 3: 研究文獻相關性**
+
+```bash
+# 找到感興趣的論文
+python kb_manage.py search "深度學習"
+
+# 假設找到 ID 25，尋找相似論文
+python kb_manage.py similar 25 --limit 10
+
+# 使用語義搜索探索相關概念
+python kb_manage.py semantic-search "神經網絡架構" --type papers
+```
+
+### 性能與成本
+
+| 指標 | 數值 |
+|------|------|
+| **數據規模** | 31篇論文 + 52張卡片 = 83個向量 |
+| **生成成本** | ~$0.0173 (Gemini) / $0 (Ollama) |
+| **查詢成本** | ~$0.00001/次 (Gemini) / $0 (Ollama) |
+| **查詢時間** | 3-8秒 (含向量生成) |
+| **相似度範圍** | 同領域: 60-80% / 跨領域: 30-50% |
+
+**成本優化建議**:
+1. 大規模處理使用 Ollama（免費但慢）
+2. 互動式查詢使用 Gemini（快速且便宜）
+3. 定期批次更新而非即時更新
+
+### 搜索質量評估
+
+根據實測數據（31篇論文，52張卡片）：
+
+| 搜索類型 | 相似度範圍 | 準確性 | 評級 |
+|----------|-----------|--------|------|
+| 同領域論文查找 | 67-72% | 優秀 | ⭐⭐⭐⭐⭐ |
+| Zettelkasten 語義搜索 | 40-45% | 良好 | ⭐⭐⭐⭐ |
+| 跨領域概念搜索 | 33-44% | 良好 | ⭐⭐⭐⭐ |
+| 混合搜索精準度 | 14-23% | 良好 | ⭐⭐⭐⭐ |
+
+**觀察結果**:
+- Zettelkasten 卡片的相似度普遍較高（內容更聚焦）
+- 論文搜索在同領域表現優異
+- 混合搜索能發現 FTS 無法找到的語義相關內容
+
+### 故障排除
+
+**問題 1: `ModuleNotFoundError: No module named 'chromadb'`**
+```bash
+pip install chromadb tqdm numpy
+```
+
+**問題 2: Ollama 連接失敗**
+```bash
+# 檢查服務
+curl http://localhost:11434/api/tags
+
+# 啟動服務
+ollama serve
+
+# 下載模型
+ollama pull qwen3-embedding:4b
+```
+
+**問題 3: Google API Key 未設置**
+```bash
+export GOOGLE_API_KEY="your-api-key-here"
+
+# 或在 .env 文件中設置
+echo "GOOGLE_API_KEY=your-api-key-here" >> .env
+```
+
+**問題 4: 相似度偏低**
+- 確保查詢和文檔語言一致（中文/英文）
+- 使用更具體的查詢詞
+- 考慮使用混合搜索結合關鍵詞匹配
+
+### 下一步擴展
+
+**計畫中功能**:
+1. **auto_link_v2()**: 自動基於向量相似度建立論文-Zettelkasten 連結
+2. **增量更新**: 僅為新內容生成嵌入，無需重新生成所有
+3. **多語言支援**: 改進中英文混合查詢的相似度標準
+4. **加權混合搜索**: 允許調整 FTS 和語義搜索的權重
+5. **過濾條件**: 支援年份、作者、領域過濾
+
+**完整測試報告**: 參見 `VECTOR_SEARCH_TEST_REPORT.md`
+
+---
+
 ## 學術風格系統
 
 基於Journal Club逆向工程，支援8種學術風格：
@@ -505,9 +978,9 @@ python make_slides.py "機器學習入門" --style teaching --language bilingual
    - 優點：完全離線、數據隱私
 
 2. **Google Gemini**
-   - 模型：gemini-2.5-flash, gemini-pro
+   - 模型：gemini-2.0-flash-exp, gemini-pro
    - 需要：GOOGLE_API_KEY環境變數
-   - 優點：速度快、品質高
+   - 優點：速度快、品質高、有免費額度
 
 3. **OpenAI**
    - 模型：gpt-4, gpt-3.5-turbo
@@ -515,9 +988,9 @@ python make_slides.py "機器學習入門" --style teaching --language bilingual
    - 優點：品質最高、功能完整
 
 4. **Anthropic Claude**
-   - 模型：claude-3-opus, claude-3-sonnet
+   - 模型：claude-3-haiku（成本最低）, claude-3-opus, claude-3-sonnet
    - 需要：ANTHROPIC_API_KEY環境變數
-   - 優點：推理能力強、長文處理佳
+   - 優點：推理能力強、長文處理佳、haiku版本速度快且便宜
 
 **自動選擇邏輯**：
 ```python
@@ -600,7 +1073,7 @@ OLLAMA_URL=http://localhost:11434
 **問題1：Ollama timeout**
 ```bash
 # 使用雲端LLM代替
-python make_slides.py "主題" --llm-provider google --model gemini-2.5-flash
+python make_slides.py "主題" --llm-provider google --model gemini-2.0-flash-exp
 ```
 
 **問題2：內容不符合PDF**
@@ -655,9 +1128,10 @@ PDF文本和結構提取
 ### 重要配置項
 
 ```yaml
-# LLM後端（Ollama整合）
+# LLM後端（自動選擇最佳模型）
 llm:
-  default_backend: "ollama"
+  default_backend: "auto"  # 自動選擇最佳模型
+  auto_select: true
   ollama:
     base_url: "http://localhost:11434"
     default_model: "gemma2:latest"
@@ -833,11 +1307,43 @@ ollama serve
 
 ---
 
-**最後更新**: 2025-10-31
+**最後更新**: 2025-11-01
 **版本**: 0.6.0-alpha
 **狀態**: 自動模型選擇系統完成 - 智能LLM選擇與成本控制實作完成
 
-### 本次更新 (2025-10-29) ⭐ Phase 1 完成
+### 本次更新 (2025-11-01) ⭐ 文檔一致性檢查與修正
+
+**📝 文檔一致性更新**
+
+本次更新檢查並修正了 CLAUDE.md 和 README.md 之間的不一致之處。
+
+#### **修正內容**:
+
+1. **版本號統一**：
+   - README.md 版本從 0.2.0-alpha 更新為 0.6.0-alpha
+   - 與 CLAUDE.md 保持一致
+
+2. **LLM 模型名稱更新**：
+   - Google Gemini: gemini-2.5-flash → gemini-2.0-flash-exp
+   - Anthropic Claude: 新增 claude-3-haiku 描述（成本最低版本）
+   - 與實際配置檔 model_selection.yaml 保持一致
+
+3. **配置範例更新**：
+   - default_backend: "ollama" → "auto"
+   - 新增 auto_select: true
+   - 反映最新的自動模型選擇功能
+
+4. **日期更新**：
+   - 更新為 2025-11-01
+
+#### **驗證結果**:
+- ✅ 所有主要檔案均存在（analyze_paper.py, kb_manage.py, make_slides.py 等）
+- ✅ 新增模組檔案均存在（model_monitor.py, usage_reporter.py, batch_processor.py 等）
+- ✅ 配置檔與文檔描述一致
+
+---
+
+### 前次更新 (2025-10-29) ⭐ Phase 1 完成
 
 **🚀 重大更新：批次處理器 + 質量檢查器 + 檔案整理系統**
 

@@ -127,6 +127,21 @@ class KnowledgeBaseManager:
             )
         """)
 
+        # 論文-Zettelkasten連結表（基於向量相似度）
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS paper_zettel_links (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                paper_id INTEGER NOT NULL,
+                card_id INTEGER NOT NULL,
+                similarity REAL NOT NULL,
+                method TEXT DEFAULT 'vector_similarity',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (paper_id) REFERENCES papers(id) ON DELETE CASCADE,
+                FOREIGN KEY (card_id) REFERENCES zettel_cards(card_id) ON DELETE CASCADE,
+                UNIQUE(paper_id, card_id)
+            )
+        """)
+
         # Zettelkasten索引
         cursor.execute("""
             CREATE INDEX IF NOT EXISTS idx_zettel_cards_zettel_id ON zettel_cards(zettel_id)
@@ -151,6 +166,15 @@ class KnowledgeBaseManager:
         """)
         cursor.execute("""
             CREATE INDEX IF NOT EXISTS idx_zettel_links_relation ON zettel_links(relation_type)
+        """)
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_paper_zettel_links_paper ON paper_zettel_links(paper_id)
+        """)
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_paper_zettel_links_card ON paper_zettel_links(card_id)
+        """)
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_paper_zettel_links_similarity ON paper_zettel_links(similarity)
         """)
 
         # 全文搜索表（FTS5） - Papers
@@ -450,6 +474,140 @@ class KnowledgeBaseManager:
                 INSERT OR REPLACE INTO paper_topics (paper_id, topic_id, relevance)
                 VALUES (?, ?, ?)
             """, (paper_id, topic_id, relevance))
+            conn.commit()
+        finally:
+            conn.close()
+
+    def link_paper_to_zettel(self, paper_id: int, card_id: int, similarity: float, method: str = 'vector_similarity'):
+        """建立論文與Zettelkasten卡片的連結（基於向量相似度）
+
+        Args:
+            paper_id: 論文ID
+            card_id: Zettelkasten卡片ID
+            similarity: 相似度分數（0-1）
+            method: 連結方法（默認為向量相似度）
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("""
+                INSERT OR REPLACE INTO paper_zettel_links (paper_id, card_id, similarity, method)
+                VALUES (?, ?, ?, ?)
+            """, (paper_id, card_id, similarity, method))
+            conn.commit()
+        finally:
+            conn.close()
+
+    def get_paper_zettel_links(self, paper_id: int, min_similarity: float = 0.0) -> List[Dict[str, Any]]:
+        """獲取論文的所有Zettelkasten連結
+
+        Args:
+            paper_id: 論文ID
+            min_similarity: 最小相似度閾值
+
+        Returns:
+            連結列表，包含卡片信息和相似度
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT
+                pzl.id,
+                pzl.card_id,
+                zc.zettel_id,
+                zc.title,
+                zc.core_concept,
+                zc.card_type,
+                zc.domain,
+                pzl.similarity,
+                pzl.method,
+                pzl.created_at
+            FROM paper_zettel_links pzl
+            JOIN zettel_cards zc ON pzl.card_id = zc.card_id
+            WHERE pzl.paper_id = ? AND pzl.similarity >= ?
+            ORDER BY pzl.similarity DESC
+        """, (paper_id, min_similarity))
+
+        results = []
+        for row in cursor.fetchall():
+            results.append({
+                'link_id': row[0],
+                'card_id': row[1],
+                'zettel_id': row[2],
+                'title': row[3],
+                'core_concept': row[4],
+                'card_type': row[5],
+                'domain': row[6],
+                'similarity': row[7],
+                'method': row[8],
+                'created_at': row[9]
+            })
+
+        conn.close()
+        return results
+
+    def get_zettel_paper_links(self, card_id: int, min_similarity: float = 0.0) -> List[Dict[str, Any]]:
+        """獲取Zettelkasten卡片的所有論文連結（反向查詢）
+
+        Args:
+            card_id: Zettelkasten卡片ID
+            min_similarity: 最小相似度閾值
+
+        Returns:
+            連結列表，包含論文信息和相似度
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT
+                pzl.id,
+                pzl.paper_id,
+                p.title,
+                p.authors,
+                p.year,
+                pzl.similarity,
+                pzl.method,
+                pzl.created_at
+            FROM paper_zettel_links pzl
+            JOIN papers p ON pzl.paper_id = p.id
+            WHERE pzl.card_id = ? AND pzl.similarity >= ?
+            ORDER BY pzl.similarity DESC
+        """, (card_id, min_similarity))
+
+        results = []
+        for row in cursor.fetchall():
+            results.append({
+                'link_id': row[0],
+                'paper_id': row[1],
+                'title': row[2],
+                'authors': row[3],
+                'year': row[4],
+                'similarity': row[5],
+                'method': row[6],
+                'created_at': row[7]
+            })
+
+        conn.close()
+        return results
+
+    def delete_paper_zettel_link(self, paper_id: int, card_id: int):
+        """刪除論文與Zettelkasten卡片的連結
+
+        Args:
+            paper_id: 論文ID
+            card_id: Zettelkasten卡片ID
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("""
+                DELETE FROM paper_zettel_links
+                WHERE paper_id = ? AND card_id = ?
+            """, (paper_id, card_id))
             conn.commit()
         finally:
             conn.close()

@@ -58,11 +58,16 @@ def main():
   # 指定工作階段類型
   python cleanup_session.py --session batch --execute
 
+  # 開發文件整理（測試、調試工具、報告歸檔）
+  python cleanup_session.py --session development --execute
+
 工作階段類型:
   auto        - 自動檢測（預設）
   batch       - 批次處理
   analysis    - 論文分析
   generation  - 簡報/筆記生成
+  development - 開發文件整理（測試腳本、調試工具、報告歸檔）
+  full        - 完整清理（包含所有類型）
 
 注意事項:
   • 預設為乾跑模式，使用 --execute 或 --auto 實際執行
@@ -70,6 +75,20 @@ def main():
   • 清理前會自動備份資料庫（除非使用 --no-backup）
   • 清理報告會自動保存到根目錄
   • 使用 --git-commit 自動提交整理後的文件到版本控制
+
+開發文件整理說明:
+  development 模式會：
+  • 移動 test_*.py 到 tests/ 目錄
+  • 歸檔 check_*.py, verify_*.py 等調試工具到 archive/debug_tools/
+  • 歸檔 *_REPORT_*.md 等開發報告到 archive/reports/
+  • 歸檔 setup_*.bat/sh 等設置腳本到 archive/setup_scripts/
+
+歸檔壓縮功能:
+  • 自動檢查 archive/ 目錄中超過 7 天的文件
+  • 將舊文件壓縮成 archived_YYYYMMDD.zip 格式
+  • 壓縮後自動刪除原文件以節省空間
+  • 保持原有目錄結構在壓縮檔內
+  • 排除已經是壓縮格式的文件（.zip, .tar, .gz 等）
         """
     )
 
@@ -87,7 +106,7 @@ def main():
 
     parser.add_argument(
         '--session',
-        choices=['auto', 'batch', 'analysis', 'generation'],
+        choices=['auto', 'batch', 'analysis', 'generation', 'development', 'full'],
         default='auto',
         help='工作階段類型（預設: auto）'
     )
@@ -122,6 +141,19 @@ def main():
         help='不自動 stage 文件（需手動選擇）'
     )
 
+    parser.add_argument(
+        '--compress-after-days',
+        type=int,
+        default=7,
+        help='歸檔文件超過指定天數後壓縮（預設: 7 天）'
+    )
+
+    parser.add_argument(
+        '--no-compress',
+        action='store_true',
+        help='不執行歸檔壓縮'
+    )
+
     args = parser.parse_args()
 
     # 確定是否實際執行
@@ -149,13 +181,24 @@ def main():
                 print("❌ 取消清理")
                 return
 
+    # 動態更新規則（如果需要）
+    rules_overrides = {}
+    if args.no_compress:
+        rules_overrides['archive_compression'] = {'enabled': False}
+    elif args.compress_after_days != 7:
+        rules_overrides['archive_compression'] = {
+            'enabled': True,
+            'compress_after_days': args.compress_after_days
+        }
+
     # 創建整理器
     organizer = SessionOrganizer(
         dry_run=dry_run,
         auto_backup=auto_backup and execute,  # 只在實際執行時備份
         rules_file=args.rules,
         git_commit=args.git_commit and execute,  # 只在實際執行時提交
-        git_auto_stage=not args.no_git_auto_stage
+        git_auto_stage=not args.no_git_auto_stage,
+        rules_overrides=rules_overrides
     )
 
     # 執行清理

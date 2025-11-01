@@ -18,7 +18,10 @@
       "Bash(tasklist /FI \"IMAGENAME eq cmd.exe\" /FO TABLE)",
       "Bash(tasklist:*)",
       "WebFetch(domain:docs.ollama.com)",
-      "Bash(move:*)"
+      "Bash(move:*)",
+      "WebFetch(domain:docs.google.com)",
+      "Bash(ollama list:*)",
+      "WebFetch(domain:ollama.com)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

@@ -45,3 +45,27 @@ Thumbs.db
 # 臨時文件
 *.tmp
 *~
+*.bak
+
+# 測試輸出
+tests/__pycache__/
+tests/*.pyc
+test_output/
+.pytest_cache/
+
+# 歸檔文件（可選擇性忽略）
+# archive/
+
+# 調試和檢查腳本
+check_*.py
+verify_*.py
+test_*.py  # 根目錄下的測試文件
+recover_*.py
+kill_*.bat
+
+# 開發報告（若在根目錄生成）
+*_REPORT_*.md
+*_STATUS_*.md
+*_EVALUATION*.md
+*_COMPARISON_*.md
+*_SUMMARY_*.md

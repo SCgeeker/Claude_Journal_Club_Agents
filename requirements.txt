@@ -24,6 +24,11 @@ typer>=0.9.0
 # Data Processing
 pydantic>=2.5.0
 bibtexparser>=1.4.0
+numpy>=1.24.0
+tqdm>=4.66.0
+
+# Vector Database & Embeddings
+chromadb>=0.4.22
 
 # Optional: Advanced PDF features
 lxml>=5.0.0
