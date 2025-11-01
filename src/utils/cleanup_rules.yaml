@@ -1,5 +1,6 @@
 # 檔案清理規則配置
 # 用於自動整理工作階段產生的文件
+# 最後更新: 2025-11-01 - 新增測試文件、調試工具、開發報告整理規則
 
 # 輸出文件組織規則
 output_organization:
@@ -35,6 +36,69 @@ output_organization:
     description: "Zettelkasten 原子筆記"
     exclude:
       - "output/**"
+
+# 開發文件組織規則
+development_organization:
+  # 測試文件
+  test_files:
+    patterns:
+      - "test_*.py"
+    destination: "tests/"
+    action: "move"
+    description: "測試腳本"
+    exclude:
+      - "tests/**"  # 已在 tests 中的不移動
+      - "src/**"    # 源碼目錄中的測試不移動
+
+  # 調試工具
+  debug_tools:
+    patterns:
+      - "check_*.py"
+      - "verify_*.py"
+      - "recover_*.py"
+      - "kill_*.bat"
+      - "kill_*.sh"
+    destination: "archive/debug_tools/"
+    action: "move"
+    description: "調試和檢查工具"
+    exclude:
+      - "archive/**"  # 已歸檔的不移動
+      - "scripts/**"  # scripts 目錄的保留
+
+  # 開發報告
+  dev_reports:
+    patterns:
+      - "*_REPORT_*.md"
+      - "*_STATUS_*.md"
+      - "*_EVALUATION*.md"
+      - "*_COMPARISON_*.md"
+      - "*_SUMMARY_*.md"
+      - "FINAL_*.md"
+      - "quality_report.txt"
+    destination: "archive/reports/"
+    action: "move"
+    description: "開發報告和評估文檔"
+    exclude:
+      - "archive/**"
+      - "docs/**"
+      - "CLEANUP_REPORT_*.md"  # 清理報告不歸檔
+
+  # 設置腳本
+  setup_scripts:
+    patterns:
+      - "setup_*.bat"
+      - "setup_*.sh"
+      - "install_*.bat"
+      - "install_*.sh"
+      - ".gitignore_*"
+      - "README_PUBLIC.md"
+      - "README_DRAFT.md"
+    destination: "archive/setup_scripts/"
+    action: "move"
+    description: "初始化和設置腳本"
+    exclude:
+      - "archive/**"
+      - "scripts/**"
 
 # 臨時文件清理規則
 temp_files:
@@ -79,6 +143,21 @@ reports:
     keep_recent: 5  # 保留最新 5 份
     archive_to: "docs/cleanup_history/"
     description: "清理報告歷史"
+
+# 歸檔壓縮設置
+archive_compression:
+  enabled: true
+  compress_after_days: 7  # 超過7天的檔案會被壓縮
+  archive_directory: "archive/"
+  compressed_archive_name: "archived_{date}.zip"  # {date} 會被替換為當前日期
+  exclude_patterns:
+    - "*.zip"  # 不壓縮已經是壓縮檔的文件
+    - "*.tar"
+    - "*.gz"
+    - "*.7z"
+    - "*.rar"
+  keep_structure: true  # 在壓縮檔內保持目錄結構
+  delete_after_compress: true  # 壓縮後刪除原檔案
 
 # 備份設置
 backup:
