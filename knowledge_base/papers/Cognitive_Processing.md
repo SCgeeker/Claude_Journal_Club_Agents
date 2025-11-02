@@ -1,8 +1,8 @@
 ---
 title: Cognitive Processing
 authors: Cognitive Processing, The Author, Ying Han, Donglin Liu, In Experiment, Lijuan Wang
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:41:58
 ---
 

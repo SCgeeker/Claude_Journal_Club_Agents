@@ -1,8 +1,8 @@
 ---
 title: Psychological Science
 authors: Mentally Represent, Email Alerts, Language Comprehenders, H. Yaxley, A. Zwaan, Psychological Science, A. Stanfield
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:49:54
 ---
 

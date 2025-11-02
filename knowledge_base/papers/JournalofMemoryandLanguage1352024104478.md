@@ -1,7 +1,7 @@
 ---
 title: JournalofMemoryandLanguage135(2024)104478
 authors: V. Garrido, V. Horchak, Instituto Universita, In Experiments
-year: N/A
+year: null
 keywords: The present research shows that language comprehenders are sensitive to multiple states of target and seman-
 created: 2025-10-29 16:33:09
 ---

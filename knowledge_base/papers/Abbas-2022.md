@@ -1,11 +1,11 @@
 ---
-title: ProceedingsoftheTenthAAAIConferenceonHumanComputationandCrowdsourcing(HCOMP2022)
-authors: An Exploratory, T.Abbas, K.Gadiraju, Setting Behavior, Dengand Joshi, Crowdsourcing Platforms
-year: N/A
-keywords: 
+title: 'Goal-Setting Behavior of Workers on Crowdsourcing Platforms: An Exploratory
+  Study on MTurk and Prolific'
+authors: Tahir Abbas, Ujwal Gadiraju
+year: 2022
+keywords: []
 created: 2025-10-29 21:54:43
 ---
-
 # ProceedingsoftheTenthAAAIConferenceonHumanComputationandCrowdsourcing(HCOMP2022)
 
 ## 基本信息

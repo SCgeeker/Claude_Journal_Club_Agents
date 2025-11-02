@@ -1,17 +1,20 @@
 ---
-title: This article was downloaded by: [134.117.10.200]
-authors: Wales Registered, Mortimer Street, The Netherlands, Mortimer House, A. Zwaan, Erasmus University, Informa Ltd, The Quarterly, Diane Pecher
-year: N/A
+title: "Language comprehenders retain implied shape and orientation of objects"
+authors: Diane Pecher, Saskia van Dantzig, Rolf A. Zwaan, René Zeelenberg
+year: 2009
+doi: 10.1080/17470210802633255
 keywords: Sentenceprocessing, Sensorimotorprocessing, Memory.
 created: 2025-10-29 16:43:34
 ---
 
-# This article was downloaded by: [134.117.10.200]
+# Language comprehenders retain implied shape and orientation of objects
 
 ## 基本信息
 
-- **作者**: Wales Registered, Mortimer Street, The Netherlands, Mortimer House, A. Zwaan, Erasmus University, Informa Ltd, The Quarterly, Diane Pecher
-- **年份**: N/A
+- **作者**: Diane Pecher, Saskia van Dantzig, Rolf A. Zwaan, René Zeelenberg
+- **年份**: 2009
+- **期刊**: The Quarterly Journal of Experimental Psychology, 62(6), 1108-1114
+- **DOI**: 10.1080/17470210802633255
 - **關鍵詞**: Sentenceprocessing, Sensorimotorprocessing, Memory.
 
 ## 摘要

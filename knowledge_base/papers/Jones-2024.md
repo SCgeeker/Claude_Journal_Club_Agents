@@ -1,8 +1,8 @@
 ---
-title: Multimodal Language Models Show Evidence of Embodied
-authors: R. Jones, Multimodal Language, Introduction Winterand, Models Show, Sean Trott
-year: N/A
-keywords: 
+title: Multimodal Language Models Show Evidence of Embodied Simulation
+authors: R. Jones, Sean Trott
+year: 2024
+keywords: ["grounding", "multimodal language models", "embodiment"]
 created: 2025-10-29 16:40:18
 ---
 

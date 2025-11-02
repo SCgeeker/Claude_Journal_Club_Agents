@@ -1,7 +1,7 @@
 ---
 title: JournalofMemoryandLanguage127(2022)104355
 authors: R. Bocanegraa, Verbal Learning, H. Poletiekb, A. Zwaana, Verbal Behavior, Erasmus University, Max Planck, Child Studies, Leiden University, Perception Understanding
-year: N/A
+year: null
 keywords: Although many studies have investigated the activation of perceptual representations during language
 created: 2025-10-29 16:14:45
 ---

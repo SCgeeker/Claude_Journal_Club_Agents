@@ -1,7 +1,7 @@
 ---
-title: What Does ‘Human-Centred AI’ Mean?
-authors: What Does, Olivia Guest
-year: N/A
+title: "What Does ‘Human-Centred AI’ Mean?"
+authors: Olivia Guest
+year: 2025
 keywords: artificial intelligence, cognitive science, sociotechnical relationship
 created: 2025-11-01 11:25:01
 ---

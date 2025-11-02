@@ -1,8 +1,8 @@
 ---
 title: Educational Psychology
 authors: Zhengye Xu, Duo Liu, Full Terms, The Author, View Crossmark, Educational Psychology, Experimental Educational, An International, Hong Kong
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:48:15
 ---
 

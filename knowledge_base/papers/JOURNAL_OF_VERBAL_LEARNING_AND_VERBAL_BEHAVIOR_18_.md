@@ -1,8 +1,8 @@
 ---
 title: JOURNAL OF VERBAL LEARNING AND VERBAL BEHAVIOR 18, 509-521 (1979)
 authors: Massachusetts Institute, Understanding Noun
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:44:17
 ---
 

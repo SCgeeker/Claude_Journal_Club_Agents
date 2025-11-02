@@ -1,0 +1,597 @@
+{
+  "pairs": [
+    {
+      "concept1": "1. introduction",
+      "concept2": "classifier",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "measure word",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 0.6666666666666666
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "multiplicand",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "chinese",
+      "concept2": "classifier",
+      "co_occurrence_count": 2,
+      "papers": [
+        2,
+        3
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "classifier",
+      "concept2": "measure word",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 0.4
+    },
+    {
+      "concept1": "classifier",
+      "concept2": "multiplicand",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "measure word",
+      "concept2": "multiplicand",
+      "co_occurrence_count": 2,
+      "papers": [
+        1,
+        40
+      ],
+      "association_strength": 0.6666666666666666
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "1. introduction",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "as in (1a) and (1b)",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "classifier",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.25
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "formal semantics",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "in a numeral classifier language like chinese",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "measure word",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.3333333333333333
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "multiplicand",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "when a noun (n) is quantified by a numeral",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "(num)",
+      "concept2": "¬1",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "aselementsandexpe-",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "classifiers",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "database",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "nominalclassification",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "numeralclassifiers",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "organized (clahsen 2016: 599",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "sortalclassifiers",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "variousmechanisms",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1 why numeral classifiers?",
+      "concept2": "wacl",
+      "co_occurrence_count": 1,
+      "papers": [
+        8
+      ],
+      "association_strength": 1.0
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "as in (1a) and (1b)",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "formal semantics",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "in a numeral classifier language like chinese",
+      "co_occurrence_count": 1,
+      "papers": [
+        1
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "profile",
+      "co_occurrence_count": 1,
+      "papers": [
+        40
+      ],
+      "association_strength": 0.5
+    },
+    {
+      "concept1": "1. introduction",
+      "concept2": "taiwan mandarin.",
+      "co_occurrence_count": 1,
+      "papers": [
+        40
+      ],
+      "association_strength": 0.5
+    }
+  ],
+  "concept_frequency": [
+    [
+      "classifier",
+      4
+    ],
+    [
+      "measure word",
+      3
+    ],
+    [
+      "multiplicand",
+      2
+    ],
+    [
+      "1. introduction",
+      2
+    ],
+    [
+      "count noun",
+      2
+    ],
+    [
+      "quantity",
+      2
+    ],
+    [
+      "chinese",
+      2
+    ],
+    [
+      "mass noun hypothesis",
+      2
+    ],
+    [
+      "number",
+      2
+    ],
+    [
+      "classifiers",
+      2
+    ],
+    [
+      "formal semantics",
+      1
+    ],
+    [
+      "¬1",
+      1
+    ],
+    [
+      "in a numeral classifier language like chinese",
+      1
+    ],
+    [
+      "when a noun (n) is quantified by a numeral",
+      1
+    ],
+    [
+      "(num)",
+      1
+    ],
+    [
+      "as in (1a) and (1b)",
+      1
+    ],
+    [
+      "count nouns",
+      1
+    ],
+    [
+      "non-count noun",
+      1
+    ],
+    [
+      "quantifier",
+      1
+    ],
+    [
+      "mass vs count",
+      1
+    ],
+    [
+      "japanese",
+      1
+    ],
+    [
+      "各",
+      1
+    ],
+    [
+      "morphosyntax",
+      1
+    ],
+    [
+      "number cognition",
+      1
+    ],
+    [
+      "common noun",
+      1
+    ],
+    [
+      "mass noun",
+      1
+    ],
+    [
+      "animals",
+      1
+    ],
+    [
+      "mass nouns",
+      1
+    ],
+    [
+      "classifier languages",
+      1
+    ],
+    [
+      "de",
+      1
+    ],
+    [
+      "infants",
+      1
+    ],
+    [
+      "grammatical number",
+      1
+    ],
+    [
+      "yuen ren chao",
+      1
+    ],
+    [
+      "distinction",
+      1
+    ],
+    [
+      "ontology",
+      1
+    ],
+    [
+      "future research",
+      1
+    ],
+    [
+      "thai",
+      1
+    ],
+    [
+      "syntactic",
+      1
+    ],
+    [
+      "count noun hypothesis",
+      1
+    ],
+    [
+      "korean",
+      1
+    ],
+    [
+      "numerals",
+      1
+    ],
+    [
+      "coercion",
+      1
+    ],
+    [
+      "量詞",
+      1
+    ],
+    [
+      "分類詞",
+      1
+    ],
+    [
+      "對外華語教學",
+      1
+    ],
+    [
+      "教學分級",
+      1
+    ],
+    [
+      "numeral classifier",
+      1
+    ],
+    [
+      "single origin",
+      1
+    ],
+    [
+      "sinitic",
+      1
+    ],
+    [
+      "tai-",
+      1
+    ],
+    [
+      "database",
+      1
+    ],
+    [
+      "nominalclassification",
+      1
+    ],
+    [
+      "numeralclassifiers",
+      1
+    ],
+    [
+      "sortalclassifiers",
+      1
+    ],
+    [
+      "wacl",
+      1
+    ],
+    [
+      "1 why numeral classifiers?",
+      1
+    ],
+    [
+      "aselementsandexpe-",
+      1
+    ],
+    [
+      "organized (clahsen 2016: 599",
+      1
+    ],
+    [
+      "variousmechanisms",
+      1
+    ],
+    [
+      "although many studies have investigated the activation of perceptual representations during language",
+      1
+    ],
+    [
+      "the present research shows that language comprehenders are sensitive to multiple states of target and seman-",
+      1
+    ],
+    [
+      "manystudieshaveshownthatsentencesimplyinganobjecttohaveacertainshapeproducearobustreaction",
+      1
+    ],
+    [
+      "sentenceprocessing",
+      1
+    ],
+    [
+      "sensorimotorprocessing",
+      1
+    ],
+    [
+      "memory.",
+      1
+    ],
+    [
+      "mental simulantion",
+      1
+    ],
+    [
+      "recognition memory",
+      1
+    ],
+    [
+      "sentence processing",
+      1
+    ],
+    [
+      "non-native",
+      1
+    ],
+    [
+      "eventrepresentation, objectrepresentation, episodicmemory, semanticmemory, types and tokens",
+      1
+    ],
+    [
+      "artificial intelligence, cognitive science, sociotechnical relationship",
+      1
+    ],
+    [
+      "profile",
+      1
+    ],
+    [
+      "taiwan mandarin.",
+      1
+    ],
+    [
+      "grounding",
+      1
+    ],
+    [
+      "multimodal language models",
+      1
+    ],
+    [
+      "embodiment",
+      1
+    ],
+    [
+      "number, quantity, sentencecomprehension, symbolgrounding",
+      1
+    ]
+  ],
+  "metadata": {
+    "total_concepts": 77,
+    "total_pairs": 30,
+    "max_frequency": 4,
+    "avg_frequency": 1.1688311688311688
+  }
+}

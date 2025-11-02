@@ -1,8 +1,8 @@
 ---
-title: Memory&Cognition(2020)48:390–399
+title: "Memory&Cognition(2020)48:390–399"
 authors: M.Altmann, Keywords Objectstate, H.Joergensen, A.Zwaan
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:41:07
 ---
 

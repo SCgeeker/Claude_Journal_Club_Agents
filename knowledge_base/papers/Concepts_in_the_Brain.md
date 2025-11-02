@@ -1,8 +1,8 @@
 ---
 title: Concepts in the Brain
 authors: David Kemmerer, Linguistic Diversity, United States, Madison Avenue, New York, The View, Oxford University
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 15:50:47
 ---
 

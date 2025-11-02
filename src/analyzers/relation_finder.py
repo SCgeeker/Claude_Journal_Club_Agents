@@ -602,6 +602,247 @@ class RelationFinder:
             }
         }
 
+    def build_timeline(self,
+                      start_year: int = None,
+                      end_year: int = None,
+                      group_by: str = 'year') -> Dict:
+        """
+        構建研究時間線（Day 3新增）
+
+        Args:
+            start_year: 起始年份（默認自動）
+            end_year: 結束年份（默認當前年）
+            group_by: 分組粒度 ('year'/'5year')
+
+        Returns:
+            Dict: 包含時間點和趨勢信息
+        """
+        papers = self._load_papers()
+        timeline_data = {}
+
+        # 步驟1: 按年份分組論文
+        for paper in papers:
+            year = paper.get('year')
+
+            # 驗證年份有效性
+            if not year or year < 1900 or year > 2030:
+                continue
+
+            if year not in timeline_data:
+                timeline_data[year] = []
+
+            timeline_data[year].append(paper)
+
+        # 步驟2: 確定年份範圍
+        if not timeline_data:
+            return {'timepoints': [], 'metadata': {'total_years': 0}}
+
+        years = sorted(timeline_data.keys())
+        start_year = start_year or years[0]
+        end_year = end_year or years[-1]
+
+        # 步驟3: 構建時間點
+        timepoints = []
+
+        if group_by == 'year':
+            for year in range(start_year, end_year + 1):
+                papers_in_year = timeline_data.get(year, [])
+
+                if papers_in_year:
+                    # 提取該年的頂級概念
+                    concepts = {}
+                    for paper in papers_in_year:
+                        keywords = paper.get('keywords', [])
+                        if isinstance(keywords, str):
+                            keywords = [k.strip() for k in keywords.split(',')]
+                        elif keywords is None:
+                            keywords = []
+
+                        for kw in keywords:
+                            concepts[kw] = concepts.get(kw, 0) + 1
+
+                    top_concepts = sorted(concepts.items(), key=lambda x: x[1], reverse=True)[:5]
+
+                    timepoint = {
+                        'period': str(year),
+                        'year': year,
+                        'paper_count': len(papers_in_year),
+                        'paper_ids': [p['id'] for p in papers_in_year],
+                        'top_concepts': [c[0] for c in top_concepts],
+                        'concept_counts': dict(top_concepts),
+                    }
+                    timepoints.append(timepoint)
+
+        elif group_by == '5year':
+            # 5年分組
+            for start in range(start_year, end_year + 1, 5):
+                end = min(start + 4, end_year)
+                period_papers = []
+
+                for year in range(start, end + 1):
+                    period_papers.extend(timeline_data.get(year, []))
+
+                if period_papers:
+                    concepts = {}
+                    for paper in period_papers:
+                        keywords = paper.get('keywords', [])
+                        if isinstance(keywords, str):
+                            keywords = [k.strip() for k in keywords.split(',')]
+                        elif keywords is None:
+                            keywords = []
+
+                        for kw in keywords:
+                            concepts[kw] = concepts.get(kw, 0) + 1
+
+                    top_concepts = sorted(concepts.items(), key=lambda x: x[1], reverse=True)[:5]
+
+                    timepoint = {
+                        'period': f"{start}-{end}",
+                        'start_year': start,
+                        'end_year': end,
+                        'paper_count': len(period_papers),
+                        'paper_ids': [p['id'] for p in period_papers],
+                        'top_concepts': [c[0] for c in top_concepts],
+                    }
+                    timepoints.append(timepoint)
+
+        # 步驟4: 計算趨勢
+        return {
+            'timepoints': timepoints,
+            'metadata': {
+                'start_year': start_year,
+                'end_year': end_year,
+                'total_years': len([tp for tp in timepoints if tp.get('paper_count', 0) > 0]),
+                'total_papers': sum(tp.get('paper_count', 0) for tp in timepoints),
+                'grouping': group_by,
+            }
+        }
+
+    def export_timeline_to_mermaid(self,
+                                   timeline_data: Dict = None,
+                                   output_path: str = None) -> str:
+        """
+        將時間線導出為Mermaid時序圖
+
+        Args:
+            timeline_data: 時間線數據
+            output_path: 輸出檔案路徑
+
+        Returns:
+            Mermaid代碼或檔案路徑
+        """
+        if timeline_data is None:
+            timeline_data = self.build_timeline()
+
+        lines = []
+        lines.append("```mermaid")
+        lines.append("gantt")
+        lines.append("    title 研究時間線")
+        lines.append("    dateFormat YYYY")
+        lines.append("")
+
+        # 添加時間點任務
+        for tp in timeline_data['timepoints']:
+            period = tp.get('period', 'Unknown')
+            count = tp.get('paper_count', 0)
+            year = tp.get('year')
+
+            if year:
+                lines.append(f"    論文發表 {year}: crit, {year}, {year}, {count}篇")
+
+        lines.append("")
+        lines.append("```")
+
+        mermaid_code = '\n'.join(lines)
+
+        if output_path:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(mermaid_code)
+            print(f"✅ 時間線Mermaid已導出到: {output_path}")
+            return output_path
+        else:
+            return mermaid_code
+
+    def export_to_json(self,
+                       include_citations: bool = True,
+                       include_coauthors: bool = True,
+                       include_concepts: bool = True,
+                       include_timeline: bool = True,
+                       output_path: str = None) -> Dict:
+        """
+        導出所有關係型別為統一的JSON格式
+
+        Args:
+            include_citations: 包含引用關係
+            include_coauthors: 包含共同作者
+            include_concepts: 包含概念共現
+            include_timeline: 包含時間線
+            output_path: 輸出檔案路徑
+
+        Returns:
+            統一的JSON數據結構
+        """
+        result = {
+            'version': '1.0',
+            'generated_at': datetime.now().isoformat(),
+            'data': {}
+        }
+
+        # 引用關係
+        if include_citations:
+            citations = self.find_citations_by_embedding(
+                threshold=self.config.get('citation_threshold', 0.65),
+                max_results=self.config.get('max_citations', 50)
+            )
+            result['data']['citations'] = {
+                'count': len(citations),
+                'items': [
+                    {
+                        'citing_paper_id': c.citing_paper_id,
+                        'cited_paper_id': c.cited_paper_id,
+                        'similarity_score': c.similarity_score,
+                        'confidence': c.confidence,
+                        'common_concepts': c.common_concepts
+                    }
+                    for c in citations
+                ]
+            }
+
+        # 共同作者
+        if include_coauthors:
+            coauthors = self.find_co_authors(min_papers=1)
+            result['data']['coauthors'] = coauthors
+
+        # 概念共現
+        if include_concepts:
+            concepts = self.find_co_occurrence(min_frequency=1, top_k=50)
+            result['data']['concepts'] = concepts
+
+        # 時間線
+        if include_timeline:
+            timeline = self.build_timeline(group_by='year')
+            result['data']['timeline'] = timeline
+
+        # 元數據統計
+        result['metadata'] = {
+            'citation_count': result['data'].get('citations', {}).get('count', 0) if include_citations else 0,
+            'author_count': result['data'].get('coauthors', {}).get('metadata', {}).get('total_authors', 0) if include_coauthors else 0,
+            'concept_count': result['data'].get('concepts', {}).get('metadata', {}).get('total_concepts', 0) if include_concepts else 0,
+            'collaboration_count': result['data'].get('coauthors', {}).get('metadata', {}).get('total_collaborations', 0) if include_coauthors else 0,
+            'concept_pair_count': result['data'].get('concepts', {}).get('metadata', {}).get('total_pairs', 0) if include_concepts else 0,
+            'year_range': (result['data'].get('timeline', {}).get('metadata', {}).get('start_year'),
+                          result['data'].get('timeline', {}).get('metadata', {}).get('end_year')) if include_timeline else (None, None),
+            'total_papers': result['data'].get('timeline', {}).get('metadata', {}).get('total_papers', 0) if include_timeline else 0,
+        }
+
+        if output_path:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(result, f, ensure_ascii=False, indent=2)
+            print(f"✅ 完整關係JSON已導出到: {output_path}")
+            return result
+        else:
+            return result
+
     def find_author_collaboration_relations(self, paper_id: int) -> List[Relation]:
         """
         通過共同作者發現合作關係
@@ -811,9 +1052,9 @@ class RelationFinder:
 
         return G
 
-    def export_to_json(self, network_data: Dict, output_path: str):
+    def _export_network_to_json(self, network_data: Dict, output_path: str):
         """
-        導出為JSON格式
+        導出網絡數據為JSON格式（內部輔助方法）
 
         Args:
             network_data: 網絡數據
@@ -1240,6 +1481,91 @@ if __name__ == "__main__":
     print("\n" + "=" * 70)
     print("✅ Phase 2.1 Day 2 測試完成！")
     print("=" * 70)
+
+    # ===== 測試 5: 時間線分析（Day 3新增） =====
+    print("\n" + "=" * 70)
+    print("測試 5: 時間線分析（Day 3新增）")
+    print("=" * 70)
+
+    # 年度時間線
+    print("\n📅 年度時間線:")
+    timeline_year = finder.build_timeline(group_by='year')
+
+    print(f"   📊 起始年份: {timeline_year['metadata']['start_year']}")
+    print(f"   📊 結束年份: {timeline_year['metadata']['end_year']}")
+    print(f"   📊 覆蓋年份: {timeline_year['metadata']['total_years']}")
+    print(f"   📊 論文總數: {timeline_year['metadata']['total_papers']}")
+    print(f"   📊 分組方式: {timeline_year['metadata']['grouping']}")
+
+    if timeline_year['timepoints']:
+        print(f"\n   🏆 Top 5 論文發表年份:")
+        sorted_timepoints = sorted(timeline_year['timepoints'],
+                                 key=lambda x: x.get('paper_count', 0),
+                                 reverse=True)
+        for i, tp in enumerate(sorted_timepoints[:5], 1):
+            year = tp.get('year', 'Unknown')
+            count = tp.get('paper_count', 0)
+            concepts = tp.get('top_concepts', [])
+            print(f"      {i}. {year}: {count}篇論文 | 概念: {', '.join(concepts[:2])}")
+
+    # 5年期時間線
+    print("\n📅 5年期時間線:")
+    timeline_5y = finder.build_timeline(group_by='5-year')
+
+    if timeline_5y['timepoints']:
+        print(f"   📊 期間數: {len(timeline_5y['timepoints'])}")
+        for i, tp in enumerate(timeline_5y['timepoints'], 1):
+            period = tp.get('period', 'Unknown')
+            count = tp.get('paper_count', 0)
+            print(f"      {i}. {period}: {count}篇論文")
+
+    # 導出時間線Mermaid
+    print("\n📊 生成時間線Mermaid...")
+    finder.export_timeline_to_mermaid(
+        timeline_data=timeline_year,
+        output_path=output_dir / "timeline.md"
+    )
+
+    # ===== 測試 6: 完整JSON導出（Day 3新增） =====
+    print("\n" + "=" * 70)
+    print("測試 6: 完整關係JSON導出（Day 3新增）")
+    print("=" * 70)
+
+    print("\n📦 生成完整關係JSON...")
+    complete_json = finder.export_to_json(
+        include_citations=True,
+        include_coauthors=True,
+        include_concepts=True,
+        include_timeline=True,
+        output_path=output_dir / "complete_relations.json"
+    )
+
+    print(f"\n📊 統一JSON統計:")
+    metadata = complete_json.get('metadata', {})
+    print(f"   引用關係數: {metadata.get('citation_count', 0)}")
+    print(f"   作者總數: {metadata.get('author_count', 0)}")
+    print(f"   協作對數: {metadata.get('collaboration_count', 0)}")
+    print(f"   概念總數: {metadata.get('concept_count', 0)}")
+    print(f"   概念對數: {metadata.get('concept_pair_count', 0)}")
+    print(f"   論文年份: {metadata.get('year_range')}")
+    print(f"   論文總數: {metadata.get('total_papers', 0)}")
+
+    print("\n" + "=" * 70)
+    print("✅ Phase 2.1 Day 3 測試完成！")
+    print("=" * 70)
+
+    print("\n📁 已生成的輸出檔案:")
+    for file in sorted(output_dir.glob("*")):
+        size = file.stat().st_size / 1024 if file.is_file() else 0
+        print(f"   ✓ {file.name} ({size:.1f}KB)" if file.is_file() else f"   ✓ {file.name}/")
+
+    print("\n🎉 Phase 2.1 開發完成！\n")
+    print("📋 Phase 2.1 成果統計:")
+    print(f"   Day 1: ✅ 引用關係抽取和Mermaid可視化")
+    print(f"   Day 2: ✅ 共同作者和概念共現分析")
+    print(f"   Day 3: ✅ 時間線和完整JSON導出")
+    print(f"   Day 4: ⏳ 單元測試和kb_manage.py集成 (待進行)")
+    print("\n" + "=" * 70)
     print(f"\n📁 輸出檔案:")
     print(f"   ✅ {output_dir}/coauthor_network.json")
     print(f"   ✅ {output_dir}/coauthor_network.md (Mermaid)")

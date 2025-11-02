@@ -1,11 +1,12 @@
 ---
 title: Journal Pre-proof
-authors: Journal Pre, Sean Trott, Encode Implied, Language Comprehenders, Diane Pecher, Revised Date, Accepted Date, Received Date
-year: N/A
+authors: René Zeelenberg, Diane Pecher, Mirthe E.M. van der Meijden, Sean Trott, Benjamin
+  Bergen
+year: 2024
 keywords: mental simulantion, recognition memory, sentence processing, non-native
+  language comprehension
 created: 2025-10-29 16:49:05
 ---
-
 # Journal Pre-proof
 
 ## 基本信息

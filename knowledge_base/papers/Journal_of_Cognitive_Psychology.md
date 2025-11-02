@@ -1,8 +1,8 @@
 ---
 title: Journal of Cognitive Psychology
 authors: View Crossmark, Full Terms, I. Wassenburg, T. Bos, Cognitive Psychology
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:21:21
 ---
 

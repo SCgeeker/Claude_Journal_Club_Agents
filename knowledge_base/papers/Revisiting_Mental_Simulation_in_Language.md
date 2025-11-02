@@ -1,8 +1,8 @@
 ---
 title: Revisiting Mental Simulation in Language
 authors: A. Zwaan, Revisiting Mental, Mechanical Turk, Diane Pecher, Six Replication
-year: N/A
-keywords: 
+year: null
+keywords: []
 created: 2025-10-29 16:50:39
 ---
 

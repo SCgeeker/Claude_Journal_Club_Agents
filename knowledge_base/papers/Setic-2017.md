@@ -1,7 +1,7 @@
 ---
-title: Research Article
-authors: Picture Verification, Numerical Congruency, Research Article
-year: N/A
+title: Numerical congruency effect in the sentence-picture verification task
+authors: Mia Šetić, Dražen Domijan
+year: 2017
 keywords: number, quantity, sentencecomprehension, symbolgrounding
 created: 2025-10-29 16:45:50
 ---

@@ -1,0 +1,58 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Taxonomy of Numeral Classifiers:",
+      "title": "Taxonomy of Numeral Classifiers:",
+      "year": 2007,
+      "cite_key": null
+    },
+    {
+      "id": 2,
+      "label": "Chinese Classifiers and Count Nouns",
+      "title": "Chinese Classifiers and Count Nouns",
+      "year": 2009,
+      "cite_key": "Yi-2009"
+    },
+    {
+      "id": 5,
+      "label": "華語分類詞的界定與教學上的分級 1",
+      "title": "華語分類詞的界定與教學上的分級 1",
+      "year": 2020,
+      "cite_key": "ChenYiRu-2020"
+    },
+    {
+      "id": 6,
+      "label": "A single origin of numeral classifiers",
+      "title": "A single origin of numeral classifiers",
+      "year": 2023,
+      "cite_key": "Her-2023"
+    },
+    {
+      "id": 9,
+      "label": "Classifiers",
+      "title": "Classifiers",
+      "year": 2016,
+      "cite_key": "Ahrens-2016"
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 2,
+      "type": "citation",
+      "strength": 0.8
+    }
+  ],
+  "metadata": {
+    "total_nodes": 5,
+    "total_edges": 1,
+    "paper_ids": [
+      1,
+      2,
+      5,
+      6,
+      9
+    ]
+  }
+}

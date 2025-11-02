@@ -1,8 +1,8 @@
 ---
-title: Events as Intersecting Object Histories: A New Theory of
-authors: Intersecting Object, Zachary Ekves, Event Representation, M. Altmann, New Theory
-year: N/A
-keywords: eventrepresentation, objectrepresentation, episodicmemory, semanticmemory, typesand
+title: "“Events as intersecting object histories: A new theory of event representation”"
+authors: Gerry T. M. Altmann, Zachary Ekves
+year: 2019
+keywords: eventrepresentation, objectrepresentation, episodicmemory, semanticmemory, types and tokens
 created: 2025-10-29 16:13:38
 ---
 
