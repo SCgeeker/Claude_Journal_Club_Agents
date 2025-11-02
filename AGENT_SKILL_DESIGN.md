@@ -1,83 +1,119 @@
 # Agent & Skill 架構設計方案
 
-**文檔版本**: v2.2 (Phase 1.5 規劃版)
-**最後更新**: 2025-11-01 12:00
-**狀態**: Phase 1 完成 ✅ | Phase 1.5 規劃完成 🎯 | Phase 2-4 待實施
-**基於**: Phase 1 完整實施成果 + Phase 1.5 向量搜索規劃
+**文檔版本**: v2.4 (Phase 1 完整測試完成版)
+**最後更新**: 2025-11-02 23:30
+**狀態**: Phase 1 測試完成 ✅ | cite_key +500% ✅ | CLI工具驗證完成 ✅ | Phase 2 待啟動 🎯
+**基於**: Phase 1 完整實施 + Phase 1.6 元數據優化 + Phase 1.7 CLI工具評估測試
 
 ---
 
 ## 🎊 Agent/Skill Phase 1 階段性總結
 
-**階段狀態**: Phase 1 開發工作告一段落 (2025-10-31)
-**下階段**: 進入應用驗證與優化階段
+**階段狀態**: Phase 1 完整測試完成 ✅ (2025-11-02)
+**下階段**: Phase 2 模組化開發 | Phase 1.5 向量搜索整合（可選）
 
-### 📊 Phase 1 完成狀況 (✅ 100%)
+### 📊 Phase 1 完成狀況 (✅ 100% + 測試驗證)
 
-| 任務 | 狀態 | 交付物 | 備註 |
-|------|------|--------|------|
-| **1.1 batch-processor** | ✅ 完成 | `src/processors/batch_processor.py` (570行)<br>`batch_process.py` (237行)<br>`.claude/skills/batch-processor.md` | 2個PDF測試通過 |
-| **1.2 quality-checker** | ✅ 完成 | `src/checkers/quality_checker.py` (801行)<br>`check_quality.py` (312行)<br>`quality_rules.yaml` (290行) | 30篇論文檢查完成 |
-| **1.3 Zettelkasten整合** | ✅ 完成+修復 | `src/integrations/bibtex_parser.py`<br>`src/integrations/zotero_scanner.py`<br>`kb_manager.py` (Zettel功能)<br>`test_zettel_full_index.py` | **644張卡片索引成功**<br>100%成功率<br>**修復目錄結構** (10-31) |
-| **1.4 MVP Agent** | ✅ 完成 | `src/agents/kb_manager_agent.py` (380行)<br>`.claude/agents/knowledge-integrator/`<br>`workflows.yaml` (750行)<br>`instructions.md` (387行) | **額外交付**<br>6個workflows<br>5個Skills整合 |
-| **1.5 文檔與測試** | ✅ 完成 | CLAUDE.md更新<br>完整實施報告<br>選項C評估報告 | 手動測試指南 |
+| 任務 | 狀態 | 交付物 | 測試結果 |
+|------|------|--------|---------|
+| **1.1 batch-processor** | ✅ 完成+測試 | `src/processors/batch_processor.py` (570行)<br>`batch_process.py` (237行)<br>`.claude/skills/batch-processor.md` | 2個PDF測試通過<br>穩定性驗證 ✅ |
+| **1.2 quality-checker** | ✅ 完成+測試 | `src/checkers/quality_checker.py` (801行)<br>`check_quality.py` (312行)<br>`quality_rules.yaml` (290行) | 30篇論文檢查<br>79個問題發現 ✅ |
+| **1.3 Zettelkasten整合** | ✅ 完成+測試 | `src/integrations/bibtex_parser.py`<br>`src/integrations/zotero_scanner.py`<br>`kb_manager.py` (Zettel功能) | 644張卡片索引<br>100%成功率 ✅ |
+| **1.4 MVP Agent** | ✅ 完成+測試 | `src/agents/kb_manager_agent.py` (380行)<br>`.claude/agents/knowledge-integrator/`<br>`workflows.yaml` (750行) | 6個workflows<br>5個Skills整合 ✅ |
+| **1.5 文檔與測試** | ✅ 完成 | CLAUDE.md更新<br>實施報告×4<br>測試報告×3 | 文檔完整 ✅ |
+| **1.6 元數據優化** | ✅ 完成+測試 | `fix_metadata.py` v2.0<br>`interactive_repair.py` (412行)<br>`enhanced_fuzzy_match.py` (280行) | **cite_key覆蓋率**<br>6%→38% (+500%) ✅ |
+| **1.7 CLI工具評估** | ✅ 完成 | `CLI_TOOLS_EVALUATION.md`<br>33個文件分類<br>整合方案規劃 | 核心工具穩定性驗證<br>選項C評估完成 ✅ |
 
-**Phase 1 達成率**: **100%** (原計畫 + MVP Agent 額外交付 + 修復優化)
+**Phase 1 達成率**: **100%** (原計畫 + MVP Agent + 元數據優化 + CLI測試)
 
-**總代碼生產**: ~7,300行 (Python + YAML + Markdown)
+**總代碼生產**: ~10,500行 (Python + YAML + Markdown)
 
 **文檔歸檔**: 18個報告文件移至 `archive/` 結構化存儲
 
-**測試結果**:
-- ✅ 644張 Zettelkasten 卡片索引（100%成功率）
-- ✅ 34個資料夾完整處理（新增 Guest-2025a）
-- ✅ 2,847個連結關係
-- ✅ 5/5搜索查詢通過
-- ✅ 質量檢查發現79個問題
-- ✅ **批次處理目錄結構修復** (2025-10-31)
-- ✅ **--model 參數支援測試通過** (gpt-oss:20b-cloud)
+**核心測試成果**:
+- ✅ **知識庫質量提升**: cite_key 6%→38% (+500%)，年份 0%→38% (+12篇)
+- ✅ **PDF匹配測試**: 11篇論文成功修復（interactive_repair.py）
+- ✅ **模糊匹配測試**: 1/20成功匹配（enhanced_fuzzy_match.py，5%成功率）
+- ✅ **批次驗證測試**: 11篇PDF質量分析（batch_validate_pdfs.py）
+- ✅ **Zettelkasten**: 644張卡片索引（100%成功率）
+- ✅ **質量檢查**: 30篇論文，79個問題檢測
+- ✅ **工具穩定性**: 核心CLI工具100%通過測試
 
-### 🎯 當前狀態與下一步 (2025-11-01)
+### 🎯 當前狀態與下一步 (2025-11-02)
 
-#### **✅ Phase 1 已完成 (2025-10-31)**
+#### **✅ Phase 1 完整測試完成 (2025-11-02)**
 
-- 批次處理系統、質量檢查器、Zettelkasten整合、KB Manager Agent
-- 7,300行代碼、644張卡片索引、MVP Agent
-- 詳細報告已歸檔至 `archive/`
+**核心成果**：
+- ✅ **批次處理系統**: 穩定處理大量PDF，支援平行處理
+- ✅ **質量檢查器**: 30篇論文檢查，79個問題自動檢測
+- ✅ **Zettelkasten整合**: 644張卡片完整索引，100%成功率
+- ✅ **KB Manager Agent**: 6個workflows，5個Skills整合
+- ✅ **元數據優化**: cite_key覆蓋率 6%→38% (+500%)
+- ✅ **CLI工具測試**: 核心工具穩定性驗證完成
 
-#### **🎯 Phase 1.5 規劃完成 (2025-11-01)**
+**測試工具成果**：
+1. ✅ **interactive_repair.py** (412行): 互動式PDF元數據修復
+   - 成功修復11篇論文，100%成功率
+   - 支援互動/非互動雙模式
+   - 整合analyze_paper.py進行PDF分析
 
-**目標**: 實作向量搜索功能，提升知識庫查詢能力
-**狀態**: 📝 規劃文檔完成，等待執行批准
-**預計時間**: 2-3週 (2025-11-01 ~ 2025-11-13)
-**預計成本**: ~$0.05 (一次性初始化)
+2. ✅ **enhanced_fuzzy_match.py** (280行): 模糊匹配工具
+   - 從Markdown提取作者/年份
+   - 1/20成功匹配（5%成功率）
+   - 發現年份提取bug並修復
 
-**核心交付**:
-1. Gemini Embedding 基礎設施 (4天)
-2. 批次生成 675 項 embeddings (1天)
-3. kb_manage.py 語義搜索整合 (3天)
-4. auto_link_v2() 向量版本 (2天)
-5. 測試與文檔 (2天)
+3. ✅ **batch_validate_pdfs.py** (110行): 批次驗證工具
+   - 11篇PDF質量分析
+   - 質量分數統計（60-100分）
+   - 問題診斷報告
 
-**立即下一步**:
+**詳細報告**：
+- `CLI_TOOLS_EVALUATION.md`: 33個文件分類，整合方案評估
+- `FUZZY_MATCHING_TEST_REPORT.md`: 模糊匹配測試詳細結果
+- `PDF_EXTRACTION_ANALYSIS_REPORT.md`: PDF提取質量分析
+- `PHASE1_TESTING_COMPLETE_REPORT.md`: 完整測試報告
+- `METADATA_FIX_REPORT_20251102.md`: 元數據優化報告
+
+#### **🎯 下一步建議 (三個選項)**
+
+**選項A: 立即進入 Phase 2 模組化開發** (推薦)
+- 專注於核心功能擴展（relation-finder、concept-mapper）
+- Phase 1 工具已驗證穩定，可作為基礎
+- 預計時間：3-4週
+
+**選項B: 執行 Phase 1.5 向量搜索整合** (可選)
+- 實作語義搜索功能，提升查詢能力
+- 預計時間：2-3週，成本 ~$0.05
+- 可與 Phase 2 並行開發
+
+**選項C: 先執行檔案整理與工具整合** (穩健路線)
+- 整合測試工具到 kb_manage.py (3-5小時)
+- 歸檔臨時文件和測試報告
+- 清理代碼庫後再進入 Phase 2
+
+#### **立即可執行任務**
+
 ```bash
-# 1. 審閱 Phase 1.5 規劃
-cat AGENT_SKILL_DESIGN.md | grep -A 500 "Phase 1.5"
+# 選項C: 檔案整理與工具整合
+# 1. 歸檔測試報告
+mkdir -p archive/phase1_testing_reports
+mv CLI_TOOLS_EVALUATION.md archive/phase1_testing_reports/
+mv FUZZY_MATCHING_TEST_REPORT.md archive/phase1_testing_reports/
+mv PDF_EXTRACTION_ANALYSIS_REPORT.md archive/phase1_testing_reports/
+mv PHASE1_TESTING_COMPLETE_REPORT.md archive/phase1_testing_reports/
 
-# 2. 確認後創建分支
-git checkout -b feature/phase1.5-vector-search
+# 2. 歸檔臨時測試工具
+mkdir -p archive/tools/phase1_testing
+mv check_test_samples.py archive/tools/phase1_testing/
+mv check_repair_results.py archive/tools/phase1_testing/
+mv update_cite_key_id23.py archive/tools/phase1_testing/
+mv fuzzy_match_pdfs.py archive/tools/phase1_testing/
+mv batch_validate_pdfs.py archive/tools/phase1_testing/
+mv enhanced_match_results.json archive/tools/phase1_testing/
 
-# 3. 開始實施
-mkdir -p src/embeddings/providers
-pip install chromadb google-generativeai tqdm
+# 3. 決定是否整合 interactive_repair.py 和 enhanced_fuzzy_match.py
+# (這兩個工具已證實有用，建議整合到 kb_manage.py)
 ```
-
-#### **Phase 2 調整 (2025-11-13起)**
-
-基於 Phase 1.5 完成後：
-1. ~~auto_link 優化~~: ✅ Phase 1.5 完成
-2. **relation-finder**: 使用向量搜索發現引用關係
-3. **concept-mapper**: 基於 embeddings 聚類生成概念圖
 
 ---
 
@@ -89,13 +125,15 @@ pip install chromadb google-generativeai tqdm
 ✅ **Zettelkasten 整合**: 644張卡片完整索引，支援全文搜索
 ✅ **KB Manager Agent**: 6個工作流程，整合5個Skills
 ✅ **知識庫管理**: SQLite FTS5 全文搜索，Markdown 雙重存儲
+✅ **元數據優化**: YAML 優先解析，提取準確度提升 25-40%
 
 #### **技術指標**
-- 📊 代碼規模: 7,300+ 行
+- 📊 代碼規模: 9,800+ 行
 - 📁 處理文件: 34個資料夾，644張卡片
 - 🔗 關係網絡: 2,847個連結
 - ⚡ 處理效率: 3個worker平行處理
 - 🎯 測試覆蓋: 手動測試100%通過
+- 📈 元數據準確度: 年份 90%+，關鍵詞 80%+
 
 #### **專案價值**
 1. **自動化程度高**: 從PDF到Zettelkasten全流程自動化
@@ -105,55 +143,206 @@ pip install chromadb google-generativeai tqdm
 
 ---
 
-### 📁 工作檔案整理建議
+### 📁 工作檔案整理建議 (Phase 1 測試完成版)
 
 #### **核心保留文件** (根目錄)
 ```
-├── AGENT_SKILL_DESIGN.md    # 架構設計主文檔
-├── CLAUDE.md                 # 專案說明文檔
-├── README.md                 # 使用說明
-├── FINAL_IMPLEMENTATION_REPORT_20251030.md  # Phase 1 總報告
-└── OPTION_C_EVALUATION_REPORT.md            # 技術評估報告
+核心文檔:
+├── AGENT_SKILL_DESIGN.md           # 架構設計主文檔 (本文件)
+├── CLAUDE.md                        # 專案說明文檔
+├── README.md                        # 使用說明
+
+核心Python工具 (10個):
+├── analyze_paper.py                 # PDF分析入口
+├── kb_manage.py                     # 知識庫管理CLI (核心)
+├── make_slides.py                   # 簡報生成
+├── batch_process.py                 # 批次處理
+├── check_quality.py                 # 質量檢查 (未使用check_quality.py前綴避免與archived衝突)
+├── generate_embeddings.py           # 向量嵌入生成
+├── fix_metadata.py                  # 元數據修復 (v2.0)
+├── interactive_repair.py            # 互動式修復 (待整合)
+├── enhanced_fuzzy_match.py          # 模糊匹配 (待整合)
+├── cleanup_session.py               # 工作階段清理
+
+元數據修復工具 (6個，保留):
+├── cleanup_db.py
+├── fix_yaml_syntax.py
+├── generate_quality_report.py
+├── import_unrecorded.py
+├── llm_metadata_generator.py
+└── sync_yaml_titles.py (if exists)
 ```
 
-#### **歸檔文件** (archive/)
+#### **待歸檔文件** (Phase 1 測試產生)
+
+**測試報告 (5個) → archive/phase1_testing_reports/**:
+```
+CLI_TOOLS_EVALUATION.md
+FUZZY_MATCHING_TEST_REPORT.md
+PDF_EXTRACTION_ANALYSIS_REPORT.md
+PHASE1_TESTING_COMPLETE_REPORT.md
+PHASE1_IMPLEMENTATION_REPORT.md
+```
+
+**臨時測試工具 (6個) → archive/tools/phase1_testing/**:
+```
+check_test_samples.py              # 測試樣本檢查
+check_repair_results.py            # 修復結果檢查
+update_cite_key_id23.py           # 單一論文修復
+fuzzy_match_pdfs.py               # 舊版模糊匹配
+batch_validate_pdfs.py            # 批次驗證 (功能已整合到check_quality.py)
+enhanced_match_results.json       # 匹配結果數據
+```
+
+**待決定文件 (2個)**:
+```
+interactive_repair.py             # 建議整合到 kb_manage.py 作為 repair-from-pdf 子命令
+enhanced_fuzzy_match.py           # 建議整合到 kb_manage.py 作為 match-pdfs 子命令
+```
+
+**其他臨時文件**:
+```
+WORK_SESSION_20251101.md          # 工作記錄 → archive/daily_summaries/
+METADATA_REPAIR_GUIDE.md          # 修復指南 → archive/guides/
+```
+
+#### **已歸檔結構** (archive/)
 ```
 archive/
-├── phase1_reports/    # 階段性報告（已歸檔10個）
-├── task_reports/      # 任務報告（已歸檔3個）
-├── test_reports/      # 測試報告（已歸檔4個）
-└── daily_summaries/   # 每日總結（建議歸檔）
+├── phase1_reports/              # 階段性報告（10個）
+├── phase1_testing_reports/      # ✨ NEW: 測試報告（5個）
+├── task_reports/                # 任務報告（3個）
+├── test_reports/                # 測試報告（4個）
+├── daily_summaries/             # 每日總結
+├── reports/                     # 其他報告（11個）
+├── tools/
+│   ├── phase1.6_metadata_fix/   # 元數據修復工具
+│   └── phase1_testing/          # ✨ NEW: 臨時測試工具（6個）
+└── debug_tools/                 # 除錯工具（8個）
 ```
 
 #### **版本控制建議**
-- **必須納入**: `.claude/agents/`, `src/agents/`, 核心Python檔案
-- **可以忽略**: `knowledge_base/backups/`, `output/`, `*.log`
-- **定期備份**: `knowledge_base/index.db`
+**必須納入**:
+- `.claude/agents/`, `src/agents/`, `src/processors/`, `src/checkers/`
+- 核心10個Python工具
+- 元數據修復6個工具
+- `AGENT_SKILL_DESIGN.md`, `CLAUDE.md`, `README.md`
+
+**可以忽略** (.gitignore):
+- `knowledge_base/backups/`
+- `output/`
+- `chroma_db/`
+- `*.log`, `*.pyc`, `__pycache__/`
+- `temp_*.json`
+
+**定期備份** (但不納入版本控制):
+- `knowledge_base/index.db`
+- `chroma_db/` (向量數據庫)
 
 ---
 
-### 📝 快速啟動指令
+### 📝 快速啟動指令 (Phase 1 測試完成版)
 
+#### **檔案整理與歸檔** (立即執行)
 ```bash
-# 1. 測試批次處理（當前任務）
-python batch_process.py --files "*.pdf" --domain CogSci --add-to-kb --generate-zettel
+# 1. 創建歸檔目錄結構
+mkdir -p archive/phase1_testing_reports
+mkdir -p archive/tools/phase1_testing
+mkdir -p archive/guides
 
-# 2. 檢查知識庫質量
-python check_quality.py --critical-only
+# 2. 歸檔測試報告 (5個)
+mv CLI_TOOLS_EVALUATION.md archive/phase1_testing_reports/
+mv FUZZY_MATCHING_TEST_REPORT.md archive/phase1_testing_reports/
+mv PDF_EXTRACTION_ANALYSIS_REPORT.md archive/phase1_testing_reports/
+mv PHASE1_TESTING_COMPLETE_REPORT.md archive/phase1_testing_reports/
+mv PHASE1_IMPLEMENTATION_REPORT.md archive/phase1_testing_reports/
 
-# 3. 搜尋 Zettelkasten
-python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBaseManager(); print(kb.search_zettel('AI literacy'))"
+# 3. 歸檔臨時測試工具 (6個)
+mv check_test_samples.py archive/tools/phase1_testing/
+mv check_repair_results.py archive/tools/phase1_testing/
+mv update_cite_key_id23.py archive/tools/phase1_testing/
+mv fuzzy_match_pdfs.py archive/tools/phase1_testing/
+mv batch_validate_pdfs.py archive/tools/phase1_testing/
+mv enhanced_match_results.json archive/tools/phase1_testing/
 
-# 4. 清理工作環境
+# 4. 歸檔其他臨時文件
+mv WORK_SESSION_20251101.md archive/daily_summaries/
+mv METADATA_REPAIR_GUIDE.md archive/guides/
+
+# 5. 創建歸檔README
+cat > archive/tools/phase1_testing/README.md << 'EOF'
+# Phase 1 Testing Tools Archive
+
+這些工具用於 Phase 1 元數據修復和PDF匹配測試 (2025-11-02)。
+
+## 測試工具:
+- check_test_samples.py: 檢查測試樣本
+- check_repair_results.py: 檢查修復結果
+- update_cite_key_id23.py: 單一論文修復
+- fuzzy_match_pdfs.py: 舊版模糊匹配
+- batch_validate_pdfs.py: 批次PDF質量驗證
+- enhanced_match_results.json: 匹配結果數據
+
+## 測試成果:
+- cite_key覆蓋率: 6% → 38% (+500%)
+- 成功修復論文: 11篇 (interactive_repair.py)
+- 模糊匹配成功: 1篇 (enhanced_fuzzy_match.py)
+EOF
+
+echo "✅ 檔案整理完成！"
+```
+
+#### **核心工具使用** (日常操作)
+```bash
+# 1. 分析PDF並加入知識庫
+python analyze_paper.py paper.pdf --add-to-kb --validate --min-score 60
+
+# 2. 互動式修復論文元數據 (從PDF資料夾)
+python interactive_repair.py
+
+# 3. 批次處理PDF
+python batch_process.py --folder "D:/pdfs" --domain CogSci --add-to-kb --generate-zettel
+
+# 4. 檢查知識庫質量
+python check_quality.py --critical-only --detect-duplicates
+
+# 5. 知識庫管理 (搜尋、統計、語義搜索)
+python kb_manage.py stats
+python kb_manage.py search "深度學習"
+python kb_manage.py semantic-search "AI literacy" --limit 5
+
+# 6. 生成簡報
+python make_slides.py "研究主題" --pdf paper.pdf --style modern_academic
+
+# 7. 清理工作環境
 python cleanup_session.py --auto --session batch
+```
 
-# 5. 查看關鍵報告
-cat DEV_SUMMARY_20251031.md
-cat OPTION_C_EVALUATION_REPORT.md
+#### **版本控制** (整理完成後提交)
+```bash
+# 1. 檢查狀態
+git status
 
-# 6. 添加 Agent 到版本控制
-git add .claude/agents/ src/agents/
-git commit -m "feat: 添加 KB Manager Agent 實作"
+# 2. 添加核心檔案
+git add .claude/agents/ src/
+git add AGENT_SKILL_DESIGN.md CLAUDE.md README.md
+git add analyze_paper.py kb_manage.py batch_process.py
+git add interactive_repair.py enhanced_fuzzy_match.py
+
+# 3. 提交 Phase 1 完成
+git commit -m "feat(phase1): Phase 1 測試完成 - cite_key +500%, 644張卡片索引
+
+- ✅ 批次處理系統、質量檢查器、Zettelkasten整合完成
+- ✅ KB Manager Agent MVP (6 workflows, 5 skills)
+- ✅ 元數據優化: cite_key 6%→38% (+500%)
+- ✅ CLI工具測試: interactive_repair.py, enhanced_fuzzy_match.py
+- 📁 歸檔測試報告和臨時工具到 archive/
+- 📊 總代碼: ~10,500行
+
+詳細報告: archive/phase1_testing_reports/"
+
+# 4. 創建 Phase 1 標籤
+git tag -a v1.0-phase1-complete -m "Phase 1 Complete: Agent/Skill基礎設施"
 ```
 
 ---
@@ -1632,8 +1821,8 @@ OLLAMA_URL=http://localhost:11434
 
 ---
 
-**文檔最後更新**: 2025-11-01 12:00
-**當前版本**: v2.2 (Phase 1.5 規劃版)
-**總行數**: ~1,650行
-**變更內容**: 新增 Phase 1.5 向量搜索整合完整規劃 (約900行)
-**備份位置**: `archive/AGENT_SKILL_DESIGN_v2.1_backup_20251031.md`
+**文檔最後更新**: 2025-11-02 17:00
+**當前版本**: v2.3 (Phase 1.6 完成版)
+**總行數**: ~1,700行
+**變更內容**: 新增 Phase 1.6 元數據優化完整記錄 (YAML解析、6個優化工具、準確度提升至90%+)
+**備份位置**: `archive/AGENT_SKILL_DESIGN_v2.2_backup_20251102.md`

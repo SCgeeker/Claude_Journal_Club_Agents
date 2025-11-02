@@ -21,6 +21,23 @@ from src.knowledge_base import KnowledgeBaseManager
 from src.embeddings.providers import GeminiEmbedder, OllamaEmbedder
 from src.embeddings.vector_db import VectorDatabase
 
+# 導入元數據修復工具
+try:
+    from fix_metadata import MetadataFixer
+except ImportError:
+    MetadataFixer = None
+
+# 導入關係發現器 (Phase 2.1)
+try:
+    from src.analyzers import RelationFinder
+except ImportError:
+    RelationFinder = None
+
+import sqlite3
+import json
+import yaml
+import re
+
 
 def cmd_stats(args):
     """顯示知識庫統計信息"""
@@ -546,6 +563,411 @@ def cmd_show_links(args):
     print("\n" + "=" * 60 + "\n")
 
 
+def cmd_metadata_fix(args):
+    """修復缺失的元數據"""
+    if MetadataFixer is None:
+        print("❌ 錯誤: 找不到 fix_metadata.py")
+        print("請確保 fix_metadata.py 在專案根目錄")
+        sys.exit(1)
+
+    fixer = MetadataFixer()
+
+    field_name = {
+        'year': '年份',
+        'keywords': '關鍵詞',
+        'abstract': '摘要',
+        'all': '所有缺失字段'
+    }.get(args.field, '未知')
+
+    print(f"\n{'=' * 60}")
+    print(f"🔧 修復元數據: {field_name}")
+    print(f"{'=' * 60}\n")
+
+    # 獲取需要修復的論文
+    papers = fixer.get_papers_needing_repair(field=args.field if args.field != 'all' else None)
+
+    if not papers:
+        print("✅ 沒有論文需要修復！")
+        print(f"{'=' * 60}\n")
+        return
+
+    print(f"找到 {len(papers)} 篇需要修復的論文\n")
+
+    if args.dry_run:
+        print("⚠️ 預覽模式（不會實際修復）\n")
+        for paper in papers[:10]:  # 只顯示前10個
+            print(f"[ID {paper['id']}] {paper['title'][:60]}")
+        if len(papers) > 10:
+            print(f"... 還有 {len(papers) - 10} 篇")
+        print(f"\n{'=' * 60}\n")
+        return
+
+    if args.batch:
+        # 批次修復
+        success = 0
+        failed = 0
+
+        for i, paper in enumerate(papers, 1):
+            print(f"[{i}/{len(papers)}] ID {paper['id']}: {paper['title'][:50]}")
+
+            result = fixer.auto_fix_paper(
+                paper['id'],
+                fields=[args.field] if args.field != 'all' else ['year', 'keywords', 'abstract']
+            )
+
+            if result.get('updates'):
+                fixer.update_paper_metadata(
+                    paper['id'],
+                    year=result['updates'].get('year'),
+                    keywords=result['updates'].get('keywords'),
+                    abstract=result['updates'].get('abstract')
+                )
+                print(f"  ✅ 已修復: {', '.join(result['updates'].keys())}")
+                success += 1
+            else:
+                print(f"  ⚠️ 無法修復: {result.get('reason', '未知')}")
+                failed += 1
+
+        print(f"\n{'=' * 60}")
+        print(f"修復完成:")
+        print(f"  成功: {success}")
+        print(f"  失敗: {failed}")
+        print(f"{'=' * 60}\n")
+    else:
+        # 單篇修復（交互式）
+        print("使用 --batch 選項進行批次修復")
+        print(f"{'=' * 60}\n")
+
+
+def cmd_metadata_sync_yaml(args):
+    """同步資料庫標題到 YAML front matter"""
+    kb = KnowledgeBaseManager()
+
+    print(f"\n{'=' * 60}")
+    print("🔄 同步標題到 YAML")
+    print(f"{'=' * 60}\n")
+
+    # 獲取所有論文
+    conn = sqlite3.connect(kb.db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, file_path FROM papers ORDER BY id")
+    papers = cursor.fetchall()
+    conn.close()
+
+    success = 0
+    skipped = 0
+    failed = 0
+
+    for paper_id, db_title, file_path in papers:
+        file_path_obj = Path(file_path)
+
+        if not file_path_obj.exists():
+            print(f"[{paper_id}] ⚠️ 檔案不存在: {file_path}")
+            skipped += 1
+            continue
+
+        # 讀取並更新 YAML
+        try:
+            with open(file_path_obj, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            yaml_match = re.match(r'^---\s*\n(.*?)\n---\s*\n(.*)$', content, re.DOTALL)
+            if not yaml_match:
+                print(f"[{paper_id}] ⚠️ 找不到 YAML front matter")
+                skipped += 1
+                continue
+
+            metadata = yaml.safe_load(yaml_match.group(1))
+            yaml_title = metadata.get('title', '')
+
+            if yaml_title == db_title:
+                skipped += 1
+                continue
+
+            # 更新標題
+            metadata['title'] = db_title
+            new_yaml = yaml.dump(metadata, allow_unicode=True, default_flow_style=False, sort_keys=False)
+            new_content = f"---\n{new_yaml}---\n{yaml_match.group(2)}"
+
+            if not args.dry_run:
+                with open(file_path_obj, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+
+            print(f"[{paper_id}] ✅ 已更新: {db_title[:60]}")
+            success += 1
+
+        except Exception as e:
+            print(f"[{paper_id}] ❌ 錯誤: {e}")
+            failed += 1
+
+    print(f"\n{'=' * 60}")
+    print(f"同步完成:")
+    print(f"  成功: {success}")
+    print(f"  跳過: {skipped}")
+    print(f"  失敗: {failed}")
+    print(f"{'=' * 60}\n")
+
+
+def cmd_cleanup(args):
+    """清理孤立的資料庫記錄"""
+    kb = KnowledgeBaseManager()
+
+    print(f"\n{'=' * 60}")
+    print("🗑️ 清理孤立記錄")
+    print(f"{'=' * 60}\n")
+
+    conn = sqlite3.connect(kb.db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, file_path FROM papers")
+    papers = cursor.fetchall()
+
+    orphans = []
+    for pid, title, file_path in papers:
+        if not Path(file_path).exists():
+            orphans.append((pid, title, file_path))
+
+    if not orphans:
+        print("✅ 沒有發現孤立記錄！")
+        conn.close()
+        print(f"{'=' * 60}\n")
+        return
+
+    print(f"找到 {len(orphans)} 筆孤立記錄:\n")
+
+    for pid, title, file_path in orphans:
+        print(f"ID {pid}: {title[:60]}")
+        print(f"  檔案: {file_path}\n")
+
+    if args.dry_run:
+        print("⚠️ 預覽模式（不會實際刪除）")
+    else:
+        # 刪除孤立記錄
+        for pid, _, _ in orphans:
+            cursor.execute("DELETE FROM papers WHERE id = ?", (pid,))
+            cursor.execute("DELETE FROM paper_topics WHERE paper_id = ?", (pid,))
+        conn.commit()
+        print(f"✅ 已刪除 {len(orphans)} 筆記錄")
+
+    conn.close()
+    print(f"{'=' * 60}\n")
+
+
+def cmd_import_papers(args):
+    """導入未記錄的 Markdown 檔案"""
+    kb = KnowledgeBaseManager()
+    papers_dir = Path("knowledge_base/papers")
+
+    print(f"\n{'=' * 60}")
+    print("📥 導入未記錄的 Markdown 檔案")
+    print(f"{'=' * 60}\n")
+
+    # 獲取所有 Markdown 檔案
+    actual_files = set(f.name for f in papers_dir.glob("*.md"))
+
+    # 獲取已記錄的檔案
+    conn = sqlite3.connect(kb.db_path)
+    cursor = conn.cursor()
+    cursor.execute('SELECT file_path FROM papers')
+    db_files = set(Path(row[0]).name for row in cursor.fetchall())
+    conn.close()
+
+    # 找出未記錄的檔案
+    unrecorded = actual_files - db_files
+
+    if not unrecorded:
+        print("✅ 沒有未記錄的檔案！")
+        print(f"{'=' * 60}\n")
+        return
+
+    print(f"找到 {len(unrecorded)} 個未記錄的檔案\n")
+
+    success = 0
+    failed = 0
+
+    for filename in sorted(unrecorded):
+        file_path = papers_dir / filename
+        print(f"[{success + failed + 1}/{len(unrecorded)}] {filename}")
+
+        try:
+            # 讀取 YAML front matter
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            yaml_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+            if not yaml_match:
+                print(f"  ⚠️ 找不到 YAML front matter\n")
+                failed += 1
+                continue
+
+            metadata = yaml.safe_load(yaml_match.group(1))
+
+            title = metadata.get('title', filename.replace('.md', ''))
+            authors = metadata.get('authors', '')
+            year = metadata.get('year')
+            keywords = metadata.get('keywords', [])
+
+            # 解析 authors
+            if isinstance(authors, str):
+                authors_list = [a.strip() for a in authors.split(',') if a.strip()]
+            elif isinstance(authors, list):
+                authors_list = authors
+            else:
+                authors_list = []
+
+            # 解析 keywords
+            if isinstance(keywords, str):
+                keywords_list = [k.strip() for k in keywords.split(',') if k.strip()]
+            elif isinstance(keywords, list):
+                keywords_list = keywords
+            else:
+                keywords_list = []
+
+            if not args.dry_run:
+                # 導入到資料庫
+                paper_id = kb.add_paper(
+                    file_path=str(file_path),
+                    title=title,
+                    authors=authors_list,
+                    year=year,
+                    keywords=keywords_list,
+                    source='imported'
+                )
+                print(f"  ✅ 已導入 (ID: {paper_id})")
+            else:
+                print(f"  [DRY RUN] 標題: {title[:60]}")
+
+            success += 1
+
+        except Exception as e:
+            print(f"  ❌ 錯誤: {e}")
+            failed += 1
+
+        print()
+
+    print(f"{'=' * 60}")
+    print(f"導入完成:")
+    print(f"  成功: {success}")
+    print(f"  失敗: {failed}")
+    print(f"{'=' * 60}\n")
+
+
+def cmd_find_relations(args):
+    """發現論文關係 (Phase 2.1)"""
+    if RelationFinder is None:
+        print("❌ RelationFinder 未安裝，請確認 src/analyzers/ 已建立")
+        return
+
+    finder = RelationFinder()
+
+    print(f"\n{'=' * 80}")
+    print(f"🔍 論文關係分析 (ID: {args.paper_id})")
+    print(f"{'=' * 80}\n")
+
+    # 獲取論文信息
+    kb = KnowledgeBaseManager()
+    try:
+        paper = kb.get_paper(args.paper_id)
+        print(f"📄 論文: {paper['title'][:60]}")
+        print(f"   作者: {', '.join(paper.get('authors', [])[:3])}")
+        print(f"   年份: {paper.get('year', '未知')}\n")
+    except:
+        print(f"❌ 論文 ID {args.paper_id} 不存在\n")
+        return
+
+    # 發現所有關係
+    all_relations = finder.find_all_relations(args.paper_id)
+
+    total_relations = sum(len(rels) for rels in all_relations.values())
+
+    if total_relations == 0:
+        print("未發現任何關係")
+        print(f"{'=' * 80}\n")
+        return
+
+    # 顯示各類關係
+    for rel_type, relations in all_relations.items():
+        if not relations:
+            continue
+
+        type_names = {
+            'citation': '引用關係',
+            'shared_topic': '主題關聯',
+            'author_collaboration': '作者合作',
+            'similarity': '相似論文'
+        }
+
+        print(f"🔗 {type_names.get(rel_type, rel_type)} ({len(relations)}個)\n")
+
+        for i, rel in enumerate(relations[:args.limit], 1):
+            try:
+                target = kb.get_paper(rel.target_id)
+                print(f"   {i}. [{rel.target_id}] {target['title'][:60]}")
+                print(f"      強度: {rel.strength:.2%}")
+
+                if 'shared_keywords' in rel.metadata:
+                    kw_display = ', '.join(rel.metadata['shared_keywords'][:5])
+                    if len(rel.metadata['shared_keywords']) > 5:
+                        kw_display += f" (+{len(rel.metadata['shared_keywords'])-5}個)"
+                    print(f"      共享關鍵詞: {kw_display}")
+
+                if 'shared_authors' in rel.metadata:
+                    print(f"      共同作者: {', '.join(rel.metadata['shared_authors'])}")
+
+                print()
+            except:
+                print(f"   {i}. [ERROR] Paper {rel.target_id} 無法載入\n")
+
+    print(f"{'=' * 80}")
+    print(f"總計: {total_relations} 個關係")
+    print(f"{'=' * 80}\n")
+
+
+def cmd_build_network(args):
+    """構建引用網絡 (Phase 2.1)"""
+    if RelationFinder is None:
+        print("❌ RelationFinder 未安裝，請確認 src/analyzers/ 已建立")
+        return
+
+    finder = RelationFinder()
+
+    print(f"\n{'=' * 80}")
+    print(f"📊 構建引用網絡")
+    print(f"{'=' * 80}\n")
+
+    # 解析論文ID列表
+    if args.paper_ids:
+        paper_ids = [int(pid.strip()) for pid in args.paper_ids.split(',')]
+        print(f"目標論文: {len(paper_ids)} 篇 (ID: {', '.join(map(str, paper_ids))})\n")
+    else:
+        print(f"目標論文: 所有論文\n")
+        paper_ids = None
+
+    # 構建網絡
+    print("正在構建網絡...")
+    network = finder.build_citation_network(paper_ids)
+
+    print(f"\n✅ 網絡構建完成:")
+    print(f"   節點數: {network['metadata']['total_nodes']}")
+    print(f"   邊數: {network['metadata']['total_edges']}")
+
+    # 導出JSON
+    if args.output:
+        finder.export_to_json(network, args.output)
+        print(f"\n💾 已導出JSON: {args.output}")
+
+    # 導出GraphML (if networkx available)
+    if args.graphml:
+        try:
+            G = finder.export_to_networkx(network)
+            finder.export_to_graphml(G, args.graphml)
+            print(f"💾 已導出GraphML: {args.graphml}")
+        except ImportError:
+            print(f"\n⚠️  NetworkX未安裝，無法導出GraphML")
+            print(f"    安裝: pip install networkx")
+
+    print(f"\n{'=' * 80}\n")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
@@ -598,6 +1020,18 @@ def main():
   # 查看論文的Zettelkasten連結
   python kb_manage.py show-links 14
   python kb_manage.py show-links 14 --min-similarity 0.7
+
+  # 元數據管理
+  python kb_manage.py metadata-fix --field year --batch
+  python kb_manage.py metadata-fix --field all --batch --dry-run
+  python kb_manage.py metadata-sync-yaml
+  python kb_manage.py metadata-sync-yaml --dry-run
+
+  # 資料庫維護
+  python kb_manage.py cleanup
+  python kb_manage.py cleanup --dry-run
+  python kb_manage.py import-papers
+  python kb_manage.py import-papers --dry-run
         """
     )
 
@@ -699,6 +1133,49 @@ def main():
     parser_show_links.add_argument('--min-similarity', type=float, default=0.0,
                                   help='最小相似度過濾 (0-1，默認: 0.0)')
     parser_show_links.set_defaults(func=cmd_show_links)
+
+    # metadata fix 命令
+    parser_metadata_fix = subparsers.add_parser('metadata-fix', help='修復缺失的元數據')
+    parser_metadata_fix.add_argument('--field', choices=['year', 'keywords', 'abstract', 'all'],
+                                    default='all', help='要修復的字段 (默認: all)')
+    parser_metadata_fix.add_argument('--batch', action='store_true', help='批次修復')
+    parser_metadata_fix.add_argument('--dry-run', action='store_true', help='預覽模式（不實際修復）')
+    parser_metadata_fix.set_defaults(func=cmd_metadata_fix)
+
+    # metadata sync-yaml 命令
+    parser_metadata_sync = subparsers.add_parser('metadata-sync-yaml',
+                                                help='同步資料庫標題到 YAML front matter')
+    parser_metadata_sync.add_argument('--dry-run', action='store_true', help='預覽模式（不實際修改）')
+    parser_metadata_sync.set_defaults(func=cmd_metadata_sync_yaml)
+
+    # cleanup 命令
+    parser_cleanup = subparsers.add_parser('cleanup', help='清理孤立的資料庫記錄')
+    parser_cleanup.add_argument('--dry-run', action='store_true', help='預覽模式（不實際刪除）')
+    parser_cleanup.set_defaults(func=cmd_cleanup)
+
+    # import-papers 命令
+    parser_import = subparsers.add_parser('import-papers', help='導入未記錄的 Markdown 檔案')
+    parser_import.add_argument('--dry-run', action='store_true', help='預覽模式（不實際導入）')
+    parser_import.set_defaults(func=cmd_import_papers)
+
+    # find-relations 命令 (Phase 2.1)
+    parser_find_relations = subparsers.add_parser('find-relations',
+                                                  help='發現論文關係（引用、主題、作者合作）')
+    parser_find_relations.add_argument('paper_id', type=int, help='論文ID')
+    parser_find_relations.add_argument('--limit', type=int, default=10,
+                                      help='每種關係最多顯示數量 (默認: 10)')
+    parser_find_relations.set_defaults(func=cmd_find_relations)
+
+    # build-network 命令 (Phase 2.1)
+    parser_build_network = subparsers.add_parser('build-network',
+                                                 help='構建論文引用網絡')
+    parser_build_network.add_argument('--paper-ids', type=str,
+                                     help='論文ID列表（逗號分隔，如 "1,2,5,6"，不指定則為所有論文）')
+    parser_build_network.add_argument('--output', type=str,
+                                     help='JSON輸出路徑 (例如: network.json)')
+    parser_build_network.add_argument('--graphml', type=str,
+                                     help='GraphML輸出路徑 (例如: network.graphml，需安裝networkx)')
+    parser_build_network.set_defaults(func=cmd_build_network)
 
     args = parser.parse_args()
 
