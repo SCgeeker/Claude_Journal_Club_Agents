@@ -378,6 +378,102 @@ class RelationFinder:
         common = keywords1 & keywords2
         return list(common)[:5]  # 返回最多5個共同概念
 
+    def find_co_authors(self,
+                       min_papers: int = None,
+                       include_metadata: bool = True) -> Dict:
+        """
+        構建完整的共同作者網絡
+
+        Args:
+            min_papers: 最少共同論文數（默認使用config）
+            include_metadata: 是否包含詳細元數據
+
+        Returns:
+            Dict: 包含作者節點、邊和統計信息的網絡
+        """
+        min_papers = min_papers or self.config.get('co_author_min_papers', 2)
+        papers = self._load_papers()
+        author_papers = {}
+        author_metadata = {}
+
+        # 步驟1: 提取所有作者及其論文
+        for paper in papers:
+            authors = paper.get('authors', [])
+            if isinstance(authors, str):
+                authors = json.loads(authors) if authors else []
+            if not authors:
+                authors = []
+
+            for author in authors:
+                author_lower = author.lower() if isinstance(author, str) else str(author).lower()
+
+                if author_lower not in author_papers:
+                    author_papers[author_lower] = []
+                    author_metadata[author_lower] = {
+                        'name': author,
+                        'papers': [],
+                        'paper_ids': []
+                    }
+
+                author_papers[author_lower].append(paper['id'])
+                author_metadata[author_lower]['papers'].append(paper)
+                author_metadata[author_lower]['paper_ids'].append(paper['id'])
+
+        # 步驟2: 計算共同作者和協作邊
+        edges = []
+        edge_set = set()
+        author_list = sorted(author_papers.keys())
+
+        for i, author1_key in enumerate(author_list):
+            for author2_key in author_list[i+1:]:
+                shared_papers = set(author_papers[author1_key]) & set(author_papers[author2_key])
+
+                if len(shared_papers) >= min_papers:
+                    edge_key = tuple(sorted([author1_key, author2_key]))
+
+                    if edge_key not in edge_set:
+                        edge = CoAuthorEdge(
+                            author1=author_metadata[author1_key]['name'],
+                            author2=author_metadata[author2_key]['name'],
+                            collaboration_count=len(shared_papers),
+                            shared_papers=sorted(list(shared_papers))
+                        )
+                        edges.append(edge)
+                        edge_set.add(edge_key)
+
+        # 步驟3: 構建節點數據
+        nodes = []
+        for author_key in author_list:
+            node = {
+                'name': author_metadata[author_key]['name'],
+                'paper_count': len(author_papers[author_key]),
+                'paper_ids': author_metadata[author_key]['paper_ids']
+            }
+
+            if include_metadata:
+                node['years'] = sorted(set(p.get('year') for p in author_metadata[author_key]['papers'] if p.get('year')))
+                node['keywords'] = []
+                for paper in author_metadata[author_key]['papers']:
+                    keywords = paper.get('keywords', [])
+                    if isinstance(keywords, str):
+                        keywords = [k.strip() for k in keywords.split(',')]
+                    node['keywords'].extend(keywords)
+                node['keywords'] = sorted(list(set(node['keywords'])))[:10]  # Top 10
+
+            nodes.append(node)
+
+        # 步驟4: 計算網絡統計
+        return {
+            'nodes': nodes,
+            'edges': [asdict(e) for e in sorted(edges, key=lambda x: x.collaboration_count, reverse=True)],
+            'metadata': {
+                'total_authors': len(nodes),
+                'total_collaborations': len(edges),
+                'max_collaboration': max([e.collaboration_count for e in edges], default=0),
+                'avg_collaboration': sum(e.collaboration_count for e in edges) / len(edges) if edges else 0,
+            }
+        }
+
     def find_shared_topic_relations(self, paper_id: int, min_shared_keywords: int = 2) -> List[Relation]:
         """
         通過關鍵詞重疊發現主題關聯
@@ -425,6 +521,86 @@ class RelationFinder:
                 ))
 
         return sorted(relations, key=lambda r: r.strength, reverse=True)
+
+    def find_co_occurrence(self,
+                          min_frequency: int = None,
+                          top_k: int = None) -> Dict:
+        """
+        完整的概念共現分析
+
+        Args:
+            min_frequency: 最少共現次數（默認使用config）
+            top_k: 返回最常見的概念對數
+
+        Returns:
+            Dict: 包含概念對、統計和網絡信息
+        """
+        min_frequency = min_frequency or self.config.get('concept_min_frequency', 2)
+        papers = self._load_papers()
+        concept_papers = {}
+        concept_freq = {}
+
+        # 步驟1: 提取所有概念及其論文
+        for paper in papers:
+            concepts = paper.get('keywords', [])
+
+            if isinstance(concepts, str):
+                concepts = [c.strip() for c in concepts.split(',') if c.strip()]
+            elif concepts is None:
+                concepts = []
+
+            for concept in concepts:
+                concept_lower = concept.lower()
+
+                if concept_lower not in concept_papers:
+                    concept_papers[concept_lower] = []
+                    concept_freq[concept_lower] = 0
+
+                concept_papers[concept_lower].append(paper['id'])
+                concept_freq[concept_lower] += 1
+
+        # 步驟2: 計算概念共現和關聯強度
+        pairs = []
+        concept_list = sorted(concept_papers.keys())
+
+        for i, concept1_key in enumerate(concept_list):
+            for concept2_key in concept_list[i+1:]:
+                shared_papers = set(concept_papers[concept1_key]) & set(concept_papers[concept2_key])
+
+                if len(shared_papers) >= min_frequency:
+                    # 計算關聯強度（Jaccard相似度）
+                    union = set(concept_papers[concept1_key]) | set(concept_papers[concept2_key])
+                    jaccard = len(shared_papers) / len(union) if union else 0
+
+                    pair = ConceptPair(
+                        concept1=concept1_key,
+                        concept2=concept2_key,
+                        co_occurrence_count=len(shared_papers),
+                        papers=sorted(list(shared_papers)),
+                        association_strength=jaccard
+                    )
+                    pairs.append(pair)
+
+        # 步驟3: 排序和限制
+        pairs = sorted(pairs, key=lambda x: x.co_occurrence_count, reverse=True)
+        if top_k:
+            pairs = pairs[:top_k]
+
+        # 步驟4: 計算統計信息
+        return {
+            'pairs': [asdict(p) for p in pairs],
+            'concept_frequency': sorted(
+                [(c, freq) for c, freq in concept_freq.items()],
+                key=lambda x: x[1],
+                reverse=True
+            ),
+            'metadata': {
+                'total_concepts': len(concept_freq),
+                'total_pairs': len(pairs),
+                'max_frequency': max(concept_freq.values()) if concept_freq else 0,
+                'avg_frequency': sum(concept_freq.values()) / len(concept_freq) if concept_freq else 0,
+            }
+        }
 
     def find_author_collaboration_relations(self, paper_id: int) -> List[Relation]:
         """
@@ -963,67 +1139,112 @@ class RelationFinder:
 
 # CLI測試代碼
 if __name__ == "__main__":
-    print("🔍 relation-finder Phase 2.1 測試\n")
+    print("🔍 relation-finder Phase 2.1 Day 2 測試\n")
 
     finder = RelationFinder()
-
-    # ===== 測試 1: 傳統方法（內容分析）=====
-    print("=" * 60)
-    print("測試 1: 傳統引用關係分析（內容分析）")
-    print("=" * 60)
-
-    paper_id = 2
-    print(f"\n📄 論文 ID {paper_id} 的關係分析:\n")
-
-    # 發現所有關係
-    all_relations = finder.find_all_relations(paper_id)
-
-    for rel_type, relations in all_relations.items():
-        print(f"🔗 {rel_type.upper()} ({len(relations)}個)")
-        for rel in relations[:3]:  # 只顯示前3個
-            print(f"   → Paper {rel.target_id} (強度: {rel.strength:.2f})")
-            if rel.metadata and 'shared_keywords' in rel.metadata:
-                print(f"      共享關鍵詞: {', '.join(rel.metadata['shared_keywords'][:2])}")
-
-    # ===== 測試 2: Mermaid導出 =====
-    print("\n" + "=" * 60)
-    print("測試 2: Mermaid可視化導出")
-    print("=" * 60)
-
-    # 構建引用網絡
-    print("\n📊 構建引用網絡...")
-    network = finder.build_citation_network(paper_ids=[1, 2, 5, 6, 9, 14])
-
-    print(f"   節點數: {network['metadata']['total_nodes']}")
-    print(f"   邊數: {network['metadata']['total_edges']}")
-
-    # 導出為JSON
-    print("\n💾 導出為JSON...")
-    finder.export_to_json(network, "output/relations/citation_network.json")
-
-    # ===== 測試 3: Mermaid導出（新增功能）=====
-    print("\n" + "=" * 60)
-    print("測試 3: Mermaid格式導出（Phase 2.1新增）")
-    print("=" * 60)
-
-    # 創建輸出目錄
     output_dir = Path("output/relations")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # 導出共同作者網絡
-    print("\n👥 共同作者網絡 (Mermaid)...")
-    coauthor_mermaid = finder.export_coauthor_network_to_mermaid(
+    # ===== 測試 1: 共同作者完整分析 =====
+    print("=" * 70)
+    print("測試 1: 共同作者網絡完整分析（Day 2新增）")
+    print("=" * 70)
+
+    coauthor_network = finder.find_co_authors(min_papers=1)
+
+    print(f"\n👥 共同作者網絡統計:")
+    print(f"   📊 總作者數: {coauthor_network['metadata']['total_authors']}")
+    print(f"   🤝 協作對數: {coauthor_network['metadata']['total_collaborations']}")
+    print(f"   📈 最大協作: {coauthor_network['metadata']['max_collaboration']}篇論文")
+    print(f"   📉 平均協作: {coauthor_network['metadata']['avg_collaboration']:.2f}篇論文")
+
+    # 顯示top協作對
+    if coauthor_network['edges']:
+        print(f"\n🏆 Top 5 協作對:")
+        for i, edge in enumerate(coauthor_network['edges'][:5], 1):
+            print(f"   {i}. {edge['author1']} ↔ {edge['author2']}")
+            print(f"      共同論文: {edge['collaboration_count']}篇 (ID: {edge['shared_papers'][:2]}...)")
+
+    # 導出為JSON
+    with open(output_dir / "coauthor_network.json", 'w', encoding='utf-8') as f:
+        json.dump(coauthor_network, f, ensure_ascii=False, indent=2)
+    print(f"\n✅ 共同作者網絡已導出到: {output_dir}/coauthor_network.json")
+
+    # ===== 測試 2: 概念共現完整分析 =====
+    print("\n" + "=" * 70)
+    print("測試 2: 概念共現完整分析（Day 2新增）")
+    print("=" * 70)
+
+    cooccurrence = finder.find_co_occurrence(min_frequency=1, top_k=30)
+
+    print(f"\n📚 概念共現統計:")
+    print(f"   📊 總概念數: {cooccurrence['metadata']['total_concepts']}")
+    print(f"   🔗 概念對數: {cooccurrence['metadata']['total_pairs']}")
+    print(f"   📈 最高頻率: {cooccurrence['metadata']['max_frequency']}")
+    print(f"   📉 平均頻率: {cooccurrence['metadata']['avg_frequency']:.2f}")
+
+    # 顯示top概念
+    if cooccurrence['concept_frequency']:
+        print(f"\n⭐ Top 10 高頻概念:")
+        for i, (concept, freq) in enumerate(cooccurrence['concept_frequency'][:10], 1):
+            print(f"   {i}. {concept}: {freq}篇論文")
+
+    # 顯示top概念對
+    if cooccurrence['pairs']:
+        print(f"\n🔗 Top 5 概念對:")
+        for i, pair in enumerate(cooccurrence['pairs'][:5], 1):
+            print(f"   {i}. '{pair['concept1']}' ↔ '{pair['concept2']}'")
+            print(f"      共現: {pair['co_occurrence_count']}次, 強度: {pair['association_strength']:.2f}")
+
+    # 導出為JSON
+    with open(output_dir / "concept_cooccurrence.json", 'w', encoding='utf-8') as f:
+        json.dump(cooccurrence, f, ensure_ascii=False, indent=2)
+    print(f"\n✅ 概念共現已導出到: {output_dir}/concept_cooccurrence.json")
+
+    # ===== 測試 3: 更新Mermaid可視化 =====
+    print("\n" + "=" * 70)
+    print("測試 3: 使用新數據更新Mermaid可視化")
+    print("=" * 70)
+
+    # 共同作者Mermaid
+    print("\n👥 生成共同作者Mermaid...")
+    finder.export_coauthor_network_to_mermaid(
+        network_data=coauthor_network,
         output_path=output_dir / "coauthor_network.md"
     )
 
-    # 導出概念共現
-    print("\n📚 概念共現網絡 (Mermaid)...")
-    concept_mermaid = finder.export_concepts_to_mermaid(
+    # 概念共現Mermaid
+    print("📚 生成概念共現Mermaid...")
+    concept_pairs = [ConceptPair(**p) for p in cooccurrence['pairs']]
+    finder.export_concepts_to_mermaid(
+        concept_pairs=concept_pairs,
         output_path=output_dir / "concept_cooccurrence.md"
     )
 
-    print(f"\n✅ Phase 2.1 Day 1 測試完成！")
+    # ===== 測試 4: 傳統關係分析 =====
+    print("\n" + "=" * 70)
+    print("測試 4: 傳統引用關係分析（Day 1功能驗證）")
+    print("=" * 70)
+
+    paper_id = 2
+    print(f"\n📄 論文 ID {paper_id} 的關係:")
+
+    all_relations = finder.find_all_relations(paper_id)
+
+    for rel_type, relations in all_relations.items():
+        if relations:
+            print(f"\n🔗 {rel_type.upper()} ({len(relations)}個)")
+            for rel in relations[:3]:
+                print(f"   → Paper {rel.target_id} (強度: {rel.strength:.2f})")
+
+    print("\n" + "=" * 70)
+    print("✅ Phase 2.1 Day 2 測試完成！")
+    print("=" * 70)
     print(f"\n📁 輸出檔案:")
-    print(f"   - {output_dir}/citation_network.json")
-    print(f"   - {output_dir}/coauthor_network.md (Mermaid)")
-    print(f"   - {output_dir}/concept_cooccurrence.md (Mermaid)")
+    print(f"   ✅ {output_dir}/coauthor_network.json")
+    print(f"   ✅ {output_dir}/coauthor_network.md (Mermaid)")
+    print(f"   ✅ {output_dir}/concept_cooccurrence.json")
+    print(f"   ✅ {output_dir}/concept_cooccurrence.md (Mermaid)")
+    print(f"\n📊 新增功能:")
+    print(f"   ✨ find_co_authors() - 共同作者網絡（含統計）")
+    print(f"   ✨ find_co_occurrence() - 概念共現分析（含統計）")
