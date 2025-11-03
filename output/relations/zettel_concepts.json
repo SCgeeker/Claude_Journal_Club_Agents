@@ -1,0 +1,2197 @@
+{
+  "Our intention is to account for the content of event representations": [
+    {
+      "concept": "Our intention is to account for the content of event representations",
+      "zettel_id": "CogSci-20251029-001",
+      "zettel_title": "\"事件表徵 (Event Representation)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件表徵": [
+    {
+      "concept": "事件表徵",
+      "zettel_id": "CogSci-20251029-001",
+      "zettel_title": "\"事件表徵 (Event Representation)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "事件表徵",
+      "zettel_id": "CogSci-20251029-019",
+      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件表徵": [
+    {
+      "concept": "物件表徵",
+      "zettel_id": "CogSci-20251029-001",
+      "zettel_title": "\"事件表徵 (Event Representation)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "物件表徵",
+      "zettel_id": "CogSci-20251029-005",
+      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "物件表徵",
+      "zettel_id": "CogSci-20251029-017",
+      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "認知心理學": [
+    {
+      "concept": "認知心理學",
+      "zettel_id": "CogSci-20251029-001",
+      "zettel_title": "\"事件表徵 (Event Representation)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Thus, we maintain that events are encoded as “ensembles of intersecting object histories” in which o": [
+    {
+      "concept": "Thus, we maintain that events are encoded as “ensembles of intersecting object histories” in which o",
+      "zettel_id": "CogSci-20251029-002",
+      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件歷史": [
+    {
+      "concept": "物件歷史",
+      "zettel_id": "CogSci-20251029-002",
+      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "狀態變化": [
+    {
+      "concept": "狀態變化",
+      "zettel_id": "CogSci-20251029-002",
+      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "狀態變化",
+      "zettel_id": "CogSci-20251029-004",
+      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件編碼": [
+    {
+      "concept": "事件編碼",
+      "zettel_id": "CogSci-20251029-002",
+      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Our approach requires not just the distinction between object types and object tokens, but also betw": [
+    {
+      "concept": "Our approach requires not just the distinction between object types and object tokens, but also betw",
+      "zettel_id": "CogSci-20251029-003",
+      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件類型": [
+    {
+      "concept": "物件類型",
+      "zettel_id": "CogSci-20251029-003",
+      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "物件類型",
+      "zettel_id": "CogSci-20251029-007",
+      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件實例": [
+    {
+      "concept": "物件實例",
+      "zettel_id": "CogSci-20251029-003",
+      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "物件實例",
+      "zettel_id": "CogSci-20251029-006",
+      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "物件實例",
+      "zettel_id": "CogSci-20251029-018",
+      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件狀態": [
+    {
+      "concept": "物件狀態",
+      "zettel_id": "CogSci-20251029-003",
+      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "The relevance of object-state change for event representation is recognized within the linguistic tr": [
+    {
+      "concept": "The relevance of object-state change for event representation is recognized within the linguistic tr",
+      "zettel_id": "CogSci-20251029-004",
+      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "詞彙語義": [
+    {
+      "concept": "詞彙語義",
+      "zettel_id": "CogSci-20251029-004",
+      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件結構": [
+    {
+      "concept": "事件結構",
+      "zettel_id": "CogSci-20251029-004",
+      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "事件結構",
+      "zettel_id": "CogSci-20251029-016",
+      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件整體": [
+    {
+      "concept": "事件整體",
+      "zettel_id": "CogSci-20251029-005",
+      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "互動關係": [
+    {
+      "concept": "互動關係",
+      "zettel_id": "CogSci-20251029-005",
+      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "These distinctions require an account of how object tokens are represented within the context of epi": [
+    {
+      "concept": "These distinctions require an account of how object tokens are represented within the context of epi",
+      "zettel_id": "CogSci-20251029-006",
+      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "These distinctions require an account of how object tokens are represented within the context of epi",
+      "zettel_id": "CogSci-20251029-007",
+      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "情節記憶": [
+    {
+      "concept": "情節記憶",
+      "zettel_id": "CogSci-20251029-006",
+      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "語義記憶": [
+    {
+      "concept": "語義記憶",
+      "zettel_id": "CogSci-20251029-006",
+      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "語義記憶",
+      "zettel_id": "CogSci-20251029-007",
+      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "知識表徵": [
+    {
+      "concept": "知識表徵",
+      "zettel_id": "CogSci-20251029-007",
+      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Mental Model theory (Johnson-Laird, 1983) and theories of situation models": [
+    {
+      "concept": "Mental Model theory (Johnson-Laird, 1983) and theories of situation models",
+      "zettel_id": "CogSci-20251029-008",
+      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "心智模型": [
+    {
+      "concept": "心智模型",
+      "zettel_id": "CogSci-20251029-008",
+      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "情境模型": [
+    {
+      "concept": "情境模型",
+      "zettel_id": "CogSci-20251029-008",
+      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "情境模型",
+      "zettel_id": "CogSci-20251029-009",
+      "zettel_title": "\"情境模型 (Situation Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件索引": [
+    {
+      "concept": "事件索引",
+      "zettel_id": "CogSci-20251029-009",
+      "zettel_title": "\"情境模型 (Situation Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "五個維度": [
+    {
+      "concept": "五個維度",
+      "zettel_id": "CogSci-20251029-009",
+      "zettel_title": "\"情境模型 (Situation Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Event models (see Radvansky & Zacks, 2011, 2014) focus more on the events themselves rather than, sp": [
+    {
+      "concept": "Event models (see Radvansky & Zacks, 2011, 2014) focus more on the events themselves rather than, sp",
+      "zettel_id": "CogSci-20251029-010",
+      "zettel_title": "\"事件模型 (Event Models)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件模型": [
+    {
+      "concept": "事件模型",
+      "zettel_id": "CogSci-20251029-010",
+      "zettel_title": "\"事件模型 (Event Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件分割": [
+    {
+      "concept": "事件分割",
+      "zettel_id": "CogSci-20251029-010",
+      "zettel_title": "\"事件模型 (Event Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    },
+    {
+      "concept": "事件分割",
+      "zettel_id": "CogSci-20251029-011",
+      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "EST defines an event as “a segment of time at a given location that is conceived by an observer to h": [
+    {
+      "concept": "EST defines an event as “a segment of time at a given location that is conceived by an observer to h",
+      "zettel_id": "CogSci-20251029-011",
+      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "時間片段": [
+    {
+      "concept": "時間片段",
+      "zettel_id": "CogSci-20251029-011",
+      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "開始與結束": [
+    {
+      "concept": "開始與結束",
+      "zettel_id": "CogSci-20251029-011",
+      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "The Event Horizon Model takes EST as its starting point and proposes a number of principles that gov": [
+    {
+      "concept": "The Event Horizon Model takes EST as its starting point and proposes a number of principles that gov",
+      "zettel_id": "CogSci-20251029-012",
+      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件視界": [
+    {
+      "concept": "事件視界",
+      "zettel_id": "CogSci-20251029-012",
+      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "模型結構": [
+    {
+      "concept": "模型結構",
+      "zettel_id": "CogSci-20251029-012",
+      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "記憶提取": [
+    {
+      "concept": "記憶提取",
+      "zettel_id": "CogSci-20251029-012",
+      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "不確定性": [
+    {
+      "concept": "不確定性",
+      "zettel_id": "CogSci-20251029-013",
+      "zettel_title": "\"預測誤差 (Prediction Error)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件邊界": [
+    {
+      "concept": "事件邊界",
+      "zettel_id": "CogSci-20251029-013",
+      "zettel_title": "\"預測誤差 (Prediction Error)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "While the linguistic (and philosophical) tradition is respect of the distinction between types, toke": [
+    {
+      "concept": "While the linguistic (and philosophical) tradition is respect of the distinction between types, toke",
+      "zettel_id": "CogSci-20251029-014",
+      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "階段層級": [
+    {
+      "concept": "階段層級",
+      "zettel_id": "CogSci-20251029-014",
+      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "個體層級": [
+    {
+      "concept": "個體層級",
+      "zettel_id": "CogSci-20251029-014",
+      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "情節記憶重構": [
+    {
+      "concept": "情節記憶重構",
+      "zettel_id": "CogSci-20251029-015",
+      "zettel_title": "\"事件、圖式和情節(重)構建 (Events, Schemas, and Episodic (Re)Construction)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Moens and Steedman (1988) developed an account of the mapping from language onto structures that ref": [
+    {
+      "concept": "Moens and Steedman (1988) developed an account of the mapping from language onto structures that ref",
+      "zettel_id": "CogSci-20251029-016",
+      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "因果關係": [
+    {
+      "concept": "因果關係",
+      "zettel_id": "CogSci-20251029-016",
+      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "目標事件": [
+    {
+      "concept": "目標事件",
+      "zettel_id": "CogSci-20251029-016",
+      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Constructing Object Tokens On-the-Fly extends work presented in Altmann (2017)": [
+    {
+      "concept": "Constructing Object Tokens On-the-Fly extends work presented in Altmann (2017)",
+      "zettel_id": "CogSci-20251029-017",
+      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "物件建構": [
+    {
+      "concept": "物件建構",
+      "zettel_id": "CogSci-20251029-017",
+      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "即時建構": [
+    {
+      "concept": "即時建構",
+      "zettel_id": "CogSci-20251029-017",
+      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "We shall argue that the theoretical pieces, and their neural instantiation, are in place to develop ": [
+    {
+      "concept": "We shall argue that the theoretical pieces, and their neural instantiation, are in place to develop ",
+      "zettel_id": "CogSci-20251029-018",
+      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "神經機制": [
+    {
+      "concept": "神經機制",
+      "zettel_id": "CogSci-20251029-018",
+      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Events change the world—even simple organisms like amoebae encode, anticipate, and react to change (": [
+    {
+      "concept": "Events change the world—even simple organisms like amoebae encode, anticipate, and react to change (",
+      "zettel_id": "CogSci-20251029-019",
+      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Amoeba": [
+    {
+      "concept": "Amoeba",
+      "zettel_id": "CogSci-20251029-019",
+      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "Increases in prediction error trigger the updating of the current event model (if the prediction wer": [
+    {
+      "concept": "Increases in prediction error trigger the updating of the current event model (if the prediction wer",
+      "zettel_id": "CogSci-20251029-020",
+      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "模型更新": [
+    {
+      "concept": "模型更新",
+      "zettel_id": "CogSci-20251029-020",
+      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "預測誤差": [
+    {
+      "concept": "預測誤差",
+      "zettel_id": "CogSci-20251029-020",
+      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "事件邊界感知": [
+    {
+      "concept": "事件邊界感知",
+      "zettel_id": "CogSci-20251029-020",
+      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "CogSci",
+      "paper_id": 28
+    }
+  ],
+  "I use mass noun interchangeably with non-count noun, and noun with common noun": [
+    {
+      "concept": "I use mass noun interchangeably with non-count noun, and noun with common noun",
+      "zettel_id": "Linguistics-20251029-001",
+      "zettel_title": "\"Mass Noun (Mass Noun)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Mass Noun": [
+    {
+      "concept": "Mass Noun",
+      "zettel_id": "Linguistics-20251029-001",
+      "zettel_title": "\"Mass Noun (Mass Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Non-Count Noun": [
+    {
+      "concept": "Non-Count Noun",
+      "zettel_id": "Linguistics-20251029-001",
+      "zettel_title": "\"Mass Noun (Mass Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Common Noun": [
+    {
+      "concept": "Common Noun",
+      "zettel_id": "Linguistics-20251029-001",
+      "zettel_title": "\"Mass Noun (Mass Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "The count noun cow, taking the singular or plural form, can combine directly with numerals": [
+    {
+      "concept": "The count noun cow, taking the singular or plural form, can combine directly with numerals",
+      "zettel_id": "Linguistics-20251029-002",
+      "zettel_title": "\"Count Noun (Count Noun)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Count Noun": [
+    {
+      "concept": "Count Noun",
+      "zettel_id": "Linguistics-20251029-002",
+      "zettel_title": "\"Count Noun (Count Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Numerals": [
+    {
+      "concept": "Numerals",
+      "zettel_id": "Linguistics-20251029-002",
+      "zettel_title": "\"Count Noun (Count Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Numerals",
+      "zettel_id": "Linguistics-20251029-015",
+      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Grammatical Number": [
+    {
+      "concept": "Grammatical Number",
+      "zettel_id": "Linguistics-20251029-002",
+      "zettel_title": "\"Count Noun (Count Noun)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Grammatical Number",
+      "zettel_id": "Linguistics-20251029-005",
+      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "(MH1) Classifier languages have no count nouns": [
+    {
+      "concept": "(MH1) Classifier languages have no count nouns",
+      "zettel_id": "Linguistics-20251029-003",
+      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Mass Noun Hypothesis": [
+    {
+      "concept": "Mass Noun Hypothesis",
+      "zettel_id": "Linguistics-20251029-003",
+      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Mass Noun Hypothesis",
+      "zettel_id": "Linguistics-20251029-005",
+      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Mass Noun Hypothesis",
+      "zettel_id": "Linguistics-20251029-012",
+      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Classifier Languages": [
+    {
+      "concept": "Classifier Languages",
+      "zettel_id": "Linguistics-20251029-003",
+      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Classifier Languages",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Classifier Languages",
+      "zettel_id": "Linguistics-20251029-005",
+      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Classifier Languages",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Classifier Languages",
+      "zettel_id": "Linguistics-20251029-012",
+      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Count Nouns": [
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-003",
+      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-007",
+      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-008",
+      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-009",
+      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Count Nouns",
+      "zettel_id": "Linguistics-20251029-012",
+      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Such languages, called classifier languages, include Chinese, Japanese, Korean, Thai, and many other": [
+    {
+      "concept": "Such languages, called classifier languages, include Chinese, Japanese, Korean, Thai, and many other",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Chinese": [
+    {
+      "concept": "Chinese",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Chinese",
+      "zettel_id": "Linguistics-20251029-007",
+      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Japanese": [
+    {
+      "concept": "Japanese",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Korean": [
+    {
+      "concept": "Korean",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Thai": [
+    {
+      "concept": "Thai",
+      "zettel_id": "Linguistics-20251029-004",
+      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "(a*) These languages draw no grammatical number distinction": [
+    {
+      "concept": "(a*) These languages draw no grammatical number distinction",
+      "zettel_id": "Linguistics-20251029-005",
+      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "(CH1) Classifier languages have count nouns as well as mass nouns": [
+    {
+      "concept": "(CH1) Classifier languages have count nouns as well as mass nouns",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Count Noun Hypothesis": [
+    {
+      "concept": "Count Noun Hypothesis",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Mass Nouns": [
+    {
+      "concept": "Mass Nouns",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Mass Nouns",
+      "zettel_id": "Linguistics-20251029-009",
+      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Mass Nouns",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Morphosyntax": [
+    {
+      "concept": "Morphosyntax",
+      "zettel_id": "Linguistics-20251029-006",
+      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "I shall argue that Chinese, like many other classifier languages, has count nouns because it has a c": [
+    {
+      "concept": "I shall argue that Chinese, like many other classifier languages, has count nouns because it has a c",
+      "zettel_id": "Linguistics-20251029-007",
+      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Quantifier": [
+    {
+      "concept": "Quantifier",
+      "zettel_id": "Linguistics-20251029-007",
+      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "(C1) “ Mass nouns do not take the individual classifier” ge, 個 (ibid": [
+    {
+      "concept": "(C1) “ Mass nouns do not take the individual classifier” ge, 個 (ibid",
+      "zettel_id": "Linguistics-20251029-008",
+      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Yuen Ren Chao": [
+    {
+      "concept": "Yuen Ren Chao",
+      "zettel_id": "Linguistics-20251029-008",
+      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Classifiers": [
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-008",
+      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Linguistics",
+      "paper_id": 2
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-013",
+      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-014",
+      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-015",
+      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-016",
+      "zettel_title": "\"排序用法 (Ordering Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-017",
+      "zettel_title": "\"指稱用法 (Referring Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-018",
+      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-019",
+      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Classifiers",
+      "zettel_id": "Linguistics-20251029-020",
+      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Chao draws a “formal” or syntactic distinction between mass and count nouns of Chinese": [
+    {
+      "concept": "Chao draws a “formal” or syntactic distinction between mass and count nouns of Chinese",
+      "zettel_id": "Linguistics-20251029-009",
+      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Syntactic": [
+    {
+      "concept": "Syntactic",
+      "zettel_id": "Linguistics-20251029-009",
+      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Distinction": [
+    {
+      "concept": "Distinction",
+      "zettel_id": "Linguistics-20251029-009",
+      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "The linguistic distinction between mass and count nouns is closely related to the ontological distin": [
+    {
+      "concept": "The linguistic distinction between mass and count nouns is closely related to the ontological distin",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Quantity": [
+    {
+      "concept": "Quantity",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Number": [
+    {
+      "concept": "Number",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Ontology": [
+    {
+      "concept": "Ontology",
+      "zettel_id": "Linguistics-20251029-010",
+      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Many studies of animals’ and human infants’ cognition of number suggest that humans conceive individ": [
+    {
+      "concept": "Many studies of animals’ and human infants’ cognition of number suggest that humans conceive individ",
+      "zettel_id": "Linguistics-20251029-011",
+      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Number Cognition": [
+    {
+      "concept": "Number Cognition",
+      "zettel_id": "Linguistics-20251029-011",
+      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Infants": [
+    {
+      "concept": "Infants",
+      "zettel_id": "Linguistics-20251029-011",
+      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Animals": [
+    {
+      "concept": "Animals",
+      "zettel_id": "Linguistics-20251029-011",
+      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Mass vs Count": [
+    {
+      "concept": "Mass vs Count",
+      "zettel_id": "Linguistics-20251029-011",
+      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "But this argument for the Mass Noun Hypothesis has a conspicuous prob-lem": [
+    {
+      "concept": "But this argument for the Mass Noun Hypothesis has a conspicuous prob-lem",
+      "zettel_id": "Linguistics-20251029-012",
+      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "Future Research": [
+    {
+      "concept": "Future Research",
+      "zettel_id": "Linguistics-20251029-012",
+      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Linguistics",
+      "paper_id": 2
+    }
+  ],
+  "The primary semantic function of classifiers, including both sortal classifiers andmeasurewords,isto": [
+    {
+      "concept": "The primary semantic function of classifiers, including both sortal classifiers andmeasurewords,isto",
+      "zettel_id": "Linguistics-20251029-013",
+      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Chinese Linguistics": [
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-013",
+      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-014",
+      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-015",
+      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-016",
+      "zettel_title": "\"排序用法 (Ordering Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-017",
+      "zettel_title": "\"指稱用法 (Referring Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-018",
+      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-019",
+      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Chinese Linguistics",
+      "zettel_id": "Linguistics-20251029-020",
+      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Individuation": [
+    {
+      "concept": "Individuation",
+      "zettel_id": "Linguistics-20251029-013",
+      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Semantic Function": [
+    {
+      "concept": "Semantic Function",
+      "zettel_id": "Linguistics-20251029-013",
+      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Semantic Function",
+      "zettel_id": "Linguistics-20251029-018",
+      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "This primary function leads to threetypesofthemostfrequentusagesofclassifiersinChineseNPs:enumeratin": [
+    {
+      "concept": "This primary function leads to threetypesofthemostfrequentusagesofclassifiersinChineseNPs:enumeratin",
+      "zettel_id": "Linguistics-20251029-014",
+      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Noun Phrases": [
+    {
+      "concept": "Noun Phrases",
+      "zettel_id": "Linguistics-20251029-014",
+      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Usage": [
+    {
+      "concept": "Usage",
+      "zettel_id": "Linguistics-20251029-014",
+      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Intheenumeratingusage,aclassifierprecedesthenoun andisprecededbynumerals,forexample,(cid:31)(cid:2)(": [
+    {
+      "concept": "Intheenumeratingusage,aclassifierprecedesthenoun andisprecededbynumerals,forexample,(cid:31)(cid:2)(",
+      "zettel_id": "Linguistics-20251029-015",
+      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Enumerating Usage": [
+    {
+      "concept": "Enumerating Usage",
+      "zettel_id": "Linguistics-20251029-015",
+      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "In the ordering usage, a classifier precedes the noun and is preceded by ordinal numbers, as in (cid": [
+    {
+      "concept": "In the ordering usage, a classifier precedes the noun and is preceded by ordinal numbers, as in (cid",
+      "zettel_id": "Linguistics-20251029-016",
+      "zettel_title": "\"排序用法 (Ordering Usage)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Ordering Usage": [
+    {
+      "concept": "Ordering Usage",
+      "zettel_id": "Linguistics-20251029-016",
+      "zettel_title": "\"排序用法 (Ordering Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Ordinal Numbers": [
+    {
+      "concept": "Ordinal Numbers",
+      "zettel_id": "Linguistics-20251029-016",
+      "zettel_title": "\"排序用法 (Ordering Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "In the referring usage,aclassifierprecedesthenounandisprecededbydemonstrativesfollowed byanoptionaln": [
+    {
+      "concept": "In the referring usage,aclassifierprecedesthenounandisprecededbydemonstrativesfollowed byanoptionaln",
+      "zettel_id": "Linguistics-20251029-017",
+      "zettel_title": "\"指稱用法 (Referring Usage)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Referring Usage": [
+    {
+      "concept": "Referring Usage",
+      "zettel_id": "Linguistics-20251029-017",
+      "zettel_title": "\"指稱用法 (Referring Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Demonstratives": [
+    {
+      "concept": "Demonstratives",
+      "zettel_id": "Linguistics-20251029-017",
+      "zettel_title": "\"指稱用法 (Referring Usage)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Boththeclassifier andthenumeral-classifier compoundcanbereduplicated for differentsemanticfunctions": [
+    {
+      "concept": "Boththeclassifier andthenumeral-classifier compoundcanbereduplicated for differentsemanticfunctions",
+      "zettel_id": "Linguistics-20251029-018",
+      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Reduplication": [
+    {
+      "concept": "Reduplication",
+      "zettel_id": "Linguistics-20251029-018",
+      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Reduplication",
+      "zettel_id": "Linguistics-20251029-019",
+      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    },
+    {
+      "concept": "Reduplication",
+      "zettel_id": "Linguistics-20251029-020",
+      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "In examples like(cid:16)(cid:12)(cid:4)(cid:12)(cid:11)(cid:2)(cid:3)(cid:21)(cid:16)(cid:16)((cid:2": [
+    {
+      "concept": "In examples like(cid:16)(cid:12)(cid:4)(cid:12)(cid:11)(cid:2)(cid:3)(cid:21)(cid:16)(cid:16)((cid:2",
+      "zettel_id": "Linguistics-20251029-019",
+      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Emphasis": [
+    {
+      "concept": "Emphasis",
+      "zettel_id": "Linguistics-20251029-019",
+      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "whenanumeral–classifiercompoundisreduplicated,itismostcommonlyused asanadverbtofocusontherepeatablea": [
+    {
+      "concept": "whenanumeral–classifiercompoundisreduplicated,itismostcommonlyused asanadverbtofocusontherepeatablea",
+      "zettel_id": "Linguistics-20251029-020",
+      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "Adverbial Function": [
+    {
+      "concept": "Adverbial Function",
+      "zettel_id": "Linguistics-20251029-020",
+      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Linguistics",
+      "paper_id": 9
+    }
+  ],
+  "AI代理者": [
+    {
+      "concept": "AI代理者",
+      "zettel_id": "Research-20251029-001",
+      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "認知科學": [
+    {
+      "concept": "認知科學",
+      "zettel_id": "Research-20251029-001",
+      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    },
+    {
+      "concept": "認知科學",
+      "zettel_id": "Research-20251029-003",
+      "zettel_title": "\"認知科學研究的通用性\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    },
+    {
+      "concept": "認知科學",
+      "zettel_id": "Research-20251029-007",
+      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "研究參與者": [
+    {
+      "concept": "研究參與者",
+      "zettel_id": "Research-20251029-001",
+      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "AI進展": [
+    {
+      "concept": "AI進展",
+      "zettel_id": "Research-20251029-002",
+      "zettel_title": "\"對AI代理者的熱情\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "認知科學研究": [
+    {
+      "concept": "認知科學研究",
+      "zettel_id": "Research-20251029-002",
+      "zettel_title": "\"對AI代理者的熱情\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "通用性": [
+    {
+      "concept": "通用性",
+      "zettel_id": "Research-20251029-003",
+      "zettel_title": "\"認知科學研究的通用性\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    },
+    {
+      "concept": "通用性",
+      "zettel_id": "Research-20251029-007",
+      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "研究效度": [
+    {
+      "concept": "研究效度",
+      "zettel_id": "Research-20251029-003",
+      "zettel_title": "\"認知科學研究的通用性\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "適用範圍": [
+    {
+      "concept": "適用範圍",
+      "zettel_id": "Research-20251029-003",
+      "zettel_title": "\"認知科學研究的通用性\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "認知偏誤": [
+    {
+      "concept": "認知偏誤",
+      "zettel_id": "Research-20251029-004",
+      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "研究局限": [
+    {
+      "concept": "研究局限",
+      "zettel_id": "Research-20251029-004",
+      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    },
+    {
+      "concept": "研究局限",
+      "zettel_id": "Research-20251029-008",
+      "zettel_title": "\"參與者樣本多樣性不足\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    },
+    {
+      "concept": "研究局限",
+      "zettel_id": "Research-20251029-009",
+      "zettel_title": "\"有限的實驗刺激與情境\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "AI代理者影響": [
+    {
+      "concept": "AI代理者影響",
+      "zettel_id": "Research-20251029-004",
+      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "錯誤信念": [
+    {
+      "concept": "錯誤信念",
+      "zettel_id": "Research-20251029-004",
+      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "LLM": [
+    {
+      "concept": "LLM",
+      "zettel_id": "Research-20251029-005",
+      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "AI架構": [
+    {
+      "concept": "AI架構",
+      "zettel_id": "Research-20251029-005",
+      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "認知模擬": [
+    {
+      "concept": "認知模擬",
+      "zettel_id": "Research-20251029-005",
+      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "技術基礎": [
+    {
+      "concept": "技術基礎",
+      "zettel_id": "Research-20251029-005",
+      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "LLM限制": [
+    {
+      "concept": "LLM限制",
+      "zettel_id": "Research-20251029-006",
+      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "數據偏見": [
+    {
+      "concept": "數據偏見",
+      "zettel_id": "Research-20251029-006",
+      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "缺乏變異性": [
+    {
+      "concept": "缺乏變異性",
+      "zettel_id": "Research-20251029-006",
+      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "模擬局限": [
+    {
+      "concept": "模擬局限",
+      "zettel_id": "Research-20251029-006",
+      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "研究挑戰": [
+    {
+      "concept": "研究挑戰",
+      "zettel_id": "Research-20251029-007",
+      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "AI解決方案": [
+    {
+      "concept": "AI解決方案",
+      "zettel_id": "Research-20251029-007",
+      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
+      "concept_type": "tag",
+      "card_type": "question",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "樣本偏差": [
+    {
+      "concept": "樣本偏差",
+      "zettel_id": "Research-20251029-008",
+      "zettel_title": "\"參與者樣本多樣性不足\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "多樣性": [
+    {
+      "concept": "多樣性",
+      "zettel_id": "Research-20251029-008",
+      "zettel_title": "\"參與者樣本多樣性不足\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "人類研究": [
+    {
+      "concept": "人類研究",
+      "zettel_id": "Research-20251029-008",
+      "zettel_title": "\"參與者樣本多樣性不足\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "實驗設計": [
+    {
+      "concept": "實驗設計",
+      "zettel_id": "Research-20251029-009",
+      "zettel_title": "\"有限的實驗刺激與情境\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "情境限制": [
+    {
+      "concept": "情境限制",
+      "zettel_id": "Research-20251029-009",
+      "zettel_title": "\"有限的實驗刺激與情境\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "刺激範圍": [
+    {
+      "concept": "刺激範圍",
+      "zettel_id": "Research-20251029-009",
+      "zettel_title": "\"有限的實驗刺激與情境\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "論文主旨": [
+    {
+      "concept": "論文主旨",
+      "zettel_id": "Research-20251029-010",
+      "zettel_title": "\"AI代理者對通用性的核心論點\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "批判性分析": [
+    {
+      "concept": "批判性分析",
+      "zettel_id": "Research-20251029-010",
+      "zettel_title": "\"AI代理者對通用性的核心論點\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "內在限制": [
+    {
+      "concept": "內在限制",
+      "zettel_id": "Research-20251029-010",
+      "zettel_title": "\"AI代理者對通用性的核心論點\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "排除性": [
+    {
+      "concept": "排除性",
+      "zettel_id": "Research-20251029-010",
+      "zettel_title": "\"AI代理者對通用性的核心論點\"",
+      "concept_type": "tag",
+      "card_type": "finding",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "AI模型": [
+    {
+      "concept": "AI模型",
+      "zettel_id": "Research-20251029-011",
+      "zettel_title": "\"AI代理者的架構類型\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "提示工程": [
+    {
+      "concept": "提示工程",
+      "zettel_id": "Research-20251029-011",
+      "zettel_title": "\"AI代理者的架構類型\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "增強模型": [
+    {
+      "concept": "增強模型",
+      "zettel_id": "Research-20251029-011",
+      "zettel_title": "\"AI代理者的架構類型\"",
+      "concept_type": "tag",
+      "card_type": "method",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "研究方法論": [
+    {
+      "concept": "研究方法論",
+      "zettel_id": "Research-20251029-012",
+      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "批判性理論": [
+    {
+      "concept": "批判性理論",
+      "zettel_id": "Research-20251029-012",
+      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "環境影響": [
+    {
+      "concept": "環境影響",
+      "zettel_id": "Research-20251029-012",
+      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ],
+  "實驗局限": [
+    {
+      "concept": "實驗局限",
+      "zettel_id": "Research-20251029-012",
+      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
+      "concept_type": "tag",
+      "card_type": "concept",
+      "domain": "Research",
+      "paper_id": 31
+    }
+  ]
+}
