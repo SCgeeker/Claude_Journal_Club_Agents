@@ -10,10 +10,10 @@ import argparse
 from pathlib import Path
 
 # 設置UTF-8編碼（Windows相容性）
-if sys.platform == 'win32':
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+# if sys.platform == 'win32':
+#     import io
+#     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+#     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # 添加src到路徑
 sys.path.insert(0, str(Path(__file__).parent / 'src'))
@@ -145,12 +145,8 @@ def main():
     parser.add_argument('--selection-strategy', type=str, default='balanced',
                        choices=['balanced', 'quality_first', 'cost_first', 'speed_first'],
                        help='模型選擇策略：balanced(平衡)、quality_first(品質優先)、cost_first(成本優先)、speed_first(速度優先)，預設：balanced')
-    parser.add_argument('--max-cost', type=float,
-                       help='單次會話最高成本限制（美元），超過後自動切換到免費模型')
     parser.add_argument('--usage-report', action='store_true',
                        help='生成使用報告（每日和週報）')
-    parser.add_argument('--monitor', action='store_true',
-                       help='啟用詳細的模型監控和成本追蹤')
 
     args = parser.parse_args()
 
@@ -187,10 +183,6 @@ def main():
     print(f"LLM提供者：{args.llm_provider}")
     if args.llm_provider == 'auto':
         print(f"選擇策略：{args.selection_strategy}")
-    if args.max_cost:
-        print(f"成本限制：${args.max_cost:.2f}")
-    if args.monitor:
-        print(f"監控模式：已啟用")
 
     if args.from_kb:
         print(f"知識庫來源：論文ID {args.from_kb}")
@@ -210,9 +202,7 @@ def main():
             llm_provider=args.llm_provider,
             ollama_url=args.ollama_url,
             api_key=args.api_key,
-            selection_strategy=args.selection_strategy,
-            max_cost=args.max_cost,
-            enable_monitoring=args.monitor
+            selection_strategy=args.selection_strategy
         )
 
         # 準備內容和主題
@@ -482,37 +472,6 @@ def main():
             weekly_report = reporter.generate_weekly_report()
             reporter.save_report(weekly_report, f"weekly_{date_str}.md")
             print("\n✅ 報告已保存到 logs/model_usage/reports/ 目錄")
-
-        # 顯示監控摘要（如果啟用）
-        if args.monitor and hasattr(maker, 'model_monitor') and maker.model_monitor:
-            print("\n" + "=" * 70)
-            print("📊 模型使用監控摘要")
-            print("=" * 70)
-
-            cost_status = maker.model_monitor.check_cost_status()
-            if cost_status.get('controlled'):
-                session_info = cost_status['session']
-                daily_info = cost_status['daily']
-
-                print(f"\n💰 成本追蹤：")
-                print(f"   • 會話成本: ${session_info['cost']:.4f} / ${session_info['limit']:.2f}")
-                print(f"   • 今日成本: ${daily_info['cost']:.4f} / ${daily_info['limit']:.2f}")
-
-                if session_info.get('warning'):
-                    print("   ⚠️  會話成本接近限制！")
-                if daily_info.get('warning'):
-                    print("   ⚠️  今日成本接近限制！")
-
-            # 顯示模型切換建議
-            if hasattr(maker, 'last_provider') and hasattr(maker, 'last_model'):
-                suggestion = maker.model_monitor.suggest_model_switch(
-                    maker.last_model,
-                    maker.last_provider,
-                    task_type='academic_slides'
-                )
-                if suggestion:
-                    print(f"\n💡 模型切換建議：")
-                    print(f"   {suggestion['suggestion']}")
 
         return 0
 
