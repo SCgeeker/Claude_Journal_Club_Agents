@@ -11,10 +11,14 @@
             "id": "5954e5494e6dd23b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "zettelkasten_notes/zettel_Research_20251103/zettel_index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新分頁"
+              "title": "zettel_index"
             }
           }
         ]
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "601c29831b6dfeb4",
@@ -166,8 +171,9 @@
       "obsidian-excalidraw-plugin:新建繪圖檔案": false
     }
   },
-  "active": "0c5f8ef896b8fa42",
+  "active": "5954e5494e6dd23b",
   "lastOpenFiles": [
+    "relations/zettel_concept_network.md",
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards/Research-20251103-025.md",
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards/Research-20251103-024.md",
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards/Research-20251103-023.md",
@@ -194,7 +200,6 @@
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards/Research-20251103-002.md",
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards/Research-20251103-001.md",
     "zettelkasten_notes/zettel_Research_20251103/zettel_cards",
-    "zettelkasten_notes/zettel_Research_20251103/zettel_index.md",
     "zettelkasten_notes/zettel_Research_20251103",
     "relations/paper_concepts.json",
     "relations/zettel_hierarchy.json",
