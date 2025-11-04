@@ -1,12 +1,8 @@
 ---
-title: "符號主義認知（Symbolic Cognition）"
-summary: "# 符號主義認知（Symbolic Cognition）  > **核心**: [An older theory suggesting that cognition is primarily based on abstract symbols and rules.]  ## 說明 符號主義認知是"
+title: 符號主義認知（Symbolic Cognition）
+summary: An older theory suggesting that cognition is primarily based on abstract symbols and rules.
 ---
 
-
-# 符號主義認知（Symbolic Cognition）
-
-> **核心**: [An older theory suggesting that cognition is primarily based on abstract symbols and rules.]
 
 ## 說明
 符號主義認知是一種較早的認知理論，認為認知主要基於抽象符號和規則。這種理論認為，大腦就像一台計算機，通過操縱符號來進行思考和推理。符號主義認知強調知識的明確表示和規則的邏輯推理。
