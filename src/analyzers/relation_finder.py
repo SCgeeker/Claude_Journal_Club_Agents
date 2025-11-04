@@ -7,6 +7,7 @@ Relation-Finder 關係分析模組
 
 import json
 import sqlite3
+import re
 from dataclasses import dataclass, asdict
 from typing import List, Dict, Set, Tuple, Optional
 from collections import defaultdict
@@ -457,11 +458,272 @@ class RelationFinder:
         return summary
 
 
+class ZettelLinker:
+    """Phase 2.5: Zettelkasten 卡片與論文的自動關聯系統"""
+
+    def __init__(self, db_path: str = "knowledge_base/index.db"):
+        self.db_path = db_path
+        self.conn = None
+        self.stats = {
+            'total_zettel_folders': 0,
+            'total_cards': 0,
+            'linked_cards': 0,
+            'failed_links': 0,
+        }
+        self.failed_links = []
+
+    def connect(self):
+        """連接資料庫"""
+        self.conn = sqlite3.connect(self.db_path)
+        self.conn.row_factory = sqlite3.Row
+
+    def close(self):
+        """關閉資料庫連接"""
+        if self.conn:
+            self.conn.close()
+
+    def extract_cite_key_from_card_id(self, card_id: str, folder_name: str = None) -> Optional[str]:
+        """從卡片 ID 提取 cite_key - 新標準格式 (版本後綴支援)
+
+        支援的卡片ID格式:
+          - 標準格式: Author-Year-Number (e.g., Wu-2020-001)
+          - 版本後綴: Author-Year[a-z]-Number (e.g., Her-2012a-001)
+
+        參數:
+          card_id: 卡片檔名 (含或不含 .md 後綴)
+          folder_name: 資料夾名稱 (已不使用，保留用於向後相容)
+
+        返回:
+          cite_key: 如 "Wu-2020" 或 "Her-2012a" (含版本後綴)
+          None: 如果 card_id 格式無效
+        """
+        card_id = card_id.replace('.md', '')
+
+        # 新標準格式: Author-Year[suffix]-Number
+        # 支援: Wu-2020-001 (標準) 和 Chen-2023c-001 (版本後綴)
+        match = re.match(r'^([A-Za-z]+-\d+(?:[a-z])?)-\d{3}$', card_id)
+        if match:
+            return match.group(1)
+
+        return None
+
+    def _extract_cite_key_from_folder(self, folder_name: str) -> Optional[str]:
+        """從資料夾名稱提取 cite_key (用於 domain 欄位，非舊格式相容)
+
+        新標準格式卡片 (Author-Year-Number) 的 cite_key 直接從檔名提取。
+        此方法用於提取資料夾中的 domain 資訊，用於資料庫記錄。
+
+        示例:
+          zettel_Wu-2020_20251104 -> Wu-2020
+          zettel_Her-2012a_20251104 -> Her-2012a
+        """
+        if folder_name.startswith('zettel_'):
+            content = folder_name[7:]
+        else:
+            content = folder_name
+
+        # 移除時間戳 (_YYYYMMDD)
+        match = re.match(r'^(.+)_\d{8}$', content)
+        if match:
+            return match.group(1)
+
+        return content
+
+    def get_paper_by_cite_key(self, cite_key: str) -> Optional[Dict]:
+        """從資料庫查找論文"""
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT id, cite_key, title FROM papers WHERE cite_key = ?",
+            (cite_key,)
+        )
+        row = cursor.fetchone()
+        if row:
+            return dict(row)
+        return None
+
+    def scan_zettel_folders(self, zettel_base: str = "output/zettelkasten_notes") -> List[Tuple[Path, str, str]]:
+        """掃描所有 Zettel 資料夾"""
+        zettel_path = Path(zettel_base)
+        folders = sorted([d for d in zettel_path.iterdir() if d.is_dir() and d.name.startswith('zettel_')])
+
+        self.stats['total_zettel_folders'] = len(folders)
+        cards = []
+
+        for folder in folders:
+            card_dir = folder / 'zettel_cards'
+            if not card_dir.exists():
+                continue
+
+            for card_file in sorted(card_dir.glob('*.md')):
+                card_id = card_file.stem
+                cards.append((card_file, card_id, folder.name))
+                self.stats['total_cards'] += 1
+
+        return cards
+
+    def link_zettel_to_papers(self, zettel_base: str = "output/zettelkasten_notes", dry_run: bool = False) -> Dict:
+        """自動關聯所有 Zettel 卡片到論文"""
+        print("=" * 70)
+        print("[PHASE 2.5] Zettelkasten - 論文自動關聯")
+        print("=" * 70)
+
+        cards = self.scan_zettel_folders(zettel_base)
+        print(f"\n[SCAN] 掃描結果:")
+        print(f"   資料夾數: {self.stats['total_zettel_folders']}")
+        print(f"   卡片數: {self.stats['total_cards']}")
+        print()
+
+        cite_key_groups = defaultdict(list)
+        for card_file, card_id, folder_name in cards:
+            cite_key = self.extract_cite_key_from_card_id(card_id, folder_name)
+            cite_key_groups[cite_key].append((card_file, card_id, folder_name))
+
+        print("[LINKING] 關聯進度:")
+        # Sort keys: non-None first, then None
+        non_none_keys = sorted([k for k in cite_key_groups.keys() if k is not None])
+        none_keys = [k for k in cite_key_groups.keys() if k is None]
+        cite_keys = non_none_keys + none_keys
+
+        for cite_key in cite_keys:
+            cards_for_key = cite_key_groups[cite_key]
+
+            if cite_key is None:
+                print(f"\n[WARN] 無法識別格式 ({len(cards_for_key)} 張卡片):")
+                for _, card_id, folder_name in cards_for_key[:3]:
+                    print(f"    - {folder_name}/{card_id}")
+                self.stats['failed_links'] += len(cards_for_key)
+                self.failed_links.extend(cards_for_key)
+                continue
+
+            paper = self.get_paper_by_cite_key(cite_key)
+            if not paper:
+                print(f"\n[ERROR] 論文不存在: {cite_key} ({len(cards_for_key)} 張卡片)")
+                self.stats['failed_links'] += len(cards_for_key)
+                self.failed_links.extend(cards_for_key)
+                continue
+
+            if not dry_run:
+                for card_file, card_id, folder_name in cards_for_key:
+                    self._add_or_update_zettel_card(paper['id'], card_id, card_file, folder_name)
+
+            print(f"[OK] {cite_key:20} -> Paper {paper['id']:2} | Cards: {len(cards_for_key):3}")
+            self.stats['linked_cards'] += len(cards_for_key)
+
+        print("\n" + "=" * 70)
+        print("[STATS] 關聯統計:")
+        print(f"   成功關聯: {self.stats['linked_cards']} 張")
+        print(f"   失敗: {self.stats['failed_links']} 張")
+        print(f"   成功率: {100*self.stats['linked_cards']/max(1, self.stats['total_cards']):.1f}%")
+        print("=" * 70)
+
+        return self.stats
+
+    def _add_or_update_zettel_card(self, paper_id: int, card_id: str, card_file: Path, folder_name: str = None):
+        """添加或更新 Zettel 卡片記錄"""
+        cursor = self.conn.cursor()
+
+        with open(card_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        card_data = self._parse_card_frontmatter(content)
+
+        # Extract domain from folder name (e.g., "zettel_Ahrens-2016_20251104" -> "Ahrens-2016")
+        domain = 'Unknown'
+        if folder_name:
+            domain = self._extract_cite_key_from_folder(folder_name) or 'Unknown'
+
+        try:
+            cursor.execute("""
+                INSERT OR REPLACE INTO zettel_cards
+                (zettel_id, paper_id, title, content, core_concept, tags, domain,
+                 file_path, zettel_folder, card_type, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            """, (
+                card_id,
+                paper_id,
+                card_data.get('title', ''),
+                content,
+                card_data.get('core_concept', card_data.get('summary', '')),
+                card_data.get('tags'),
+                domain,
+                str(card_file),
+                folder_name or '',
+                card_data.get('type', card_data.get('card_type', 'concept'))
+            ))
+            self.conn.commit()
+        except Exception as e:
+            print(f"   [ERROR] 無法添加卡片 {card_id}: {e}")
+
+    def _parse_card_frontmatter(self, content: str) -> Dict:
+        """解析 Markdown 卡片的 YAML frontmatter (新標準格式)
+
+        支援的卡片ID格式:
+          - 標準格式: Author-Year-Number (e.g., Wu-2020-001)
+          - 版本後綴: Author-Year[a-z]-Number (e.g., Her-2012a-001)
+
+        提取的 YAML 欄位:
+          - title: 卡片標題
+          - summary: 核心概念摘要
+          - core_concept: 核心概念
+          - tags: 標籤列表
+          - type 或 card_type: 卡片類型
+
+        返回:
+          Dict: 包含解析的 YAML 欄位
+        """
+        data = {}
+        match = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
+        if not match:
+            return data
+
+        yaml_content = match.group(1)
+
+        for line in yaml_content.split('\n'):
+            if ':' in line:
+                key, value = line.split(':', 1)
+                key = key.strip()
+                value = value.strip()
+
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
+
+                data[key] = value
+
+        # 提取核心概念（從 > **核心**: "..." 格式）
+        if not data.get('summary'):
+            core_match = re.search(r'> \*\*核心\*\*:\s*"([^"]*)"', content)
+            if core_match:
+                data['core_concept'] = core_match.group(1)
+
+        # 解析標籤（從 [[tag1], [tag2], ...] 格式）
+        if 'tags' not in data or not data['tags']:
+            tags_match = re.search(r'tags:\s*(\[\[.*?\]\])', content, re.MULTILINE)
+            if tags_match:
+                tags_str = tags_match.group(1)
+                # 提取 [[tag]] 中的標籤
+                tags = re.findall(r'\[\[([^\]]+)\]\]', tags_str)
+                data['tags'] = json.dumps(tags) if tags else None
+
+        return data
+
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Relation-Finder 關係分析工具")
     parser.add_argument("--kb-path", default="knowledge_base", help="知識庫路徑")
     parser.add_argument("--output", default="output/relations", help="輸出目錄")
+    parser.add_argument("--phase2-5", action="store_true", help="執行 Phase 2.5 Zettel 關聯")
     args = parser.parse_args()
-    finder = RelationFinder(kb_path=args.kb_path)
-    summary = finder.generate_report(output_dir=args.output)
+
+    if args.phase2_5:
+        # Phase 2.5: Zettel 卡片與論文關聯
+        linker = ZettelLinker()
+        linker.connect()
+        try:
+            linker.link_zettel_to_papers(dry_run=False)
+        finally:
+            linker.close()
+    else:
+        # 原有功能: 論文間關係分析
+        finder = RelationFinder(kb_path=args.kb_path)
+        summary = finder.generate_report(output_dir=args.output)
