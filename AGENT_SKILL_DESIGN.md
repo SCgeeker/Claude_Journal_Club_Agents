@@ -1,9 +1,9 @@
 # Agent & Skill 架構設計方案
 
-**文檔版本**: v2.4 (Phase 1 完整測試完成版)
-**最後更新**: 2025-11-02 23:30
-**狀態**: Phase 1 測試完成 ✅ | cite_key +500% ✅ | CLI工具驗證完成 ✅ | Phase 2 待啟動 🎯
-**基於**: Phase 1 完整實施 + Phase 1.6 元數據優化 + Phase 1.7 CLI工具評估測試
+**文檔版本**: v2.5 (Phase 1.5 + Phase 2 準備版)
+**最後更新**: 2025-11-04 22:30
+**狀態**: Phase 1 ✅ 完成 | Phase 1.5 ✅ 完成 | Phase 2 🔄 進行中 (80%) | 下階段 Phase 2.1-2.2 relation-finder & concept-mapper
+**基於**: Phase 1 完整實施 + Phase 1.5 向量搜索完成 + Phase 2 Zettelkasten標準化完成 + Phase 2.1 準備
 
 ---
 
@@ -39,7 +39,31 @@
 - ✅ **質量檢查**: 30篇論文，79個問題檢測
 - ✅ **工具穩定性**: 核心CLI工具100%通過測試
 
-### 🎯 當前狀態與下一步 (2025-11-02)
+---
+
+## 📊 整體進度統計 (2025-11-04)
+
+| 階段 | 完成度 | 主要成果 | 下一步 |
+|------|--------|--------|--------|
+| **Phase 1** | ✅ 100% | batch-processor, quality-checker, MVP Agent | 已完成 ✅ |
+| **Phase 1.5** | ✅ 100% | 向量搜索系統, 語義搜索, hybrid search | 已完成 ✅ |
+| **Phase 2** | 🔄 80% | Zettelkasten 標準化, 索引 YAML 統一 | 待完成：relation-finder, concept-mapper |
+| **Phase 2.1-2.2** | 📋 0% | 規劃中 | 下週啟動：relation-finder (識別概念對關係) |
+
+**核心 CLI 工具**: 11個 ✅ | **代碼總量**: ~12,000行 | **文檔覆蓋**: 5份主文檔 + TOOLS_REFERENCE.md
+
+**新增記錄（Phase 1.5 + Phase 2）**:
+- ✅ 向量搜索系統（Gemini + Ollama 雙提供者）
+- ✅ 語義搜索、混合搜索命令集成到 kb_manage.py
+- ✅ 704 張 Zettelkasten 卡片 YAML 簡化
+- ✅ 57 個索引檔案新增 YAML frontmatter
+- ✅ 創建 TOOLS_REFERENCE.md 工具速查表
+- 📝 建立測試框架（tests/ 目錄）
+- 📝 更新文檔 (AGENT_SKILL_DESIGN.md v2.5)
+
+---
+
+### 🎯 當前狀態與下一步 (2025-11-04)
 
 #### **✅ Phase 1 完整測試完成 (2025-11-02)**
 
@@ -91,28 +115,46 @@
 - 歸檔臨時文件和測試報告
 - 清理代碼庫後再進入 Phase 2
 
-#### **立即可執行任務**
+#### **✅ 2025-11-04 完成的任務**
+
+**立即執行任務** ✅:
+1. ✅ 更新 AGENT_SKILL_DESIGN.md (v2.4 → v2.5)
+2. ✅ 建立 TOOLS_REFERENCE.md (11個工具的完整速查表)
+3. ✅ 提交 Phase 2 Git 變更 (commit: 7b166e4)
+
+**本週執行任務** 📝:
+1. 📋 建立測試框架 (tests/unit, tests/integration)
+2. 📋 更新 README.md 快速開始指南
+3. 📋 建立 .gitignore (排除大型檔案和臨時文件)
+
+**下週啟動任務** 🔄:
+1. 📅 Phase 2.1: relation-finder
+   - **主要任務**: 識別概念對之間的關係
+   - **預計時間**: 3-4 天
+   - **技術依賴**: 向量搜索 (Phase 1.5 已完成)
+   - **交付物**: `src/analyzers/relation_finder.py`
+
+2. 📅 Phase 2.2: concept-mapper
+   - **主要任務**: 構建概念網絡和知識圖譜
+   - **預計時間**: 2-3 天
+   - **技術依賴**: relation-finder
+   - **交付物**: `src/analyzers/concept_mapper.py`
 
 ```bash
-# 選項C: 檔案整理與工具整合
-# 1. 歸檔測試報告
-mkdir -p archive/phase1_testing_reports
-mv CLI_TOOLS_EVALUATION.md archive/phase1_testing_reports/
-mv FUZZY_MATCHING_TEST_REPORT.md archive/phase1_testing_reports/
-mv PDF_EXTRACTION_ANALYSIS_REPORT.md archive/phase1_testing_reports/
-mv PHASE1_TESTING_COMPLETE_REPORT.md archive/phase1_testing_reports/
+# 📝 Phase 2.1 relation-finder 核心架構預覽
+src/analyzers/relation_finder.py:
+├── ConceptPair: 概念對及其關係
+├── RelationFinder: 關係識別核心
+├── find_concept_relations(): 識別概念對關係
+│   ├── 基於向量相似度的概念配對
+│   ├── 關係類型分類 (6種: 導向、基於、相關、對比、上位、下位)
+│   └── 信度評分
+└── build_concept_network(): 構建完整網絡
 
-# 2. 歸檔臨時測試工具
-mkdir -p archive/tools/phase1_testing
-mv check_test_samples.py archive/tools/phase1_testing/
-mv check_repair_results.py archive/tools/phase1_testing/
-mv update_cite_key_id23.py archive/tools/phase1_testing/
-mv fuzzy_match_pdfs.py archive/tools/phase1_testing/
-mv batch_validate_pdfs.py archive/tools/phase1_testing/
-mv enhanced_match_results.json archive/tools/phase1_testing/
-
-# 3. 決定是否整合 interactive_repair.py 和 enhanced_fuzzy_match.py
-# (這兩個工具已證實有用，建議整合到 kb_manage.py)
+# 預期成果:
+# - 識別 50+ 個概念對
+# - 100+ 個語義關係
+# - 可視化概念網絡圖
 ```
 
 ---
