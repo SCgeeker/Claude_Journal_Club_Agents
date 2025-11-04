@@ -282,6 +282,7 @@ class KnowledgeBaseManager:
                   abstract: Optional[str] = None,
                   keywords: Optional[List[str]] = None,
                   content: Optional[str] = None,
+                  cite_key: Optional[str] = None,
                   zotero_key: Optional[str] = None,
                   source: str = 'manual',
                   doi: Optional[str] = None,
@@ -297,7 +298,8 @@ class KnowledgeBaseManager:
             abstract: 摘要
             keywords: 關鍵詞列表
             content: 完整內容（用於全文搜索）
-            zotero_key: Zotero cite_key
+            cite_key: BibTeX cite_key（原始引用鍵）
+            zotero_key: Zotero 內部 key
             source: 論文來源（manual/zotero/obsidian）
             doi: DOI
             url: 論文URL
@@ -314,10 +316,10 @@ class KnowledgeBaseManager:
         try:
             cursor.execute("""
                 INSERT INTO papers (file_path, title, authors, year, abstract, keywords,
-                                   zotero_key, source, doi, url)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                   cite_key, zotero_key, source, doi, url)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (file_path, title, authors_str, year, abstract, keywords_str,
-                  zotero_key, source, doi, url))
+                  cite_key, zotero_key, source, doi, url))
 
             paper_id = cursor.lastrowid
 
@@ -336,10 +338,10 @@ class KnowledgeBaseManager:
             cursor.execute("""
                 UPDATE papers
                 SET title=?, authors=?, year=?, abstract=?, keywords=?,
-                    zotero_key=?, source=?, doi=?, url=?, updated_at=CURRENT_TIMESTAMP
+                    cite_key=?, zotero_key=?, source=?, doi=?, url=?, updated_at=CURRENT_TIMESTAMP
                 WHERE file_path=?
             """, (title, authors_str, year, abstract, keywords_str,
-                  zotero_key, source, doi, url, file_path))
+                  cite_key, zotero_key, source, doi, url, file_path))
 
             cursor.execute("SELECT id FROM papers WHERE file_path=?", (file_path,))
             paper_id = cursor.fetchone()[0]
@@ -393,7 +395,8 @@ class KnowledgeBaseManager:
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at
+            SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at,
+                   zotero_key, source, doi, url, cite_key
             FROM papers
             WHERE id = ?
         """, (paper_id,))
@@ -411,9 +414,162 @@ class KnowledgeBaseManager:
                 "abstract": row[5],
                 "keywords": json.loads(row[6]) if row[6] else [],
                 "created_at": row[7],
-                "updated_at": row[8]
+                "updated_at": row[8],
+                "zotero_key": row[9],
+                "source": row[10],
+                "doi": row[11],
+                "url": row[12],
+                "cite_key": row[13]  # ⭐ 新增：原始 bibtex key
             }
         return None
+
+    def update_cite_key(self, paper_id: int, cite_key: str) -> bool:
+        """
+        更新論文的 cite_key
+
+        Args:
+            paper_id: 論文ID
+            cite_key: BibTeX cite_key
+
+        Returns:
+            是否成功更新
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("""
+                UPDATE papers
+                SET cite_key = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            """, (cite_key, paper_id))
+
+            conn.commit()
+            return cursor.rowcount > 0
+        finally:
+            conn.close()
+
+    def list_papers_without_cite_key(self) -> List[Dict[str, Any]]:
+        """
+        列出所有缺少 cite_key 的論文
+
+        Returns:
+            論文列表（包含 id, title, authors, year, file_path）
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT id, title, authors, year, file_path
+            FROM papers
+            WHERE cite_key IS NULL OR cite_key = ''
+            ORDER BY id
+        """)
+
+        papers = []
+        for row in cursor.fetchall():
+            # Parse authors field safely
+            authors = []
+            if row[2] and row[2].strip():
+                try:
+                    authors = json.loads(row[2])
+                except (json.JSONDecodeError, TypeError):
+                    # If JSON parsing fails, treat as empty list
+                    authors = []
+
+            papers.append({
+                'id': row[0],
+                'title': row[1],
+                'authors': authors,
+                'year': row[3],
+                'file_path': row[4]
+            })
+
+        conn.close()
+        return papers
+
+    def update_cite_keys_from_bib(self, bib_file: str, dry_run: bool = False) -> Dict[str, Any]:
+        """
+        從 BibTeX 文件批量更新 cite_key
+
+        Args:
+            bib_file: .bib 文件路徑
+            dry_run: 是否只模擬（不實際更新）
+
+        Returns:
+            更新結果統計
+        """
+        from src.integrations.bibtex_parser import BibTeXParser
+
+        parser = BibTeXParser()
+        entries = parser.parse_file(bib_file)
+
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        updated = []
+        not_found = []
+        already_has_key = []
+
+        for entry in entries:
+            # 根據 title 和 year 匹配論文
+            cursor.execute("""
+                SELECT id, title, cite_key
+                FROM papers
+                WHERE title LIKE ? AND (year = ? OR year IS NULL)
+            """, (f"%{entry.title[:50]}%", entry.year))
+
+            matches = cursor.fetchall()
+
+            if len(matches) == 0:
+                not_found.append({
+                    'cite_key': entry.cite_key,
+                    'title': entry.title
+                })
+            elif len(matches) == 1:
+                paper_id, title, existing_key = matches[0]
+
+                if existing_key:
+                    already_has_key.append({
+                        'id': paper_id,
+                        'title': title,
+                        'existing_key': existing_key,
+                        'new_key': entry.cite_key
+                    })
+                else:
+                    if not dry_run:
+                        cursor.execute("""
+                            UPDATE papers
+                            SET cite_key = ?, updated_at = CURRENT_TIMESTAMP
+                            WHERE id = ?
+                        """, (entry.cite_key, paper_id))
+
+                    updated.append({
+                        'id': paper_id,
+                        'title': title,
+                        'cite_key': entry.cite_key
+                    })
+            else:
+                # 多個匹配，需要人工處理
+                not_found.append({
+                    'cite_key': entry.cite_key,
+                    'title': entry.title,
+                    'reason': f'Multiple matches: {len(matches)}'
+                })
+
+        if not dry_run:
+            conn.commit()
+        conn.close()
+
+        return {
+            'total_entries': len(entries),
+            'updated': updated,
+            'not_found': not_found,
+            'already_has_key': already_has_key,
+            'success_count': len(updated),
+            'not_found_count': len(not_found),
+            'already_has_key_count': len(already_has_key)
+        }
 
     def list_papers(self, limit: int = 50, offset: int = 0) -> List[Dict[str, Any]]:
         """列出所有論文"""

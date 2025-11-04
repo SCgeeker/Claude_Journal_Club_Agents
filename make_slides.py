@@ -70,6 +70,33 @@ def print_available_options():
     print()
 
 
+def _get_cite_key_or_fallback(paper_data: dict) -> str:
+    """
+    獲取論文的 cite_key（嚴格模式）
+
+    Args:
+        paper_data: 論文資料字典（必須包含 cite_key）
+
+    Returns:
+        cite_key 字串
+
+    Raises:
+        ValueError: 如果缺少 cite_key
+    """
+    # ⭐ 只接受資料庫中的 cite_key，不提供備用方案
+    if paper_data.get('cite_key') and paper_data['cite_key'].strip():
+        return paper_data['cite_key'].strip()
+
+    # ❌ 不再提供備用生成
+    paper_id = paper_data.get('id', '未知')
+    raise ValueError(
+        f"\n論文 ID {paper_id} 缺少 cite_key。\n"
+        f"請執行以下命令修正：\n"
+        f"  1. python kb_manage.py check-cite-keys\n"
+        f"  2. python kb_manage.py update-from-bib 'My Library.bib'\n"
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='投影片生成工具 - 支援8種學術風格、5種詳細程度、3種語言',
@@ -128,8 +155,8 @@ def main():
                        help='輸出格式：pptx(PowerPoint)、markdown或both（預設：pptx）')
     parser.add_argument('--domain', type=str, default='Research',
                        help='領域代碼（Zettelkasten用，如NeuroPsy、AI、CompBio等，預設：Research）')
-    parser.add_argument('--model', type=str, default='gpt-oss:20b-cloud',
-                       help='LLM模型名稱（預設：gpt-oss:20b-cloud for Ollama Cloud）')
+    parser.add_argument('--model', type=str, default=None,
+                       help='LLM模型名稱（預設：None，使用智能選擇）')
     parser.add_argument('--llm-provider', type=str, default='auto',
                        choices=['auto', 'ollama', 'google', 'openai', 'anthropic'],
                        help='LLM提供者（預設：auto自動選擇）')
@@ -208,6 +235,7 @@ def main():
         # 準備內容和主題
         pdf_content = None
         effective_topic = args.topic
+        paper_data = None  # 儲存論文資訊供後續使用
 
         # 情況1：從知識庫讀取論文
         if args.from_kb:
@@ -221,6 +249,7 @@ def main():
                 print("💡 提示：使用 'python kb_manage.py list' 查看所有論文")
                 return 1
 
+            paper_data = paper  # 保存論文資訊供後續使用
             effective_topic = paper['title']
 
             # 讀取 Markdown 筆記內容（結構化）
@@ -334,14 +363,23 @@ def main():
             style_config = zettel_maker.styles_config['styles']['zettelkasten']
             card_count = style_config['default_card_count'].get(args.detail, 12)
 
+            # 獲取 cite_key（用於卡片 ID）
+            cite_key_for_cards = "Unknown"  # 默認值
+            if args.from_kb and paper_data:
+                cite_key_for_cards = _get_cite_key_or_fallback(paper_data)
+            elif args.pdf:
+                # 從 PDF 文件名提取
+                cite_key_for_cards = Path(args.pdf).stem
+
             # 生成prompt
             date_str = datetime.now().strftime("%Y%m%d")
             zettel_prompt = zettel_template.render(
                 topic=effective_topic,
                 pdf_content=pdf_content,
                 card_count=card_count,
-                domain=args.domain,
-                date=date_str,
+                domain=args.domain,  # 保留 domain（用於 metadata）
+                date=date_str,       # 保留 date（可能用於顯示）
+                cite_key=cite_key_for_cards,  # 新增 cite_key（用於卡片 ID）
                 language=args.language
             )
 
@@ -351,22 +389,39 @@ def main():
             print(f"✅ 使用 {used_provider} 生成完成")
 
             # 解析並生成卡片
-            # 使用PDF檔名而非domain來命名資料夾（每篇PDF獨立）
+            # 資料夾命名策略：優先使用 paper_id + short_title + domain（確保唯一性和可追溯性）
             if args.output:
+                # 使用者指定輸出路徑
                 output_dir = Path(args.output)
+            elif args.from_kb and paper_data:
+                # 從知識庫：使用 cite_key + date（移除 domain，保留在 metadata 中）
+                # ⭐ 優先使用原始 bibtex cite_key
+                cite_key = _get_cite_key_or_fallback(paper_data)
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{cite_key}_{date_str}")
             elif args.pdf:
+                # 從PDF檔案：使用PDF檔名
                 pdf_stem = Path(args.pdf).stem
                 output_dir = Path(f"output/zettelkasten_notes/zettel_{pdf_stem}_{date_str}")
             else:
-                # 回退：沒有PDF時使用domain
+                # 回退：使用domain（僅當無法確定來源時）
                 output_dir = Path(f"output/zettelkasten_notes/zettel_{args.domain}_{date_str}")
-            paper_info = {
-                'title': effective_topic,
-                'authors': '',
-                'year': datetime.now().year,
-                'paper_id': args.from_kb if args.from_kb else '',
-                'citation': effective_topic
-            }
+            # 準備論文資訊（優先使用 paper_data）
+            if paper_data:
+                paper_info = {
+                    'title': paper_data['title'],
+                    'authors': ', '.join(paper_data.get('authors', [])),
+                    'year': paper_data.get('year', datetime.now().year),
+                    'paper_id': args.from_kb if args.from_kb else '',
+                    'citation': paper_data['title']
+                }
+            else:
+                paper_info = {
+                    'title': effective_topic,
+                    'authors': '',
+                    'year': datetime.now().year,
+                    'paper_id': args.from_kb if args.from_kb else '',
+                    'citation': effective_topic
+                }
 
             result = zettel_maker.generate_zettelkasten(
                 llm_output=llm_output,

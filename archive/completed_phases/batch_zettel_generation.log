@@ -1,0 +1,148 @@
+[2025-11-04 08:18:17] Starting batch generation for 1 papers
+[2025-11-04 08:18:17] [  1] Paper  1 (Research  ): Taxonomy of Numeral Classifiers:
+[2025-11-04 08:18:30]       FAILED: Unknown error
+[2025-11-04 08:18:30] Progress: 1/1 (100.0%) - Success: 0, Failed: 1
+[2025-11-04 08:26:44] Starting batch generation for 1 papers
+[2025-11-04 08:26:44] [  1] Paper  1 (Research  ): Taxonomy of Numeral Classifiers:
+[2025-11-04 08:26:49]       FAILED: Unknown error
+[2025-11-04 08:26:49] Progress: 1/1 (100.0%) - Success: 0, Failed: 1
+[2025-11-04 14:18:54] Starting batch generation for 1 papers
+[2025-11-04 14:18:54] [  1] Paper  1 (Research  ): Taxonomy of Numeral Classifiers:
+[2025-11-04 14:19:27]       FAILED: Unknown error
+[2025-11-04 14:19:27] Progress: 1/1 (100.0%) - Success: 0, Failed: 1
+[2025-11-04 14:51:26] Starting batch generation for 64 papers
+[2025-11-04 14:51:26] [  1] Paper  1 (Research  ): Taxonomy of Numeral Classifiers:
+[2025-11-04 14:51:29]       FAILED: Unknown error
+[2025-11-04 14:51:31] [  2] Paper  2 (Linguistics): Chinese Classifiers and Count Nouns
+[2025-11-04 14:52:06]       SUCCESS
+[2025-11-04 14:52:08] [  3] Paper  3 (Research  ): LanguageSciences25(2003)353–373
+[2025-11-04 14:52:10]       FAILED: Unknown error
+[2025-11-04 14:52:12] [  4] Paper  4 (Research  ): Concepts in the Brain
+[2025-11-04 14:52:14]       FAILED: Unknown error
+[2025-11-04 14:52:16] [  5] Paper  5 (Research  ): 華語分類詞的界定與教學上的分級 1
+[2025-11-04 14:52:45]       SUCCESS
+[2025-11-04 14:52:47] [  6] Paper  6 (Research  ): A single origin of numeral classifiers
+[2025-11-04 14:53:15]       SUCCESS
+[2025-11-04 14:53:17] [  7] Paper  8 (Research  ): LinguisticsVanguard2022;8(1):151–164
+[2025-11-04 14:53:20]       FAILED: Unknown error
+[2025-11-04 14:53:22] [  8] Paper  9 (Linguistics): Classifiers
+[2025-11-04 14:53:47]       SUCCESS
+[2025-11-04 14:53:49] [  9] Paper 10 (Research  ): HuangLinguaSinica (2015) 1:1
+[2025-11-04 14:53:52]       FAILED: Unknown error
+[2025-11-04 14:53:54] [ 10] Paper 13 (Research  ): JournalofMemoryandLanguage127(2022)104355
+[2025-11-04 14:53:56]       FAILED: Unknown error
+[2025-11-04 14:53:56] Progress: 10/64 (15.6%) - Success: 4, Failed: 6
+[2025-11-04 14:53:58] [ 11] Paper 14 (Research  ): Journal of Cognitive Psychology
+[2025-11-04 14:54:01]       FAILED: Unknown error
+[2025-11-04 14:54:03] [ 12] Paper 15 (Research  ): PsychonomicBulletin&Review
+[2025-11-04 14:54:05]       FAILED: Unknown error
+[2025-11-04 14:54:07] [ 13] Paper 16 (Research  ): JournalofMemoryandLanguage135(2024)104478
+[2025-11-04 14:54:09]       FAILED: Unknown error
+[2025-11-04 14:54:11] [ 14] Paper 18 (Research  ): Memory&Cognition(2020)48:390–399
+[2025-11-04 14:54:14]       FAILED: Unknown error
+[2025-11-04 14:54:16] [ 15] Paper 19 (Research  ): Cognitive Processing
+[2025-11-04 14:54:18]       FAILED: Unknown error
+[2025-11-04 14:54:20] [ 16] Paper 20 (Research  ): Cognition 182 (2019) 84–94
+[2025-11-04 14:54:22]       FAILED: Unknown error
+[2025-11-04 14:54:24] [ 17] Paper 21 (Research  ): Language comprehenders retain implied shape and orientation 
+[2025-11-04 14:54:54]       SUCCESS
+[2025-11-04 14:54:56] [ 18] Paper 22 (Research  ): JOURNAL OF VERBAL LEARNING AND VERBAL BEHAVIOR 18, 509-521 (
+[2025-11-04 14:54:57]       FAILED: Unknown error
+[2025-11-04 14:54:59] [ 19] Paper 23 (Research  ): Psychological Science
+[2025-11-04 14:55:31]       SUCCESS
+[2025-11-04 14:55:33] [ 20] Paper 25 (Research  ): Memory & Cognition
+[2025-11-04 14:55:35]       FAILED: Unknown error
+[2025-11-04 14:55:35] Progress: 20/64 (31.2%) - Success: 6, Failed: 14
+[2025-11-04 14:55:37] [ 21] Paper 26 (Research  ): Educational Psychology
+[2025-11-04 14:55:39]       FAILED: Unknown error
+[2025-11-04 14:55:41] [ 22] Paper 27 (Research  ): Journal Pre-proof
+[2025-11-04 14:55:43]       FAILED: Unknown error
+[2025-11-04 14:55:45] [ 23] Paper 28 (CogSci    ): Revisiting Mental Simulation in Language
+[2025-11-04 14:55:47]       FAILED: Unknown error
+[2025-11-04 14:55:49] [ 24] Paper 29 (Research  ): PsychonBullRev(2018)25:1968–1972
+[2025-11-04 14:55:51]       FAILED: Unknown error
+[2025-11-04 14:55:53] [ 25] Paper 37 (Research  ): Goal-Setting Behavior of Workers on Crowdsourcing Platforms:
+[2025-11-04 14:55:55]       FAILED: Unknown error
+[2025-11-04 14:55:57] [ 26] Paper 38 (Research  ): “Events as intersecting object histories: A new theory of ev
+[2025-11-04 14:55:59]       FAILED: Unknown error
+[2025-11-04 14:56:01] [ 27] Paper 39 (Research  ): What Does ‘Human-Centred AI’ Mean?
+[2025-11-04 14:56:03]       FAILED: Unknown error
+[2025-11-04 14:56:05] [ 28] Paper 40 (Research  ): Classifiers: The many ways to profile 'one', a case study of
+[2025-11-04 14:56:07]       FAILED: Unknown error
+[2025-11-04 14:56:09] [ 29] Paper 41 (Research  ): Multimodal Language Models Show Evidence of Embodied Simulat
+[2025-11-04 14:56:12]       FAILED: Unknown error
+[2025-11-04 14:56:14] [ 30] Paper 42 (Research  ): Numerical congruency effect in the sentence-picture verifica
+[2025-11-04 14:56:16]       FAILED: Unknown error
+[2025-11-04 14:56:16] Progress: 30/64 (46.9%) - Success: 6, Failed: 24
+[2025-11-04 14:56:18] [ 31] Paper 43 (Research  ): Expansion by migration and diffusion by contact is a source 
+[2025-11-04 14:56:20]       FAILED: Unknown error
+[2025-11-04 14:56:22] [ 32] Paper 44 (Research  ): Mental Representation and Cognitive Consequences of Chinese
+[2025-11-04 14:56:48]       SUCCESS
+[2025-11-04 14:56:50] [ 33] Paper 45 (Research  ): Monster Character Profiling and Chinese
+[2025-11-04 14:57:14]       SUCCESS
+[2025-11-04 14:57:16] [ 34] Paper 46 (Research  ): Semantic Context Effects When Naming Japanese
+[2025-11-04 14:57:42]       SUCCESS
+[2025-11-04 14:57:44] [ 35] Paper 47 (Research  ): On the Semantic Distinction between Classifiers and Measure 
+[2025-11-04 14:58:08]       SUCCESS
+[2025-11-04 14:58:10] [ 36] Paper 48 (Research  ): A Statistical Explanation of the Distribution of Sortal Clas
+[2025-11-04 14:58:32]       SUCCESS
+[2025-11-04 14:58:34] [ 37] Paper 49 (Research  ): Effects of Visual Complexity and Sublexical Information in t
+[2025-11-04 14:59:04]       SUCCESS
+[2025-11-04 14:59:06] [ 38] Paper 50 (Research  ): Word-Superiority Effect as a Function of Semantic Transparen
+[2025-11-04 14:59:33]       SUCCESS
+[2025-11-04 14:59:35] [ 39] Paper 51 (Research  ): An Elephant Needs a Head but a Horse Does Not: An ERP
+[2025-11-04 14:59:59]       SUCCESS
+[2025-11-04 15:00:01] [ 40] Paper 52 (Research  ): Phonological Skills Are Important in Learning to Read Chines
+[2025-11-04 15:00:24]       SUCCESS
+[2025-11-04 15:00:24] Progress: 40/64 (62.5%) - Success: 15, Failed: 25
+[2025-11-04 15:00:26] [ 41] Paper 53 (Research  ): The Modulation of Stimulus Structure on Visual Field Asymmet
+[2025-11-04 15:00:52]       SUCCESS
+[2025-11-04 15:00:54] [ 42] Paper 54 (Research  ): Numeral Classifier and Classifier Languages: Chinese
+[2025-11-04 15:01:17]       SUCCESS
+[2025-11-04 15:01:19] [ 43] Paper 55 (Research  ): Similar Alterations in Brain Function for Phonological and S
+[2025-11-04 15:01:43]       SUCCESS
+[2025-11-04 15:01:45] [ 44] Paper 56 (Research  ): Sentential Context Modulates the Involvement of the Motor Co
+[2025-11-04 15:02:12]       SUCCESS
+[2025-11-04 15:02:14] [ 45] Paper 57 (Research  ): Do Position-General Radicals Have a Role to Play in Processi
+[2025-11-04 15:02:37]       SUCCESS
+[2025-11-04 15:02:39] [ 46] Paper 58 (Research  ): The Classifier Problem in Chinese
+[2025-11-04 15:03:06]       SUCCESS
+[2025-11-04 15:03:08] [ 47] Paper 59 (Research  ): Simulation, Situated Conceptualization, and Prediction
+[2025-11-04 15:03:36]       SUCCESS
+[2025-11-04 15:03:38] [ 48] Paper 60 (Research  ): The Neurobiology of Semantic Memory
+[2025-11-04 15:04:02]       SUCCESS
+[2025-11-04 15:04:04] [ 49] Paper 61 (Research  ): Cerebral Asymmetry and Language Development: Cause, Correlat
+[2025-11-04 15:04:31]       SUCCESS
+[2025-11-04 15:04:33] [ 50] Paper 62 (Research  ): Classifiers and Mental Simulation Effects
+[2025-11-04 15:05:02]       SUCCESS
+[2025-11-04 15:05:02] Progress: 50/64 (78.1%) - Success: 25, Failed: 25
+[2025-11-04 15:05:04] [ 51] Paper 63 (Research  ): Parallel Development of Numerals and Numeral Classifiers in 
+[2025-11-04 15:05:29]       SUCCESS
+[2025-11-04 15:05:31] [ 52] Paper 64 (Research  ): Neural Correlates of Quantity Processing of Numeral Classifi
+[2025-11-04 15:05:55]       SUCCESS
+[2025-11-04 15:05:57] [ 53] Paper 65 (Research  ): Computational Modeling and Elementary Process Analysis in Vi
+[2025-11-04 15:06:20]       SUCCESS
+[2025-11-04 15:06:22] [ 54] Paper 66 (Research  ): From Breaking Bread to Breaking Hearts: Embodied Simulation 
+[2025-11-04 15:06:46]       SUCCESS
+[2025-11-04 15:06:48] [ 55] Paper 67 (Research  ): Emotion Words Shape Emotion Percepts
+[2025-11-04 15:07:15]       SUCCESS
+[2025-11-04 15:07:17] [ 56] Paper 68 (Research  ): Distinguishing Classifiers and Measure Words: A
+[2025-11-04 15:07:48]       SUCCESS
+[2025-11-04 15:07:50] [ 57] Paper 69 (Research  ): Limited Syntactic Parallelism in Chinese
+[2025-11-04 15:08:15]       SUCCESS
+[2025-11-04 15:08:17] [ 58] Paper 70 (Research  ): The Effects of Numeral Classifiers and Taxonomic Categories 
+[2025-11-04 15:08:41]       SUCCESS
+[2025-11-04 15:08:43] [ 59] Paper 71 (Research  ): Do Language-Specific Categories Shape Conceptual Processing?
+[2025-11-04 15:09:10]       SUCCESS
+[2025-11-04 15:09:12] [ 60] Paper 72 (Research  ): Two Kinds of Definites in Numeral Classifier Languages
+[2025-11-04 15:09:39]       SUCCESS
+[2025-11-04 15:09:39] Progress: 60/64 (93.8%) - Success: 35, Failed: 25
+[2025-11-04 15:09:41] [ 61] Paper 73 (Research  ): Cross-Language Priming Asymmetries
+[2025-11-04 15:10:07]       SUCCESS
+[2025-11-04 15:10:09] [ 62] Paper 74 (Research  ): Classifier Effects on Human Categorization: The Role of Shap
+[2025-11-04 15:10:33]       SUCCESS
+[2025-11-04 15:10:35] [ 63] Paper 75 (Research  ): Pitch Accent and Lexical Tone Processing in Chinese
+[2025-11-04 15:11:04]       SUCCESS
+[2025-11-04 15:11:06] [ 64] Paper 76 (Research  ): On the Segmentation of Chinese
+[2025-11-04 15:11:31]       SUCCESS
+[2025-11-04 15:11:31] Progress: 64/64 (100.0%) - Success: 39, Failed: 25

@@ -968,6 +968,104 @@ def cmd_build_network(args):
     print(f"\n{'=' * 80}\n")
 
 
+def cmd_check_cite_keys(args):
+    """檢查缺少 cite_key 的論文"""
+    kb = KnowledgeBaseManager()
+    papers = kb.list_papers_without_cite_key()
+
+    if not papers:
+        print("✅ 所有論文都有 cite_key！")
+        return
+
+    print(f"⚠️  發現 {len(papers)} 篇論文缺少 cite_key：\n")
+    for p in papers:
+        authors_str = ', '.join(p['authors'][:2]) if p['authors'] else '未知'
+        if len(p['authors']) > 2:
+            authors_str += f" 等 {len(p['authors'])} 位作者"
+
+        print(f"  ID {p['id']:2d}: {p['title'][:50]}")
+        print(f"         作者: {authors_str}")
+        print(f"         年份: {p['year'] or '未知'}")
+        print()
+
+    print(f"\n💡 解決方法:")
+    print(f"   1. 從 Zotero 導出 'My Library.bib' 文件")
+    print(f"      （Zotero: File → Export Library → BibTeX）")
+    print(f"   2. 執行預覽：python kb_manage.py update-from-bib 'My Library.bib' --dry-run")
+    print(f"   3. 確認無誤後執行：python kb_manage.py update-from-bib 'My Library.bib'")
+    print()
+
+
+def cmd_update_from_bib(args):
+    """從 BibTeX 文件更新 cite_key"""
+    from pathlib import Path
+
+    kb = KnowledgeBaseManager()
+
+    if not Path(args.bib_file).exists():
+        print(f"❌ 錯誤：找不到文件 {args.bib_file}")
+        return
+
+    print(f"📖 正在解析 {args.bib_file}...")
+    try:
+        result = kb.update_cite_keys_from_bib(args.bib_file, dry_run=args.dry_run)
+    except Exception as e:
+        print(f"❌ 錯誤：{str(e)}")
+        return
+
+    print(f"\n{'🔍 模擬結果' if args.dry_run else '✅ 更新結果'}:")
+    print(f"   總條目數: {result['total_entries']}")
+    print(f"   成功更新: {result['success_count']}")
+    print(f"   已有 cite_key: {result['already_has_key_count']}")
+    print(f"   未找到匹配: {result['not_found_count']}")
+
+    if result['updated']:
+        print(f"\n✅ 已更新的論文:")
+        for item in result['updated'][:10]:
+            print(f"   ID {item['id']:2d}: {item['cite_key']:20s} - {item['title'][:40]}")
+        if len(result['updated']) > 10:
+            print(f"   ... 以及其他 {len(result['updated']) - 10} 篇")
+
+    if result['not_found']:
+        print(f"\n⚠️  .bib 中有但知識庫中未找到的論文:")
+        for item in result['not_found'][:5]:
+            reason = item.get('reason', '')
+            print(f"   {item['cite_key']:20s} - {item['title'][:40]} {reason}")
+        if len(result['not_found']) > 5:
+            print(f"   ... 以及其他 {len(result['not_found']) - 5} 篇")
+
+    if args.dry_run:
+        print(f"\n💡 提示：移除 --dry-run 參數以實際更新")
+
+
+def cmd_set_cite_key(args):
+    """手動設置論文的 cite_key"""
+    kb = KnowledgeBaseManager()
+
+    paper = kb.get_paper_by_id(args.paper_id)
+    if not paper:
+        print(f"❌ 錯誤：找不到論文 ID {args.paper_id}")
+        return
+
+    print(f"論文信息:")
+    print(f"  ID: {paper['id']}")
+    print(f"  標題: {paper['title']}")
+    print(f"  當前 cite_key: {paper.get('cite_key', '(無)')}")
+    print(f"  新 cite_key: {args.cite_key}")
+    print()
+
+    confirm = input("確認更新？(y/n): ")
+    if confirm.lower() != 'y':
+        print("已取消")
+        return
+
+    success = kb.update_cite_key(args.paper_id, args.cite_key)
+    if success:
+        print(f"✅ 成功更新 cite_key 為: {args.cite_key}")
+    else:
+        print(f"❌ 更新失敗")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
@@ -1176,6 +1274,26 @@ def main():
     parser_build_network.add_argument('--graphml', type=str,
                                      help='GraphML輸出路徑 (例如: network.graphml，需安裝networkx)')
     parser_build_network.set_defaults(func=cmd_build_network)
+
+    # check-cite-keys 命令 (Phase 2)
+    parser_check_keys = subparsers.add_parser('check-cite-keys',
+                                             help='檢查缺少 cite_key 的論文')
+    parser_check_keys.set_defaults(func=cmd_check_cite_keys)
+
+    # update-from-bib 命令 (Phase 2)
+    parser_update_bib = subparsers.add_parser('update-from-bib',
+                                             help='從 BibTeX 文件更新 cite_key')
+    parser_update_bib.add_argument('bib_file', help='.bib 文件路徑')
+    parser_update_bib.add_argument('--dry-run', action='store_true',
+                                  help='只模擬，不實際更新')
+    parser_update_bib.set_defaults(func=cmd_update_from_bib)
+
+    # set-cite-key 命令 (Phase 2)
+    parser_set_key = subparsers.add_parser('set-cite-key',
+                                          help='手動設置論文的 cite_key')
+    parser_set_key.add_argument('paper_id', type=int, help='論文ID')
+    parser_set_key.add_argument('cite_key', help='BibTeX cite_key')
+    parser_set_key.set_defaults(func=cmd_set_cite_key)
 
     args = parser.parse_args()
 

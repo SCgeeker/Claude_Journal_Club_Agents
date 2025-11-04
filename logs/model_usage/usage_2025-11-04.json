@@ -1,0 +1,93 @@
+{
+  "date": "2025-11-04",
+  "models": {
+    "google_gpt-oss:20b-cloud": {
+      "provider": "google",
+      "model": "gpt-oss:20b-cloud",
+      "requests": 5,
+      "successful": 0,
+      "failed": 5,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.21190409660339354,
+      "task_types": {}
+    },
+    "ollama_gpt-oss:20b-cloud": {
+      "provider": "ollama",
+      "model": "gpt-oss:20b-cloud",
+      "requests": 5,
+      "successful": 0,
+      "failed": 5,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.030208778381347657,
+      "task_types": {}
+    },
+    "google_gemini-2.0-flash-exp": {
+      "provider": "google",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 67,
+      "successful": 67,
+      "failed": 0,
+      "tokens": 511652,
+      "cost": 0.0,
+      "avg_response_time": 23.562514077371628,
+      "task_types": {}
+    }
+  },
+  "total_cost": 0.0,
+  "total_requests": 77,
+  "total_tokens": 511652,
+  "errors": [
+    {
+      "time": "2025-11-04T08:18:28.582310",
+      "model": "google_gpt-oss:20b-cloud",
+      "error": "Google Gemini API call failed: 404 models/gpt-oss:20b-cloud is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+    },
+    {
+      "time": "2025-11-04T08:18:28.620040",
+      "model": "ollama_gpt-oss:20b-cloud",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-04T08:19:00.684876",
+      "model": "google_gpt-oss:20b-cloud",
+      "error": "Google Gemini API call failed: 404 models/gpt-oss:20b-cloud is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+    },
+    {
+      "time": "2025-11-04T08:19:00.695259",
+      "model": "ollama_gpt-oss:20b-cloud",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-04T08:26:47.092435",
+      "model": "google_gpt-oss:20b-cloud",
+      "error": "Google Gemini API call failed: 404 models/gpt-oss:20b-cloud is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+    },
+    {
+      "time": "2025-11-04T08:26:47.128240",
+      "model": "ollama_gpt-oss:20b-cloud",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-04T08:27:13.162247",
+      "model": "google_gpt-oss:20b-cloud",
+      "error": "Google Gemini API call failed: 404 models/gpt-oss:20b-cloud is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+    },
+    {
+      "time": "2025-11-04T08:27:13.196522",
+      "model": "ollama_gpt-oss:20b-cloud",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-04T13:19:46.733759",
+      "model": "google_gpt-oss:20b-cloud",
+      "error": "Google Gemini API call failed: 404 models/gpt-oss:20b-cloud is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+    },
+    {
+      "time": "2025-11-04T13:19:46.783132",
+      "model": "ollama_gpt-oss:20b-cloud",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    }
+  ]
+}

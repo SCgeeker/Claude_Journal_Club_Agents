@@ -70,22 +70,18 @@ class ZettelMaker:
 
         self.zettel_config = self.styles_config['styles']['zettelkasten']
 
-    def generate_card_id(self, domain: str, sequence: int, date: Optional[str] = None) -> str:
+    def generate_card_id(self, cite_key: str, sequence: int) -> str:
         """
-        生成語義化卡片ID
+        生成卡片ID（基於 cite_key）
 
         Args:
-            domain: 領域代碼（如 NeuroPsy, AI, CompBio）
+            cite_key: 論文的 bibtex cite_key
             sequence: 序號
-            date: 日期（YYYYMMDD），默認今天
 
         Returns:
-            格式化ID（如 NeuroPsy-20251028-001）
+            格式化ID（如 Her2007-001, Abbas-2022-001）
         """
-        if date is None:
-            date = datetime.now().strftime("%Y%m%d")
-
-        return f"{domain}-{date}-{sequence:03d}"
+        return f"{cite_key}-{sequence:03d}"
 
     def parse_llm_output(self, llm_output: str) -> List[Dict[str, Any]]:
         """

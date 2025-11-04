@@ -26,7 +26,7 @@
 ```mermaid
 graph TD
 {% for card in cards %}
-    {{ card.id }}["{{ card.title }}"]
+    {{ card.id }}["{{ card.title | replace('"', "'") }}"]
 {% endfor %}
 
 {% for card in cards %}

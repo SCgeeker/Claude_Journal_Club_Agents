@@ -1,50 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-關係發現器 (Relation Finder) - Phase 2.1
-
-自動發現論文之間的複雜關係網絡：
-- 引用關係 (向量相似度 + 內容分析)
-- 主題關聯 (關鍵詞比對 + 向量相似度)
-- 作者合作 (作者重疊)
-- 相似度關係 (標題/摘要相似度 + 向量相似度)
-
-升級後支持Phase 1.5的向量嵌入系統，提供向量基礎的關係發現。
-可視化輸出遵循Zettelkasten的Mermaid格式標準。
+Relation-Finder 關係分析模組
+用於發現論文間的語義關係、共同作者網絡和概念共現
 """
 
-import sys
-import io
-import sqlite3
-import re
-from pathlib import Path
-from typing import List, Dict, Tuple, Set, Optional
-from dataclasses import dataclass, asdict
-from collections import defaultdict
 import json
-from datetime import datetime
+import sqlite3
+from dataclasses import dataclass, asdict
+from typing import List, Dict, Set, Tuple, Optional
+from collections import defaultdict
+from pathlib import Path
+import sys
 
-# Windows UTF-8
-if sys.platform == 'win32':
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.knowledge_base.kb_manager import KnowledgeBaseManager
+
+# 嘗試相對導入，失敗則使用絕對導入
+try:
+    from .zettel_concept_analyzer import ZettelConceptAnalyzer
+except ImportError:
+    from src.analyzers.zettel_concept_analyzer import ZettelConceptAnalyzer
 
 
 @dataclass
 class Citation:
-    """引用關係（向量基礎）"""
+    """論文引用關係"""
     citing_paper_id: int
     cited_paper_id: int
     citing_title: str
     cited_title: str
-    similarity_score: float  # 向量相似度
-    confidence: str  # 'high'/'medium'/'low'
+    similarity_score: float
+    confidence: str
     common_concepts: List[str]
-    strength: float = None  # 兼容性
-
-    def __post_init__(self):
-        if self.strength is None:
-            self.strength = self.similarity_score
 
     def __repr__(self) -> str:
         return f"Citation({self.citing_paper_id} → {self.cited_paper_id}, {self.similarity_score:.2f})"
@@ -61,7 +51,7 @@ class CoAuthorEdge:
 
 @dataclass
 class ConceptPair:
-    """概念共現對"""
+    """概念對"""
     concept1: str
     concept2: str
     co_occurrence_count: int
@@ -69,295 +59,252 @@ class ConceptPair:
     association_strength: float
 
 
-@dataclass
-class Relation:
-    """論文關係數據結構（舊格式，保持向後兼容）"""
-    source_id: int
-    target_id: int
-    relation_type: str  # 'citation', 'shared_topic', 'author_collaboration', 'similarity'
-    strength: float  # 0-1, 關係強度
-    metadata: dict  # 額外信息
-
-
 class RelationFinder:
-    """
-    關係發現器 (Phase 2.1)
+    """關係發現主類"""
 
-    使用多種策略發現論文間的複雜關係網絡：
-    1. 引用分析：基於向量相似度 + 內容分析（作者-年份模式）
-    2. 主題關聯：計算關鍵詞交集 + 向量相似度
-    3. 作者合作：檢查共同作者
-    4. 相似度：計算標題/摘要文本相似度 + 向量相似度
-    5. 可視化：Mermaid格式（遵循Zettelkasten標準）
-
-    支持向量嵌入系統進行更精確的相似度計算。
-    """
-
-    def __init__(self,
-                 db_path: str = "knowledge_base/index.db",
-                 embedding_manager = None,
-                 config: Dict = None):
-        """
-        初始化關係發現器
-
-        Args:
-            db_path: 知識庫數據庫路徑
-            embedding_manager: EmbeddingManager實例（可選，用於向量基礎的分析）
-            config: 配置參數字典
-        """
-        self.db_path = db_path
-        self.embedding_manager = embedding_manager
+    def __init__(self, kb_path: str = "knowledge_base", config: Optional[Dict] = None):
+        self.kb = KnowledgeBaseManager(kb_root=kb_path)
         self.config = config or self._default_config()
-        self.papers_cache = None  # 緩存論文數據
+        self.db_path = Path(kb_path) / "index.db"
+        self.zettel_analyzer = ZettelConceptAnalyzer(kb_path=kb_path)
 
     def _default_config(self) -> Dict:
-        """默認配置"""
         return {
-            'citation_threshold': 0.65,       # 引用關係相似度閾值
-            'co_author_min_papers': 2,        # 共同作者最少合作論文數
-            'concept_min_frequency': 2,       # 概念最少出現次數
-            'use_embeddings': True,           # 使用向量嵌入
-            'mermaid_format': 'graph TD',     # Mermaid圖表格式
-            'max_nodes_in_graph': 50,         # 圖表最大節點數
-            'max_edges_in_graph': 100,        # 圖表最大邊數
+            'title_similarity_threshold': 0.65,
+            'co_author_min_papers': 2,
+            'concept_min_frequency': 2,
+            'year_range': 5,
         }
 
-    def _get_connection(self) -> sqlite3.Connection:
-        """獲取數據庫連接"""
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
+    # ========== 0. 安全獲取論文數據 ==========
 
-    def _load_papers(self, force_reload: bool = False) -> List[Dict]:
-        """
-        載入所有論文數據（帶緩存）
-
-        Args:
-            force_reload: 強制重新載入
-
-        Returns:
-            論文列表
-        """
-        if self.papers_cache is not None and not force_reload:
-            return self.papers_cache
-
-        conn = self._get_connection()
-        cursor = conn.cursor()
-
-        cursor.execute('''
-            SELECT id, title, authors, year, keywords, abstract, cite_key, file_path
-            FROM papers
-            ORDER BY id
-        ''')
-
+    def _get_papers_safe(self) -> List[Dict]:
+        """從數據庫直接安全地獲取所有論文"""
         papers = []
-        for row in cursor.fetchall():
-            paper = dict(row)
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, title, authors, year, keywords FROM papers ORDER BY id")
 
-            # 解析JSON字段
-            if paper['authors'] and isinstance(paper['authors'], str):
-                try:
-                    paper['authors'] = json.loads(paper['authors'])
-                except:
-                    paper['authors'] = []
+            for row in cursor.fetchall():
+                paper_id, title, authors, year, keywords = row
+                paper = {
+                    'id': paper_id,
+                    'title': title or '',
+                    'authors': authors or '[]',
+                    'year': year,
+                    'keywords': keywords or '[]',
+                }
+                papers.append(paper)
 
-            if paper['keywords'] and isinstance(paper['keywords'], str):
-                try:
-                    paper['keywords'] = json.loads(paper['keywords'])
-                except:
-                    paper['keywords'] = []
+            conn.close()
+        except Exception as e:
+            print(f"Warning: Error reading papers: {e}")
+            # 回退到 kb_manager
+            try:
+                papers = self.kb.list_papers(limit=1000)
+            except:
+                papers = []
 
-            papers.append(paper)
-
-        conn.close()
-        self.papers_cache = papers
         return papers
 
-    def find_citation_relations(self, paper_id: int, confidence_threshold: float = 0.6) -> List[Relation]:
-        """
-        通過內容分析發現引用關係
+    # ========== 1. 標題相似度引用關係 ==========
 
-        策略：
-        1. 讀取論文 Markdown 內容
-        2. 搜索引用模式：(Author, Year) 或 Author (Year)
-        3. 匹配知識庫中的論文
+    def find_citations_by_title_similarity(self, threshold: Optional[float] = None) -> List[Citation]:
+        """基於標題相似度推測引用關係"""
+        threshold = threshold or self.config['title_similarity_threshold']
+        papers = self._get_papers_safe()
+        citations = []
 
-        Args:
-            paper_id: 源論文ID
-            confidence_threshold: 置信度閾值
-
-        Returns:
-            引用關係列表
-        """
-        papers = self._load_papers()
-        source_paper = next((p for p in papers if p['id'] == paper_id), None)
-
-        if not source_paper or not source_paper['file_path']:
-            return []
-
-        # 讀取論文內容
-        try:
-            with open(source_paper['file_path'], 'r', encoding='utf-8') as f:
-                content = f.read()
-        except Exception as e:
-            print(f"⚠️  無法讀取論文內容: {e}")
-            return []
-
-        relations = []
-
-        # 引用模式匹配
-        # 模式1: (Author, Year) 或 (Author et al., Year)
-        # 模式2: Author (Year) 或 Author et al. (Year)
-        citation_patterns = [
-            r'\(([A-Z][a-z]+(?:\s+et\s+al\.)?),?\s+(\d{4})\)',  # (Smith, 2020)
-            r'([A-Z][a-z]+(?:\s+et\s+al\.)?)\s+\((\d{4})\)',    # Smith (2020)
-        ]
-
-        cited_papers = set()
-
-        for pattern in citation_patterns:
-            matches = re.finditer(pattern, content)
-
-            for match in matches:
-                author_part = match.group(1)
-                year_part = int(match.group(2))
-
-                # 提取姓氏（處理 "et al." 情況）
-                if 'et al' in author_part:
-                    author_surname = author_part.split()[0]
-                else:
-                    author_surname = author_part
-
-                # 在知識庫中尋找匹配的論文
-                for target_paper in papers:
-                    if target_paper['id'] == paper_id:
-                        continue  # 跳過自己
-
-                    # 匹配年份
-                    if target_paper['year'] != year_part:
-                        continue
-
-                    # 匹配作者姓氏
-                    if not target_paper['authors']:
-                        continue
-
-                    author_match = False
-                    for author in target_paper['authors']:
-                        if isinstance(author, str):
-                            # 提取姓氏（通常是最後一個詞）
-                            surname = author.split()[-1].strip('.,')
-                            if author_surname.lower() in surname.lower():
-                                author_match = True
-                                break
-
-                    if author_match:
-                        cited_papers.add(target_paper['id'])
-
-        # 創建引用關係
-        for target_id in cited_papers:
-            relations.append(Relation(
-                source_id=paper_id,
-                target_id=target_id,
-                relation_type='citation',
-                strength=0.8,  # 高置信度（直接匹配作者-年份）
-                metadata={
-                    'method': 'content_analysis',
-                    'pattern_matched': True
-                }
-            ))
-
-        return relations
-
-    def find_citations_by_embedding(self,
-                                   threshold: float = None,
-                                   source_papers: List[int] = None,
-                                   max_results: int = None) -> List[Citation]:
-        """
-        基於向量相似度推測引用關係（Phase 1.5整合版本）
-
-        使用embedding系統計算論文相似度，效果優於傳統方法。
-
-        Args:
-            threshold: 相似度閾值 (0-1)，默認使用config中的值
-            source_papers: 僅分析這些論文的引用（整數ID列表，None表示全部）
-            max_results: 限制返回結果數量
-
-        Returns:
-            List[Citation]: 按相似度排序的引用關係列表
-        """
-        if not self.embedding_manager:
-            print("⚠️  EmbeddingManager未初始化，使用內容分析版本")
-            return []
-
-        threshold = threshold or self.config['citation_threshold']
-        papers = self._load_papers()
-
-        try:
-            # 步驟1: 加載論文向量
-            paper_ids = [p['id'] for p in papers]
-            embeddings = self.embedding_manager.get_paper_embeddings(paper_ids)
-
-            if embeddings is None:
-                print("⚠️  無法獲取向量嵌入，使用內容分析版本")
-                return []
-
-            # 步驟2: 計算相似度矩陣
-            from sklearn.metrics.pairwise import cosine_similarity
-            similarity_matrix = cosine_similarity(embeddings)
-
-            # 步驟3: 提取引用關係
-            citations = []
-
-            for i, source_paper in enumerate(papers):
-                if source_papers and source_paper['id'] not in source_papers:
+        for i, paper1 in enumerate(papers):
+            for j, paper2 in enumerate(papers):
+                if i >= j:
                     continue
 
-                for j, target_paper in enumerate(papers):
-                    if i == j:
-                        continue  # 跳過自己
+                title1 = paper1.get('title', '').lower()
+                title2 = paper2.get('title', '').lower()
 
-                    sim_score = float(similarity_matrix[i][j])
+                words1 = set(title1.split())
+                words2 = set(title2.split())
 
-                    # 過濾極高相似度（認為是重複論文）
-                    if sim_score > 0.95:
-                        continue
+                if not words1 or not words2:
+                    continue
 
-                    # 應用相似度閾值
-                    if sim_score < threshold:
-                        continue
+                intersection = len(words1 & words2)
+                union = len(words1 | words2)
+                similarity = intersection / union if union > 0 else 0
 
-                    # 提取共同概念
-                    common_concepts = self._extract_common_concepts(source_paper, target_paper)
-
-                    # 確定置信度
-                    confidence = self._get_confidence_level(sim_score)
-
+                if similarity >= threshold:
                     citation = Citation(
-                        citing_paper_id=source_paper['id'],
-                        cited_paper_id=target_paper['id'],
-                        citing_title=source_paper.get('title', f"Paper {source_paper['id']}")[:60],
-                        cited_title=target_paper.get('title', f"Paper {target_paper['id']}")[:60],
-                        similarity_score=sim_score,
-                        confidence=confidence,
-                        common_concepts=common_concepts,
+                        citing_paper_id=paper1['id'],
+                        cited_paper_id=paper2['id'],
+                        citing_title=paper1.get('title', ''),
+                        cited_title=paper2.get('title', ''),
+                        similarity_score=similarity,
+                        confidence=self._get_confidence_level(similarity),
+                        common_concepts=self._extract_common_concepts(paper1, paper2),
                     )
                     citations.append(citation)
 
-            # 步驟4: 排序
-            citations = sorted(citations, key=lambda x: x.similarity_score, reverse=True)
+        return sorted(citations, key=lambda x: x.similarity_score, reverse=True)
 
-            # 步驟5: 限制結果
-            if max_results:
-                citations = citations[:max_results]
+    # ========== 2. 共同作者網絡 ==========
 
-            return citations
+    def find_co_authors(self, min_papers: Optional[int] = None) -> Tuple[Dict, List[CoAuthorEdge]]:
+        """構建共同作者網絡"""
+        min_papers = min_papers or self.config['co_author_min_papers']
+        papers = self._get_papers_safe()
 
-        except Exception as e:
-            print(f"❌ 向量基礎引用發現失敗: {e}")
-            return []
+        author_papers = defaultdict(list)
+        for paper in papers:
+            authors = self._parse_authors(paper)
+            for author in authors:
+                if author:
+                    author_papers[author].append(paper['id'])
+
+        co_author_edges = []
+        author_list = list(author_papers.keys())
+
+        for i, author1 in enumerate(author_list):
+            for author2 in author_list[i+1:]:
+                shared_papers = set(author_papers[author1]) & set(author_papers[author2])
+                if len(shared_papers) >= min_papers:
+                    edge = CoAuthorEdge(
+                        author1=author1,
+                        author2=author2,
+                        collaboration_count=len(shared_papers),
+                        shared_papers=sorted(list(shared_papers)),
+                    )
+                    co_author_edges.append(edge)
+
+        return dict(author_papers), sorted(co_author_edges,
+                                          key=lambda x: x.collaboration_count, reverse=True)
+
+    # ========== 3. 概念共現分析 ==========
+
+    def find_co_occurrence(self, min_frequency: Optional[int] = None,
+                          top_k: Optional[int] = None) -> List[ConceptPair]:
+        """分析概念共現模式"""
+        min_frequency = min_frequency or self.config['concept_min_frequency']
+        papers = self._get_papers_safe()
+
+        concept_papers = defaultdict(list)
+        for paper in papers:
+            concepts = self._extract_concepts(paper)
+            for concept in concepts:
+                if concept:
+                    concept_papers[concept].append(paper['id'])
+
+        concept_list = list(concept_papers.keys())
+        concept_pairs = []
+
+        for i, concept1 in enumerate(concept_list):
+            for concept2 in concept_list[i+1:]:
+                shared_papers = set(concept_papers[concept1]) & set(concept_papers[concept2])
+                if len(shared_papers) >= min_frequency:
+                    max_count = max(len(concept_papers[concept1]), len(concept_papers[concept2]))
+                    pair = ConceptPair(
+                        concept1=concept1,
+                        concept2=concept2,
+                        co_occurrence_count=len(shared_papers),
+                        papers=sorted(list(shared_papers)),
+                        association_strength=len(shared_papers) / max_count,
+                    )
+                    concept_pairs.append(pair)
+
+        concept_pairs = sorted(concept_pairs,
+                              key=lambda x: x.co_occurrence_count, reverse=True)
+
+        if top_k:
+            concept_pairs = concept_pairs[:top_k]
+
+        return concept_pairs
+
+    # ========== 4. Mermaid 導出 ==========
+
+    def export_citations_to_mermaid(self, citations: List[Citation],
+                                   max_edges: int = 50) -> str:
+        """導出引用關係為 Mermaid 圖表"""
+        lines = ["```mermaid", "graph TD"]
+        seen_nodes = set()
+
+        for citation in citations[:max_edges]:
+            node1_id = f'P{citation.citing_paper_id}'
+            node2_id = f'P{citation.cited_paper_id}'
+
+            if node1_id not in seen_nodes:
+                title = citation.citing_title[:40] + "..." if len(citation.citing_title) > 40 else citation.citing_title
+                lines.append(f'    {node1_id}["{title}"]')
+                seen_nodes.add(node1_id)
+
+            if node2_id not in seen_nodes:
+                title = citation.cited_title[:40] + "..." if len(citation.cited_title) > 40 else citation.cited_title
+                lines.append(f'    {node2_id}["{title}"]')
+                seen_nodes.add(node2_id)
+
+            if citation.confidence == 'high':
+                lines.append(f'    {node1_id} --> {node2_id}')
+            else:
+                lines.append(f'    {node1_id} -.-> {node2_id}')
+
+        lines.append("```")
+        return "\n".join(lines)
+
+    def export_coauthors_to_mermaid(self, author_papers: Dict, edges: List[CoAuthorEdge],
+                                   max_edges: int = 30) -> str:
+        """導出共同作者網絡為 Mermaid 圖表"""
+        lines = ["```mermaid", "graph TD"]
+
+        author_counts = [(a, len(p)) for a, p in author_papers.items()]
+        author_counts = sorted(author_counts, key=lambda x: x[1], reverse=True)[:15]
+        author_set = {a[0] for a in author_counts}
+
+        lines.append('    subgraph Authors["共同作者網絡"]')
+        for author, count in author_counts:
+            author_id = f'A{hash(author) % 10000}'
+            lines.append(f'        {author_id}["{author} ({count}篇)"]')
+        lines.append('    end')
+
+        for edge in edges[:max_edges]:
+            if edge.author1 in author_set and edge.author2 in author_set:
+                author1_id = f'A{hash(edge.author1) % 10000}'
+                author2_id = f'A{hash(edge.author2) % 10000}'
+                lines.append(f'    {author1_id} -->|{edge.collaboration_count}| {author2_id}')
+
+        lines.append("```")
+        return "\n".join(lines)
+
+    def export_concepts_to_mermaid(self, concepts: List[ConceptPair],
+                                  max_pairs: int = 30) -> str:
+        """導出概念共現為 Mermaid 圖表"""
+        lines = ["```mermaid", "graph TD"]
+        seen_concepts = set()
+
+        for pair in concepts[:max_pairs]:
+            c1_id = f'C{hash(pair.concept1) % 10000}'
+            c2_id = f'C{hash(pair.concept2) % 10000}'
+
+            if pair.concept1 not in seen_concepts:
+                concept_name = pair.concept1[:30] + "..." if len(pair.concept1) > 30 else pair.concept1
+                lines.append(f'    {c1_id}["{concept_name}"]')
+                seen_concepts.add(pair.concept1)
+
+            if pair.concept2 not in seen_concepts:
+                concept_name = pair.concept2[:30] + "..." if len(pair.concept2) > 30 else pair.concept2
+                lines.append(f'    {c2_id}["{concept_name}"]')
+                seen_concepts.add(pair.concept2)
+
+            if pair.association_strength >= 0.5:
+                lines.append(f'    {c1_id} --> {c2_id}')
+            else:
+                lines.append(f'    {c1_id} -.-> {c2_id}')
+
+        lines.append("```")
+        return "\n".join(lines)
+
+    # ========== 5. 輔助方法 ==========
 
     def _get_confidence_level(self, similarity_score: float) -> str:
-        """根據相似度確定置信度"""
         if similarity_score >= 0.80:
             return 'high'
         elif similarity_score >= 0.70:
@@ -366,1211 +313,155 @@ class RelationFinder:
             return 'low'
 
     def _extract_common_concepts(self, paper1: Dict, paper2: Dict) -> List[str]:
-        """提取兩篇論文的共同概念"""
-        keywords1 = set(paper1.get('keywords', []))
-        keywords2 = set(paper2.get('keywords', []))
+        concepts1 = set(self._extract_concepts(paper1))
+        concepts2 = set(self._extract_concepts(paper2))
+        return sorted(list(concepts1 & concepts2))
 
-        if isinstance(keywords1, str):
-            keywords1 = set(k.strip() for k in keywords1.split(',') if k.strip())
-        if isinstance(keywords2, str):
-            keywords2 = set(k.strip() for k in keywords2.split(',') if k.strip())
+    def _extract_concepts(self, paper: Dict) -> List[str]:
+        keywords = paper.get('keywords', '')
 
-        common = keywords1 & keywords2
-        return list(common)[:5]  # 返回最多5個共同概念
-
-    def find_co_authors(self,
-                       min_papers: int = None,
-                       include_metadata: bool = True) -> Dict:
-        """
-        構建完整的共同作者網絡
-
-        Args:
-            min_papers: 最少共同論文數（默認使用config）
-            include_metadata: 是否包含詳細元數據
-
-        Returns:
-            Dict: 包含作者節點、邊和統計信息的網絡
-        """
-        min_papers = min_papers or self.config.get('co_author_min_papers', 2)
-        papers = self._load_papers()
-        author_papers = {}
-        author_metadata = {}
-
-        # 步驟1: 提取所有作者及其論文
-        for paper in papers:
-            authors = paper.get('authors', [])
-            if isinstance(authors, str):
-                authors = json.loads(authors) if authors else []
-            if not authors:
-                authors = []
-
-            for author in authors:
-                author_lower = author.lower() if isinstance(author, str) else str(author).lower()
-
-                if author_lower not in author_papers:
-                    author_papers[author_lower] = []
-                    author_metadata[author_lower] = {
-                        'name': author,
-                        'papers': [],
-                        'paper_ids': []
-                    }
-
-                author_papers[author_lower].append(paper['id'])
-                author_metadata[author_lower]['papers'].append(paper)
-                author_metadata[author_lower]['paper_ids'].append(paper['id'])
-
-        # 步驟2: 計算共同作者和協作邊
-        edges = []
-        edge_set = set()
-        author_list = sorted(author_papers.keys())
-
-        for i, author1_key in enumerate(author_list):
-            for author2_key in author_list[i+1:]:
-                shared_papers = set(author_papers[author1_key]) & set(author_papers[author2_key])
-
-                if len(shared_papers) >= min_papers:
-                    edge_key = tuple(sorted([author1_key, author2_key]))
-
-                    if edge_key not in edge_set:
-                        edge = CoAuthorEdge(
-                            author1=author_metadata[author1_key]['name'],
-                            author2=author_metadata[author2_key]['name'],
-                            collaboration_count=len(shared_papers),
-                            shared_papers=sorted(list(shared_papers))
-                        )
-                        edges.append(edge)
-                        edge_set.add(edge_key)
-
-        # 步驟3: 構建節點數據
-        nodes = []
-        for author_key in author_list:
-            node = {
-                'name': author_metadata[author_key]['name'],
-                'paper_count': len(author_papers[author_key]),
-                'paper_ids': author_metadata[author_key]['paper_ids']
-            }
-
-            if include_metadata:
-                node['years'] = sorted(set(p.get('year') for p in author_metadata[author_key]['papers'] if p.get('year')))
-                node['keywords'] = []
-                for paper in author_metadata[author_key]['papers']:
-                    keywords = paper.get('keywords', [])
-                    if isinstance(keywords, str):
-                        keywords = [k.strip() for k in keywords.split(',')]
-                    node['keywords'].extend(keywords)
-                node['keywords'] = sorted(list(set(node['keywords'])))[:10]  # Top 10
-
-            nodes.append(node)
-
-        # 步驟4: 計算網絡統計
-        return {
-            'nodes': nodes,
-            'edges': [asdict(e) for e in sorted(edges, key=lambda x: x.collaboration_count, reverse=True)],
-            'metadata': {
-                'total_authors': len(nodes),
-                'total_collaborations': len(edges),
-                'max_collaboration': max([e.collaboration_count for e in edges], default=0),
-                'avg_collaboration': sum(e.collaboration_count for e in edges) / len(edges) if edges else 0,
-            }
-        }
-
-    def find_shared_topic_relations(self, paper_id: int, min_shared_keywords: int = 2) -> List[Relation]:
-        """
-        通過關鍵詞重疊發現主題關聯
-
-        Args:
-            paper_id: 論文ID
-            min_shared_keywords: 最少共享關鍵詞數
-
-        Returns:
-            主題關聯列表
-        """
-        papers = self._load_papers()
-        source_paper = next((p for p in papers if p['id'] == paper_id), None)
-
-        if not source_paper or not source_paper['keywords']:
-            return []
-
-        source_keywords = set(kw.lower() for kw in source_paper['keywords'])
-        relations = []
-
-        for target_paper in papers:
-            if target_paper['id'] == paper_id:
-                continue
-
-            if not target_paper['keywords']:
-                continue
-
-            target_keywords = set(kw.lower() for kw in target_paper['keywords'])
-            shared = source_keywords & target_keywords
-
-            if len(shared) >= min_shared_keywords:
-                # 計算Jaccard相似度
-                union = source_keywords | target_keywords
-                jaccard = len(shared) / len(union)
-
-                relations.append(Relation(
-                    source_id=paper_id,
-                    target_id=target_paper['id'],
-                    relation_type='shared_topic',
-                    strength=jaccard,
-                    metadata={
-                        'shared_keywords': list(shared),
-                        'keyword_count': len(shared)
-                    }
-                ))
-
-        return sorted(relations, key=lambda r: r.strength, reverse=True)
-
-    def find_co_occurrence(self,
-                          min_frequency: int = None,
-                          top_k: int = None) -> Dict:
-        """
-        完整的概念共現分析
-
-        Args:
-            min_frequency: 最少共現次數（默認使用config）
-            top_k: 返回最常見的概念對數
-
-        Returns:
-            Dict: 包含概念對、統計和網絡信息
-        """
-        min_frequency = min_frequency or self.config.get('concept_min_frequency', 2)
-        papers = self._load_papers()
-        concept_papers = {}
-        concept_freq = {}
-
-        # 步驟1: 提取所有概念及其論文
-        for paper in papers:
-            concepts = paper.get('keywords', [])
-
-            if isinstance(concepts, str):
-                concepts = [c.strip() for c in concepts.split(',') if c.strip()]
-            elif concepts is None:
-                concepts = []
-
-            for concept in concepts:
-                concept_lower = concept.lower()
-
-                if concept_lower not in concept_papers:
-                    concept_papers[concept_lower] = []
-                    concept_freq[concept_lower] = 0
-
-                concept_papers[concept_lower].append(paper['id'])
-                concept_freq[concept_lower] += 1
-
-        # 步驟2: 計算概念共現和關聯強度
-        pairs = []
-        concept_list = sorted(concept_papers.keys())
-
-        for i, concept1_key in enumerate(concept_list):
-            for concept2_key in concept_list[i+1:]:
-                shared_papers = set(concept_papers[concept1_key]) & set(concept_papers[concept2_key])
-
-                if len(shared_papers) >= min_frequency:
-                    # 計算關聯強度（Jaccard相似度）
-                    union = set(concept_papers[concept1_key]) | set(concept_papers[concept2_key])
-                    jaccard = len(shared_papers) / len(union) if union else 0
-
-                    pair = ConceptPair(
-                        concept1=concept1_key,
-                        concept2=concept2_key,
-                        co_occurrence_count=len(shared_papers),
-                        papers=sorted(list(shared_papers)),
-                        association_strength=jaccard
-                    )
-                    pairs.append(pair)
-
-        # 步驟3: 排序和限制
-        pairs = sorted(pairs, key=lambda x: x.co_occurrence_count, reverse=True)
-        if top_k:
-            pairs = pairs[:top_k]
-
-        # 步驟4: 計算統計信息
-        return {
-            'pairs': [asdict(p) for p in pairs],
-            'concept_frequency': sorted(
-                [(c, freq) for c, freq in concept_freq.items()],
-                key=lambda x: x[1],
-                reverse=True
-            ),
-            'metadata': {
-                'total_concepts': len(concept_freq),
-                'total_pairs': len(pairs),
-                'max_frequency': max(concept_freq.values()) if concept_freq else 0,
-                'avg_frequency': sum(concept_freq.values()) / len(concept_freq) if concept_freq else 0,
-            }
-        }
-
-    def build_timeline(self,
-                      start_year: int = None,
-                      end_year: int = None,
-                      group_by: str = 'year') -> Dict:
-        """
-        構建研究時間線（Day 3新增）
-
-        Args:
-            start_year: 起始年份（默認自動）
-            end_year: 結束年份（默認當前年）
-            group_by: 分組粒度 ('year'/'5year')
-
-        Returns:
-            Dict: 包含時間點和趨勢信息
-        """
-        papers = self._load_papers()
-        timeline_data = {}
-
-        # 步驟1: 按年份分組論文
-        for paper in papers:
-            year = paper.get('year')
-
-            # 驗證年份有效性
-            if not year or year < 1900 or year > 2030:
-                continue
-
-            if year not in timeline_data:
-                timeline_data[year] = []
-
-            timeline_data[year].append(paper)
-
-        # 步驟2: 確定年份範圍
-        if not timeline_data:
-            return {'timepoints': [], 'metadata': {'total_years': 0}}
-
-        years = sorted(timeline_data.keys())
-        start_year = start_year or years[0]
-        end_year = end_year or years[-1]
-
-        # 步驟3: 構建時間點
-        timepoints = []
-
-        if group_by == 'year':
-            for year in range(start_year, end_year + 1):
-                papers_in_year = timeline_data.get(year, [])
-
-                if papers_in_year:
-                    # 提取該年的頂級概念
-                    concepts = {}
-                    for paper in papers_in_year:
-                        keywords = paper.get('keywords', [])
-                        if isinstance(keywords, str):
-                            keywords = [k.strip() for k in keywords.split(',')]
-                        elif keywords is None:
-                            keywords = []
-
-                        for kw in keywords:
-                            concepts[kw] = concepts.get(kw, 0) + 1
-
-                    top_concepts = sorted(concepts.items(), key=lambda x: x[1], reverse=True)[:5]
-
-                    timepoint = {
-                        'period': str(year),
-                        'year': year,
-                        'paper_count': len(papers_in_year),
-                        'paper_ids': [p['id'] for p in papers_in_year],
-                        'top_concepts': [c[0] for c in top_concepts],
-                        'concept_counts': dict(top_concepts),
-                    }
-                    timepoints.append(timepoint)
-
-        elif group_by == '5year':
-            # 5年分組
-            for start in range(start_year, end_year + 1, 5):
-                end = min(start + 4, end_year)
-                period_papers = []
-
-                for year in range(start, end + 1):
-                    period_papers.extend(timeline_data.get(year, []))
-
-                if period_papers:
-                    concepts = {}
-                    for paper in period_papers:
-                        keywords = paper.get('keywords', [])
-                        if isinstance(keywords, str):
-                            keywords = [k.strip() for k in keywords.split(',')]
-                        elif keywords is None:
-                            keywords = []
-
-                        for kw in keywords:
-                            concepts[kw] = concepts.get(kw, 0) + 1
-
-                    top_concepts = sorted(concepts.items(), key=lambda x: x[1], reverse=True)[:5]
-
-                    timepoint = {
-                        'period': f"{start}-{end}",
-                        'start_year': start,
-                        'end_year': end,
-                        'paper_count': len(period_papers),
-                        'paper_ids': [p['id'] for p in period_papers],
-                        'top_concepts': [c[0] for c in top_concepts],
-                    }
-                    timepoints.append(timepoint)
-
-        # 步驟4: 計算趨勢
-        return {
-            'timepoints': timepoints,
-            'metadata': {
-                'start_year': start_year,
-                'end_year': end_year,
-                'total_years': len([tp for tp in timepoints if tp.get('paper_count', 0) > 0]),
-                'total_papers': sum(tp.get('paper_count', 0) for tp in timepoints),
-                'grouping': group_by,
-            }
-        }
-
-    def export_timeline_to_mermaid(self,
-                                   timeline_data: Dict = None,
-                                   output_path: str = None) -> str:
-        """
-        將時間線導出為Mermaid時序圖
-
-        Args:
-            timeline_data: 時間線數據
-            output_path: 輸出檔案路徑
-
-        Returns:
-            Mermaid代碼或檔案路徑
-        """
-        if timeline_data is None:
-            timeline_data = self.build_timeline()
-
-        lines = []
-        lines.append("```mermaid")
-        lines.append("gantt")
-        lines.append("    title 研究時間線")
-        lines.append("    dateFormat YYYY")
-        lines.append("")
-
-        # 添加時間點任務
-        for tp in timeline_data['timepoints']:
-            period = tp.get('period', 'Unknown')
-            count = tp.get('paper_count', 0)
-            year = tp.get('year')
-
-            if year:
-                lines.append(f"    論文發表 {year}: crit, {year}, {year}, {count}篇")
-
-        lines.append("")
-        lines.append("```")
-
-        mermaid_code = '\n'.join(lines)
-
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(mermaid_code)
-            print(f"✅ 時間線Mermaid已導出到: {output_path}")
-            return output_path
-        else:
-            return mermaid_code
-
-    def export_to_json(self,
-                       include_citations: bool = True,
-                       include_coauthors: bool = True,
-                       include_concepts: bool = True,
-                       include_timeline: bool = True,
-                       output_path: str = None) -> Dict:
-        """
-        導出所有關係型別為統一的JSON格式
-
-        Args:
-            include_citations: 包含引用關係
-            include_coauthors: 包含共同作者
-            include_concepts: 包含概念共現
-            include_timeline: 包含時間線
-            output_path: 輸出檔案路徑
-
-        Returns:
-            統一的JSON數據結構
-        """
-        result = {
-            'version': '1.0',
-            'generated_at': datetime.now().isoformat(),
-            'data': {}
-        }
-
-        # 引用關係
-        if include_citations:
-            citations = self.find_citations_by_embedding(
-                threshold=self.config.get('citation_threshold', 0.65),
-                max_results=self.config.get('max_citations', 50)
-            )
-            result['data']['citations'] = {
-                'count': len(citations),
-                'items': [
-                    {
-                        'citing_paper_id': c.citing_paper_id,
-                        'cited_paper_id': c.cited_paper_id,
-                        'similarity_score': c.similarity_score,
-                        'confidence': c.confidence,
-                        'common_concepts': c.common_concepts
-                    }
-                    for c in citations
-                ]
-            }
-
-        # 共同作者
-        if include_coauthors:
-            coauthors = self.find_co_authors(min_papers=1)
-            result['data']['coauthors'] = coauthors
-
-        # 概念共現
-        if include_concepts:
-            concepts = self.find_co_occurrence(min_frequency=1, top_k=50)
-            result['data']['concepts'] = concepts
-
-        # 時間線
-        if include_timeline:
-            timeline = self.build_timeline(group_by='year')
-            result['data']['timeline'] = timeline
-
-        # 元數據統計
-        result['metadata'] = {
-            'citation_count': result['data'].get('citations', {}).get('count', 0) if include_citations else 0,
-            'author_count': result['data'].get('coauthors', {}).get('metadata', {}).get('total_authors', 0) if include_coauthors else 0,
-            'concept_count': result['data'].get('concepts', {}).get('metadata', {}).get('total_concepts', 0) if include_concepts else 0,
-            'collaboration_count': result['data'].get('coauthors', {}).get('metadata', {}).get('total_collaborations', 0) if include_coauthors else 0,
-            'concept_pair_count': result['data'].get('concepts', {}).get('metadata', {}).get('total_pairs', 0) if include_concepts else 0,
-            'year_range': (result['data'].get('timeline', {}).get('metadata', {}).get('start_year'),
-                          result['data'].get('timeline', {}).get('metadata', {}).get('end_year')) if include_timeline else (None, None),
-            'total_papers': result['data'].get('timeline', {}).get('metadata', {}).get('total_papers', 0) if include_timeline else 0,
-        }
-
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(result, f, ensure_ascii=False, indent=2)
-            print(f"✅ 完整關係JSON已導出到: {output_path}")
-            return result
-        else:
-            return result
-
-    def find_author_collaboration_relations(self, paper_id: int) -> List[Relation]:
-        """
-        通過共同作者發現合作關係
-
-        Args:
-            paper_id: 論文ID
-
-        Returns:
-            作者合作關係列表
-        """
-        papers = self._load_papers()
-        source_paper = next((p for p in papers if p['id'] == paper_id), None)
-
-        if not source_paper or not source_paper['authors']:
-            return []
-
-        source_authors = set(a.lower() for a in source_paper['authors'])
-        relations = []
-
-        for target_paper in papers:
-            if target_paper['id'] == paper_id:
-                continue
-
-            if not target_paper['authors']:
-                continue
-
-            target_authors = set(a.lower() for a in target_paper['authors'])
-            shared_authors = source_authors & target_authors
-
-            if shared_authors:
-                # 計算作者重疊率
-                overlap_ratio = len(shared_authors) / max(len(source_authors), len(target_authors))
-
-                relations.append(Relation(
-                    source_id=paper_id,
-                    target_id=target_paper['id'],
-                    relation_type='author_collaboration',
-                    strength=overlap_ratio,
-                    metadata={
-                        'shared_authors': list(shared_authors),
-                        'author_count': len(shared_authors)
-                    }
-                ))
-
-        return sorted(relations, key=lambda r: r.strength, reverse=True)
-
-    def find_similarity_relations(self, paper_id: int, similarity_threshold: float = 0.3) -> List[Relation]:
-        """
-        通過標題相似度發現相關論文
-
-        使用簡單的詞彙重疊計算相似度（未來可升級為向量相似度）
-
-        Args:
-            paper_id: 論文ID
-            similarity_threshold: 相似度閾值
-
-        Returns:
-            相似關係列表
-        """
-        papers = self._load_papers()
-        source_paper = next((p for p in papers if p['id'] == paper_id), None)
-
-        if not source_paper or not source_paper['title']:
-            return []
-
-        # 標題分詞（簡單空格分割，轉小寫）
-        source_words = set(source_paper['title'].lower().split())
-        # 移除常見停用詞
-        stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}
-        source_words = source_words - stop_words
-
-        relations = []
-
-        for target_paper in papers:
-            if target_paper['id'] == paper_id:
-                continue
-
-            if not target_paper['title']:
-                continue
-
-            target_words = set(target_paper['title'].lower().split())
-            target_words = target_words - stop_words
-
-            # 計算Jaccard相似度
-            shared = source_words & target_words
-            union = source_words | target_words
-
-            if len(union) == 0:
-                continue
-
-            jaccard = len(shared) / len(union)
-
-            if jaccard >= similarity_threshold:
-                relations.append(Relation(
-                    source_id=paper_id,
-                    target_id=target_paper['id'],
-                    relation_type='similarity',
-                    strength=jaccard,
-                    metadata={
-                        'shared_words': list(shared),
-                        'word_count': len(shared),
-                        'method': 'title_jaccard'
-                    }
-                ))
-
-        return sorted(relations, key=lambda r: r.strength, reverse=True)
-
-    def find_all_relations(self, paper_id: int) -> Dict[str, List[Relation]]:
-        """
-        發現所有類型的關係
-
-        Args:
-            paper_id: 論文ID
-
-        Returns:
-            關係字典：{relation_type: [relations]}
-        """
-        return {
-            'citation': self.find_citation_relations(paper_id),
-            'shared_topic': self.find_shared_topic_relations(paper_id),
-            'author_collaboration': self.find_author_collaboration_relations(paper_id),
-            'similarity': self.find_similarity_relations(paper_id),
-        }
-
-    def build_citation_network(self, paper_ids: Optional[List[int]] = None) -> Dict:
-        """
-        構建引用網絡
-
-        Args:
-            paper_ids: 論文ID列表（None表示所有論文）
-
-        Returns:
-            網絡數據：{nodes: [], edges: []}
-        """
-        papers = self._load_papers()
-
-        if paper_ids is None:
-            paper_ids = [p['id'] for p in papers]
-
-        nodes = []
-        edges = []
-        edge_set = set()  # 去重
-
-        # 構建節點
-        for paper in papers:
-            if paper['id'] in paper_ids:
-                nodes.append({
-                    'id': paper['id'],
-                    'label': paper['title'][:50] if paper['title'] else f"Paper {paper['id']}",
-                    'title': paper['title'],
-                    'year': paper['year'],
-                    'cite_key': paper['cite_key'],
-                })
-
-        # 構建邊（引用關係）
-        for paper_id in paper_ids:
-            relations = self.find_citation_relations(paper_id)
-
-            for rel in relations:
-                if rel.target_id in paper_ids:
-                    edge_key = (rel.source_id, rel.target_id)
-                    if edge_key not in edge_set:
-                        edges.append({
-                            'source': rel.source_id,
-                            'target': rel.target_id,
-                            'type': rel.relation_type,
-                            'strength': rel.strength
-                        })
-                        edge_set.add(edge_key)
-
-        return {
-            'nodes': nodes,
-            'edges': edges,
-            'metadata': {
-                'total_nodes': len(nodes),
-                'total_edges': len(edges),
-                'paper_ids': paper_ids
-            }
-        }
-
-    def export_to_networkx(self, network_data: Dict):
-        """
-        轉換為NetworkX圖對象
-
-        Args:
-            network_data: build_citation_network()的輸出
-
-        Returns:
-            NetworkX DiGraph對象
-        """
         try:
-            import networkx as nx
-        except ImportError:
-            raise ImportError("需要安裝 networkx: pip install networkx")
+            if isinstance(keywords, str):
+                if not keywords or keywords == '[]':
+                    return []
+                if keywords.startswith('['):
+                    try:
+                        kw_list = json.loads(keywords)
+                        return [k.strip() for k in kw_list if isinstance(k, str) and k.strip()]
+                    except (json.JSONDecodeError, ValueError):
+                        pass
+                return [k.strip() for k in keywords.split(',') if k.strip()]
+            elif isinstance(keywords, list):
+                return [k.strip() for k in keywords if isinstance(k, str) and k.strip()]
+        except Exception:
+            pass
 
-        G = nx.DiGraph()
+        return []
 
-        # 添加節點
-        for node in network_data['nodes']:
-            G.add_node(node['id'], **node)
+    def _parse_authors(self, paper: Dict) -> List[str]:
+        authors_data = paper.get('authors', '')
 
-        # 添加邊
-        for edge in network_data['edges']:
-            G.add_edge(edge['source'], edge['target'],
-                      type=edge['type'],
-                      strength=edge['strength'])
-
-        return G
-
-    def _export_network_to_json(self, network_data: Dict, output_path: str):
-        """
-        導出網絡數據為JSON格式（內部輔助方法）
-
-        Args:
-            network_data: 網絡數據
-            output_path: 輸出路徑
-        """
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump(network_data, f, ensure_ascii=False, indent=2)
-
-        print(f"✅ 網絡數據已導出到: {output_path}")
-
-    def export_to_graphml(self, G, output_path: str):
-        """
-        導出為GraphML格式（可用於Gephi等工具）
-
-        Args:
-            G: NetworkX圖對象
-            output_path: 輸出路徑
-        """
         try:
-            import networkx as nx
-            nx.write_graphml(G, output_path)
-            print(f"✅ GraphML已導出到: {output_path}")
-        except ImportError:
-            raise ImportError("需要安裝 networkx: pip install networkx")
+            if isinstance(authors_data, str):
+                if not authors_data or authors_data == '[]':
+                    return []
+                if authors_data.startswith('['):
+                    try:
+                        author_list = json.loads(authors_data)
+                        return [a.strip() for a in author_list if isinstance(a, str) and a.strip()]
+                    except (json.JSONDecodeError, ValueError):
+                        pass
+                authors = authors_data.replace(' and ', ',').split(',')
+                return [a.strip() for a in authors if a.strip()]
+            elif isinstance(authors_data, list):
+                return [a.strip() for a in authors_data if isinstance(a, str) and a.strip()]
+        except Exception:
+            pass
 
-    # ============== Mermaid 可視化（ Phase 2.1新增）==============
+        return []
 
-    def export_citations_to_mermaid(self,
-                                    citations: List[Citation],
-                                    output_path: str = None,
-                                    max_edges: int = None) -> str:
-        """
-        將引用關係導出為Mermaid格式（Zettelkasten標準）
+    # ========== 6. 統計和報告 ==========
 
-        格式參考：output/zettelkasten_notes/zettel_index.md
+    def generate_report(self, output_dir: str = "output/relations") -> Dict:
+        """生成完整的關係分析報告"""
+        output_path = Path(output_dir)
+        output_path.mkdir(parents=True, exist_ok=True)
 
-        Args:
-            citations: Citation物件列表
-            output_path: 輸出檔案路徑（如果None，返回Mermaid代碼）
-            max_edges: 最大邊數（避免圖表過於複雜）
+        papers = self._get_papers_safe()
+        total_papers = len(papers)
 
-        Returns:
-            str: Mermaid代碼或檔案路徑
-        """
-        max_edges = max_edges or self.config.get('max_edges_in_graph', 100)
+        print(f"\n{'='*70}")
+        print(f"Relation-Finder - Relationship Analysis")
+        print(f"{'='*70}")
+        print(f"Total Papers: {total_papers}")
 
-        # 限制邊數
-        citations = sorted(citations, key=lambda x: x.similarity_score, reverse=True)[:max_edges]
+        # 1. Citation Relationship Analysis
+        print(f"\n[1] Analyzing title similarity citations...")
+        citations = self.find_citations_by_title_similarity()
+        print(f"    Found {len(citations)} similar citations")
 
-        # 構建Mermaid代碼
-        lines = []
-        lines.append("```mermaid")
-        lines.append("graph TD")
-        lines.append("")
+        citations_mermaid = self.export_citations_to_mermaid(citations)
+        with open(output_path / "citations_network.md", 'w', encoding='utf-8') as f:
+            f.write("# Paper Citation Network\n\n")
+            f.write(citations_mermaid)
 
-        # 添加節點（去重）
-        node_ids = set()
-        for citation in citations:
-            node_ids.add(citation.citing_paper_id)
-            node_ids.add(citation.cited_paper_id)
+        citations_json = [asdict(c) for c in citations]
+        with open(output_path / "citations.json", 'w', encoding='utf-8') as f:
+            json.dump(citations_json, f, ensure_ascii=False, indent=2)
 
-        papers = {p['id']: p for p in self._load_papers()}
+        # 2. Co-Author Network Analysis
+        print(f"\n[2] Analyzing co-author network...")
+        author_papers, coauthor_edges = self.find_co_authors()
+        total_authors = len(author_papers)
+        print(f"    Found {total_authors} authors, {len(coauthor_edges)} co-author pairs")
 
-        for paper_id in sorted(node_ids):
-            if paper_id in papers:
-                title = papers[paper_id].get('title', f"Paper {paper_id}")
-                # 標題長度限制
-                title = title[:50] if len(title) > 50 else title
-                lines.append(f'    P{paper_id}["{title}"]')
+        coauthor_mermaid = self.export_coauthors_to_mermaid(author_papers, coauthor_edges)
+        with open(output_path / "coauthor_network.md", 'w', encoding='utf-8') as f:
+            f.write("# Co-Author Network\n\n")
+            f.write(coauthor_mermaid)
 
-        lines.append("")
+        coauthor_json = [asdict(e) for e in coauthor_edges]
+        with open(output_path / "coauthors.json", 'w', encoding='utf-8') as f:
+            json.dump(coauthor_json, f, ensure_ascii=False, indent=2)
 
-        # 添加邊（根據confidence決定線型）
-        for citation in citations:
-            if citation.confidence == 'high':
-                # 實線：高置信度
-                lines.append(f'    P{citation.citing_paper_id} --> P{citation.cited_paper_id}')
-            else:
-                # 虛線：中/低置信度
-                lines.append(f'    P{citation.citing_paper_id} -.-> P{citation.cited_paper_id}')
+        # 3. Paper Concept Co-Occurrence Analysis
+        print(f"\n[3] Analyzing paper concept co-occurrence...")
+        concept_pairs = self.find_co_occurrence(top_k=30)
+        all_concepts = set()
+        for pair in concept_pairs:
+            all_concepts.add(pair.concept1)
+            all_concepts.add(pair.concept2)
+        print(f"    Found {len(all_concepts)} concepts, {len(concept_pairs)} co-occurrences")
 
-        lines.append("")
-        lines.append("```")
+        concept_mermaid = self.export_concepts_to_mermaid(concept_pairs)
+        with open(output_path / "paper_concept_network.md", 'w', encoding='utf-8') as f:
+            f.write("# Paper Concept Co-Occurrence Network\n\n")
+            f.write(concept_mermaid)
 
-        mermaid_code = '\n'.join(lines)
+        concept_json = [asdict(p) for p in concept_pairs]
+        with open(output_path / "paper_concepts.json", 'w', encoding='utf-8') as f:
+            json.dump(concept_json, f, ensure_ascii=False, indent=2)
 
-        # 輸出檔案或返回代碼
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(mermaid_code)
-            print(f"✅ Mermaid圖表已導出到: {output_path}")
-            return output_path
-        else:
-            return mermaid_code
+        # 4. Zettelkasten Concept Analysis (NEW!)
+        print(f"\n[4] Analyzing zettelkasten concepts...")
+        zettel_summary = self.zettel_analyzer.generate_report(output_dir=output_dir)
+        zettel_concepts_total = zettel_summary['total_unique_concepts']
+        zettel_relations = zettel_summary['concept_relations']
+        print(f"    Found {zettel_concepts_total} zettel concepts, {zettel_relations} relations")
 
-    def export_coauthor_network_to_mermaid(self,
-                                          network_data: Dict = None,
-                                          output_path: str = None,
-                                          max_nodes: int = None) -> str:
-        """
-        將共同作者網絡導出為Mermaid格式
-
-        Args:
-            network_data: 共同作者網絡數據（如果None，自動生成）
-            output_path: 輸出檔案路徑
-            max_nodes: 最大節點數
-
-        Returns:
-            str: Mermaid代碼或檔案路徑
-        """
-        max_nodes = max_nodes or self.config.get('max_nodes_in_graph', 50)
-
-        # 生成共同作者網絡
-        if network_data is None:
-            network_data = self._build_coauthor_network()
-
-        lines = []
-        lines.append("```mermaid")
-        lines.append("graph TD")
-        lines.append('    subgraph Authors["共同作者網絡"]')
-
-        # 添加作者節點（限制數量）
-        author_edges = network_data.get('edges', [])
-        author_nodes = set()
-
-        for edge in author_edges[:max_nodes]:
-            author_nodes.add(edge['author1'])
-            author_nodes.add(edge['author2'])
-
-        for i, author in enumerate(list(author_nodes)[:max_nodes]):
-            # 計算該作者的論文數
-            author_papers = []
-            for edge in author_edges:
-                if edge['author1'] == author:
-                    author_papers.extend(edge['shared_papers'])
-                elif edge['author2'] == author:
-                    author_papers.extend(edge['shared_papers'])
-
-            paper_count = len(set(author_papers))
-            # 簡化作者名稱
-            short_name = author.split(',')[0][:20] if ',' in author else author[:20]
-            node_id = f"A{i}"
-
-            lines.append(f'        {node_id}["{short_name} ({paper_count}篇)"]')
-
-        lines.append('    end')
-        lines.append("")
-
-        # 添加邊（作者協作）
-        for i, edge in enumerate(author_edges[:max_nodes]):
-            if i > 0:  # 限制邊數
-                break
-
-            author_idx1 = list(author_nodes).index(edge['author1']) if edge['author1'] in author_nodes else None
-            author_idx2 = list(author_nodes).index(edge['author2']) if edge['author2'] in author_nodes else None
-
-            if author_idx1 is not None and author_idx2 is not None:
-                lines.append(f'    A{author_idx1} --> A{author_idx2}')
-
-        lines.append("")
-        lines.append("```")
-
-        mermaid_code = '\n'.join(lines)
-
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(mermaid_code)
-            print(f"✅ 共同作者Mermaid圖表已導出到: {output_path}")
-            return output_path
-        else:
-            return mermaid_code
-
-    def _build_coauthor_network(self) -> Dict:
-        """構建共同作者網絡數據"""
-        papers = self._load_papers()
-        author_papers = {}
-
-        # 提取所有作者及其論文
-        for paper in papers:
-            authors = paper.get('authors', [])
-            if not authors:
-                continue
-
-            for author in authors:
-                if author not in author_papers:
-                    author_papers[author] = []
-                author_papers[author].append(paper['id'])
-
-        # 計算共同作者
-        edges = []
-        author_list = list(author_papers.keys())
-
-        for i, author1 in enumerate(author_list):
-            for author2 in author_list[i+1:]:
-                shared_papers = set(author_papers[author1]) & set(author_papers[author2])
-                if len(shared_papers) >= self.config.get('co_author_min_papers', 1):
-                    edges.append({
-                        'author1': author1,
-                        'author2': author2,
-                        'collaboration_count': len(shared_papers),
-                        'shared_papers': list(shared_papers)
-                    })
-
-        return {
-            'authors': author_list,
-            'edges': edges,
-            'total_authors': len(author_list),
-            'total_collaborations': len(edges)
+        # 5. Generate Summary Report
+        summary = {
+            'total_papers': total_papers,
+            'total_authors': total_authors,
+            'paper_concepts': len(all_concepts),
+            'paper_concept_pairs': len(concept_pairs),
+            'zettel_concepts': zettel_concepts_total,
+            'zettel_concept_relations': zettel_relations,
+            'citations': len(citations),
+            'coauthors': len(coauthor_edges),
         }
 
-    def export_concepts_to_mermaid(self,
-                                  concept_pairs: List[ConceptPair] = None,
-                                  output_path: str = None,
-                                  max_pairs: int = None) -> str:
-        """
-        將概念共現導出為Mermaid格式
+        print(f"\n{'='*70}")
+        print(f"Complete Analysis Summary")
+        print(f"{'='*70}")
+        print(f"Papers: {summary['total_papers']}")
+        print(f"Authors: {summary['total_authors']}")
+        print(f"Paper concepts: {summary['paper_concepts']}")
+        print(f"Zettel concepts: {summary['zettel_concepts']} (UNIQUE)")
+        print(f"Zettel concept relations: {summary['zettel_concept_relations']}")
+        print(f"Co-author pairs: {summary['coauthors']}")
+        print(f"Citations: {summary['citations']}")
+        print(f"\nAll reports saved to: {output_path}")
+        print(f"{'='*70}\n")
 
-        Args:
-            concept_pairs: ConceptPair物件列表（如果None，自動生成）
-            output_path: 輸出檔案路徑
-            max_pairs: 最大概念對數
-
-        Returns:
-            str: Mermaid代碼或檔案路徑
-        """
-        max_pairs = max_pairs or self.config.get('max_edges_in_graph', 50)
-
-        # 生成概念對（如果未提供）
-        if concept_pairs is None:
-            concept_pairs = self._extract_concept_pairs()
-
-        # 限制對數
-        concept_pairs = sorted(concept_pairs,
-                             key=lambda x: x.co_occurrence_count,
-                             reverse=True)[:max_pairs]
-
-        lines = []
-        lines.append("```mermaid")
-        lines.append("graph TD")
-        lines.append("")
-
-        # 添加節點（去重）
-        concepts = set()
-        for pair in concept_pairs:
-            concepts.add(pair.concept1)
-            concepts.add(pair.concept2)
-
-        # 節點命名（使用哈希）
-        concept_to_node = {}
-        for concept in sorted(concepts):
-            node_id = f"C{hash(concept) % 10000}"
-            concept_to_node[concept] = node_id
-            lines.append(f'    {node_id}["{concept}"]')
-
-        lines.append("")
-
-        # 添加邊（概念共現）
-        for pair in concept_pairs:
-            node1 = concept_to_node[pair.concept1]
-            node2 = concept_to_node[pair.concept2]
-
-            # 根據關聯強度決定線型
-            if pair.association_strength >= 0.5:
-                lines.append(f'    {node1} --> {node2}')
-            else:
-                lines.append(f'    {node1} -.-> {node2}')
-
-        lines.append("")
-        lines.append("```")
-
-        mermaid_code = '\n'.join(lines)
-
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(mermaid_code)
-            print(f"✅ 概念共現Mermaid圖表已導出到: {output_path}")
-            return output_path
-        else:
-            return mermaid_code
-
-    def _extract_concept_pairs(self) -> List[ConceptPair]:
-        """提取概念共現對"""
-        papers = self._load_papers()
-        concept_papers = {}
-
-        # 提取所有概念及其論文
-        for paper in papers:
-            concepts = paper.get('keywords', [])
-            if isinstance(concepts, str):
-                concepts = [c.strip() for c in concepts.split(',') if c.strip()]
-            elif concepts is None:
-                concepts = []
-
-            for concept in concepts:
-                if concept not in concept_papers:
-                    concept_papers[concept] = []
-                concept_papers[concept].append(paper['id'])
-
-        # 計算概念共現
-        pairs = []
-        concept_list = list(concept_papers.keys())
-
-        for i, concept1 in enumerate(concept_list):
-            for concept2 in concept_list[i+1:]:
-                shared_papers = set(concept_papers[concept1]) & set(concept_papers[concept2])
-
-                if len(shared_papers) >= self.config.get('concept_min_frequency', 1):
-                    # 計算關聯強度
-                    max_count = max(len(concept_papers[concept1]), len(concept_papers[concept2]))
-                    strength = len(shared_papers) / max_count if max_count > 0 else 0
-
-                    pair = ConceptPair(
-                        concept1=concept1,
-                        concept2=concept2,
-                        co_occurrence_count=len(shared_papers),
-                        papers=list(shared_papers),
-                        association_strength=strength
-                    )
-                    pairs.append(pair)
-
-        return sorted(pairs, key=lambda x: x.co_occurrence_count, reverse=True)
+        return summary
 
 
-# CLI測試代碼
 if __name__ == "__main__":
-    print("🔍 relation-finder Phase 2.1 Day 2 測試\n")
-
-    finder = RelationFinder()
-    output_dir = Path("output/relations")
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # ===== 測試 1: 共同作者完整分析 =====
-    print("=" * 70)
-    print("測試 1: 共同作者網絡完整分析（Day 2新增）")
-    print("=" * 70)
-
-    coauthor_network = finder.find_co_authors(min_papers=1)
-
-    print(f"\n👥 共同作者網絡統計:")
-    print(f"   📊 總作者數: {coauthor_network['metadata']['total_authors']}")
-    print(f"   🤝 協作對數: {coauthor_network['metadata']['total_collaborations']}")
-    print(f"   📈 最大協作: {coauthor_network['metadata']['max_collaboration']}篇論文")
-    print(f"   📉 平均協作: {coauthor_network['metadata']['avg_collaboration']:.2f}篇論文")
-
-    # 顯示top協作對
-    if coauthor_network['edges']:
-        print(f"\n🏆 Top 5 協作對:")
-        for i, edge in enumerate(coauthor_network['edges'][:5], 1):
-            print(f"   {i}. {edge['author1']} ↔ {edge['author2']}")
-            print(f"      共同論文: {edge['collaboration_count']}篇 (ID: {edge['shared_papers'][:2]}...)")
-
-    # 導出為JSON
-    with open(output_dir / "coauthor_network.json", 'w', encoding='utf-8') as f:
-        json.dump(coauthor_network, f, ensure_ascii=False, indent=2)
-    print(f"\n✅ 共同作者網絡已導出到: {output_dir}/coauthor_network.json")
-
-    # ===== 測試 2: 概念共現完整分析 =====
-    print("\n" + "=" * 70)
-    print("測試 2: 概念共現完整分析（Day 2新增）")
-    print("=" * 70)
-
-    cooccurrence = finder.find_co_occurrence(min_frequency=1, top_k=30)
-
-    print(f"\n📚 概念共現統計:")
-    print(f"   📊 總概念數: {cooccurrence['metadata']['total_concepts']}")
-    print(f"   🔗 概念對數: {cooccurrence['metadata']['total_pairs']}")
-    print(f"   📈 最高頻率: {cooccurrence['metadata']['max_frequency']}")
-    print(f"   📉 平均頻率: {cooccurrence['metadata']['avg_frequency']:.2f}")
-
-    # 顯示top概念
-    if cooccurrence['concept_frequency']:
-        print(f"\n⭐ Top 10 高頻概念:")
-        for i, (concept, freq) in enumerate(cooccurrence['concept_frequency'][:10], 1):
-            print(f"   {i}. {concept}: {freq}篇論文")
-
-    # 顯示top概念對
-    if cooccurrence['pairs']:
-        print(f"\n🔗 Top 5 概念對:")
-        for i, pair in enumerate(cooccurrence['pairs'][:5], 1):
-            print(f"   {i}. '{pair['concept1']}' ↔ '{pair['concept2']}'")
-            print(f"      共現: {pair['co_occurrence_count']}次, 強度: {pair['association_strength']:.2f}")
-
-    # 導出為JSON
-    with open(output_dir / "concept_cooccurrence.json", 'w', encoding='utf-8') as f:
-        json.dump(cooccurrence, f, ensure_ascii=False, indent=2)
-    print(f"\n✅ 概念共現已導出到: {output_dir}/concept_cooccurrence.json")
-
-    # ===== 測試 3: 更新Mermaid可視化 =====
-    print("\n" + "=" * 70)
-    print("測試 3: 使用新數據更新Mermaid可視化")
-    print("=" * 70)
-
-    # 共同作者Mermaid
-    print("\n👥 生成共同作者Mermaid...")
-    finder.export_coauthor_network_to_mermaid(
-        network_data=coauthor_network,
-        output_path=output_dir / "coauthor_network.md"
-    )
-
-    # 概念共現Mermaid
-    print("📚 生成概念共現Mermaid...")
-    concept_pairs = [ConceptPair(**p) for p in cooccurrence['pairs']]
-    finder.export_concepts_to_mermaid(
-        concept_pairs=concept_pairs,
-        output_path=output_dir / "concept_cooccurrence.md"
-    )
-
-    # ===== 測試 4: 傳統關係分析 =====
-    print("\n" + "=" * 70)
-    print("測試 4: 傳統引用關係分析（Day 1功能驗證）")
-    print("=" * 70)
-
-    paper_id = 2
-    print(f"\n📄 論文 ID {paper_id} 的關係:")
-
-    all_relations = finder.find_all_relations(paper_id)
-
-    for rel_type, relations in all_relations.items():
-        if relations:
-            print(f"\n🔗 {rel_type.upper()} ({len(relations)}個)")
-            for rel in relations[:3]:
-                print(f"   → Paper {rel.target_id} (強度: {rel.strength:.2f})")
-
-    print("\n" + "=" * 70)
-    print("✅ Phase 2.1 Day 2 測試完成！")
-    print("=" * 70)
-
-    # ===== 測試 5: 時間線分析（Day 3新增） =====
-    print("\n" + "=" * 70)
-    print("測試 5: 時間線分析（Day 3新增）")
-    print("=" * 70)
-
-    # 年度時間線
-    print("\n📅 年度時間線:")
-    timeline_year = finder.build_timeline(group_by='year')
-
-    print(f"   📊 起始年份: {timeline_year['metadata']['start_year']}")
-    print(f"   📊 結束年份: {timeline_year['metadata']['end_year']}")
-    print(f"   📊 覆蓋年份: {timeline_year['metadata']['total_years']}")
-    print(f"   📊 論文總數: {timeline_year['metadata']['total_papers']}")
-    print(f"   📊 分組方式: {timeline_year['metadata']['grouping']}")
-
-    if timeline_year['timepoints']:
-        print(f"\n   🏆 Top 5 論文發表年份:")
-        sorted_timepoints = sorted(timeline_year['timepoints'],
-                                 key=lambda x: x.get('paper_count', 0),
-                                 reverse=True)
-        for i, tp in enumerate(sorted_timepoints[:5], 1):
-            year = tp.get('year', 'Unknown')
-            count = tp.get('paper_count', 0)
-            concepts = tp.get('top_concepts', [])
-            print(f"      {i}. {year}: {count}篇論文 | 概念: {', '.join(concepts[:2])}")
-
-    # 5年期時間線
-    print("\n📅 5年期時間線:")
-    timeline_5y = finder.build_timeline(group_by='5-year')
-
-    if timeline_5y['timepoints']:
-        print(f"   📊 期間數: {len(timeline_5y['timepoints'])}")
-        for i, tp in enumerate(timeline_5y['timepoints'], 1):
-            period = tp.get('period', 'Unknown')
-            count = tp.get('paper_count', 0)
-            print(f"      {i}. {period}: {count}篇論文")
-
-    # 導出時間線Mermaid
-    print("\n📊 生成時間線Mermaid...")
-    finder.export_timeline_to_mermaid(
-        timeline_data=timeline_year,
-        output_path=output_dir / "timeline.md"
-    )
-
-    # ===== 測試 6: 完整JSON導出（Day 3新增） =====
-    print("\n" + "=" * 70)
-    print("測試 6: 完整關係JSON導出（Day 3新增）")
-    print("=" * 70)
-
-    print("\n📦 生成完整關係JSON...")
-    complete_json = finder.export_to_json(
-        include_citations=True,
-        include_coauthors=True,
-        include_concepts=True,
-        include_timeline=True,
-        output_path=output_dir / "complete_relations.json"
-    )
-
-    print(f"\n📊 統一JSON統計:")
-    metadata = complete_json.get('metadata', {})
-    print(f"   引用關係數: {metadata.get('citation_count', 0)}")
-    print(f"   作者總數: {metadata.get('author_count', 0)}")
-    print(f"   協作對數: {metadata.get('collaboration_count', 0)}")
-    print(f"   概念總數: {metadata.get('concept_count', 0)}")
-    print(f"   概念對數: {metadata.get('concept_pair_count', 0)}")
-    print(f"   論文年份: {metadata.get('year_range')}")
-    print(f"   論文總數: {metadata.get('total_papers', 0)}")
-
-    print("\n" + "=" * 70)
-    print("✅ Phase 2.1 Day 3 測試完成！")
-    print("=" * 70)
-
-    print("\n📁 已生成的輸出檔案:")
-    for file in sorted(output_dir.glob("*")):
-        size = file.stat().st_size / 1024 if file.is_file() else 0
-        print(f"   ✓ {file.name} ({size:.1f}KB)" if file.is_file() else f"   ✓ {file.name}/")
-
-    print("\n🎉 Phase 2.1 開發完成！\n")
-    print("📋 Phase 2.1 成果統計:")
-    print(f"   Day 1: ✅ 引用關係抽取和Mermaid可視化")
-    print(f"   Day 2: ✅ 共同作者和概念共現分析")
-    print(f"   Day 3: ✅ 時間線和完整JSON導出")
-    print(f"   Day 4: ⏳ 單元測試和kb_manage.py集成 (待進行)")
-    print("\n" + "=" * 70)
-    print(f"\n📁 輸出檔案:")
-    print(f"   ✅ {output_dir}/coauthor_network.json")
-    print(f"   ✅ {output_dir}/coauthor_network.md (Mermaid)")
-    print(f"   ✅ {output_dir}/concept_cooccurrence.json")
-    print(f"   ✅ {output_dir}/concept_cooccurrence.md (Mermaid)")
-    print(f"\n📊 新增功能:")
-    print(f"   ✨ find_co_authors() - 共同作者網絡（含統計）")
-    print(f"   ✨ find_co_occurrence() - 概念共現分析（含統計）")
+    import argparse
+    parser = argparse.ArgumentParser(description="Relation-Finder 關係分析工具")
+    parser.add_argument("--kb-path", default="knowledge_base", help="知識庫路徑")
+    parser.add_argument("--output", default="output/relations", help="輸出目錄")
+    args = parser.parse_args()
+    finder = RelationFinder(kb_path=args.kb_path)
+    summary = finder.generate_report(output_dir=args.output)

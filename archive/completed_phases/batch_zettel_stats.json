@@ -1,0 +1,133 @@
+{
+  "total": 64,
+  "success": 39,
+  "failed": 25,
+  "skipped": 0,
+  "errors": [
+    {
+      "paper_id": 1,
+      "title": "Taxonomy of Numeral Classifiers:",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 3,
+      "title": "LanguageSciences25(2003)353–373",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 4,
+      "title": "Concepts in the Brain",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 8,
+      "title": "LinguisticsVanguard2022;8(1):151–164",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 10,
+      "title": "HuangLinguaSinica (2015) 1:1",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 13,
+      "title": "JournalofMemoryandLanguage127(2022)104355",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 14,
+      "title": "Journal of Cognitive Psychology",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 15,
+      "title": "PsychonomicBulletin&Review",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 16,
+      "title": "JournalofMemoryandLanguage135(2024)104478",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 18,
+      "title": "Memory&Cognition(2020)48:390–399",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 19,
+      "title": "Cognitive Processing",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 20,
+      "title": "Cognition 182 (2019) 84–94",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 22,
+      "title": "JOURNAL OF VERBAL LEARNING AND VERBAL BEHAVIOR 18, 509-521 (",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 25,
+      "title": "Memory & Cognition",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 26,
+      "title": "Educational Psychology",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 27,
+      "title": "Journal Pre-proof",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 28,
+      "title": "Revisiting Mental Simulation in Language",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 29,
+      "title": "PsychonBullRev(2018)25:1968–1972",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 37,
+      "title": "Goal-Setting Behavior of Workers on Crowdsourcing Platforms:",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 38,
+      "title": "“Events as intersecting object histories: A new theory of ev",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 39,
+      "title": "What Does ‘Human-Centred AI’ Mean?",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 40,
+      "title": "Classifiers: The many ways to profile 'one', a case study of",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 41,
+      "title": "Multimodal Language Models Show Evidence of Embodied Simulat",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 42,
+      "title": "Numerical congruency effect in the sentence-picture verifica",
+      "error": "Unknown error"
+    },
+    {
+      "paper_id": 43,
+      "title": "Expansion by migration and diffusion by contact is a source ",
+      "error": "Unknown error"
+    }
+  ]
+}

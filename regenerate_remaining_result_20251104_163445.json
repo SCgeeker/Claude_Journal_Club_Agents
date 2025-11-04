@@ -1,0 +1,34 @@
+{
+  "start_time": "2025-11-04T16:34:45.894567",
+  "end_time": "2025-11-04T16:42:43.678827",
+  "elapsed_seconds": 477.78426,
+  "total": 22,
+  "success": 16,
+  "failed": 6,
+  "errors": [
+    {
+      "paper_id": 38,
+      "error": "未知錯誤"
+    },
+    {
+      "paper_id": 39,
+      "error": "未知錯誤"
+    },
+    {
+      "paper_id": 40,
+      "error": "未知錯誤"
+    },
+    {
+      "paper_id": 41,
+      "error": "未知錯誤"
+    },
+    {
+      "paper_id": 42,
+      "error": "未知錯誤"
+    },
+    {
+      "paper_id": 43,
+      "error": "未知錯誤"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
 
 **重要指引**：
 1. **原子性原則**：每張卡片只聚焦一個核心概念，確保可獨立理解
-2. **語義化ID**：使用格式 `{{ domain }}-{{ date }}-001` 開始編號
+2. **語義化ID**：使用格式 `{{ cite_key }}-001` 開始編號（基於論文 cite_key）
 3. **連結網絡**：明確標示概念間的關係（基於/導向/相關/對比）
 4. **知識脈絡**：註明概念在原論文中的位置和情境
 
@@ -23,7 +23,7 @@ Please write all content in English.
 
 請使用以下格式輸出完整卡片集（嚴格遵守格式）：
 
-===CARD: {{ domain }}-{{ date }}-001===
+===CARD: {{ cite_key }}-001===
 標題: [第一個核心概念的名稱]
 類型: [concept|method|finding|question]
 核心: [**直接從原文擷取**最能代表此概念的一句話，保持原文語言（英文或中文），不要翻譯或改寫]
@@ -33,10 +33,10 @@ Please write all content in English.
 [2-3段詳細說明此概念，包含定義、特性、重要性等。此處可以用中文解釋]
 
 連結:
-基於 -> [前置概念ID，格式必須為 {{ domain }}-{{ date }}-XXX，例如 {{ domain }}-{{ date }}-001]
-導向 -> [延伸概念ID1，格式 {{ domain }}-{{ date }}-XXX], [延伸概念ID2]
-相關 <-> [相關概念ID，格式 {{ domain }}-{{ date }}-XXX]
-對比 <-> [對比概念ID，格式 {{ domain }}-{{ date }}-XXX]
+基於 -> [前置概念ID，格式必須為 {{ cite_key }}-XXX，例如 {{ cite_key }}-001]
+導向 -> [延伸概念ID1，格式 {{ cite_key }}-XXX], [延伸概念ID2]
+相關 <-> [相關概念ID，格式 {{ cite_key }}-XXX]
+對比 <-> [對比概念ID，格式 {{ cite_key }}-XXX]
 
 個人筆記:
 [對此概念的思考、疑問或延伸想法]
@@ -45,7 +45,7 @@ Please write all content in English.
 [此概念引發的待解問題或研究方向]
 ===
 
-===CARD: {{ domain }}-{{ date }}-002===
+===CARD: {{ cite_key }}-002===
 標題: [第二個核心概念的名稱]
 類型: [concept|method|finding|question]
 核心: [一句話總結]
@@ -55,9 +55,9 @@ Please write all content in English.
 [詳細說明...]
 
 連結:
-基於 -> {{ domain }}-{{ date }}-001
-導向 -> {{ domain }}-{{ date }}-003, {{ domain }}-{{ date }}-004
-相關 <-> {{ domain }}-{{ date }}-005
+基於 -> {{ cite_key }}-001
+導向 -> {{ cite_key }}-003, {{ cite_key }}-004
+相關 <-> {{ cite_key }}-005
 
 個人筆記:
 [思考與延伸...]
@@ -66,7 +66,7 @@ Please write all content in English.
 [待解問題...]
 ===
 
-**重要提醒**：所有卡片ID必須嚴格遵守格式 `{{ domain }}-{{ date }}-XXX`，其中XXX為三位數字（001, 002, 003...）。連結中引用其他卡片時，也必須使用完整的破折號格式。
+**重要提醒**：所有卡片ID必須嚴格遵守格式 `{{ cite_key }}-XXX`，其中XXX為三位數字（001, 002, 003...）。連結中引用其他卡片時，也必須使用完整的破折號格式。
 
 以此類推，直到第{{ card_count }}張卡片。
 
@@ -90,7 +90,7 @@ Please write all content in English.
 **重要要求**：
 1. 確保每張卡片可獨立理解（不依賴閱讀順序）
 2. 明確標示概念間的連結關係
-3. 使用一致的ID命名規則（必須包含破折號：{{ domain }}-{{ date }}-XXX）
+3. 使用一致的ID命名規則（必須包含破折號：{{ cite_key }}-XXX）
 4. **「核心」欄位必須直接從原文逐字擷取**，不可翻譯、改寫或總結
    - 如果原文是英文，保持英文
    - 如果原文是中文，保持中文
