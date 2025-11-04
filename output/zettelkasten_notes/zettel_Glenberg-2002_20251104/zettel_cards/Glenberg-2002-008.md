@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-008
 title: "網格化 (Meshing)"
-tags: [網格化, 可供性, 語法結構, 行動計劃, 具身認知]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 網格化 (Meshing)  > **核心**: "The third process specified by the IH is that affordances are meshed under the guidance of syntactic constructions (Kasc"
 ---
+
 
 # 網格化 (Meshing)
 

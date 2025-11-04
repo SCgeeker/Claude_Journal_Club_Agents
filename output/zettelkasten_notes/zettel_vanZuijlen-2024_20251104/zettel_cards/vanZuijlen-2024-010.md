@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-010
 title: "自動化處理 (Automatic Processing)"
-tags: [認知過程, 自動化, 語言理解]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 自動化處理 (Automatic Processing)  > **核心**: "If sensory simulation is an integral part of language comprehension, simulations should be automatic when"
 ---
+
 
 # 自動化處理 (Automatic Processing)
 

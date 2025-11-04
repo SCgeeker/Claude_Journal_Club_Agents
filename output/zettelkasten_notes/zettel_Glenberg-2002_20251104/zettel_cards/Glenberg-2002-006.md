@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-006
 title: "行動計劃干擾 (Action Planning Interference)"
-tags: [行動計劃, 神經系統, 具身認知, 干擾效應]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 行動計劃干擾 (Action Planning Interference)  > **核心**: "If this simulation requires the same neural systems as the planning and guidance of real action,"
 ---
+
 
 # 行動計劃干擾 (Action Planning Interference)
 

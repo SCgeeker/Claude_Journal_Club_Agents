@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-006
 title: "視覺化任務 (Visualization Task)"
-tags: [實驗任務, 視覺化, 提示, 顏色, 形狀]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: method
+summary: "# 視覺化任務 (Visualization Task)  > **核心**: "In our tasks, participants were presented a verbal cue and instructed to visualize the object described by"
 ---
+
 
 # 視覺化任務 (Visualization Task)
 

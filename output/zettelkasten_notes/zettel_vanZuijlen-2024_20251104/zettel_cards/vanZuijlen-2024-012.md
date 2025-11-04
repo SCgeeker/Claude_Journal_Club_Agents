@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-012
 title: "知覺符號系統 (Perceptual Symbols System)"
-tags: [語言理解, 認知模型, 具身認知]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 知覺符號系統 (Perceptual Symbols System)  > **核心**: "Language comprehenders use previous perceptual-motor experiences to construct simulations of object"
 ---
+
 
 # 知覺符號系統 (Perceptual Symbols System)
 

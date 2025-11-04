@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-005
 title: "外在視覺屬性 (Extrinsic Visual Properties)"
-tags: [[認知心理學], [視覺認知], [物體識別], [屬性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: concept
+summary: "# 外在視覺屬性 (Extrinsic Visual Properties)  > **核心**: "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but"
 ---
+
 
 # 外在視覺屬性 (Extrinsic Visual Properties)
 

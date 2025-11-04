@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-007
 title: "漢語量詞對物體分類的影響"
-tags: [漢語, 量詞, 分類, 認知]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: finding
+summary: "# 漢語量詞對物體分類的影響  > **核心**: 假定论文找到了量词的影响，核心句可以是 “The use of classifiers in Mandarin influenced participants' grouping of objects based on shape versus"
 ---
+
 
 # 漢語量詞對物體分類的影響
 

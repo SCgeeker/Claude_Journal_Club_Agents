@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-004
 title: "日語詞彙提取"
-tags: [日語, 詞彙提取, 心理語言學, 語言產生]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: concept
+summary: "# 日語詞彙提取  > **核心**: 無核心，論文無摘要，但日語詞彙提取是命名過程的一部分。  ## 說明 日語詞彙提取是指從心理詞彙庫中檢索出目標概念對應的日語詞彙的過程。 這個過程受到詞彙的頻率、語法結構和語義情境的影響。 日語的語法結構（例如助詞的使用）可能會影響詞彙提取的效率。  ##"
 ---
+
 
 # 日語詞彙提取
 

@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-001
 title: "具身認知 (Grounded Cognition)"
-tags: [具身認知, 語言理解, 感知運動經驗]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 具身認知 (Grounded Cognition)  > **核心**: "According to grounded cognition theories, the features that are activated during language comprehension are"
 ---
+
 
 # 具身認知 (Grounded Cognition)
 

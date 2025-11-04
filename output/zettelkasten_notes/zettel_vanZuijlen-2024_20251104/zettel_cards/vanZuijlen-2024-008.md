@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-008
 title: "語言熟練程度 (Language Proficiency)"
-tags: [雙語, 語言能力, 認知過程]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 語言熟練程度 (Language Proficiency)  > **核心**: "The strength of mental simulations may depend on proficiency in the second language."  ## 說明 研究人員認為，心理模擬"
 ---
+
 
 # 語言熟練程度 (Language Proficiency)
 

@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-004
 title: "句子類型與行動-句子相容性效應 (Sentence Type and ACE)"
-tags: [ACE, 句子類型, 具身認知, 抽象概念]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: finding
+summary: "# 句子類型與行動-句子相容性效應 (Sentence Type and ACE)  > **核心**: "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing"
 ---
+
 
 # 句子類型與行動-句子相容性效應 (Sentence Type and ACE)
 

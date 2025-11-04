@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-009
 title: "反應時間和錯誤率 (Reaction Time and Error Rates)"
-tags: [數據分析, 實驗指標, 語言理解]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: method
+summary: "# 反應時間和錯誤率 (Reaction Time and Error Rates)  > **核心**: "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found stron"
 ---
+
 
 # 反應時間和錯誤率 (Reaction Time and Error Rates)
 

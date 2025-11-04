@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-004
 title: "具身認知（Embodied Cognition）"
-tags: [[認知科學], [具身], [身體]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 具身認知（Embodied Cognition）  > **核心**: [A theory emphasizing the role of the body in shaping cognition.]  ## 說明 具身認知強調身體在認知過程中的重要作用。認知並非僅僅發生在大腦中，而是與身"
 ---
+
 
 # 具身認知（Embodied Cognition）
 

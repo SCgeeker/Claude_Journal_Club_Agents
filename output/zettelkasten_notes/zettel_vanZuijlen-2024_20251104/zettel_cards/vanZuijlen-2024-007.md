@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-007
 title: "填充試驗 (Filler Trials)"
-tags: [實驗設計, 控制變數, 顏色匹配]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: method
+summary: "# 填充試驗 (Filler Trials)  > **核心**: "Crucially, we added color-match filler (i.e., “no”) trials to the stimuli presented in the experiment."  ## 說明 為了"
 ---
+
 
 # 填充試驗 (Filler Trials)
 

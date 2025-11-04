@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-002
 title: "概念分類 (Conceptual Categorization)"
-tags: [概念, 分類, 認知, 心理學]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: concept
+summary: "# 概念分類 (Conceptual Categorization)  > **核心**: 假定论文讨论了概念分类，核心句可以是 “Conceptual categorization is the process by which objects and events are grouped i"
 ---
+
 
 # 概念分類 (Conceptual Categorization)
 

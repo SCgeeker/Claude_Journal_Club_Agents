@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-005
 title: "正交設計 (Orthogonal Design)"
-tags: [實驗設計, 正交性, 隨機化, 特徵組合]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: method
+summary: "# 正交設計 (Orthogonal Design)  > **核心**: "Using randomized orthogonal designs, we observe evidence for disjunctive perceptual representations when part"
 ---
+
 
 # 正交設計 (Orthogonal Design)
 

@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-012
 title: "具身認知與科學理解 (Embodied Cognition and Scientific Understanding)"
-tags: [具身認知, 科學理解, 身體經驗, 抽象概念]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 具身認知與科學理解 (Embodied Cognition and Scientific Understanding)  > **核心**: "Ochs et al. noted that this sort of explicit bodily identification was use"
 ---
+
 
 # 具身認知與科學理解 (Embodied Cognition and Scientific Understanding)
 

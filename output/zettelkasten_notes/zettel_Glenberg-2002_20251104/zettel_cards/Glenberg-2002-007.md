@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-007
 title: "可供性 (Affordances)"
-tags: [可供性, 知覺符號, 行動, 具身認知]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 可供性 (Affordances)  > **核心**: "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & Glenberg, 2000).""
 ---
+
 
 # 可供性 (Affordances)
 

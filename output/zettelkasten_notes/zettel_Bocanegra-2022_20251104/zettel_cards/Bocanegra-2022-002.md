@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-002
 title: "連接性表徵 (Conjunctive Representation)"
-tags: [表徵, 連接, 特徵, 集合論]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: concept
+summary: "# 連接性表徵 (Conjunctive Representation)  > **核心**: "We define a conjunctive representation as the selective representation of an intersection of two se"
 ---
+
 
 # 連接性表徵 (Conjunctive Representation)
 

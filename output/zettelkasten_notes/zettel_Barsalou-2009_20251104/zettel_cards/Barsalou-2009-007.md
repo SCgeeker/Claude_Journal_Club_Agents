@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-007
 title: "預測編碼（Predictive Coding）"
-tags: [[預測], [大腦], [編碼]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 預測編碼（Predictive Coding）  > **核心**: [A framework suggesting the brain constantly predicts sensory input and updates its internal model based on pre"
 ---
+
 
 # 預測編碼（Predictive Coding）
 

@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-001
 title: "具身認知 (Embodied Cognition)"
-tags: [具身認知, 語言理解, 認知科學]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 具身認知 (Embodied Cognition)  > **核心**: "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodied—that"
 ---
+
 
 # 具身認知 (Embodied Cognition)
 

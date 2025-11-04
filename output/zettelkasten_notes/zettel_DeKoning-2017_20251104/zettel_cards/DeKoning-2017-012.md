@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-012
 title: "未來研究方向"
-tags: [[認知心理學], [心理語言學], [心理模擬], [研究方向]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: question
+summary: "# 未來研究方向  > **核心**: "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are responsible for the fact t"
 ---
+
 
 # 未來研究方向
 

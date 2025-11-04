@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-004
 title: "知覺決策 (Perceptual Decision-Making)"
-tags: [知覺, 決策, 目標辨識, 匹配]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: concept
+summary: "# 知覺決策 (Perceptual Decision-Making)  > **核心**: "the process of perceptual decision-making (e. g., the process of target identification by matching t"
 ---
+
 
 # 知覺決策 (Perceptual Decision-Making)
 

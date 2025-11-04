@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-001
 title: "句圖驗證任務 (SPV task)"
-tags: [[認知心理學], [心理語言學], [句圖驗證], [實驗方法]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: method
+summary: "# 句圖驗證任務 (SPV task)  > **核心**: "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientationofobjects.""
 ---
+
 
 # 句圖驗證任務 (SPV task)
 

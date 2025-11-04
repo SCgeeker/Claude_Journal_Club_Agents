@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-008
 title: "實驗程序"
-tags: [實驗流程, 心理學實驗, 研究方法, 控制變量]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: method
+summary: "# 實驗程序  > **核心**: 無核心，論文無摘要，實驗程序對於研究的有效性至關重要。  ## 說明 實驗程序需要嚴格控制各種變量，以確保結果的可靠性和有效性。 這包括刺激呈現的時間、參與者的反應方式和實驗環境的控制。 隨機分配參與者到不同的實驗條件是避免偏差的重要手段。  ## 連結網絡"
 ---
+
 
 # 實驗程序
 

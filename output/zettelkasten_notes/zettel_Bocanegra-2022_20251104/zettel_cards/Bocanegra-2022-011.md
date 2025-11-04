@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-011
 title: "對 Potter & Faulconer (1979) 研究的重新詮釋 (Reinterpretation of Potter & Faulconer (1979) study)"
-tags: [經典研究, 詮釋, 連接性, 分離性, 實驗設計]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: concept
+summary: "# 對 Potter & Faulconer (1979) 研究的重新詮釋 (Reinterpretation of Potter & Faulconer (1979) study)  > **核心**: "Although this finding shows that participant"
 ---
+
 
 # 對 Potter & Faulconer (1979) 研究的重新詮釋 (Reinterpretation of Potter & Faulconer (1979) study)
 

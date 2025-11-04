@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-003
 title: "漢語 (Mandarin)"
-tags: [漢語, 聲調, 量詞, 語言學]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: concept
+summary: "# 漢語 (Mandarin)  > **核心**: 假定论文讨论了汉语的特性，核心句可以是 “Mandarin Chinese is a tonal language with a complex system of classifiers.”  ## 說明 漢語是一種聲調語言，具有複雜的量詞"
 ---
+
 
 # 漢語 (Mandarin)
 

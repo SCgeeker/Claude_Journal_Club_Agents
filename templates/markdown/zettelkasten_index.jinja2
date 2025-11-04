@@ -1,21 +1,21 @@
-# Zettelkasten 卡片索引
-
-**來源論文**: {{ paper_title }}
-**作者**: {{ authors }}
-**年份**: {{ year }}
-**生成日期**: {{ generated_date }}
-**卡片總數**: {{ card_count }}
-
 ---
+title: {{ paper_title }}
+aliases:
+  - {{ cite_key }}
+authors: "{{ authors }}"
+year: "{{ year }}"
+generated_date: {{ generated_date }}
+card_count: {{ card_count }}
+---
+
+# Zettelkasten 卡片索引
 
 ## 📚 卡片清單
 
 {% for card in cards %}
 ### {{ loop.index }}. [{{ card.title }}](zettel_cards/{{ card.id }}.md)
 - **ID**: `{{ card.id }}`
-- **類型**: {{ card.type }}
 - **核心**: {{ card.core_summary }}
-- **標籤**: {% for tag in card.tags %}`{{ tag }}`{% if not loop.last %}, {% endif %}{% endfor %}
 
 {% endfor %}
 

@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-004
 title: "普遍語法 (Universal Grammar)"
-tags: [普遍語法, 語言學, Chomsky, 先天論]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: concept
+summary: "# 普遍語法 (Universal Grammar)  > **核心**: 假定论文间接涉及了普遍语法，核心句可以是 “Universal Grammar posits that all languages share a common underlying structure.”  ## 說明"
 ---
+
 
 # 普遍語法 (Universal Grammar)
 

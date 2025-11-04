@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-011
 title: "實驗設計限制"
-tags: [[認知心理學], [句圖驗證], [實驗方法], [限制]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: method
+summary: "# 實驗設計限制  > **核心**: "Even though we have tried to make all four SPV tasks as comparable as possible...we cannot exclude the possibility that differe"
 ---
+
 
 # 實驗設計限制
 

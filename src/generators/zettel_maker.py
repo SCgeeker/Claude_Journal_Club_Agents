@@ -260,6 +260,7 @@ class ZettelMaker:
             'year': paper_info.get('year', ''),
             'paper_id': paper_info.get('paper_id', ''),
             'citation': paper_info.get('citation', ''),
+            'cite_key': paper_info.get('cite_key', ''),
             'created_date': datetime.now().strftime("%Y-%m-%d"),
             'section': paper_info.get('section', ''),
             'page_number': paper_info.get('page', ''),
@@ -312,7 +313,8 @@ class ZettelMaker:
             card_count=len(cards),
             cards=cards,
             cards_by_tag=dict(cards_by_tag),
-            reading_order=reading_order
+            reading_order=reading_order,
+            cite_key=paper_info.get('cite_key', '')
         )
 
         # 保存文件

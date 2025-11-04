@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-007
 title: "雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)"
-tags: [實驗操作, 雙特徵, 單特徵, 視覺化]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: method
+summary: "# 雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)  > **核心**: "Our critical comparison is between single-feature trials where participants were as"
 ---
+
 
 # 雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)
 

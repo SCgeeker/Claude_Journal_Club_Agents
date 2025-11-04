@@ -39,7 +39,8 @@
       "Bash(timeout 120 bash:*)",
       "Bash(awk:*)",
       "Bash(for old in Her2012a Zwaan2002 Yi2009)",
-      "Bash(do echo \"=== $old ===\" ls output/zettelkasten_notes/)"
+      "Bash(do echo \"=== $old ===\" ls output/zettelkasten_notes/)",
+      "Bash(timeout 600 python make_slides.py:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-004
 title: "內在視覺屬性 (Intrinsic Visual Properties)"
-tags: [[認知心理學], [視覺認知], [物體識別], [屬性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: concept
+summary: "# 內在視覺屬性 (Intrinsic Visual Properties)  > **核心**: "Shape, size, and colour are intrinsic visual properties that distinguish an object from another.""
 ---
+
 
 # 內在視覺屬性 (Intrinsic Visual Properties)
 

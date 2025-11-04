@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-005
 title: "概念的動態性（Dynamicity of Concepts）"
-tags: [[概念], [動態], [情境]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 概念的動態性（Dynamicity of Concepts）  > **核心**: [The idea that concepts are not fixed and stable, but rather adapt to context.]  ## 說明 概念的動態性是指概念並非靜態的知識"
 ---
+
 
 # 概念的動態性（Dynamicity of Concepts）
 

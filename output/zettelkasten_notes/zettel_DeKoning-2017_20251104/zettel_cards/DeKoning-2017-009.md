@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-009
 title: "相關性分析結果"
-tags: [[認知心理學], [句圖驗證], [心理模擬], [相關性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: finding
+summary: "# 相關性分析結果  > **核心**: "significant correlations were found between all of the three intrinsic visual object properties (i.e. shape, size, and colour)"
 ---
+
 
 # 相關性分析結果
 

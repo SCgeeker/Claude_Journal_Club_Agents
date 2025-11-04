@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-004
 title: "心理模擬 (Mental Simulation)"
-tags: [語言理解, 認知過程, 具身認知]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 心理模擬 (Mental Simulation)  > **核心**: "Pictures of objects are verified faster when they match the implied orientation, shape, and color in a senten"
 ---
+
 
 # 心理模擬 (Mental Simulation)
 

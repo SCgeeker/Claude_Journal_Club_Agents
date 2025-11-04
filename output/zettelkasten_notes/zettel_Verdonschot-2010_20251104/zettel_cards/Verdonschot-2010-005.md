@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-005
 title: "語義網絡"
-tags: [語義網絡, 認知科學, 知識表示, 心理詞彙庫]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: concept
+summary: "# 語義網絡  > **核心**: 無核心，論文無摘要，但語義情境效應暗示了語義網絡的存在。  ## 說明 語義網絡是一種用於表示詞彙概念及其相互關係的知識表示模型。 語義網絡中的節點代表詞彙概念，節點之間的連接代表概念之間的語義關係（例如同義、反義、上位詞、下位詞）。 語義情境效應可能反映了語"
 ---
+
 
 # 語義網絡
 

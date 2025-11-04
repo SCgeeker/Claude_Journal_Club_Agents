@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-005
 title: "母語者與非母語者 (Native vs. Non-Native Speakers)"
-tags: [語言理解, 雙語, 認知差異]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 母語者與非母語者 (Native vs. Non-Native Speakers)  > **核心**: "In the present study we investigated whether such mental simulations also underlie understan"
 ---
+
 
 # 母語者與非母語者 (Native vs. Non-Native Speakers)
 

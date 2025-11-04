@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-003
 title: "分離性表徵 (Disjunctive Representation)"
-tags: [表徵, 分離, 特徵, 集合論]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: concept
+summary: "# 分離性表徵 (Disjunctive Representation)  > **核心**: "a disjunctive representation as a general representation of the union of two sets of features"  ##"
 ---
+
 
 # 分離性表徵 (Disjunctive Representation)
 

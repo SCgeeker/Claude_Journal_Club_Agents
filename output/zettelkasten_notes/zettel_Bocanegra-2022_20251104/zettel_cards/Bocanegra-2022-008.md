@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-008
 title: "同時呈現導致分離性表徵 (Simultaneous Presentation Leads to Disjunctive Representation)"
-tags: [研究發現, 同時呈現, 分離性表徵, 知覺]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: finding
+summary: "# 同時呈現導致分離性表徵 (Simultaneous Presentation Leads to Disjunctive Representation)  > **核心**: "we observe evidence for disjunctive perceptual representat"
 ---
+
 
 # 同時呈現導致分離性表徵 (Simultaneous Presentation Leads to Disjunctive Representation)
 

@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-009
 title: "序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)"
-tags: [研究發現, 序列呈現, 連接性表徵, 知覺]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: finding
+summary: "# 序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)  > **核心**: "we observe evidence for conjunctive perceptual repre- sentat"
 ---
+
 
 # 序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)
 

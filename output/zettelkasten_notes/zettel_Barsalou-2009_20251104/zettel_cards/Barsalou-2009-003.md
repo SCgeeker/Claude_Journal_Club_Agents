@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-003
 title: "預測（Prediction）"
-tags: [[認知科學], [預測], [大腦]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 預測（Prediction）  > **核心**: [This entry is based on the title and presumed content regarding the role of prediction in cognition.]  ## 說明 預測在大腦功能中扮演"
 ---
+
 
 # 預測（Prediction）
 

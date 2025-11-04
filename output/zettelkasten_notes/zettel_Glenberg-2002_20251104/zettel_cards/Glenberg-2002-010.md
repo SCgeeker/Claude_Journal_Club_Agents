@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-010
 title: "抽象轉移句子的理解 (Understanding Abstract Transfer Sentences)"
-tags: [抽象轉移, 語法結構, 網格化, 具身認知]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: question
+summary: "# 抽象轉移句子的理解 (Understanding Abstract Transfer Sentences)  > **核心**: "How does grammatical information guide the meshing of affordances? According to"
 ---
+
 
 # 抽象轉移句子的理解 (Understanding Abstract Transfer Sentences)
 

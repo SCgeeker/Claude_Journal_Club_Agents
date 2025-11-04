@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-002
 title: "情境化概念化（Situated Conceptualization）"
-tags: [[認知科學], [情境], [概念]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 情境化概念化（Situated Conceptualization）  > **核心**: [This entry is based on the title and presumed content regarding the role of situated conceptualizat"
 ---
+
 
 # 情境化概念化（Situated Conceptualization）
 

@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-002
 title: "抽象符號系統 (Abstract Symbol System)"
-tags: [抽象符號, 語言學, 認知科學]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 抽象符號系統 (Abstract Symbol System)  > **核心**: "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning b"
 ---
+
 
 # 抽象符號系統 (Abstract Symbol System)
 

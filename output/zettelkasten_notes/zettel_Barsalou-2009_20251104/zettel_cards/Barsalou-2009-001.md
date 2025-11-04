@@ -1,16 +1,7 @@
 ---
-id: Barsalou-2009-001
-title: "模擬（Simulation）"
-tags: [[認知科學], [模擬], [認知]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+title: 模擬（Simulation）
+summary: This entry is based on the title and presumed content regarding the role of simulation in cognition.
 ---
-
-# 模擬（Simulation）
-
-> **核心**: [This entry is based on the title and presumed content regarding the role of simulation in cognition.]
 
 ## 說明
 模擬在認知科學中指的是大腦對感知、動作、情感和內省等經驗的重現。這種重現並非簡單的複述，而是動態的、情境化的過程，允許個體根據當前情境預測和理解世界。模擬被認為是理解概念、推理和行為的基礎。

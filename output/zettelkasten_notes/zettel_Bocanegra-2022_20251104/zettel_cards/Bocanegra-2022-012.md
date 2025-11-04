@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-012
 title: "未來研究方向 (Future Research Directions)"
-tags: [未來研究, 語言, 知覺, 表徵, 時間]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: question
+summary: "# 未來研究方向 (Future Research Directions)  > **核心**: (由於論文本身沒有明確列出未來研究方向，這裡基於內容總結一個)  ## 說明 未來研究可以探討在不同時間尺度上，語言提示如何影響知覺表徵的形成。例如，研究可以考察語音的時間結構、詞語的呈現速度、以及"
 ---
+
 
 # 未來研究方向 (Future Research Directions)
 

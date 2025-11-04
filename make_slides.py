@@ -412,14 +412,18 @@ def main():
                     'authors': ', '.join(paper_data.get('authors', [])),
                     'year': paper_data.get('year', datetime.now().year),
                     'paper_id': args.from_kb if args.from_kb else '',
+                    'cite_key': paper_data.get('cite_key', ''),
                     'citation': paper_data['title']
                 }
             else:
+                # 從 PDF 文件名提取 cite_key
+                pdf_cite_key = Path(args.pdf).stem if args.pdf else ''
                 paper_info = {
                     'title': effective_topic,
                     'authors': '',
                     'year': datetime.now().year,
                     'paper_id': args.from_kb if args.from_kb else '',
+                    'cite_key': pdf_cite_key,
                     'citation': effective_topic
                 }
 

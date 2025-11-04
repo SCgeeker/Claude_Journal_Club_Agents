@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-007
 title: "外在屬性與視覺模擬"
-tags: [[認知心理學], [句圖驗證], [匹配優勢], [外在屬性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: finding
+summary: "# 外在屬性與視覺模擬  > **核心**: "the extrinsic property orientation is the only visual object property that “falls out” to the fact that readers, depending o"
 ---
+
 
 # 外在屬性與視覺模擬
 

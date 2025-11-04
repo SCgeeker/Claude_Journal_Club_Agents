@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-012
 title: "未來研究方向"
-tags: [神經機制, 認知, 語言, 研究方向]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: question
+summary: "# 未來研究方向  > **核心**: 假定论文展望了未来的研究方向，核心句可以是 “Future research should explore the neural mechanisms underlying the influence of language on cognition.”"
 ---
+
 
 # 未來研究方向
 

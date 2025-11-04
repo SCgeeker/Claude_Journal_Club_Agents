@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-008
 title: "語言對顏色感知的影響"
-tags: [顏色, 感知, 語言, 心理學]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: finding
+summary: "# 語言對顏色感知的影響  > **核心**: 假定论文讨论了颜色感知，核心句可以是 “Language categories influence color perception，resulting in categorical perception effects.”  ## 說明 語言類別"
 ---
+
 
 # 語言對顏色感知的影響
 

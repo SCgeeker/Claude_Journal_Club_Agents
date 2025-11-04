@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-009
 title: "動態概念表徵（Dynamic Conceptual Representation）"
-tags: [[概念], [表徵], [動態]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 動態概念表徵（Dynamic Conceptual Representation）  > **核心**: [The idea that concepts are represented in a flexible and adaptable manner, changing based on"
 ---
+
 
 # 動態概念表徵（Dynamic Conceptual Representation）
 

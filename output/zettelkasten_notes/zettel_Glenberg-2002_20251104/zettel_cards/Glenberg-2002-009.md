@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-009
 title: "實驗設計 (Experiment Design)"
-tags: [實驗設計, 行動判斷, 句子理解, 相容性效應]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: method
+summary: "# 實驗設計 (Experiment Design)  > **核心**: "Participants judged whether sentences were sensible by making a response that required moving toward or away"
 ---
+
 
 # 實驗設計 (Experiment Design)
 

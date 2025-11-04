@@ -1,2197 +1,3010 @@
 {
-  "Our intention is to account for the content of event representations": [
+  "Classifiers [CL] in this chapter refer to the morphosyntactic category serving the semantic function": [
     {
-      "concept": "Our intention is to account for the content of event representations",
-      "zettel_id": "CogSci-20251029-001",
-      "zettel_title": "\"事件表徵 (Event Representation)\"",
+      "concept": "Classifiers [CL] in this chapter refer to the morphosyntactic category serving the semantic function",
+      "zettel_id": "Ahrens-2016-001",
+      "zettel_title": "Classifiers（分類詞）的定義",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件表徵": [
-    {
-      "concept": "事件表徵",
-      "zettel_id": "CogSci-20251029-001",
-      "zettel_title": "\"事件表徵 (Event Representation)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "事件表徵",
-      "zettel_id": "CogSci-20251029-019",
-      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件表徵": [
-    {
-      "concept": "物件表徵",
-      "zettel_id": "CogSci-20251029-001",
-      "zettel_title": "\"事件表徵 (Event Representation)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "物件表徵",
-      "zettel_id": "CogSci-20251029-005",
-      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "物件表徵",
-      "zettel_id": "CogSci-20251029-017",
-      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "認知心理學": [
-    {
-      "concept": "認知心理學",
-      "zettel_id": "CogSci-20251029-001",
-      "zettel_title": "\"事件表徵 (Event Representation)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Thus, we maintain that events are encoded as “ensembles of intersecting object histories” in which o": [
-    {
-      "concept": "Thus, we maintain that events are encoded as “ensembles of intersecting object histories” in which o",
-      "zettel_id": "CogSci-20251029-002",
-      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件歷史": [
-    {
-      "concept": "物件歷史",
-      "zettel_id": "CogSci-20251029-002",
-      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "狀態變化": [
-    {
-      "concept": "狀態變化",
-      "zettel_id": "CogSci-20251029-002",
-      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "狀態變化",
-      "zettel_id": "CogSci-20251029-004",
-      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件編碼": [
-    {
-      "concept": "事件編碼",
-      "zettel_id": "CogSci-20251029-002",
-      "zettel_title": "\"物件歷史交集 (Intersecting Object Histories)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Our approach requires not just the distinction between object types and object tokens, but also betw": [
-    {
-      "concept": "Our approach requires not just the distinction between object types and object tokens, but also betw",
-      "zettel_id": "CogSci-20251029-003",
-      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件類型": [
-    {
-      "concept": "物件類型",
-      "zettel_id": "CogSci-20251029-003",
-      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "物件類型",
-      "zettel_id": "CogSci-20251029-007",
-      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件實例": [
-    {
-      "concept": "物件實例",
-      "zettel_id": "CogSci-20251029-003",
-      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "物件實例",
-      "zettel_id": "CogSci-20251029-006",
-      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "物件實例",
-      "zettel_id": "CogSci-20251029-018",
-      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件狀態": [
-    {
-      "concept": "物件狀態",
-      "zettel_id": "CogSci-20251029-003",
-      "zettel_title": "\"物件類型與物件實例 (Object Types and Object Tokens)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "The relevance of object-state change for event representation is recognized within the linguistic tr": [
-    {
-      "concept": "The relevance of object-state change for event representation is recognized within the linguistic tr",
-      "zettel_id": "CogSci-20251029-004",
-      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "詞彙語義": [
-    {
-      "concept": "詞彙語義",
-      "zettel_id": "CogSci-20251029-004",
-      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件結構": [
-    {
-      "concept": "事件結構",
-      "zettel_id": "CogSci-20251029-004",
-      "zettel_title": "\"物件狀態變化 (Object State Change)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "事件結構",
-      "zettel_id": "CogSci-20251029-016",
-      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件整體": [
-    {
-      "concept": "事件整體",
-      "zettel_id": "CogSci-20251029-005",
-      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "互動關係": [
-    {
-      "concept": "互動關係",
-      "zettel_id": "CogSci-20251029-005",
-      "zettel_title": "\"事件整體性 (Event Ensembles)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "These distinctions require an account of how object tokens are represented within the context of epi": [
-    {
-      "concept": "These distinctions require an account of how object tokens are represented within the context of epi",
-      "zettel_id": "CogSci-20251029-006",
-      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "These distinctions require an account of how object tokens are represented within the context of epi",
-      "zettel_id": "CogSci-20251029-007",
-      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "情節記憶": [
-    {
-      "concept": "情節記憶",
-      "zettel_id": "CogSci-20251029-006",
-      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "語義記憶": [
-    {
-      "concept": "語義記憶",
-      "zettel_id": "CogSci-20251029-006",
-      "zettel_title": "\"情節記憶 (Episodic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "語義記憶",
-      "zettel_id": "CogSci-20251029-007",
-      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "知識表徵": [
-    {
-      "concept": "知識表徵",
-      "zettel_id": "CogSci-20251029-007",
-      "zettel_title": "\"語義記憶 (Semantic Memory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Mental Model theory (Johnson-Laird, 1983) and theories of situation models": [
-    {
-      "concept": "Mental Model theory (Johnson-Laird, 1983) and theories of situation models",
-      "zettel_id": "CogSci-20251029-008",
-      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "心智模型": [
-    {
-      "concept": "心智模型",
-      "zettel_id": "CogSci-20251029-008",
-      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "情境模型": [
-    {
-      "concept": "情境模型",
-      "zettel_id": "CogSci-20251029-008",
-      "zettel_title": "\"心智模型理論 (Mental Model Theory)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "情境模型",
-      "zettel_id": "CogSci-20251029-009",
-      "zettel_title": "\"情境模型 (Situation Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件索引": [
-    {
-      "concept": "事件索引",
-      "zettel_id": "CogSci-20251029-009",
-      "zettel_title": "\"情境模型 (Situation Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "五個維度": [
-    {
-      "concept": "五個維度",
-      "zettel_id": "CogSci-20251029-009",
-      "zettel_title": "\"情境模型 (Situation Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Event models (see Radvansky & Zacks, 2011, 2014) focus more on the events themselves rather than, sp": [
-    {
-      "concept": "Event models (see Radvansky & Zacks, 2011, 2014) focus more on the events themselves rather than, sp",
-      "zettel_id": "CogSci-20251029-010",
-      "zettel_title": "\"事件模型 (Event Models)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件模型": [
-    {
-      "concept": "事件模型",
-      "zettel_id": "CogSci-20251029-010",
-      "zettel_title": "\"事件模型 (Event Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件分割": [
-    {
-      "concept": "事件分割",
-      "zettel_id": "CogSci-20251029-010",
-      "zettel_title": "\"事件模型 (Event Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    },
-    {
-      "concept": "事件分割",
-      "zettel_id": "CogSci-20251029-011",
-      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "EST defines an event as “a segment of time at a given location that is conceived by an observer to h": [
-    {
-      "concept": "EST defines an event as “a segment of time at a given location that is conceived by an observer to h",
-      "zettel_id": "CogSci-20251029-011",
-      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "時間片段": [
-    {
-      "concept": "時間片段",
-      "zettel_id": "CogSci-20251029-011",
-      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "開始與結束": [
-    {
-      "concept": "開始與結束",
-      "zettel_id": "CogSci-20251029-011",
-      "zettel_title": "\"事件分割理論 (Event Segmentation Theory, EST)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "The Event Horizon Model takes EST as its starting point and proposes a number of principles that gov": [
-    {
-      "concept": "The Event Horizon Model takes EST as its starting point and proposes a number of principles that gov",
-      "zettel_id": "CogSci-20251029-012",
-      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件視界": [
-    {
-      "concept": "事件視界",
-      "zettel_id": "CogSci-20251029-012",
-      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "模型結構": [
-    {
-      "concept": "模型結構",
-      "zettel_id": "CogSci-20251029-012",
-      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "記憶提取": [
-    {
-      "concept": "記憶提取",
-      "zettel_id": "CogSci-20251029-012",
-      "zettel_title": "\"事件視界模型 (Event Horizon Model)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "不確定性": [
-    {
-      "concept": "不確定性",
-      "zettel_id": "CogSci-20251029-013",
-      "zettel_title": "\"預測誤差 (Prediction Error)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件邊界": [
-    {
-      "concept": "事件邊界",
-      "zettel_id": "CogSci-20251029-013",
-      "zettel_title": "\"預測誤差 (Prediction Error)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "While the linguistic (and philosophical) tradition is respect of the distinction between types, toke": [
-    {
-      "concept": "While the linguistic (and philosophical) tradition is respect of the distinction between types, toke",
-      "zettel_id": "CogSci-20251029-014",
-      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "階段層級": [
-    {
-      "concept": "階段層級",
-      "zettel_id": "CogSci-20251029-014",
-      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "個體層級": [
-    {
-      "concept": "個體層級",
-      "zettel_id": "CogSci-20251029-014",
-      "zettel_title": "\"階段層級謂詞 (Stage-level Predicates)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "情節記憶重構": [
-    {
-      "concept": "情節記憶重構",
-      "zettel_id": "CogSci-20251029-015",
-      "zettel_title": "\"事件、圖式和情節(重)構建 (Events, Schemas, and Episodic (Re)Construction)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Moens and Steedman (1988) developed an account of the mapping from language onto structures that ref": [
-    {
-      "concept": "Moens and Steedman (1988) developed an account of the mapping from language onto structures that ref",
-      "zettel_id": "CogSci-20251029-016",
-      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "因果關係": [
-    {
-      "concept": "因果關係",
-      "zettel_id": "CogSci-20251029-016",
-      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "目標事件": [
-    {
-      "concept": "目標事件",
-      "zettel_id": "CogSci-20251029-016",
-      "zettel_title": "\"事件的因果軌跡 (Causal Trajectory of Events)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Constructing Object Tokens On-the-Fly extends work presented in Altmann (2017)": [
-    {
-      "concept": "Constructing Object Tokens On-the-Fly extends work presented in Altmann (2017)",
-      "zettel_id": "CogSci-20251029-017",
-      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
-      "concept_type": "core_concept",
-      "card_type": "method",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "物件建構": [
-    {
-      "concept": "物件建構",
-      "zettel_id": "CogSci-20251029-017",
-      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "即時建構": [
-    {
-      "concept": "即時建構",
-      "zettel_id": "CogSci-20251029-017",
-      "zettel_title": "\"建構物件實例 (Constructing Object Tokens On-the-Fly)\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "We shall argue that the theoretical pieces, and their neural instantiation, are in place to develop ": [
-    {
-      "concept": "We shall argue that the theoretical pieces, and their neural instantiation, are in place to develop ",
-      "zettel_id": "CogSci-20251029-018",
-      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
-      "concept_type": "core_concept",
-      "card_type": "question",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "神經機制": [
-    {
-      "concept": "神經機制",
-      "zettel_id": "CogSci-20251029-018",
-      "zettel_title": "\"事件表徵的神經機制 (Neural Instantiation of Event Representation)\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Events change the world—even simple organisms like amoebae encode, anticipate, and react to change (": [
-    {
-      "concept": "Events change the world—even simple organisms like amoebae encode, anticipate, and react to change (",
-      "zettel_id": "CogSci-20251029-019",
-      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
-      "concept_type": "core_concept",
-      "card_type": "finding",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Amoeba": [
-    {
-      "concept": "Amoeba",
-      "zettel_id": "CogSci-20251029-019",
-      "zettel_title": "\"Amoeba的事件表徵能力 (Event Representation in Amoebae)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "Increases in prediction error trigger the updating of the current event model (if the prediction wer": [
-    {
-      "concept": "Increases in prediction error trigger the updating of the current event model (if the prediction wer",
-      "zettel_id": "CogSci-20251029-020",
-      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "模型更新": [
-    {
-      "concept": "模型更新",
-      "zettel_id": "CogSci-20251029-020",
-      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "預測誤差": [
-    {
-      "concept": "預測誤差",
-      "zettel_id": "CogSci-20251029-020",
-      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "事件邊界感知": [
-    {
-      "concept": "事件邊界感知",
-      "zettel_id": "CogSci-20251029-020",
-      "zettel_title": "\"事件表徵的更新 (Updating Event Models)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "CogSci",
-      "paper_id": 28
-    }
-  ],
-  "I use mass noun interchangeably with non-count noun, and noun with common noun": [
-    {
-      "concept": "I use mass noun interchangeably with non-count noun, and noun with common noun",
-      "zettel_id": "Linguistics-20251029-001",
-      "zettel_title": "\"Mass Noun (Mass Noun)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Mass Noun": [
-    {
-      "concept": "Mass Noun",
-      "zettel_id": "Linguistics-20251029-001",
-      "zettel_title": "\"Mass Noun (Mass Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Non-Count Noun": [
-    {
-      "concept": "Non-Count Noun",
-      "zettel_id": "Linguistics-20251029-001",
-      "zettel_title": "\"Mass Noun (Mass Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Common Noun": [
-    {
-      "concept": "Common Noun",
-      "zettel_id": "Linguistics-20251029-001",
-      "zettel_title": "\"Mass Noun (Mass Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "The count noun cow, taking the singular or plural form, can combine directly with numerals": [
-    {
-      "concept": "The count noun cow, taking the singular or plural form, can combine directly with numerals",
-      "zettel_id": "Linguistics-20251029-002",
-      "zettel_title": "\"Count Noun (Count Noun)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Count Noun": [
-    {
-      "concept": "Count Noun",
-      "zettel_id": "Linguistics-20251029-002",
-      "zettel_title": "\"Count Noun (Count Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Numerals": [
-    {
-      "concept": "Numerals",
-      "zettel_id": "Linguistics-20251029-002",
-      "zettel_title": "\"Count Noun (Count Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Numerals",
-      "zettel_id": "Linguistics-20251029-015",
-      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Ahrens-2016",
       "paper_id": 9
     }
   ],
-  "Grammatical Number": [
+  "Anounmayselectonlyoneclassifier(eitherasortalclassifierorameasureword)inanygivencontext": [
     {
-      "concept": "Grammatical Number",
-      "zettel_id": "Linguistics-20251029-002",
-      "zettel_title": "\"Count Noun (Count Noun)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Grammatical Number",
-      "zettel_id": "Linguistics-20251029-005",
-      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "(MH1) Classifier languages have no count nouns": [
-    {
-      "concept": "(MH1) Classifier languages have no count nouns",
-      "zettel_id": "Linguistics-20251029-003",
-      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+      "concept": "Anounmayselectonlyoneclassifier(eitherasortalclassifierorameasureword)inanygivencontext",
+      "zettel_id": "Ahrens-2016-002",
+      "zettel_title": "Sortal Classifiers (類別分類詞) 與 Measure Words (計量詞) 的區別",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Ahrens-2016",
+      "paper_id": 9
     }
   ],
-  "Mass Noun Hypothesis": [
+  "Determiner(Det)/Number(Num)/Quantifier(Q)–Classifier(CL)–Noun(N)": [
     {
-      "concept": "Mass Noun Hypothesis",
-      "zettel_id": "Linguistics-20251029-003",
-      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "Determiner(Det)/Number(Num)/Quantifier(Q)–Classifier(CL)–Noun(N)",
+      "zettel_id": "Ahrens-2016-003",
+      "zettel_title": "分類詞的語法結構",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "The primary semantic function of classifiers, including both sortal classifiers and measure words, i": [
     {
-      "concept": "Mass Noun Hypothesis",
-      "zettel_id": "Linguistics-20251029-005",
-      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
-      "concept_type": "tag",
+      "concept": "The primary semantic function of classifiers, including both sortal classifiers and measure words, i",
+      "zettel_id": "Ahrens-2016-004",
+      "zettel_title": "Classifiers 的語義功能：個體化 (Individuation)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "Individual classifiers, also known as general classifiers, classify both concrete objects, such as, ": [
     {
-      "concept": "Mass Noun Hypothesis",
-      "zettel_id": "Linguistics-20251029-012",
-      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
-      "concept_type": "tag",
+      "concept": "Individual classifiers, also known as general classifiers, classify both concrete objects, such as, ",
+      "zettel_id": "Ahrens-2016-005",
+      "zettel_title": "Individual Classifiers (個體分類詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "measure words can be divided into three types based on their measuring functions: container measure ": [
+    {
+      "concept": "measure words can be divided into three types based on their measuring functions: container measure ",
+      "zettel_id": "Ahrens-2016-006",
+      "zettel_title": "Measure Words (計量詞) 的類型",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "This primary function leads to three types of the most frequent usages of classifiers in Chinese NPs": [
+    {
+      "concept": "This primary function leads to three types of the most frequent usages of classifiers in Chinese NPs",
+      "zettel_id": "Ahrens-2016-007",
+      "zettel_title": "Classifiers 的功能：枚舉、排序、指稱",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "Sortalclassifierselectionmaybemotivatedbytheinherentpropertiesofthenoun,whichareoftenconceptuallysal": [
+    {
+      "concept": "Sortalclassifierselectionmaybemotivatedbytheinherentpropertiesofthenoun,whichareoftenconceptuallysal",
+      "zettel_id": "Ahrens-2016-008",
+      "zettel_title": "個體分類詞的語義選擇",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "Container measure words are derived from a subset of container nouns": [
+    {
+      "concept": "Container measure words are derived from a subset of container nouns",
+      "zettel_id": "Ahrens-2016-009",
+      "zettel_title": "Container Measure Words (容器計量詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "Approximation measure words refer to an approximate quantity and typically are preceded by the numbe": [
+    {
+      "concept": "Approximation measure words refer to an approximate quantity and typically are preceded by the numbe",
+      "zettel_id": "Ahrens-2016-010",
+      "zettel_title": "Approximation Measure Words (概數計量詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "Standard measure words measure concrete objects in terms of a specific standard measurement for leng": [
+    {
+      "concept": "Standard measure words measure concrete objects in terms of a specific standard measurement for leng",
+      "zettel_id": "Ahrens-2016-011",
+      "zettel_title": "Standard Measure Words (標準計量詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ahrens-2016",
+      "paper_id": 9
+    }
+  ],
+  "In section 7": [
+    {
+      "concept": "In section 7",
+      "zettel_id": "Ahrens-2016-012",
+      "zettel_title": "Classifiers 的多義性 (Polysemy)",
+      "concept_type": "core_concept",
       "card_type": "question",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Ahrens-2016",
+      "paper_id": 9
     }
   ],
-  "Classifier Languages": [
+  "Although many studies have investigated the activation of perceptual representations during language": [
     {
-      "concept": "Classifier Languages",
-      "zettel_id": "Linguistics-20251029-003",
-      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "Although many studies have investigated the activation of perceptual representations during language",
+      "zettel_id": "Bocanegra-2022-001",
+      "zettel_title": "知覺表徵的激活 (Activation of perceptual representations)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Classifier Languages",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Classifier Languages",
-      "zettel_id": "Linguistics-20251029-005",
-      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Classifier Languages",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Classifier Languages",
-      "zettel_id": "Linguistics-20251029-012",
-      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
     }
   ],
-  "Count Nouns": [
+  "We define a conjunctive representation as the selective representation of an intersection of two set": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-003",
-      "zettel_title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "We define a conjunctive representation as the selective representation of an intersection of two set",
+      "zettel_id": "Bocanegra-2022-002",
+      "zettel_title": "連接性表徵 (Conjunctive Representation)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "a disjunctive representation as a general representation of the union of two sets of features": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "a disjunctive representation as a general representation of the union of two sets of features",
+      "zettel_id": "Bocanegra-2022-003",
+      "zettel_title": "分離性表徵 (Disjunctive Representation)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "the process of perceptual decision-making (e": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-007",
-      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
-      "concept_type": "tag",
+      "concept": "the process of perceptual decision-making (e",
+      "zettel_id": "Bocanegra-2022-004",
+      "zettel_title": "知覺決策 (Perceptual Decision-Making)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "Using randomized orthogonal designs, we observe evidence for disjunctive perceptual representations ": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-008",
-      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
-      "concept_type": "tag",
+      "concept": "Using randomized orthogonal designs, we observe evidence for disjunctive perceptual representations ",
+      "zettel_id": "Bocanegra-2022-005",
+      "zettel_title": "正交設計 (Orthogonal Design)",
+      "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "In our tasks, participants were presented a verbal cue and instructed to visualize the object descri": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-009",
-      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
-      "concept_type": "tag",
+      "concept": "In our tasks, participants were presented a verbal cue and instructed to visualize the object descri",
+      "zettel_id": "Bocanegra-2022-006",
+      "zettel_title": "視覺化任務 (Visualization Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "Our critical comparison is between single-feature trials where participants were asked to visualize ": [
+    {
+      "concept": "Our critical comparison is between single-feature trials where participants were asked to visualize ",
+      "zettel_id": "Bocanegra-2022-007",
+      "zettel_title": "雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "we observe evidence for disjunctive perceptual representations when participants represent feature c": [
+    {
+      "concept": "we observe evidence for disjunctive perceptual representations when participants represent feature c",
+      "zettel_id": "Bocanegra-2022-008",
+      "zettel_title": "同時呈現導致分離性表徵 (Simultaneous Presentation Leads to Disjunctive Representation)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "we observe evidence for conjunctive perceptual repre- sentations when participants represent feature": [
+    {
+      "concept": "we observe evidence for conjunctive perceptual repre- sentations when participants represent feature",
+      "zettel_id": "Bocanegra-2022-009",
+      "zettel_title": "序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "Our findings show that the generation of conjunctive representations during comprehension depends on": [
+    {
+      "concept": "Our findings show that the generation of conjunctive representations during comprehension depends on",
+      "zettel_id": "Bocanegra-2022-010",
+      "zettel_title": "語言對複雜知覺表徵的影響 (Language's influence on complex perceptual representations)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "Although this finding shows that participants were generating a representation using both the adject": [
+    {
+      "concept": "Although this finding shows that participants were generating a representation using both the adject",
+      "zettel_id": "Bocanegra-2022-011",
+      "zettel_title": "對 Potter & Faulconer (1979) 研究的重新詮釋 (Reinterpretation of Potter & Faulconer (1979) study)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "Bocanegra-2022",
+      "paper_id": 13
+    }
+  ],
+  "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientat": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "tag",
+      "concept": "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientat",
+      "zettel_id": "DeKoning-2017-001",
+      "zettel_title": "句圖驗證任務 (SPV task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Faster verification times on matching trials (match advantage) are considered supportive to the noti": [
+    {
+      "concept": "Faster verification times on matching trials (match advantage) are considered supportive to the noti",
+      "zettel_id": "DeKoning-2017-002",
+      "zettel_title": "匹配優勢 (Match Advantage)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "In capturing the meaning of text, readers mentally simulate the described situations and events thro": [
+    {
+      "concept": "In capturing the meaning of text, readers mentally simulate the described situations and events thro",
+      "zettel_id": "DeKoning-2017-003",
+      "zettel_title": "心理模擬 (Mental Simulation)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Shape, size, and colour are intrinsic visual properties that distinguish an object from another": [
     {
-      "concept": "Count Nouns",
-      "zettel_id": "Linguistics-20251029-012",
-      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
-      "concept_type": "tag",
+      "concept": "Shape, size, and colour are intrinsic visual properties that distinguish an object from another",
+      "zettel_id": "DeKoning-2017-004",
+      "zettel_title": "內在視覺屬性 (Intrinsic Visual Properties)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but ra": [
+    {
+      "concept": "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but ra",
+      "zettel_id": "DeKoning-2017-005",
+      "zettel_title": "外在視覺屬性 (Extrinsic Visual Properties)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, siz": [
+    {
+      "concept": "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, siz",
+      "zettel_id": "DeKoning-2017-006",
+      "zettel_title": "內在屬性與匹配優勢",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "the extrinsic property orientation is the only visual object property that “falls out” to the fact t": [
+    {
+      "concept": "the extrinsic property orientation is the only visual object property that “falls out” to the fact t",
+      "zettel_id": "DeKoning-2017-007",
+      "zettel_title": "外在屬性與視覺模擬",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject proper": [
+    {
+      "concept": "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject proper",
+      "zettel_id": "DeKoning-2017-008",
+      "zettel_title": "屬性穩定模擬假設",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "significant correlations were found between all of the three intrinsic visual object properties (i": [
+    {
+      "concept": "significant correlations were found between all of the three intrinsic visual object properties (i",
+      "zettel_id": "DeKoning-2017-009",
+      "zettel_title": "相關性分析結果",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Together, our findings suggest that it could advance the interpretation of match advantages if disti": [
+    {
+      "concept": "Together, our findings suggest that it could advance the interpretation of match advantages if disti",
+      "zettel_id": "DeKoning-2017-010",
+      "zettel_title": "內在與外在屬性區分的重要性",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Even though we have tried to make all four SPV tasks as comparable as possible": [
+    {
+      "concept": "Even though we have tried to make all four SPV tasks as comparable as possible",
+      "zettel_id": "DeKoning-2017-011",
+      "zettel_title": "實驗設計限制",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are": [
+    {
+      "concept": "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are",
+      "zettel_id": "DeKoning-2017-012",
+      "zettel_title": "未來研究方向",
+      "concept_type": "core_concept",
       "card_type": "question",
-      "domain": "Linguistics",
+      "domain": "DeKoning-2017",
+      "paper_id": 14
+    }
+  ],
+  "Lexical access is the process by which a word's meaning and other properties are retrieved from long": [
+    {
+      "concept": "Lexical access is the process by which a word's meaning and other properties are retrieved from long",
+      "zettel_id": "Forster-1994-001",
+      "zettel_title": "詞彙通達 (Lexical Access)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "High-frequency words are typically recognized faster and more accurately than low-frequency words": [
+    {
+      "concept": "High-frequency words are typically recognized faster and more accurately than low-frequency words",
+      "zettel_id": "Forster-1994-002",
+      "zettel_title": "頻率效應 (Frequency Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "The surrounding context can influence the speed and accuracy of word recognition": [
+    {
+      "concept": "The surrounding context can influence the speed and accuracy of word recognition",
+      "zettel_id": "Forster-1994-003",
+      "zettel_title": "語境效應 (Context Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "In search models, word recognition involves a serial comparison of the input with stored lexical ent": [
+    {
+      "concept": "In search models, word recognition involves a serial comparison of the input with stored lexical ent",
+      "zettel_id": "Forster-1994-004",
+      "zettel_title": "搜尋模型 (Search Model)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "In activation models, word recognition involves the parallel activation of multiple lexical entries ": [
+    {
+      "concept": "In activation models, word recognition involves the parallel activation of multiple lexical entries ",
+      "zettel_id": "Forster-1994-005",
+      "zettel_title": "激活模型 (Activation Model)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "The way in which the mental lexicon is organized can influence the efficiency of lexical access": [
+    {
+      "concept": "The way in which the mental lexicon is organized can influence the efficiency of lexical access",
+      "zettel_id": "Forster-1994-006",
+      "zettel_title": "詞彙庫組織 (Lexicon Organization)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Masked priming involves presenting a prime stimulus briefly and masking it before presenting the tar": [
+    {
+      "concept": "Masked priming involves presenting a prime stimulus briefly and masking it before presenting the tar",
+      "zettel_id": "Forster-1994-007",
+      "zettel_title": "掩蔽啟動 (Masked Priming)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Eye-tracking is used to measure eye movements during reading to provide insights into cognitive proc": [
+    {
+      "concept": "Eye-tracking is used to measure eye movements during reading to provide insights into cognitive proc",
+      "zettel_id": "Forster-1994-008",
+      "zettel_title": "眼動追踪 (Eye-tracking)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Computational models are evaluated by comparing their predictions to empirical data": [
+    {
+      "concept": "Computational models are evaluated by comparing their predictions to empirical data",
+      "zettel_id": "Forster-1994-009",
+      "zettel_title": "模型評估 (Model Evaluation)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Recognition of a word is faster when preceded by a semantically related word": [
+    {
+      "concept": "Recognition of a word is faster when preceded by a semantically related word",
+      "zettel_id": "Forster-1994-010",
+      "zettel_title": "語義啟動 (Semantic Priming)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Orthographic depth refers to the consistency of grapheme-phoneme correspondences in a language": [
+    {
+      "concept": "Orthographic depth refers to the consistency of grapheme-phoneme correspondences in a language",
+      "zettel_id": "Forster-1994-011",
+      "zettel_title": "正字法深度 (Orthographic Depth)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "Existing computational models may not fully capture the complexity of human word recognition": [
+    {
+      "concept": "Existing computational models may not fully capture the complexity of human word recognition",
+      "zettel_id": "Forster-1994-012",
+      "zettel_title": "計算模型的局限性 (Limitations of Computational Models)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Forster-1994",
+      "paper_id": 65
+    }
+  ],
+  "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodi": [
+    {
+      "concept": "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodi",
+      "zettel_id": "Glenberg-2002-001",
+      "zettel_title": "具身認知 (Embodied Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning": [
+    {
+      "concept": "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning",
+      "zettel_id": "Glenberg-2002-002",
+      "zettel_title": "抽象符號系統 (Abstract Symbol System)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "When a sentence implied action in one direction (e": [
+    {
+      "concept": "When a sentence implied action in one direction (e",
+      "zettel_id": "Glenberg-2002-003",
+      "zettel_title": "行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing the t": [
+    {
+      "concept": "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing the t",
+      "zettel_id": "Glenberg-2002-004",
+      "zettel_title": "句子類型與行動-句子相容性效應 (Sentence Type and ACE)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "According to the IH, three processes transform words and syntax into an action-based meaning": [
+    {
+      "concept": "According to the IH, three processes transform words and syntax into an action-based meaning",
+      "zettel_id": "Glenberg-2002-005",
+      "zettel_title": "索引假說 (Indexical Hypothesis, IH)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "If this simulation requires the same neural systems as the planning and guidance of real action, und": [
+    {
+      "concept": "If this simulation requires the same neural systems as the planning and guidance of real action, und",
+      "zettel_id": "Glenberg-2002-006",
+      "zettel_title": "行動計劃干擾 (Action Planning Interference)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & G": [
+    {
+      "concept": "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & G",
+      "zettel_id": "Glenberg-2002-007",
+      "zettel_title": "可供性 (Affordances)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "The third process specified by the IH is that affordances are meshed under the guidance of syntactic": [
+    {
+      "concept": "The third process specified by the IH is that affordances are meshed under the guidance of syntactic",
+      "zettel_id": "Glenberg-2002-008",
+      "zettel_title": "網格化 (Meshing)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "Participants judged whether sentences were sensible by making a response that required moving toward": [
+    {
+      "concept": "Participants judged whether sentences were sensible by making a response that required moving toward",
+      "zettel_id": "Glenberg-2002-009",
+      "zettel_title": "實驗設計 (Experiment Design)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "How does grammatical information guide the meshing of affordances? According to construction grammar": [
+    {
+      "concept": "How does grammatical information guide the meshing of affordances? According to construction grammar",
+      "zettel_id": "Glenberg-2002-010",
+      "zettel_title": "抽象轉移句子的理解 (Understanding Abstract Transfer Sentences)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "What is the scope of this analysis? Clearly, our data illustrate an action-based understanding for o": [
+    {
+      "concept": "What is the scope of this analysis? Clearly, our data illustrate an action-based understanding for o",
+      "zettel_id": "Glenberg-2002-011",
+      "zettel_title": "語言的具身性範圍 (Scope of Embodied Language)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "Ochs et al": [
+    {
+      "concept": "Ochs et al",
+      "zettel_id": "Glenberg-2002-012",
+      "zettel_title": "具身認知與科學理解 (Embodied Cognition and Scientific Understanding)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Glenberg-2002",
+      "paper_id": 15
+    }
+  ],
+  "This paper presents a precise definition of numeral classifiers, steps to identify a numeral classif": [
+    {
+      "concept": "This paper presents a precise definition of numeral classifiers, steps to identify a numeral classif",
+      "zettel_id": "Her-2022-001",
+      "zettel_title": "Numeral Classifiers (數詞分類詞) 的定義",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "First, sortal classifiers highlight or single out some inherent features of the referent denoted by ": [
+    {
+      "concept": "First, sortal classifiers highlight or single out some inherent features of the referent denoted by ",
+      "zettel_id": "Her-2022-002",
+      "zettel_title": "Sortal Classifiers (類別分類詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Second, mensural classifiers are used for measuring both mass nouns and count nouns according to the": [
+    {
+      "concept": "Second, mensural classifiers are used for measuring both mass nouns and count nouns according to the",
+      "zettel_id": "Her-2022-003",
+      "zettel_title": "Mensural Classifiers (量詞分類詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Sortal and mensural classifiers thus converge as the multiplicand of the numeral, but diverge in the": [
+    {
+      "concept": "Sortal and mensural classifiers thus converge as the multiplicand of the numeral, but diverge in the",
+      "zettel_id": "Her-2022-004",
+      "zettel_title": "Multiplicative Relation between Numeral and Classifier (數詞和分類詞的乘法關係)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "For instance, terms of measure in English are nouns (i": [
+    {
+      "concept": "For instance, terms of measure in English are nouns (i",
+      "zettel_id": "Her-2022-005",
+      "zettel_title": "Terms of Measure vs. Mensural Classifiers (度量詞 vs. 量詞分類詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "(i) Consider all grammatical quantifying phrases": [
+    {
+      "concept": "(i) Consider all grammatical quantifying phrases",
+      "zettel_id": "Her-2022-006",
+      "zettel_title": "Steps to Identify Numeral Classifiers (識別數詞分類詞的步驟)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Based on the definitions provided in Section 2, we conducted two parallel surveys to identify langua": [
+    {
+      "concept": "Based on the definitions provided in Section 2, we conducted two parallel surveys to identify langua",
+      "zettel_id": "Her-2022-007",
+      "zettel_title": "Manual Survey of Literature and Automatic Scan of Grammars (文獻手動調查和語法自動掃描)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Therefore, following the FAIR principles (Findable, Accessible, Interoperable, and Reusable), we als": [
+    {
+      "concept": "Therefore, following the FAIR principles (Findable, Accessible, Interoperable, and Reusable), we als",
+      "zettel_id": "Her-2022-008",
+      "zettel_title": "World Atlas of Classifier Languages (WACL)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "The data includes 723 (22%, 723/3,338) numeral classifier languages and 2,615 (78%, 2,615/3,338) lan": [
+    {
+      "concept": "The data includes 723 (22%, 723/3,338) numeral classifier languages and 2,615 (78%, 2,615/3,338) lan",
+      "zettel_id": "Her-2022-009",
+      "zettel_title": "Geographic Distribution of Numeral Classifier Languages (數詞分類詞語言的地理分佈)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Numeral classifier languages are found in 56 of the 203 language families included in the data": [
+    {
+      "concept": "Numeral classifier languages are found in 56 of the 203 language families included in the data",
+      "zettel_id": "Her-2022-010",
+      "zettel_title": "Numeral Classifier Languages Across Language Families (跨語系的數詞分類詞語言)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "The scarcity of the classifiers in the Americas is likely due to the fact that only numeral classifi": [
+    {
+      "concept": "The scarcity of the classifiers in the Americas is likely due to the fact that only numeral classifi",
+      "zettel_id": "Her-2022-011",
+      "zettel_title": "The scarcity of classifiers in the Americas is likely due to the fact that only numeral classifiers are included in our data.",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "WACL will also be expanded with additional features such as the obligatoriness/optionality of classi": [
+    {
+      "concept": "WACL will also be expanded with additional features such as the obligatoriness/optionality of classi",
+      "zettel_id": "Her-2022-012",
+      "zettel_title": "Future Development of WACL (WACL 的未來發展)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Her-2022",
+      "paper_id": 8
+    }
+  ],
+  "Many theories of event cognition and language processing suggest that comprehending an event is tant": [
+    {
+      "concept": "Many theories of event cognition and language processing suggest that comprehending an event is tant",
+      "zettel_id": "Horchak-2024-001",
+      "zettel_title": "事件認知 (Event Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "According to this account, comprehenders need to encode changes in object state (i": [
+    {
+      "concept": "According to this account, comprehenders need to encode changes in object state (i",
+      "zettel_id": "Horchak-2024-002",
+      "zettel_title": "物件狀態 (Object State)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    },
+    {
+      "concept": "According to this account, comprehenders need to encode changes in object state (i",
+      "zettel_id": "Horchak-2024-005",
+      "zettel_title": "Intersecting Object Histories (IOH) account",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Taxonomic similarity refers to the relationship between words or concepts that belong to the same hi": [
+    {
+      "concept": "Taxonomic similarity refers to the relationship between words or concepts that belong to the same hi",
+      "zettel_id": "Horchak-2024-003",
+      "zettel_title": "語義相似性 (Semantic Similarity)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Thematic similarity, on the other hand, is based on grouping concepts thematically based on temporal": [
+    {
+      "concept": "Thematic similarity, on the other hand, is based on grouping concepts thematically based on temporal",
+      "zettel_id": "Horchak-2024-004",
+      "zettel_title": "主題學相似性 (Thematic Similarity)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Thus, on this view, greater semantic similarity between the items leads to greater similarity-based ": [
+    {
+      "concept": "Thus, on this view, greater semantic similarity between the items leads to greater similarity-based ",
+      "zettel_id": "Horchak-2024-006",
+      "zettel_title": "相似性干擾 (Similarity-Based Interference)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Consequently, if dissimilarity-based interference is manifested in the degree of dissimilarity betwe": [
+    {
+      "concept": "Consequently, if dissimilarity-based interference is manifested in the degree of dissimilarity betwe",
+      "zettel_id": "Horchak-2024-007",
+      "zettel_title": "相異性干擾 (Dissimilarity-Based interference)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "To address these questions, we used a sentence-picture verification paradigm where participants were": [
+    {
+      "concept": "To address these questions, we used a sentence-picture verification paradigm where participants were",
+      "zettel_id": "Horchak-2024-008",
+      "zettel_title": "句子-圖片驗證任務 (Sentence-Picture Verification Paradigm)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "The results of Experiment 1 demonstrated that the objects in a modified state were verified faster w": [
+    {
+      "concept": "The results of Experiment 1 demonstrated that the objects in a modified state were verified faster w",
+      "zettel_id": "Horchak-2024-009",
+      "zettel_title": "實驗1的主要發現 (Finding of Experiment 1)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Importantly, verification latencies of pictures depicting original and modified states of an object ": [
+    {
+      "concept": "Importantly, verification latencies of pictures depicting original and modified states of an object ",
+      "zettel_id": "Horchak-2024-010",
+      "zettel_title": "維持多重表徵 (Maintaining Multiple Representations)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "The results of Experiments 2A and 2B revealed that when participants had to indicate that a pictured": [
+    {
+      "concept": "The results of Experiments 2A and 2B revealed that when participants had to indicate that a pictured",
+      "zettel_id": "Horchak-2024-011",
+      "zettel_title": "語義相關性的影響 (Impact of Semantic Relatedness)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "Specifically, we investigated whether language comprehenders are sensitive to the linguistically det": [
+    {
+      "concept": "Specifically, we investigated whether language comprehenders are sensitive to the linguistically det",
+      "zettel_id": "Horchak-2024-012",
+      "zettel_title": "未來研究方向 (Future Research Direction)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Horchak-2024",
+      "paper_id": 16
+    }
+  ],
+  "This paper challenges the traditional view that nominal classifiers classify individuals": [
+    {
+      "concept": "This paper challenges the traditional view that nominal classifiers classify individuals",
+      "zettel_id": "Huang-2003-001",
+      "zettel_title": "名詞分類詞的傳統觀點",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "classifiers coerce nouns to refer to kinds and events as well as to individuals": [
+    {
+      "concept": "classifiers coerce nouns to refer to kinds and events as well as to individuals",
+      "zettel_id": "Huang-2003-002",
+      "zettel_title": "分類詞的強制作用 (Coercion)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "the Mandarin classifier system creates a taxonomic system involving events, kinds and individuals re": [
+    {
+      "concept": "the Mandarin classifier system creates a taxonomic system involving events, kinds and individuals re",
+      "zettel_id": "Huang-2003-003",
+      "zettel_title": "漢語分類詞系統的分類體系",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "the understanding of the semantics of nouns involves more than simple reference to an individual ent": [
+    {
+      "concept": "the understanding of the semantics of nouns involves more than simple reference to an individual ent",
+      "zettel_id": "Huang-2003-004",
+      "zettel_title": "名詞語義理解的重要性",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "the previously abstract semantic distinctions among kinds, individuals and events": [
+    {
+      "concept": "the previously abstract semantic distinctions among kinds, individuals and events",
+      "zettel_id": "Huang-2003-005",
+      "zettel_title": "個體、種類和事件的語義區分",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "Underlying the concept that a classifier categorizes over a class of nouns based on permanent percep": [
+    {
+      "concept": "Underlying the concept that a classifier categorizes over a class of nouns based on permanent percep",
+      "zettel_id": "Huang-2003-006",
+      "zettel_title": "名詞的個體讀法 (Individual Reading)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "Thus, individual classifiers can coerce nominal semantic types, and semantic coercion can be predict": [
+    {
+      "concept": "Thus, individual classifiers can coerce nominal semantic types, and semantic coercion can be predict",
+      "zettel_id": "Huang-2003-007",
+      "zettel_title": "個體分類詞的語義類型轉移 (Semantic Type Shifting)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "A kind classifier explicitly marks that the nominal element that it selects and gives it a kind read": [
+    {
+      "concept": "A kind classifier explicitly marks that the nominal element that it selects and gives it a kind read",
+      "zettel_id": "Huang-2003-008",
+      "zettel_title": "種類分類詞 (Kind Classifiers)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "the Mandarin classifier system contains a sub-class that selects another theoretically significant e": [
+    {
+      "concept": "the Mandarin classifier system contains a sub-class that selects another theoretically significant e",
+      "zettel_id": "Huang-2003-009",
+      "zettel_title": "事件分類詞 (Event Classifiers)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "event classifiers can adopt the event information encoded in qualia structures to define both Agenti": [
+    {
+      "concept": "event classifiers can adopt the event information encoded in qualia structures to define both Agenti",
+      "zettel_id": "Huang-2003-010",
+      "zettel_title": "Qualia結構在事件分類詞中的應用",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "Bare NPs in Mandarin Chinese have a wide range of possible interpretations": [
+    {
+      "concept": "Bare NPs in Mandarin Chinese have a wide range of possible interpretations",
+      "zettel_id": "Huang-2003-011",
+      "zettel_title": "零形名詞組 (Bare NPs) 的多重語義解釋",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "the event-type classifiers, which individuate different event structures, and the event-token classi": [
+    {
+      "concept": "the event-type classifiers, which individuate different event structures, and the event-token classi",
+      "zettel_id": "Huang-2003-012",
+      "zettel_title": "事件分類詞與事件類型和事件實例的關係",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2003",
+      "paper_id": 3
+    }
+  ],
+  "To paraphrase the position taken in DOLCE ontology (Descriptive Ontology for Linguistic and Cognitiv": [
+    {
+      "concept": "To paraphrase the position taken in DOLCE ontology (Descriptive Ontology for Linguistic and Cognitiv",
+      "zettel_id": "Huang-2015-001",
+      "zettel_title": "Endurant (Endurant)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "A perdurant is (the concept of) an entity which has a time element crucially associated with its mea": [
+    {
+      "concept": "A perdurant is (the concept of) an entity which has a time element crucially associated with its mea",
+      "zettel_id": "Huang-2015-002",
+      "zettel_title": "Perdurant (Perdurant)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "Classifiers are given the grammatical category of Measure (M) in Determiner-Measure Compound (D-M Co": [
+    {
+      "concept": "Classifiers are given the grammatical category of Measure (M) in Determiner-Measure Compound (D-M Co",
+      "zettel_id": "Huang-2015-003",
+      "zettel_title": "Determiner-Measure Compound (D-M Compound, D-M 複合結構)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "SubsequentstudiesofChinesetypicallyadoptthegenerallinguistictermofclassifier(Aikenvald2003)andeither": [
+    {
+      "concept": "SubsequentstudiesofChinesetypicallyadoptthegenerallinguistictermofclassifier(Aikenvald2003)andeither",
+      "zettel_id": "Huang-2015-004",
+      "zettel_title": "Classifier (分類詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "Many later studies tried to account for the classifiers/measure words contrast via semantic or synta": [
+    {
+      "concept": "Many later studies tried to account for the classifiers/measure words contrast via semantic or synta",
+      "zettel_id": "Huang-2015-005",
+      "zettel_title": "Measure Word (量詞)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "This paper adopts and merges two lines of Chao’s research to show that the ontological concept of en": [
+    {
+      "concept": "This paper adopts and merges two lines of Chao’s research to show that the ontological concept of en",
+      "zettel_id": "Huang-2015-006",
+      "zettel_title": "Endurant/Perdurant Dichotomy in Chinese Grammar (漢語語法中的 Endurant/Perdurant 二分法)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "First, as the most typical sortal classifier, individual classifiers typically select common nouns, ": [
+    {
+      "concept": "First, as the most typical sortal classifier, individual classifiers typically select common nouns, ",
+      "zettel_id": "Huang-2015-007",
+      "zettel_title": "Sortal Classifiers denote Endurant Properties (類別詞表示 Endurant 屬性)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "The standard measurement system is a property introduced independent of the entity": [
+    {
+      "concept": "The standard measurement system is a property introduced independent of the entity",
+      "zettel_id": "Huang-2015-008",
+      "zettel_title": "Measure Words denote Perdurant Properties (量詞表示 Perdurant 屬性)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "There is a clear contrast between endurant M, i": [
+    {
+      "concept": "There is a clear contrast between endurant M, i",
+      "zettel_id": "Huang-2015-009",
+      "zettel_title": "The correlation between DE-insertion and Perdurant Properties (「的」插入與 Perdurant 屬性之間的關聯)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "Following the generalization obtained so far, we can account for this contrast observed in Chao (196": [
+    {
+      "concept": "Following the generalization obtained so far, we can account for this contrast observed in Chao (196",
+      "zettel_id": "Huang-2015-010",
+      "zettel_title": "DE-insertion Marks Time-Variant Property (「的」插入標記時間變異屬性)",
+      "concept_type": "core_concept",
+      "card_type": "hypothesis",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "I have shown in this paper that the Chinese classifier system offers robust linguistic ex-pression o": [
+    {
+      "concept": "I have shown in this paper that the Chinese classifier system offers robust linguistic ex-pression o",
+      "zettel_id": "Huang-2015-011",
+      "zettel_title": "Linguistic Expression of Ontological Notions (本體論概念的語言表達)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Huang-2015",
+      "paper_id": 10
+    }
+  ],
+  "Cross-language priming refers to the phenomenon where processing a word in one language influences t": [
+    {
+      "concept": "Cross-language priming refers to the phenomenon where processing a word in one language influences t",
+      "zettel_id": "Jiang-2001-001",
+      "zettel_title": "跨語言啟動 (Cross-Language Priming)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Priming asymmetries occur when the priming effect is stronger in one direction (L1 to L2 or L2 to L1": [
+    {
+      "concept": "Priming asymmetries occur when the priming effect is stronger in one direction (L1 to L2 or L2 to L1",
+      "zettel_id": "Jiang-2001-002",
+      "zettel_title": "啟動不對稱性 (Priming Asymmetries)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Lexical access models propose how words are retrieved from memory during language processing": [
+    {
+      "concept": "Lexical access models propose how words are retrieved from memory during language processing",
+      "zettel_id": "Jiang-2001-003",
+      "zettel_title": "詞彙通達模型 (Lexical Access Model)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "The L1 dominance hypothesis suggests that the first language (L1) has a stronger influence on lexica": [
+    {
+      "concept": "The L1 dominance hypothesis suggests that the first language (L1) has a stronger influence on lexica",
+      "zettel_id": "Jiang-2001-004",
+      "zettel_title": "L1 優勢假設 (L1 Dominance Hypothesis)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "The L2 dominance hypothesis suggests that the second language (L2) can become dominant in some bilin": [
+    {
+      "concept": "The L2 dominance hypothesis suggests that the second language (L2) can become dominant in some bilin",
+      "zettel_id": "Jiang-2001-005",
+      "zettel_title": "L2 優勢假設 (L2 Dominance Hypothesis)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "In a lexical decision task, participants are presented with a string of letters and asked to decide ": [
+    {
+      "concept": "In a lexical decision task, participants are presented with a string of letters and asked to decide ",
+      "zettel_id": "Jiang-2001-006",
+      "zettel_title": "詞彙決策任務 (Lexical Decision Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Reaction time (RT) is the time elapsed between the presentation of a stimulus and the initiation of ": [
+    {
+      "concept": "Reaction time (RT) is the time elapsed between the presentation of a stimulus and the initiation of ",
+      "zettel_id": "Jiang-2001-007",
+      "zettel_title": "反應時 (Reaction Time)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Language proficiency refers to the level of skill in using a language, including vocabulary, grammar": [
+    {
+      "concept": "Language proficiency refers to the level of skill in using a language, including vocabulary, grammar",
+      "zettel_id": "Jiang-2001-008",
+      "zettel_title": "語言熟練度 (Language Proficiency)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Semantic similarity refers to the degree to which two words or concepts are related in meaning": [
+    {
+      "concept": "Semantic similarity refers to the degree to which two words or concepts are related in meaning",
+      "zettel_id": "Jiang-2001-009",
+      "zettel_title": "語義相似性 (Semantic Similarity)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Phonological similarity refers to the degree to which two words sound alike": [
+    {
+      "concept": "Phonological similarity refers to the degree to which two words sound alike",
+      "zettel_id": "Jiang-2001-010",
+      "zettel_title": "語音相似性 (Phonological Similarity)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Control variables are factors that are kept constant during an experiment to prevent them from influ": [
+    {
+      "concept": "Control variables are factors that are kept constant during an experiment to prevent them from influ",
+      "zettel_id": "Jiang-2001-011",
+      "zettel_title": "控制變數 (Control Variables)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "How are different languages represented in the minds of bilinguals, and how do these representations": [
+    {
+      "concept": "How are different languages represented in the minds of bilinguals, and how do these representations",
+      "zettel_id": "Jiang-2001-012",
+      "zettel_title": "研究方向：語言表徵的跨語言聯繫 (Research Direction: Cross-lingual connections in language representation)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Jiang-2001",
+      "paper_id": 73
+    }
+  ],
+  "Tounderstandlanguagepeopleformmentalrepresentationsofdescribedsituations": [
+    {
+      "concept": "Tounderstandlanguagepeopleformmentalrepresentationsofdescribedsituations",
+      "zettel_id": "Kang-2020-001",
+      "zettel_title": "心智表徵 (Mental Representation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "the picture either showed an intact original state or a modified state of an object": [
+    {
+      "concept": "the picture either showed an intact original state or a modified state of an object",
+      "zettel_id": "Kang-2020-002",
+      "zettel_title": "對象狀態 (Object State)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "understandinglanguageinvolvestheconstructionofamental situation as a ‘simulation’ of real-world expe": [
+    {
+      "concept": "understandinglanguageinvolvestheconstructionofamental situation as a ‘simulation’ of real-world expe",
+      "zettel_id": "Kang-2020-003",
+      "zettel_title": "情境模型 (Situation Model)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Usingthepictureverificationparadigm,StanfieldandZwaan (2001)askedparticipantstoreadsentenceslikeBThe": [
+    {
+      "concept": "Usingthepictureverificationparadigm,StanfieldandZwaan (2001)askedparticipantstoreadsentenceslikeBThe",
+      "zettel_id": "Kang-2020-004",
+      "zettel_title": "圖片驗證範式 (Picture Verification Paradigm)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "participants reacted faster to the pictured object (e": [
+    {
+      "concept": "participants reacted faster to the pictured object (e",
+      "zettel_id": "Kang-2020-005",
+      "zettel_title": "匹配/不匹配效應 (Match/Mismatch Effects)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "the object is linked to multiple ‘states’ of itself across time – before and after this change": [
+    {
+      "concept": "the object is linked to multiple ‘states’ of itself across time – before and after this change",
+      "zettel_id": "Kang-2020-006",
+      "zettel_title": "事件模型中的對象狀態更新 (Object State Updating in Event Models)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "the linguistic context has an impact on the activation of object- state representations": [
+    {
+      "concept": "the linguistic context has an impact on the activation of object- state representations",
+      "zettel_id": "Kang-2020-007",
+      "zettel_title": "語言情境對對象狀態驗證的影響 (Influence of Linguistic Context on Object State Verification)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Our findings highlight the need to take account of the dynamicsof event representation in language c": [
+    {
+      "concept": "Our findings highlight the need to take account of the dynamicsof event representation in language c",
+      "zettel_id": "Kang-2020-008",
+      "zettel_title": "事件的動態表徵 (Dynamics of Event Representation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "the match/mismatch effects were only revealed after reading the past tense (Experiment 2) sentences ": [
+    {
+      "concept": "the match/mismatch effects were only revealed after reading the past tense (Experiment 2) sentences ",
+      "zettel_id": "Kang-2020-009",
+      "zettel_title": "語法時態的影響 (Influence of Grammatical Tense)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Thelinearmixed-effectsmodels (LMMs) using the lme 4 package (Bates et al": [
+    {
+      "concept": "Thelinearmixed-effectsmodels (LMMs) using the lme 4 package (Bates et al",
+      "zettel_id": "Kang-2020-010",
+      "zettel_title": "線性混合效應模型 (Linear Mixed-Effects Models, LMMs)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Altmann and Ekves (2019) further proposed the Bevents as intersecting object histories^ (IOH) model ": [
+    {
+      "concept": "Altmann and Ekves (2019) further proposed the Bevents as intersecting object histories^ (IOH) model ",
+      "zettel_id": "Kang-2020-011",
+      "zettel_title": "事件作為相交的對象歷史 (Events as Intersecting Object Histories, IOH)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Onelimitationofthisstudyisthatwemeasuredtheactiva- tion of object representation at the end of sente": [
+    {
+      "concept": "Onelimitationofthisstudyisthatwemeasuredtheactiva- tion of object representation at the end of sente",
+      "zettel_id": "Kang-2020-012",
+      "zettel_title": "實驗設計的局限性 (Limitations of Experimental Design)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Kang-2020",
+      "paper_id": 18
+    }
+  ],
+  "Many studies have shown that mental simulation may occur during language comprehension": [
+    {
+      "concept": "Many studies have shown that mental simulation may occur during language comprehension",
+      "zettel_id": "Liu-2024-001",
+      "zettel_title": "心理模擬 (Mental Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Supporting evidence is derived from the matching effects in the sentence-picture verification (SPV) ": [
+    {
+      "concept": "Supporting evidence is derived from the matching effects in the sentence-picture verification (SPV) ",
+      "zettel_id": "Liu-2024-002",
+      "zettel_title": "句子-圖片驗證任務 (Sentence-Picture Verification Task, SPV)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "The results revealed a matching effect; the participants responded faster when the orientation of th": [
+    {
+      "concept": "The results revealed a matching effect; the participants responded faster when the orientation of th",
+      "zettel_id": "Liu-2024-003",
+      "zettel_title": "匹配效應 (Matching Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Therefore, we infer that because the object items generally used in previous studies have a typical ": [
+    {
+      "concept": "Therefore, we infer that because the object items generally used in previous studies have a typical ",
+      "zettel_id": "Liu-2024-004",
+      "zettel_title": "顏色偏差 (Colour Bias)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "A mismatching effect appeared in the 0 ms condition after clear colour information sentences": [
+    {
+      "concept": "A mismatching effect appeared in the 0 ms condition after clear colour information sentences",
+      "zettel_id": "Liu-2024-005",
+      "zettel_title": "不匹配效應 (Mismatching Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Employing the SPV task and using novel objects, we examined whether there is a mental simulation of ": [
+    {
+      "concept": "Employing the SPV task and using novel objects, we examined whether there is a mental simulation of ",
+      "zettel_id": "Liu-2024-006",
+      "zettel_title": "新奇物體 (Novel Objects)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "This study investigated the impact of colour information clarity within sentences on the process of ": [
+    {
+      "concept": "This study investigated the impact of colour information clarity within sentences on the process of ",
+      "zettel_id": "Liu-2024-007",
+      "zettel_title": "顏色訊息清晰度 (Colour Information Clarity)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Our results also indicated that ongoing colour simulation with time pressure impacted the participan": [
+    {
+      "concept": "Our results also indicated that ongoing colour simulation with time pressure impacted the participan",
+      "zettel_id": "Liu-2024-008",
+      "zettel_title": "時間壓力 (Time Pressure)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Theories of grounded cognition suggest that people comprehend language through mental simulations gr": [
+    {
+      "concept": "Theories of grounded cognition suggest that people comprehend language through mental simulations gr",
+      "zettel_id": "Liu-2024-009",
+      "zettel_title": "具身認知 (Embodied Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Recently, using the SPV paradigm, researchers identified an intermediate stage of mental simulation ": [
+    {
+      "concept": "Recently, using the SPV paradigm, researchers identified an intermediate stage of mental simulation ",
+      "zettel_id": "Liu-2024-010",
+      "zettel_title": "中介階段 (Intermediate Stage)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "We found no significant differences in mean RTs (t(29) = 0": [
+    {
+      "concept": "We found no significant differences in mean RTs (t(29) = 0",
+      "zettel_id": "Liu-2024-011",
+      "zettel_title": "實驗1的Null Effect",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "Thus, two experiments were performed to explore the mechanisms of the mental simulation of colour du": [
+    {
+      "concept": "Thus, two experiments were performed to explore the mechanisms of the mental simulation of colour du",
+      "zettel_id": "Liu-2024-012",
+      "zettel_title": "後續研究方向",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Liu-2024",
+      "paper_id": 19
+    }
+  ],
+  "The word-superiority effect refers to the finding that letters are recognized more easily when they ": [
+    {
+      "concept": "The word-superiority effect refers to the finding that letters are recognized more easily when they ",
+      "zettel_id": "Mok-2009-001",
+      "zettel_title": "字詞優勢效應 (Word-Superiority Effect)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Semantic transparency refers to the degree to which the meaning of a compound word can be inferred f": [
+    {
+      "concept": "Semantic transparency refers to the degree to which the meaning of a compound word can be inferred f",
+      "zettel_id": "Mok-2009-002",
+      "zettel_title": "語義透明度 (Semantic Transparency)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Chinese, with its logographic writing system, presents a unique context for studying semantic transp": [
+    {
+      "concept": "Chinese, with its logographic writing system, presents a unique context for studying semantic transp",
+      "zettel_id": "Mok-2009-003",
+      "zettel_title": "中文的語義透明度",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Peripheral vision plays a role in reading, enabling the reader to anticipate upcoming words or lette": [
+    {
+      "concept": "Peripheral vision plays a role in reading, enabling the reader to anticipate upcoming words or lette",
+      "zettel_id": "Mok-2009-004",
+      "zettel_title": "周邊視野 (Peripheral Vision)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "The typical word-superiority effect experiment involves presenting participants with a target letter": [
+    {
+      "concept": "The typical word-superiority effect experiment involves presenting participants with a target letter",
+      "zettel_id": "Mok-2009-005",
+      "zettel_title": "字詞優勢效應的實驗範式 (Experimental Paradigm for Word-Superiority Effect)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Does the semantic transparency of Chinese words modulate the magnitude of the word-superiority effec": [
+    {
+      "concept": "Does the semantic transparency of Chinese words modulate the magnitude of the word-superiority effec",
+      "zettel_id": "Mok-2009-006",
+      "zettel_title": "語義透明度對字詞優勢效應的影響",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Reaction time (RT) is measured from the onset of the stimulus until the participant's response, prov": [
+    {
+      "concept": "Reaction time (RT) is measured from the onset of the stimulus until the participant's response, prov",
+      "zettel_id": "Mok-2009-007",
+      "zettel_title": "反應時測量 (Reaction Time Measurement)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Accuracy is the percentage of correct responses, providing a measure of how well participants are pe": [
+    {
+      "concept": "Accuracy is the percentage of correct responses, providing a measure of how well participants are pe",
+      "zettel_id": "Mok-2009-008",
+      "zettel_title": "準確性測量 (Accuracy Measurement)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "The word-superiority effect is stronger for semantically transparent Chinese words compared to seman": [
+    {
+      "concept": "The word-superiority effect is stronger for semantically transparent Chinese words compared to seman",
+      "zettel_id": "Mok-2009-009",
+      "zettel_title": "字詞優勢效應受語義透明度的影響 (Hypothetical Finding)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Semantic activation may facilitate letter recognition by providing top-down support, especially for ": [
+    {
+      "concept": "Semantic activation may facilitate letter recognition by providing top-down support, especially for ",
+      "zettel_id": "Mok-2009-010",
+      "zettel_title": "語義激活在字詞識別中的作用 (Role of Semantic Activation in Word Recognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Future research could investigate the neural correlates of the interaction between semantic transpar": [
+    {
+      "concept": "Future research could investigate the neural correlates of the interaction between semantic transpar",
+      "zettel_id": "Mok-2009-011",
+      "zettel_title": "未來研究方向 (Future Research Directions)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Comparing the word-superiority effect across languages with different writing systems could provide ": [
+    {
+      "concept": "Comparing the word-superiority effect across languages with different writing systems could provide ",
+      "zettel_id": "Mok-2009-012",
+      "zettel_title": "跨語言研究 (Cross-linguistic Studies)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Mok-2009",
+      "paper_id": 50
+    }
+  ],
+  "Typically, this finding has been interpreted as evidence for perceptual simulation, i": [
+    {
+      "concept": "Typically, this finding has been interpreted as evidence for perceptual simulation, i",
+      "zettel_id": "Ostarek-2019-001",
+      "zettel_title": "知覺模擬 (Perceptual Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Participants read or listen to sentences about objects that are implied to have a certain shape (e": [
+    {
+      "concept": "Participants read or listen to sentences about objects that are implied to have a certain shape (e",
+      "zettel_id": "Ostarek-2019-002",
+      "zettel_title": "句子-圖片驗證任務 (Sentence-Picture Verification Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "The critical finding (Zwaan & Pecher, 2012; Zwaan et al": [
+    {
+      "concept": "The critical finding (Zwaan & Pecher, 2012; Zwaan et al",
+      "zettel_id": "Ostarek-2019-003",
+      "zettel_title": "形狀匹配效應 (Shape Match Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Here we directly test this hypothesis": [
+    {
+      "concept": "Here we directly test this hypothesis",
+      "zettel_id": "Ostarek-2019-004",
+      "zettel_title": "視覺干擾 (Visual Interference)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "When an interference technique was used that targeted high-level semantic processing (Experiment 3) ": [
+    {
+      "concept": "When an interference technique was used that targeted high-level semantic processing (Experiment 3) ",
+      "zettel_id": "Ostarek-2019-005",
+      "zettel_title": "語義干擾 (Semantic Interference)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Experiments 1 and 2 replicated the match effect but crucially visual noise did not modulate it": [
+    {
+      "concept": "Experiments 1 and 2 replicated the match effect but crucially visual noise did not modulate it",
+      "zettel_id": "Ostarek-2019-006",
+      "zettel_title": "視覺噪聲對形狀匹配效應無影響",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Weconcludethattheshapematcheffectinthesentence-pictureverificationparadigmisunlikelytorelyonperceptu": [
+    {
+      "concept": "Weconcludethattheshapematcheffectinthesentence-pictureverificationparadigmisunlikelytorelyonperceptu",
+      "zettel_id": "Ostarek-2019-007",
+      "zettel_title": "非視覺語義表徵 (Non-Visual Semantic Representations)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Visual noises specifically targeting high-level visual processes (Experiment 4) only had a minimal e": [
+    {
+      "concept": "Visual noises specifically targeting high-level visual processes (Experiment 4) only had a minimal e",
+      "zettel_id": "Ostarek-2019-008",
+      "zettel_title": "高級視覺過程 (High-Level Visual Processes)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Semantic noise strongly interfered with the access to shape information implicit in sentences, demon": [
+    {
+      "concept": "Semantic noise strongly interfered with the access to shape information implicit in sentences, demon",
+      "zettel_id": "Ostarek-2019-009",
+      "zettel_title": "語義噪聲消除形狀匹配效應",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Itisplausiblethatthesemanticsystemissimplyoverloadedduetothehighrateofobjectsthatarebeingprocessed": [
+    {
+      "concept": "Itisplausiblethatthesemanticsystemissimplyoverloadedduetothehighrateofobjectsthatarebeingprocessed",
+      "zettel_id": "Ostarek-2019-010",
+      "zettel_title": "語義系統的過載",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "Congruency effects do not provide evidence that sensory-motorsystems produce them unless the task wh": [
+    {
+      "concept": "Congruency effects do not provide evidence that sensory-motorsystems produce them unless the task wh",
+      "zettel_id": "Ostarek-2019-011",
+      "zettel_title": "具身認知理論的局限性",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "It will be crucial for future studies to precisely delineate what determines the involvement and rol": [
+    {
+      "concept": "It will be crucial for future studies to precisely delineate what determines the involvement and rol",
+      "zettel_id": "Ostarek-2019-012",
+      "zettel_title": "後續研究方向",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Ostarek-2019",
+      "paper_id": 20
+    }
+  ],
+  "According to theories of embodied cognition, language comprehenders simulate sensorimotor experience": [
+    {
+      "concept": "According to theories of embodied cognition, language comprehenders simulate sensorimotor experience",
+      "zettel_id": "Pecher-2009-001",
+      "zettel_title": "具身認知 (Embodied Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "During perception and action, the patterns of activation that result from experience are captured": [
+    {
+      "concept": "During perception and action, the patterns of activation that result from experience are captured",
+      "zettel_id": "Pecher-2009-002",
+      "zettel_title": "感知符號系統 (Perceptual Symbol Systems)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "During thought a concept is represented by perceptual symbols through a simulation of sensorimotor i": [
+    {
+      "concept": "During thought a concept is represented by perceptual symbols through a simulation of sensorimotor i",
+      "zettel_id": "Pecher-2009-003",
+      "zettel_title": "心智模擬 (Mental Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "Memory performance should be affected by the overlap between the mental representation at study and ": [
+    {
+      "concept": "Memory performance should be affected by the overlap between the mental representation at study and ",
+      "zettel_id": "Pecher-2009-004",
+      "zettel_title": "轉移適當處理原則 (Transfer-Appropriate Processing)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "During the implicit study phase, participants were presented with sentences implying a particular or": [
+    {
+      "concept": "During the implicit study phase, participants were presented with sentences implying a particular or",
+      "zettel_id": "Pecher-2009-005",
+      "zettel_title": "延遲圖片辨識任務 (Delayed Picture Recognition Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "Recognition performance was better if the orientation or shape of the object matched that implied by": [
+    {
+      "concept": "Recognition performance was better if the orientation or shape of the object matched that implied by",
+      "zettel_id": "Pecher-2009-006",
+      "zettel_title": "匹配效應 (Match Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "Theseresultssuggestthatpreviouslyfoundmatcheffectswerenotduetostrategicimageryandshowthatdetailsofse": [
+    {
+      "concept": "Theseresultssuggestthatpreviouslyfoundmatcheffectswerenotduetostrategicimageryandshowthatdetailsofse",
+      "zettel_id": "Pecher-2009-007",
+      "zettel_title": "延遲效應 (Delay Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "The present study shows that similar findings are obtained for sentence comprehension": [
+    {
+      "concept": "The present study shows that similar findings are obtained for sentence comprehension",
+      "zettel_id": "Pecher-2009-008",
+      "zettel_title": "線上處理與離線處理 (Online vs. Offline Processing)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "Thus, their results leave open the possibility that visual simulations are only used when the task d": [
+    {
+      "concept": "Thus, their results leave open the possibility that visual simulations are only used when the task d",
+      "zettel_id": "Pecher-2009-009",
+      "zettel_title": "策略性意象 (Strategic Imagery)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "For the orientation condition the pictures were rotated in order to present objects at two different": [
+    {
+      "concept": "For the orientation condition the pictures were rotated in order to present objects at two different",
+      "zettel_id": "Pecher-2009-010",
+      "zettel_title": "物體形狀與方向 (Shape and Orientation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "According to this view, modality-specific systems that support perception and action are also used t": [
+    {
+      "concept": "According to this view, modality-specific systems that support perception and action are also used t",
+      "zettel_id": "Pecher-2009-011",
+      "zettel_title": "模態特異性 (Modality-Specific)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "Participants may have used conscious imagery while reading the sentence in order to quickly recogniz": [
+    {
+      "concept": "Participants may have used conscious imagery while reading the sentence in order to quickly recogniz",
+      "zettel_id": "Pecher-2009-012",
+      "zettel_title": "任務需求 (Task Demands)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Pecher-2009",
+      "paper_id": 21
+    }
+  ],
+  "One possibility is that the meaning of each word is retrieved independently of sentence context and ": [
+    {
+      "concept": "One possibility is that the meaning of each word is retrieved independently of sentence context and ",
+      "zettel_id": "Potter-1979-001",
+      "zettel_title": "Independent Retrieval of Word Meanings (獨立提取詞義)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "A second possibility is that the preceding words influence the retrieval of a meaning for the word, ": [
+    {
+      "concept": "A second possibility is that the preceding words influence the retrieval of a meaning for the word, ",
+      "zettel_id": "Potter-1979-002",
+      "zettel_title": "Context-Dependent Retrieval of Word Meanings (上下文相關提取詞義)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "In this study we examine understanding of the noun in a noun phrase, asking to what extent the recov": [
+    {
+      "concept": "In this study we examine understanding of the noun in a noun phrase, asking to what extent the recov",
+      "zettel_id": "Potter-1979-003",
+      "zettel_title": "Influence of Adjectives on Noun Meaning Retrieval (形容詞對名詞意義提取的影響)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "To examine the influence of a preceding adjective on initial retrieval of the meaning of a noun, we ": [
+    {
+      "concept": "To examine the influence of a preceding adjective on initial retrieval of the meaning of a noun, we ",
+      "zettel_id": "Potter-1979-004",
+      "zettel_title": "Picture Probe Technique (圖片探針技術)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "For example, a red ball is a thing that is both a ball and red": [
+    {
+      "concept": "For example, a red ball is a thing that is both a ball and red",
+      "zettel_id": "Potter-1979-005",
+      "zettel_title": "Boolean Intersection of Extensions (外延的布林交集)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "The experimental tests they have carried out typically measure memory for sentences": [
+    {
+      "concept": "The experimental tests they have carried out typically measure memory for sentences",
+      "zettel_id": "Potter-1979-006",
+      "zettel_title": "Memory Tests for Sentence Comprehension (句子理解的記憶測試)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "When there was a prenominal adjective, the modified probe was 25 milliseconds faster than the typica": [
+    {
+      "concept": "When there was a prenominal adjective, the modified probe was 25 milliseconds faster than the typica",
+      "zettel_id": "Potter-1979-007",
+      "zettel_title": "Interaction between Prenominal Adjectives and Noun Meaning (前置形容詞與名詞意義的互動)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "Unlike prenominal adjectives, adjectives separated from the noun had little influence on the probe c": [
+    {
+      "concept": "Unlike prenominal adjectives, adjectives separated from the noun had little influence on the probe c",
+      "zettel_id": "Potter-1979-008",
+      "zettel_title": "Lack of Influence of Separated Adjectives (分離形容詞缺乏影響)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "Overall, 38 % of the adjectives were correctly recalled (less than": [
+    {
+      "concept": "Overall, 38 % of the adjectives were correctly recalled (less than",
+      "zettel_id": "Potter-1979-009",
+      "zettel_title": "Recall of Adjectives (形容詞的回憶)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "The results appear to show that the meaning of a noun phrase is retrieved as a single unit": [
+    {
+      "concept": "The results appear to show that the meaning of a noun phrase is retrieved as a single unit",
+      "zettel_id": "Potter-1979-010",
+      "zettel_title": "Holistic Retrieval of Noun Phrase Meaning (名詞短語意義的整體提取)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "With a model of this kind, priority is given to the pathway that first connects the concept nodes of": [
+    {
+      "concept": "With a model of this kind, priority is given to the pathway that first connects the concept nodes of",
+      "zettel_id": "Potter-1979-011",
+      "zettel_title": "Spreading Activation Model (擴散激活模型)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "A post hoc analysis suggests that context-dependent interpretation of noun meaning may be limited to": [
+    {
+      "concept": "A post hoc analysis suggests that context-dependent interpretation of noun meaning may be limited to",
+      "zettel_id": "Potter-1979-012",
+      "zettel_title": "Familiarity and Holistic Understanding (熟悉度與整體理解)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Potter-1979",
+      "paper_id": 22
+    }
+  ],
+  "A classifier is a word or morpheme used to classify a noun": [
+    {
+      "concept": "A classifier is a word or morpheme used to classify a noun",
+      "zettel_id": "Tzeng-1991-001",
+      "zettel_title": "量詞 (Classifier) 的定義",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Chinese classifiers are obligatory in many contexts, unlike in English": [
+    {
+      "concept": "Chinese classifiers are obligatory in many contexts, unlike in English",
+      "zettel_id": "Tzeng-1991-002",
+      "zettel_title": "漢語量詞的獨特性",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Classifiers provide semantic information about the noun they modify": [
+    {
+      "concept": "Classifiers provide semantic information about the noun they modify",
+      "zettel_id": "Tzeng-1991-003",
+      "zettel_title": "量詞的語義功能",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "The choice of classifier is influenced by semantic features of the noun and contextual factors": [
+    {
+      "concept": "The choice of classifier is influenced by semantic features of the noun and contextual factors",
+      "zettel_id": "Tzeng-1991-004",
+      "zettel_title": "量詞選擇的影響因素",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "In English, number words directly modify nouns without an intervening classifier": [
+    {
+      "concept": "In English, number words directly modify nouns without an intervening classifier",
+      "zettel_id": "Tzeng-1991-005",
+      "zettel_title": "英語中的數詞修飾",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Classifiers may reflect underlying cognitive categories": [
+    {
+      "concept": "Classifiers may reflect underlying cognitive categories",
+      "zettel_id": "Tzeng-1991-006",
+      "zettel_title": "量詞的認知作用",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Computational models can be developed to predict classifier choice based on noun features and contex": [
+    {
+      "concept": "Computational models can be developed to predict classifier choice based on noun features and contex",
+      "zettel_id": "Tzeng-1991-007",
+      "zettel_title": "計算機量詞選擇模型",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "The acquisition of classifiers is a challenging task for second language learners of Chinese": [
+    {
+      "concept": "The acquisition of classifiers is a challenging task for second language learners of Chinese",
+      "zettel_id": "Tzeng-1991-008",
+      "zettel_title": "量詞在語言習得中的作用",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Classifiers may be culturally specific and reflect cultural values": [
+    {
+      "concept": "Classifiers may be culturally specific and reflect cultural values",
+      "zettel_id": "Tzeng-1991-009",
+      "zettel_title": "量詞與文化",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Deep learning models can learn complex patterns in classifier choice from large datasets": [
+    {
+      "concept": "Deep learning models can learn complex patterns in classifier choice from large datasets",
+      "zettel_id": "Tzeng-1991-010",
+      "zettel_title": "基於深度學習的量詞選擇",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "The use of classifiers may influence cognitive processing during language comprehension": [
+    {
+      "concept": "The use of classifiers may influence cognitive processing during language comprehension",
+      "zettel_id": "Tzeng-1991-011",
+      "zettel_title": "量詞對認知加工的影響",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "Future research should explore the interaction between classifiers, syntax, semantics, and pragmatic": [
+    {
+      "concept": "Future research should explore the interaction between classifiers, syntax, semantics, and pragmatic",
+      "zettel_id": "Tzeng-1991-012",
+      "zettel_title": "量詞問題的未來研究方向",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Tzeng-1991",
+      "paper_id": 58
+    }
+  ],
+  "A body of studies in alphabetic languages has shown that perceptual representations can be reactivat": [
+    {
+      "concept": "A body of studies in alphabetic languages has shown that perceptual representations can be reactivat",
+      "zettel_id": "Xu-2022-001",
+      "zettel_title": "知覺模擬 (Perceptual Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "According to theories of embodied cognition, perceptual simulation in language comprehension occurs ": [
+    {
+      "concept": "According to theories of embodied cognition, perceptual simulation in language comprehension occurs ",
+      "zettel_id": "Xu-2022-002",
+      "zettel_title": "具身認知 (Embodied Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "conceptual knowledge acquired through sensorimotor experiences can generate corresponding sensorimot": [
+    {
+      "concept": "conceptual knowledge acquired through sensorimotor experiences can generate corresponding sensorimot",
+      "zettel_id": "Xu-2022-003",
+      "zettel_title": "感覺運動經驗 (Sensorimotor Experiences)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "In language processing, these two systems can be activated at the beginning, and the linguistic syst": [
+    {
+      "concept": "In language processing, these two systems can be activated at the beginning, and the linguistic syst",
+      "zettel_id": "Xu-2022-004",
+      "zettel_title": "語義系統和具身系統 (Linguistic vs. Embodied Systems)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "Using the BOI ratings of words, i": [
+    {
+      "concept": "Using the BOI ratings of words, i",
+      "zettel_id": "Xu-2022-005",
+      "zettel_title": "身體-物體互動 (Body-Object Interaction, BOI)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "Typically, in the perceptual mismatch paradigm, participants are asked to read and/or listen to a se": [
+    {
+      "concept": "Typically, in the perceptual mismatch paradigm, participants are asked to read and/or listen to a se",
+      "zettel_id": "Xu-2022-006",
+      "zettel_title": "知覺不匹配範式 (Perceptual Mismatch Paradigm)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "a mismatch effect, i": [
+    {
+      "concept": "a mismatch effect, i",
+      "zettel_id": "Xu-2022-007",
+      "zettel_title": "不匹配效應 (Mismatch Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "the lower the score for the Chinese character reading task, the larger the mismatch effect": [
+    {
+      "concept": "the lower the score for the Chinese character reading task, the larger the mismatch effect",
+      "zettel_id": "Xu-2022-008",
+      "zettel_title": "識字能力與知覺模擬的關係 (Relationship between Literacy Ability and Perceptual Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "The symbol interdependency hypothesis (Louwerse, 2018) suggests that the concept-related representat": [
+    {
+      "concept": "The symbol interdependency hypothesis (Louwerse, 2018) suggests that the concept-related representat",
+      "zettel_id": "Xu-2022-009",
+      "zettel_title": "符號互依性假設 (Symbol Interdependency Hypothesis)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "A study in English-speaking children (aged 7–10; Engelen et al": [
+    {
+      "concept": "A study in English-speaking children (aged 7–10; Engelen et al",
+      "zettel_id": "Xu-2022-010",
+      "zettel_title": "Engelen et al. (2011) 研究的對比",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "A Chinese character reading task (Liu et al": [
+    {
+      "concept": "A Chinese character reading task (Liu et al",
+      "zettel_id": "Xu-2022-011",
+      "zettel_title": "中文字符閱讀任務 (Chinese Character Reading Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "Future studies could manipulate linguistic components (e": [
+    {
+      "concept": "Future studies could manipulate linguistic components (e",
+      "zettel_id": "Xu-2022-012",
+      "zettel_title": "未來研究方向 (Future Research Directions)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Xu-2022",
+      "paper_id": 26
+    }
+  ],
+  "Classifier languages have no count nouns": [
+    {
+      "concept": "Classifier languages have no count nouns",
+      "zettel_id": "Yi-2009-001",
+      "zettel_title": "Mass Noun Hypothesis (MH)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
   "Such languages, called classifier languages, include Chinese, Japanese, Korean, Thai, and many other": [
     {
       "concept": "Such languages, called classifier languages, include Chinese, Japanese, Korean, Thai, and many other",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
+      "zettel_id": "Yi-2009-002",
+      "zettel_title": "Classifier Languages",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
-  "Chinese": [
+  "Classifier languages have count nouns as well as mass nouns": [
     {
-      "concept": "Chinese",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
-      "concept_type": "tag",
+      "concept": "Classifier languages have count nouns as well as mass nouns",
+      "zettel_id": "Yi-2009-003",
+      "zettel_title": "Count Noun Hypothesis (CH)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
+      "paper_id": 2
+    }
+  ],
+  "The mass noun milk, by contrast, cannot combine with numerals without the aid of measure words, e": [
+    {
+      "concept": "The mass noun milk, by contrast, cannot combine with numerals without the aid of measure words, e",
+      "zettel_id": "Yi-2009-004",
+      "zettel_title": "Mass Noun",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Yi-2009",
       "paper_id": 2
     },
     {
-      "concept": "Chinese",
-      "zettel_id": "Linguistics-20251029-007",
-      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Japanese": [
-    {
-      "concept": "Japanese",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Korean": [
-    {
-      "concept": "Korean",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Thai": [
-    {
-      "concept": "Thai",
-      "zettel_id": "Linguistics-20251029-004",
-      "zettel_title": "\"Classifier Languages (分類詞語言)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "(a*) These languages draw no grammatical number distinction": [
-    {
-      "concept": "(a*) These languages draw no grammatical number distinction",
-      "zettel_id": "Linguistics-20251029-005",
-      "zettel_title": "\"Grammatical Number Distinction (語法數的區分)\"",
+      "concept": "The mass noun milk, by contrast, cannot combine with numerals without the aid of measure words, e",
+      "zettel_id": "Yi-2009-008",
+      "zettel_title": "Measure Words",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
-  "(CH1) Classifier languages have count nouns as well as mass nouns": [
+  "The count noun cow, taking the singular or plural form, can combine directly with numerals": [
     {
-      "concept": "(CH1) Classifier languages have count nouns as well as mass nouns",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
+      "concept": "The count noun cow, taking the singular or plural form, can combine directly with numerals",
+      "zettel_id": "Yi-2009-005",
+      "zettel_title": "Count Noun",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
-  "Count Noun Hypothesis": [
+  "These languages draw no grammatical number distinction": [
     {
-      "concept": "Count Noun Hypothesis",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "These languages draw no grammatical number distinction",
+      "zettel_id": "Yi-2009-006",
+      "zettel_title": "Grammatical Number Distinction",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
-  "Mass Nouns": [
+  "There are languages that use additional expressions called (numeral) classifiers in their translatio": [
     {
-      "concept": "Mass Nouns",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
-      "concept_type": "tag",
+      "concept": "There are languages that use additional expressions called (numeral) classifiers in their translatio",
+      "zettel_id": "Yi-2009-007",
+      "zettel_title": "Classifiers (CL)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Mass Nouns",
-      "zettel_id": "Linguistics-20251029-009",
-      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Mass Nouns",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Morphosyntax": [
-    {
-      "concept": "Morphosyntax",
-      "zettel_id": "Linguistics-20251029-006",
-      "zettel_title": "\"Count Noun Hypothesis (可數名詞假說)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
   "I shall argue that Chinese, like many other classifier languages, has count nouns because it has a c": [
     {
       "concept": "I shall argue that Chinese, like many other classifier languages, has count nouns because it has a c",
-      "zettel_id": "Linguistics-20251029-007",
-      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
+      "zettel_id": "Yi-2009-009",
+      "zettel_title": "\"geh\" (各) as a marker of count nouns",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Yi-2009",
+      "paper_id": 2
+    }
+  ],
+  "And size adjectives, as Bunt (1985, p": [
+    {
+      "concept": "And size adjectives, as Bunt (1985, p",
+      "zettel_id": "Yi-2009-010",
+      "zettel_title": "Size Adjectives as count noun markers",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Yi-2009",
+      "paper_id": 2
+    }
+  ],
+  "The crucial point is that among the numeratives of Chinese (or any other classifier language), there": [
+    {
+      "concept": "The crucial point is that among the numeratives of Chinese (or any other classifier language), there",
+      "zettel_id": "Yi-2009-011",
+      "zettel_title": "Numeratives of Chinese",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
+      "domain": "Yi-2009",
       "paper_id": 2
     }
   ],
-  "Quantifier": [
+  "henduo ‘a lot’ is the Chinese analogue of many and much": [
     {
-      "concept": "Quantifier",
-      "zettel_id": "Linguistics-20251029-007",
-      "zettel_title": "\"Quantifier 'geh' (量詞 '各')\"",
-      "concept_type": "tag",
+      "concept": "henduo ‘a lot’ is the Chinese analogue of many and much",
+      "zettel_id": "Yi-2009-012",
+      "zettel_title": "Counterparts of \"many\" and \"much\" in Chinese",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Yi-2009",
+      "paper_id": 2
+    }
+  ],
+  "Perceptual symbols are the residues of a perceptual experience, stored as patterns of activation in ": [
+    {
+      "concept": "Perceptual symbols are the residues of a perceptual experience, stored as patterns of activation in ",
+      "zettel_id": "Zwaan-2002-001",
+      "zettel_title": "Perceptual Symbols（感知符號）",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "(C1) “ Mass nouns do not take the individual classifier” ge, 個 (ibid": [
+  "Barsalou hypothesized that perceptual symbols are used in perceptual simulations that make up human ": [
     {
-      "concept": "(C1) “ Mass nouns do not take the individual classifier” ge, 個 (ibid",
-      "zettel_id": "Linguistics-20251029-008",
-      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
+      "concept": "Barsalou hypothesized that perceptual symbols are used in perceptual simulations that make up human ",
+      "zettel_id": "Zwaan-2002-002",
+      "zettel_title": "Perceptual Simulation（感知模擬）",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2002",
+      "paper_id": 23
+    }
+  ],
+  "According to most theories of language comprehension, the linguistic input would be converted to a p": [
+    {
+      "concept": "According to most theories of language comprehension, the linguistic input would be converted to a p",
+      "zettel_id": "Zwaan-2002-003",
+      "zettel_title": "Amodal Propositional Representation（非模態命題表徵）",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2002",
+      "paper_id": 23
+    }
+  ],
+  "Responses were significantly faster when there was a match between implied orientation and pictured ": [
+    {
+      "concept": "Responses were significantly faster when there was a match between implied orientation and pictured ",
+      "zettel_id": "Zwaan-2002-004",
+      "zettel_title": "Match/Mismatch Effect（匹配/不匹配效應）",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2002",
+      "paper_id": 23
+    }
+  ],
+  "First, if language comprehenders represent the implied orientation of objects, they should also repr": [
+    {
+      "concept": "First, if language comprehenders represent the implied orientation of objects, they should also repr",
+      "zettel_id": "Zwaan-2002-005",
+      "zettel_title": "Implied Shape（暗示形狀）",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2002",
+      "paper_id": 23
+    }
+  ],
+  "In Experiment 1, we used the same recognition paradigm as in our previous study (Stanfield & Zwaan, ": [
+    {
+      "concept": "In Experiment 1, we used the same recognition paradigm as in our previous study (Stanfield & Zwaan, ",
+      "zettel_id": "Zwaan-2002-006",
+      "zettel_title": "Recognition Paradigm（辨識範式）",
       "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Yuen Ren Chao": [
+  "In a second extension of our earlier work, we used a naming task in Experiment 2": [
     {
-      "concept": "Yuen Ren Chao",
-      "zettel_id": "Linguistics-20251029-008",
-      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
-      "concept_type": "tag",
+      "concept": "In a second extension of our earlier work, we used a naming task in Experiment 2",
+      "zettel_id": "Zwaan-2002-007",
+      "zettel_title": "Naming Task（命名任務）",
+      "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Classifiers": [
+  "Responses were significantly faster when sentence and picture matched than when they mismatched, F(1": [
     {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-008",
-      "zettel_title": "\"Chao's Tests for Count Nouns (趙元任的可數名詞測試)\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "Linguistics",
-      "paper_id": 2
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-013",
-      "zettel_title": "\"Classifiers 的個體化功能\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-014",
-      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-015",
-      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-016",
-      "zettel_title": "\"排序用法 (Ordering Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-017",
-      "zettel_title": "\"指稱用法 (Referring Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-018",
-      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-019",
-      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Classifiers",
-      "zettel_id": "Linguistics-20251029-020",
-      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Chao draws a “formal” or syntactic distinction between mass and count nouns of Chinese": [
-    {
-      "concept": "Chao draws a “formal” or syntactic distinction between mass and count nouns of Chinese",
-      "zettel_id": "Linguistics-20251029-009",
-      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Syntactic": [
-    {
-      "concept": "Syntactic",
-      "zettel_id": "Linguistics-20251029-009",
-      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Distinction": [
-    {
-      "concept": "Distinction",
-      "zettel_id": "Linguistics-20251029-009",
-      "zettel_title": "\"Formal (Syntactic) Distinction (形式（句法）區分)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "The linguistic distinction between mass and count nouns is closely related to the ontological distin": [
-    {
-      "concept": "The linguistic distinction between mass and count nouns is closely related to the ontological distin",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Quantity": [
-    {
-      "concept": "Quantity",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Number": [
-    {
-      "concept": "Number",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Ontology": [
-    {
-      "concept": "Ontology",
-      "zettel_id": "Linguistics-20251029-010",
-      "zettel_title": "\"Quantity vs. Number (量 vs. 數)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Many studies of animals’ and human infants’ cognition of number suggest that humans conceive individ": [
-    {
-      "concept": "Many studies of animals’ and human infants’ cognition of number suggest that humans conceive individ",
-      "zettel_id": "Linguistics-20251029-011",
-      "zettel_title": "\"Cognition of Number (數的認知)\"",
+      "concept": "Responses were significantly faster when sentence and picture matched than when they mismatched, F(1",
+      "zettel_id": "Zwaan-2002-008",
+      "zettel_title": "Experiment 1: Implied Shape Affects Object Recognition Latency",
       "concept_type": "core_concept",
       "card_type": "finding",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Number Cognition": [
+  "the mismatch condition yielded significantly slower responses than the match condition, F(1, 45) (ci": [
     {
-      "concept": "Number Cognition",
-      "zettel_id": "Linguistics-20251029-011",
-      "zettel_title": "\"Cognition of Number (數的認知)\"",
-      "concept_type": "tag",
+      "concept": "the mismatch condition yielded significantly slower responses than the match condition, F(1, 45) (ci",
+      "zettel_id": "Zwaan-2002-009",
+      "zettel_title": "Experiment 2: Implied Shape Affects Object Naming Time",
+      "concept_type": "core_concept",
       "card_type": "finding",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Infants": [
+  "The sentences in this condition did not imply anything about the shape of the object (e": [
     {
-      "concept": "Infants",
-      "zettel_id": "Linguistics-20251029-011",
-      "zettel_title": "\"Cognition of Number (數的認知)\"",
-      "concept_type": "tag",
+      "concept": "The sentences in this condition did not imply anything about the shape of the object (e",
+      "zettel_id": "Zwaan-2002-010",
+      "zettel_title": "Neutral Condition in Experiment 2（實驗2中的中性條件）",
+      "concept_type": "core_concept",
       "card_type": "finding",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Animals": [
+  "More extensive research is needed before firmer conclusions can be reached regarding the default rep": [
     {
-      "concept": "Animals",
-      "zettel_id": "Linguistics-20251029-011",
-      "zettel_title": "\"Cognition of Number (數的認知)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "Mass vs Count": [
-    {
-      "concept": "Mass vs Count",
-      "zettel_id": "Linguistics-20251029-011",
-      "zettel_title": "\"Cognition of Number (數的認知)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Linguistics",
-      "paper_id": 2
-    }
-  ],
-  "But this argument for the Mass Noun Hypothesis has a conspicuous prob-lem": [
-    {
-      "concept": "But this argument for the Mass Noun Hypothesis has a conspicuous prob-lem",
-      "zettel_id": "Linguistics-20251029-012",
-      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
+      "concept": "More extensive research is needed before firmer conclusions can be reached regarding the default rep",
+      "zettel_id": "Zwaan-2002-011",
+      "zettel_title": "Default Representation of Object Shapes（物體形狀的預設表徵）",
       "concept_type": "core_concept",
       "card_type": "question",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2002",
+      "paper_id": 23
     }
   ],
-  "Future Research": [
+  "These findings are consistent with the idea (e": [
     {
-      "concept": "Future Research",
-      "zettel_id": "Linguistics-20251029-012",
-      "zettel_title": "\"Future Research Directions (未來研究方向)\"",
-      "concept_type": "tag",
+      "concept": "These findings are consistent with the idea (e",
+      "zettel_id": "Zwaan-2002-012",
+      "zettel_title": "Implications for Theories of Language Comprehension（對語言理解理論的影響）",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2002",
+      "paper_id": 23
+    }
+  ],
+  "Thenotionoflanguagecomprehensionasmentalsimulationhasbecomepopularincognitivescience": [
+    {
+      "concept": "Thenotionoflanguagecomprehensionasmentalsimulationhasbecomepopularincognitivescience",
+      "zettel_id": "Zwaan-2012-001",
+      "zettel_title": "語言理解的心智模擬",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Abstract, amodal, and arbitrary symbolshavenoconnectiontoactualexperience;theyarefloatingfreeinsomem": [
+    {
+      "concept": "Abstract, amodal, and arbitrary symbolshavenoconnectiontoactualexperience;theyarefloatingfreeinsomem",
+      "zettel_id": "Zwaan-2012-002",
+      "zettel_title": "接地問題",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Participants read a sentence in which the orientation of an object is implied, rather than stated ex": [
+    {
+      "concept": "Participants read a sentence in which the orientation of an object is implied, rather than stated ex",
+      "zettel_id": "Zwaan-2012-003",
+      "zettel_title": "句子-圖片驗證任務",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Participants were faster to verify pictures that matched the implied orientation than pictures that ": [
+    {
+      "concept": "Participants were faster to verify pictures that matched the implied orientation than pictures that ",
+      "zettel_id": "Zwaan-2012-004",
+      "zettel_title": "物件方向匹配效應",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "A significant match effect was obtained, which appeared more robust than the orientation effect, as ": [
+    {
+      "concept": "A significant match effect was obtained, which appeared more robust than the orientation effect, as ",
+      "zettel_id": "Zwaan-2012-005",
+      "zettel_title": "物件形狀匹配效應",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Connell obtained faster picture verification responses when the color mismatched than when it matche": [
+    {
+      "concept": "Connell obtained faster picture verification responses when the color mismatched than when it matche",
+      "zettel_id": "Zwaan-2012-006",
+      "zettel_title": "物件顏色匹配效應（矛盾的結果）",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Wearguethattheseresultssupportmentalsimulationtheory,showtheimportanceofreplicationstudies,andshowth": [
+    {
+      "concept": "Wearguethattheseresultssupportmentalsimulationtheory,showtheimportanceofreplicationstudies,andshowth",
+      "zettel_id": "Zwaan-2012-007",
+      "zettel_title": "線上資料收集的可行性",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "An adapted version of the Vividness of Visual Imagery Questionnaire(VVIQ[33])wasused": [
+    {
+      "concept": "An adapted version of the Vividness of Visual Imagery Questionnaire(VVIQ[33])wasused",
+      "zettel_id": "Zwaan-2012-008",
+      "zettel_title": "視覺意象鮮明度問卷 (VVIQ)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Zwaan-2012",
+      "paper_id": 28
+    }
+  ],
+  "Although imagery ability and imagery preference are related to cognitive processes if they involve s": [
+    {
+      "concept": "Although imagery ability and imagery preference are related to cognitive processes if they involve s",
+      "zettel_id": "Zwaan-2012-009",
+      "zettel_title": "視覺意象與心智模擬的關係",
+      "concept_type": "core_concept",
       "card_type": "question",
-      "domain": "Linguistics",
-      "paper_id": 2
+      "domain": "Zwaan-2012",
+      "paper_id": 28
     }
   ],
-  "The primary semantic function of classifiers, including both sortal classifiers andmeasurewords,isto": [
+  "Our aim here is to examine part of the firmness of the empirical base for mental simulation in langu": [
     {
-      "concept": "The primary semantic function of classifiers, including both sortal classifiers andmeasurewords,isto",
-      "zettel_id": "Linguistics-20251029-013",
-      "zettel_title": "\"Classifiers 的個體化功能\"",
+      "concept": "Our aim here is to examine part of the firmness of the empirical base for mental simulation in langu",
+      "zettel_id": "Zwaan-2012-010",
+      "zettel_title": "複製研究的重要性",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
+      "domain": "Zwaan-2012",
+      "paper_id": 28
     }
   ],
-  "Chinese Linguistics": [
+  "One can think of exact and conceptual replications as being on a continuum, where by one endpoint (‘": [
     {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-013",
-      "zettel_title": "\"Classifiers 的個體化功能\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-014",
-      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-015",
-      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-016",
-      "zettel_title": "\"排序用法 (Ordering Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-017",
-      "zettel_title": "\"指稱用法 (Referring Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-018",
-      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-019",
-      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Chinese Linguistics",
-      "zettel_id": "Linguistics-20251029-020",
-      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Individuation": [
-    {
-      "concept": "Individuation",
-      "zettel_id": "Linguistics-20251029-013",
-      "zettel_title": "\"Classifiers 的個體化功能\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Semantic Function": [
-    {
-      "concept": "Semantic Function",
-      "zettel_id": "Linguistics-20251029-013",
-      "zettel_title": "\"Classifiers 的個體化功能\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Semantic Function",
-      "zettel_id": "Linguistics-20251029-018",
-      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "This primary function leads to threetypesofthemostfrequentusagesofclassifiersinChineseNPs:enumeratin": [
-    {
-      "concept": "This primary function leads to threetypesofthemostfrequentusagesofclassifiersinChineseNPs:enumeratin",
-      "zettel_id": "Linguistics-20251029-014",
-      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
+      "concept": "One can think of exact and conceptual replications as being on a continuum, where by one endpoint (‘",
+      "zettel_id": "Zwaan-2012-011",
+      "zettel_title": "精確複製與概念複製",
       "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
+      "domain": "Zwaan-2012",
+      "paper_id": 28
     }
   ],
-  "Noun Phrases": [
+  "It is puzzling that the effect of color is the reverse of that of orientation and shape": [
     {
-      "concept": "Noun Phrases",
-      "zettel_id": "Linguistics-20251029-014",
-      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Usage": [
-    {
-      "concept": "Usage",
-      "zettel_id": "Linguistics-20251029-014",
-      "zettel_title": "\"Classifiers 在名詞短語中的三種用法\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Intheenumeratingusage,aclassifierprecedesthenoun andisprecededbynumerals,forexample,(cid:31)(cid:2)(": [
-    {
-      "concept": "Intheenumeratingusage,aclassifierprecedesthenoun andisprecededbynumerals,forexample,(cid:31)(cid:2)(",
-      "zettel_id": "Linguistics-20251029-015",
-      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
+      "concept": "It is puzzling that the effect of color is the reverse of that of orientation and shape",
+      "zettel_id": "Zwaan-2012-012",
+      "zettel_title": "物件顏色匹配反轉效應的潛在原因",
       "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Enumerating Usage": [
-    {
-      "concept": "Enumerating Usage",
-      "zettel_id": "Linguistics-20251029-015",
-      "zettel_title": "\"計數用法 (Enumerating Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "In the ordering usage, a classifier precedes the noun and is preceded by ordinal numbers, as in (cid": [
-    {
-      "concept": "In the ordering usage, a classifier precedes the noun and is preceded by ordinal numbers, as in (cid",
-      "zettel_id": "Linguistics-20251029-016",
-      "zettel_title": "\"排序用法 (Ordering Usage)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Ordering Usage": [
-    {
-      "concept": "Ordering Usage",
-      "zettel_id": "Linguistics-20251029-016",
-      "zettel_title": "\"排序用法 (Ordering Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Ordinal Numbers": [
-    {
-      "concept": "Ordinal Numbers",
-      "zettel_id": "Linguistics-20251029-016",
-      "zettel_title": "\"排序用法 (Ordering Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "In the referring usage,aclassifierprecedesthenounandisprecededbydemonstrativesfollowed byanoptionaln": [
-    {
-      "concept": "In the referring usage,aclassifierprecedesthenounandisprecededbydemonstrativesfollowed byanoptionaln",
-      "zettel_id": "Linguistics-20251029-017",
-      "zettel_title": "\"指稱用法 (Referring Usage)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Referring Usage": [
-    {
-      "concept": "Referring Usage",
-      "zettel_id": "Linguistics-20251029-017",
-      "zettel_title": "\"指稱用法 (Referring Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Demonstratives": [
-    {
-      "concept": "Demonstratives",
-      "zettel_id": "Linguistics-20251029-017",
-      "zettel_title": "\"指稱用法 (Referring Usage)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Boththeclassifier andthenumeral-classifier compoundcanbereduplicated for differentsemanticfunctions": [
-    {
-      "concept": "Boththeclassifier andthenumeral-classifier compoundcanbereduplicated for differentsemanticfunctions",
-      "zettel_id": "Linguistics-20251029-018",
-      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Reduplication": [
-    {
-      "concept": "Reduplication",
-      "zettel_id": "Linguistics-20251029-018",
-      "zettel_title": "\"Classifiers 的重疊 (Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Reduplication",
-      "zettel_id": "Linguistics-20251029-019",
-      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    },
-    {
-      "concept": "Reduplication",
-      "zettel_id": "Linguistics-20251029-020",
-      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "In examples like(cid:16)(cid:12)(cid:4)(cid:12)(cid:11)(cid:2)(cid:3)(cid:21)(cid:16)(cid:16)((cid:2": [
-    {
-      "concept": "In examples like(cid:16)(cid:12)(cid:4)(cid:12)(cid:11)(cid:2)(cid:3)(cid:21)(cid:16)(cid:16)((cid:2",
-      "zettel_id": "Linguistics-20251029-019",
-      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Emphasis": [
-    {
-      "concept": "Emphasis",
-      "zettel_id": "Linguistics-20251029-019",
-      "zettel_title": "\"量詞重疊 (Classifier Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "whenanumeral–classifiercompoundisreduplicated,itismostcommonlyused asanadverbtofocusontherepeatablea": [
-    {
-      "concept": "whenanumeral–classifiercompoundisreduplicated,itismostcommonlyused asanadverbtofocusontherepeatablea",
-      "zettel_id": "Linguistics-20251029-020",
-      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
-      "concept_type": "core_concept",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "Adverbial Function": [
-    {
-      "concept": "Adverbial Function",
-      "zettel_id": "Linguistics-20251029-020",
-      "zettel_title": "\"數詞-量詞組合重疊 (Numeral-Classifier Compound Reduplication)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Linguistics",
-      "paper_id": 9
-    }
-  ],
-  "AI代理者": [
-    {
-      "concept": "AI代理者",
-      "zettel_id": "Research-20251029-001",
-      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "認知科學": [
-    {
-      "concept": "認知科學",
-      "zettel_id": "Research-20251029-001",
-      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    },
-    {
-      "concept": "認知科學",
-      "zettel_id": "Research-20251029-003",
-      "zettel_title": "\"認知科學研究的通用性\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    },
-    {
-      "concept": "認知科學",
-      "zettel_id": "Research-20251029-007",
-      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
-      "concept_type": "tag",
       "card_type": "question",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "Zwaan-2012",
+      "paper_id": 28
     }
   ],
-  "研究參與者": [
+  "Many argue that there is a reproducibility crisis in psychology": [
     {
-      "concept": "研究參與者",
-      "zettel_id": "Research-20251029-001",
-      "zettel_title": "\"AI代理者 (AI Surrogates)\"",
-      "concept_type": "tag",
+      "concept": "Many argue that there is a reproducibility crisis in psychology",
+      "zettel_id": "Zwaan-2018-001",
+      "zettel_title": "再現性危機 (Reproducibility Crisis)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "Zwaan-2018",
+      "paper_id": 29
     }
   ],
-  "AI進展": [
+  "Coincident with the start of the reproducibility debate was the advent of online experimentation": [
     {
-      "concept": "AI進展",
-      "zettel_id": "Research-20251029-002",
-      "zettel_title": "\"對AI代理者的熱情\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
+      "concept": "Coincident with the start of the reproducibility debate was the advent of online experimentation",
+      "zettel_id": "Zwaan-2018-002",
+      "zettel_title": "線上實驗 (Online Experimentation)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
     }
   ],
-  "認知科學研究": [
+  "Of particular concern for reproducibility, participants may participate in studies in which they hav": [
     {
-      "concept": "認知科學研究",
-      "zettel_id": "Research-20251029-002",
-      "zettel_title": "\"對AI代理者的熱情\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "通用性": [
-    {
-      "concept": "通用性",
-      "zettel_id": "Research-20251029-003",
-      "zettel_title": "\"認知科學研究的通用性\"",
-      "concept_type": "tag",
+      "concept": "Of particular concern for reproducibility, participants may participate in studies in which they hav",
+      "zettel_id": "Zwaan-2018-003",
+      "zettel_title": "參與者非天真性 (Participant Nonnaiveté)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "Crowd-sourcing websites, such as Amazon Mechanical Turk, offered the prospect of more efficient, pow": [
+    {
+      "concept": "Crowd-sourcing websites, such as Amazon Mechanical Turk, offered the prospect of more efficient, pow",
+      "zettel_id": "Zwaan-2018-004",
+      "zettel_title": "Mechanical Turk (MTurk)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "Although concerns with reproducibility span the entire field of psychology and beyond, results in co": [
+    {
+      "concept": "Although concerns with reproducibility span the entire field of psychology and beyond, results in co",
+      "zettel_id": "Zwaan-2018-005",
+      "zettel_title": "認知心理學的穩健性 (Robustness of Cognitive Psychology)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "Wetestedthishypothesisbyreplicatingeachstudyinthemostconservativecase—inwhichallparticipantsencounte": [
+    {
+      "concept": "Wetestedthishypothesisbyreplicatingeachstudyinthemostconservativecase—inwhichallparticipantsencounte",
+      "zettel_id": "Zwaan-2018-006",
+      "zettel_title": "實驗設計的保守性 (Conservative Experimental Design)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "Inthesecondwave,halfofthesubjectsparticipatedinanexactcopyoftheexperimenttheyhadparticipatedinbefore": [
+    {
+      "concept": "Inthesecondwave,halfofthesubjectsparticipatedinanexactcopyoftheexperimenttheyhadparticipatedinbefore",
+      "zettel_id": "Zwaan-2018-007",
+      "zettel_title": "兩種刺激條件 (Two Stimuli Conditions)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "However, studies in cognitive psychology typically have nontransparent research goals, making memory": [
+    {
+      "concept": "However, studies in cognitive psychology typically have nontransparent research goals, making memory",
+      "zettel_id": "Zwaan-2018-008",
+      "zettel_title": "隱蔽性研究目標 (Opaque Goals)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "We investigated nine well-known effects from the cognitive psychology literature—three each from the": [
+    {
+      "concept": "We investigated nine well-known effects from the cognitive psychology literature—three each from the",
+      "zettel_id": "Zwaan-2018-009",
+      "zettel_title": "九種經典認知效應 (Nine Well-Known Effects)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "foundthattheyarehighlyreproducible": [
+    {
+      "concept": "foundthattheyarehighlyreproducible",
+      "zettel_id": "Zwaan-2018-010",
+      "zettel_title": "高度可重複性 (Highly Reproducible)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "Apparently, some cognitive tasks are so constraining that they encapsulate behavior from external in": [
+    {
+      "concept": "Apparently, some cognitive tasks are so constraining that they encapsulate behavior from external in",
+      "zettel_id": "Zwaan-2018-011",
+      "zettel_title": "情境封裝 (Encapsulate Behavior)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "The jury is still out on whether such secondary findings are as robust as the more basic findings we": [
+    {
+      "concept": "The jury is still out on whether such secondary findings are as robust as the more basic findings we",
+      "zettel_id": "Zwaan-2018-012",
+      "zettel_title": "二級研究發現的穩健性 (Robustness of Secondary Findings)",
+      "concept_type": "core_concept",
+      "card_type": "question",
+      "domain": "Zwaan-2018",
+      "paper_id": 29
+    }
+  ],
+  "According to grounded cognition theories, the features that are activated during language comprehens": [
+    {
+      "concept": "According to grounded cognition theories, the features that are activated during language comprehens",
+      "zettel_id": "vanZuijlen-2024-001",
+      "zettel_title": "具身認知 (Grounded Cognition)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "In this so-called sentence-picture verification task, participants decide whether the object present": [
+    {
+      "concept": "In this so-called sentence-picture verification task, participants decide whether the object present",
+      "zettel_id": "vanZuijlen-2024-002",
+      "zettel_title": "句子-圖片驗證任務 (Sentence-Picture Verification Task)",
+      "concept_type": "core_concept",
+      "card_type": "method",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evide": [
+    {
+      "concept": "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evide",
+      "zettel_id": "vanZuijlen-2024-003",
+      "zettel_title": "顏色匹配效應 (Color-Match Effect)",
+      "concept_type": "core_concept",
+      "card_type": "finding",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
     },
     {
-      "concept": "通用性",
-      "zettel_id": "Research-20251029-007",
-      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "研究效度": [
-    {
-      "concept": "研究效度",
-      "zettel_id": "Research-20251029-003",
-      "zettel_title": "\"認知科學研究的通用性\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "適用範圍": [
-    {
-      "concept": "適用範圍",
-      "zettel_id": "Research-20251029-003",
-      "zettel_title": "\"認知科學研究的通用性\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "認知偏誤": [
-    {
-      "concept": "認知偏誤",
-      "zettel_id": "Research-20251029-004",
-      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "研究局限": [
-    {
-      "concept": "研究局限",
-      "zettel_id": "Research-20251029-004",
-      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    },
-    {
-      "concept": "研究局限",
-      "zettel_id": "Research-20251029-008",
-      "zettel_title": "\"參與者樣本多樣性不足\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    },
-    {
-      "concept": "研究局限",
-      "zettel_id": "Research-20251029-009",
-      "zettel_title": "\"有限的實驗刺激與情境\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "AI代理者影響": [
-    {
-      "concept": "AI代理者影響",
-      "zettel_id": "Research-20251029-004",
-      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "錯誤信念": [
-    {
-      "concept": "錯誤信念",
-      "zettel_id": "Research-20251029-004",
-      "zettel_title": "\"通用性幻覺 (Illusions of Generalizability)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "LLM": [
-    {
-      "concept": "LLM",
-      "zettel_id": "Research-20251029-005",
-      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
-      "concept_type": "tag",
+      "concept": "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evide",
+      "zettel_id": "vanZuijlen-2024-009",
+      "zettel_title": "反應時間和錯誤率 (Reaction Time and Error Rates)",
+      "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
     }
   ],
-  "AI架構": [
+  "Pictures of objects are verified faster when they match the implied orientation, shape, and color in": [
     {
-      "concept": "AI架構",
-      "zettel_id": "Research-20251029-005",
-      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
-      "concept_type": "tag",
+      "concept": "Pictures of objects are verified faster when they match the implied orientation, shape, and color in",
+      "zettel_id": "vanZuijlen-2024-004",
+      "zettel_title": "心理模擬 (Mental Simulation)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "In the present study we investigated whether such mental simulations also underlie understanding of ": [
+    {
+      "concept": "In the present study we investigated whether such mental simulations also underlie understanding of ",
+      "zettel_id": "vanZuijlen-2024-005",
+      "zettel_title": "母語者與非母語者 (Native vs. Non-Native Speakers)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "A noticeable feature of the sentence-picture verification task is that there is a correlation betwee": [
+    {
+      "concept": "A noticeable feature of the sentence-picture verification task is that there is a correlation betwee",
+      "zettel_id": "vanZuijlen-2024-006",
+      "zettel_title": "策略性反應 (Strategic Responding)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "Crucially, we added color-match filler (i": [
+    {
+      "concept": "Crucially, we added color-match filler (i",
+      "zettel_id": "vanZuijlen-2024-007",
+      "zettel_title": "填充試驗 (Filler Trials)",
+      "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
     }
   ],
-  "認知模擬": [
+  "The strength of mental simulations may depend on proficiency in the second language": [
     {
-      "concept": "認知模擬",
-      "zettel_id": "Research-20251029-005",
-      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
-      "concept_type": "tag",
+      "concept": "The strength of mental simulations may depend on proficiency in the second language",
+      "zettel_id": "vanZuijlen-2024-008",
+      "zettel_title": "語言熟練程度 (Language Proficiency)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "If sensory simulation is an integral part of language comprehension, simulations should be automatic": [
+    {
+      "concept": "If sensory simulation is an integral part of language comprehension, simulations should be automatic",
+      "zettel_id": "vanZuijlen-2024-010",
+      "zettel_title": "自動化處理 (Automatic Processing)",
+      "concept_type": "core_concept",
+      "card_type": "concept",
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
+    }
+  ],
+  "In the present study, we investigated if a color-match effect in the sentence-picture verification t": [
+    {
+      "concept": "In the present study, we investigated if a color-match effect in the sentence-picture verification t",
+      "zettel_id": "vanZuijlen-2024-011",
+      "zettel_title": "消除相關性 (Eliminating Correlation)",
+      "concept_type": "core_concept",
       "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
     }
   ],
-  "技術基礎": [
+  "Language comprehenders use previous perceptual-motor experiences to construct simulations of objects": [
     {
-      "concept": "技術基礎",
-      "zettel_id": "Research-20251029-005",
-      "zettel_title": "\"大型語言模型做為AI代理者 (LLMs as AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "LLM限制": [
-    {
-      "concept": "LLM限制",
-      "zettel_id": "Research-20251029-006",
-      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "數據偏見": [
-    {
-      "concept": "數據偏見",
-      "zettel_id": "Research-20251029-006",
-      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "缺乏變異性": [
-    {
-      "concept": "缺乏變異性",
-      "zettel_id": "Research-20251029-006",
-      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "模擬局限": [
-    {
-      "concept": "模擬局限",
-      "zettel_id": "Research-20251029-006",
-      "zettel_title": "\"基於LLM的AI代理者批判 (Critiques of LLM-based AI Surrogates)\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "研究挑戰": [
-    {
-      "concept": "研究挑戰",
-      "zettel_id": "Research-20251029-007",
-      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "AI解決方案": [
-    {
-      "concept": "AI解決方案",
-      "zettel_id": "Research-20251029-007",
-      "zettel_title": "\"AI代理者欲解決的通用性限制\"",
-      "concept_type": "tag",
-      "card_type": "question",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "樣本偏差": [
-    {
-      "concept": "樣本偏差",
-      "zettel_id": "Research-20251029-008",
-      "zettel_title": "\"參與者樣本多樣性不足\"",
-      "concept_type": "tag",
+      "concept": "Language comprehenders use previous perceptual-motor experiences to construct simulations of objects",
+      "zettel_id": "vanZuijlen-2024-012",
+      "zettel_title": "知覺符號系統 (Perceptual Symbols System)",
+      "concept_type": "core_concept",
       "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "多樣性": [
-    {
-      "concept": "多樣性",
-      "zettel_id": "Research-20251029-008",
-      "zettel_title": "\"參與者樣本多樣性不足\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "人類研究": [
-    {
-      "concept": "人類研究",
-      "zettel_id": "Research-20251029-008",
-      "zettel_title": "\"參與者樣本多樣性不足\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "實驗設計": [
-    {
-      "concept": "實驗設計",
-      "zettel_id": "Research-20251029-009",
-      "zettel_title": "\"有限的實驗刺激與情境\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "情境限制": [
-    {
-      "concept": "情境限制",
-      "zettel_id": "Research-20251029-009",
-      "zettel_title": "\"有限的實驗刺激與情境\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "刺激範圍": [
-    {
-      "concept": "刺激範圍",
-      "zettel_id": "Research-20251029-009",
-      "zettel_title": "\"有限的實驗刺激與情境\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "論文主旨": [
-    {
-      "concept": "論文主旨",
-      "zettel_id": "Research-20251029-010",
-      "zettel_title": "\"AI代理者對通用性的核心論點\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "批判性分析": [
-    {
-      "concept": "批判性分析",
-      "zettel_id": "Research-20251029-010",
-      "zettel_title": "\"AI代理者對通用性的核心論點\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "內在限制": [
-    {
-      "concept": "內在限制",
-      "zettel_id": "Research-20251029-010",
-      "zettel_title": "\"AI代理者對通用性的核心論點\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "排除性": [
-    {
-      "concept": "排除性",
-      "zettel_id": "Research-20251029-010",
-      "zettel_title": "\"AI代理者對通用性的核心論點\"",
-      "concept_type": "tag",
-      "card_type": "finding",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "AI模型": [
-    {
-      "concept": "AI模型",
-      "zettel_id": "Research-20251029-011",
-      "zettel_title": "\"AI代理者的架構類型\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "提示工程": [
-    {
-      "concept": "提示工程",
-      "zettel_id": "Research-20251029-011",
-      "zettel_title": "\"AI代理者的架構類型\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "增強模型": [
-    {
-      "concept": "增強模型",
-      "zettel_id": "Research-20251029-011",
-      "zettel_title": "\"AI代理者的架構類型\"",
-      "concept_type": "tag",
-      "card_type": "method",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "研究方法論": [
-    {
-      "concept": "研究方法論",
-      "zettel_id": "Research-20251029-012",
-      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "批判性理論": [
-    {
-      "concept": "批判性理論",
-      "zettel_id": "Research-20251029-012",
-      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "環境影響": [
-    {
-      "concept": "環境影響",
-      "zettel_id": "Research-20251029-012",
-      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
-    }
-  ],
-  "實驗局限": [
-    {
-      "concept": "實驗局限",
-      "zettel_id": "Research-20251029-012",
-      "zettel_title": "\"DEAD批判 (DEAD Critique)\"",
-      "concept_type": "tag",
-      "card_type": "concept",
-      "domain": "Research",
-      "paper_id": 31
+      "domain": "vanZuijlen-2024",
+      "paper_id": 25
     }
   ]
 }

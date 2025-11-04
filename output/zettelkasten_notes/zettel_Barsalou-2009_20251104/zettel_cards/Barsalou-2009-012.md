@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-012
 title: "符號主義認知（Symbolic Cognition）"
-tags: [[認知科學], [符號], [計算]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 符號主義認知（Symbolic Cognition）  > **核心**: [An older theory suggesting that cognition is primarily based on abstract symbols and rules.]  ## 說明 符號主義認知是"
 ---
+
 
 # 符號主義認知（Symbolic Cognition）
 

@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-003
 title: "命名過程"
-tags: [認知心理學, 語言產生, 詞彙提取, 命名]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: concept
+summary: "# 命名過程  > **核心**: 無核心，論文無摘要，但研究涉及的認知過程為命名。  ## 說明 命名過程是指將心理表徵（如物體、事件或概念）與其對應的語言標籤（詞語）聯繫起來的認知過程。 這個過程包括詞彙提取、語音編碼和發音等階段。語義情境可以影響命名過程的早期階段，例如詞彙選擇。  ##"
 ---
+
 
 # 命名過程
 

@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-006
 title: "實驗刺激"
-tags: [實驗設計, 心理學實驗, 刺激材料, 日語]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: method
+summary: "# 實驗刺激  > **核心**: 無核心，論文無摘要，實驗刺激的設計對於研究至關重要。  ## 說明 為了研究語義情境效應，實驗中需要使用精心設計的刺激材料。 這些材料可能包括圖片、詞語或句子。 刺激材料的選擇應該考慮到其語義關聯性、頻率和語法結構。  ## 連結網絡   **基於** → ["
 ---
+
 
 # 實驗刺激
 

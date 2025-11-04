@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-002
 title: "句子-圖片驗證任務 (Sentence-Picture Verification Task)"
-tags: [實驗方法, 語言理解, 心理學]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: method
+summary: "# 句子-圖片驗證任務 (Sentence-Picture Verification Task)  > **核心**: "In this so-called sentence-picture verification task, participants decide whether the o"
 ---
+
 
 # 句子-圖片驗證任務 (Sentence-Picture Verification Task)
 

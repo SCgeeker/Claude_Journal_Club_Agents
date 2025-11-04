@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-008
 title: "屬性穩定模擬假設"
-tags: [[認知心理學], [心理語言學], [心理模擬], [假設]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: concept
+summary: "# 屬性穩定模擬假設  > **核心**: "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject property is involved...we could"
 ---
+
 
 # 屬性穩定模擬假設
 

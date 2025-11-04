@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-010
-title: "層次化預測編碼（Hierarchical Predictive Coding）"
-tags: [[預測], [層次], [大腦]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+title: 層次化預測編碼（Hierarchical Predictive Coding）
+summary: An extension of predictive coding, suggesting multiple levels of prediction and error correction within the brain.
 ---
+
 
 # 層次化預測編碼（Hierarchical Predictive Coding）
 

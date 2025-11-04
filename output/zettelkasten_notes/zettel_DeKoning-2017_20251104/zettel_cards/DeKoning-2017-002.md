@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-002
 title: "匹配優勢 (Match Advantage)"
-tags: [[認知心理學], [心理語言學], [句圖驗證], [心理模擬]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: finding
+summary: "# 匹配優勢 (Match Advantage)  > **核心**: "Faster verification times on matching trials (match advantage) are considered supportive to the notion that rea"
 ---
+
 
 # 匹配優勢 (Match Advantage)
 

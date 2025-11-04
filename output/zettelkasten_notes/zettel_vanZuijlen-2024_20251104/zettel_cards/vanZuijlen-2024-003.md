@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-003
 title: "顏色匹配效應 (Color-Match Effect)"
-tags: [實驗結果, 語言理解, 顏色]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: finding
+summary: "# 顏色匹配效應 (Color-Match Effect)  > **核心**: "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evidence fo"
 ---
+
 
 # 顏色匹配效應 (Color-Match Effect)
 

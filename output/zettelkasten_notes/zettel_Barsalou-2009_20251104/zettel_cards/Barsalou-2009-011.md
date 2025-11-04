@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-011
 title: "概念整合（Conceptual Integration）"
-tags: [[概念], [整合], [認知]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 概念整合（Conceptual Integration）  > **核心**: [The process of combining multiple concepts to form new, more complex understandings.]  ## 說明 概念整合是指將多個概念組"
 ---
+
 
 # 概念整合（Conceptual Integration）
 

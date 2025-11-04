@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-006
 title: "眼動追蹤 (Eye Tracking)"
-tags: [眼動追蹤, 認知, 實驗, 方法論]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: method
+summary: "# 眼動追蹤 (Eye Tracking)  > **核心**: 假定论文使用了眼动追踪，核心句可以是 “Eye tracking technology was used to monitor participants' gaze patterns during a categorization"
 ---
+
 
 # 眼動追蹤 (Eye Tracking)
 

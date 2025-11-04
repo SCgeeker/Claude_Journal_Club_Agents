@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-001
 title: "語言相對性假設 (Linguistic Relativity)"
-tags: [語言學, 認知科學, 語言相對性, 心理學]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: concept
+summary: "# 語言相對性假設 (Linguistic Relativity)  > **核心**: 假定论文讨论了语言相对性，核心句可以是 “Language shapes the way we think and perceive the world.”  ## 說明 語言相對性假設（又稱薩丕爾-沃夫假"
 ---
+
 
 # 語言相對性假設 (Linguistic Relativity)
 

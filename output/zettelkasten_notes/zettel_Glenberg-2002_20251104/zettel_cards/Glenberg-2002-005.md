@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-005
 title: "索引假說 (Indexical Hypothesis, IH)"
-tags: [索引假說, 知覺符號, 具身認知, 意義建構]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: concept
+summary: "# 索引假說 (Indexical Hypothesis, IH)  > **核心**: "According to the IH, three processes transform words and syntax into an action-based meaning. First, w"
 ---
+
 
 # 索引假說 (Indexical Hypothesis, IH)
 

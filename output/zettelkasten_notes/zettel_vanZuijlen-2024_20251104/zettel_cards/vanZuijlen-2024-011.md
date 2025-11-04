@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-011
 title: "消除相關性 (Eliminating Correlation)"
-tags: [實驗設計, 控制變數, 顏色匹配]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: method
+summary: "# 消除相關性 (Eliminating Correlation)  > **核心**: "In the present study, we investigated if a color-match effect in the sentence-picture verification tas"
 ---
+
 
 # 消除相關性 (Eliminating Correlation)
 

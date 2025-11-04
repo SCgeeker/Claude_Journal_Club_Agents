@@ -286,14 +286,27 @@ class ZettelConceptAnalyzer:
         with open(output_path / "zettel_hierarchy.json", 'w', encoding='utf-8') as f:
             json.dump(hierarchy, f, ensure_ascii=False, indent=2)
 
-        # 4. 統計摘要
+        # 4. 保存概念到資料庫
+        print(f"\n[5] Saving concepts to database...")
+        db_stats = self.save_concepts_to_database(concepts_dict)
+        print(f"    Inserted {db_stats['inserted_concepts']} unique concepts")
+        print(f"    Created {db_stats['concept_papers']} concept-paper links")
+        print(f"    Created {db_stats['concept_zettel']} concept-zettel links")
+
+        print(f"\n[6] Saving concept relations to database...")
+        relations_count = self.save_concept_relations_to_database(relations)
+        print(f"    Inserted {relations_count} concept relations")
+
+        # 5. 統計摘要
         summary = {
             'total_unique_concepts': total_concepts,
             'total_concept_mentions': total_concept_mentions,
             'concept_relations': len(relations),
             'domains': len(hierarchy),
             'domain_distribution': {d: {ct: len(c) for ct, c in card_types.items()}
-                                   for d, card_types in hierarchy.items()}
+                                   for d, card_types in hierarchy.items()},
+            'database_stats': db_stats,
+            'relations_saved': relations_count
         }
 
         print(f"\n{'='*70}")
@@ -303,10 +316,160 @@ class ZettelConceptAnalyzer:
         print(f"Total mentions: {summary['total_concept_mentions']}")
         print(f"Concept relations: {summary['concept_relations']}")
         print(f"Domains: {summary['domains']}")
+        print(f"Database saved: {summary['database_stats']['inserted_concepts']} concepts")
         print(f"\nAll reports saved to: {output_path}")
         print(f"{'='*70}\n")
 
         return summary
+
+    # ========== 6. 資料庫存儲 ==========
+
+    def save_concepts_to_database(self, concepts_dict: Dict[str, List[ZettelConcept]]) -> Dict:
+        """
+        將提取的概念保存到資料庫
+
+        Returns:
+            {
+                'total_concepts': int,
+                'inserted_concepts': int,
+                'concept_papers': int,
+                'concept_zettel': int
+            }
+        """
+        stats = {
+            'total_concepts': 0,
+            'inserted_concepts': 0,
+            'concept_papers': 0,
+            'concept_zettel': 0
+        }
+
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            cursor = conn.cursor()
+
+            # 遍歷所有概念
+            for concept_name, zettel_concepts in concepts_dict.items():
+                if not concept_name.strip():
+                    continue
+
+                stats['total_concepts'] += 1
+
+                # 確定概念類型
+                concept_type = 'core_concept' if any(zc.concept_type == 'core_concept' for zc in zettel_concepts) else 'tag'
+
+                # 確定主要領域
+                domains = [zc.domain for zc in zettel_concepts]
+                primary_domain = max(set(domains), key=domains.count) if domains else 'Unknown'
+
+                # 插入或更新概念
+                try:
+                    cursor.execute("""
+                        INSERT OR IGNORE INTO concepts (name, concept_type, domain, frequency)
+                        VALUES (?, ?, ?, ?)
+                    """, (concept_name, concept_type, primary_domain, len(zettel_concepts)))
+                    stats['inserted_concepts'] += cursor.rowcount
+                except Exception as e:
+                    print(f"Warning: Error inserting concept '{concept_name}': {e}")
+                    continue
+
+                # 獲取概念 ID
+                cursor.execute("SELECT id FROM concepts WHERE name = ?", (concept_name,))
+                concept_row = cursor.fetchone()
+                if not concept_row:
+                    continue
+
+                concept_id = concept_row[0]
+
+                # 插入概念-論文關聯
+                paper_ids = set()
+                zettel_ids = set()
+
+                for zc in zettel_concepts:
+                    if zc.paper_id:
+                        paper_ids.add(zc.paper_id)
+                    zettel_ids.add(zc.zettel_id)
+
+                for paper_id in paper_ids:
+                    try:
+                        cursor.execute("""
+                            INSERT OR IGNORE INTO concept_papers (concept_id, paper_id, zettel_count)
+                            VALUES (?, ?, ?)
+                        """, (concept_id, paper_id, sum(1 for zc in zettel_concepts if zc.paper_id == paper_id)))
+                        stats['concept_papers'] += cursor.rowcount
+                    except Exception:
+                        pass
+
+                # 插入概念-Zettel 關聯
+                for zc in zettel_concepts:
+                    try:
+                        cursor.execute("""
+                            INSERT OR IGNORE INTO concept_zettel (concept_id, zettel_id, paper_id)
+                            VALUES (?, ?, ?)
+                        """, (concept_id, zc.zettel_id, zc.paper_id))
+                        stats['concept_zettel'] += cursor.rowcount
+                    except Exception:
+                        pass
+
+            conn.commit()
+            conn.close()
+
+        except Exception as e:
+            print(f"Error saving concepts to database: {e}")
+
+        return stats
+
+    def save_concept_relations_to_database(self, relations: List[ConceptRelation]) -> int:
+        """
+        將概念關聯保存到資料庫
+
+        Returns:
+            成功保存的關聯數量
+        """
+        count = 0
+
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            cursor = conn.cursor()
+
+            for relation in relations:
+                try:
+                    # 獲取概念 ID
+                    cursor.execute("SELECT id FROM concepts WHERE name = ?", (relation.concept1,))
+                    concept1_row = cursor.fetchone()
+
+                    cursor.execute("SELECT id FROM concepts WHERE name = ?", (relation.concept2,))
+                    concept2_row = cursor.fetchone()
+
+                    if concept1_row and concept2_row:
+                        concept1_id = concept1_row[0]
+                        concept2_id = concept2_row[0]
+
+                        # 確保 concept1_id < concept2_id（避免重複）
+                        if concept1_id > concept2_id:
+                            concept1_id, concept2_id = concept2_id, concept1_id
+
+                        cursor.execute("""
+                            INSERT OR IGNORE INTO concept_relations
+                            (concept1_id, concept2_id, co_occurrence_count, association_strength, shared_zettel)
+                            VALUES (?, ?, ?, ?, ?)
+                        """, (
+                            concept1_id,
+                            concept2_id,
+                            relation.co_occurrence_count,
+                            relation.association_strength,
+                            json.dumps(relation.shared_zettel)
+                        ))
+                        count += cursor.rowcount
+                except Exception as e:
+                    pass
+
+            conn.commit()
+            conn.close()
+
+        except Exception as e:
+            print(f"Error saving concept relations to database: {e}")
+
+        return count
 
 
 if __name__ == "__main__":

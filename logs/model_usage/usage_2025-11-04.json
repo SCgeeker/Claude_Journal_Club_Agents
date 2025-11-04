@@ -26,18 +26,18 @@
     "google_gemini-2.0-flash-exp": {
       "provider": "google",
       "model": "gemini-2.0-flash-exp",
-      "requests": 67,
-      "successful": 67,
+      "requests": 75,
+      "successful": 75,
       "failed": 0,
-      "tokens": 511652,
+      "tokens": 559174,
       "cost": 0.0,
-      "avg_response_time": 23.562514077371628,
+      "avg_response_time": 24.08525596300761,
       "task_types": {}
     }
   },
   "total_cost": 0.0,
-  "total_requests": 77,
-  "total_tokens": 511652,
+  "total_requests": 85,
+  "total_tokens": 559174,
   "errors": [
     {
       "time": "2025-11-04T08:18:28.582310",

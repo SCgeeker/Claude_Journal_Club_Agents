@@ -1,12 +1,8 @@
 ---
-id: vanZuijlen-2024-006
 title: "策略性反應 (Strategic Responding)"
-tags: [實驗設計, 偏見, 認知策略]
-source: "" (None)
-paper_id: 25
-created: 2025-11-04
-type: concept
+summary: "# 策略性反應 (Strategic Responding)  > **核心**: "A noticeable feature of the sentence-picture verification task is that there is a correlation between the"
 ---
+
 
 # 策略性反應 (Strategic Responding)
 

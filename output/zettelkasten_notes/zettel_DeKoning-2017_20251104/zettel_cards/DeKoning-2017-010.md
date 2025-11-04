@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-010
 title: "內在與外在屬性區分的重要性"
-tags: [[認知心理學], [心理語言學], [心理模擬], [內在屬性], [外在屬性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: concept
+summary: "# 內在與外在屬性區分的重要性  > **核心**: "Together, our findings suggest that it could advance the interpretation of match advantages if distinctions were made be"
 ---
+
 
 # 內在與外在屬性區分的重要性
 

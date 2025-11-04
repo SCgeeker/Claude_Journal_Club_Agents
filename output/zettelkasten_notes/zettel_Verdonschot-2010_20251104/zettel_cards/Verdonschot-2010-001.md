@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-001
 title: "語義情境效應"
-tags: [語義學, 情境效應, 日語, 命名]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: concept
+summary: "# 語義情境效應  > **核心**: 無核心，論文無摘要，但研究主題為語義情境效應對日語命名之影響。  ## 說明 語義情境效應指的是目標刺激的處理受到周圍語義環境的影響。本研究旨在探討語義情境如何影響日語的命名過程。由於論文無摘要，此概念的具體定義將在研究方法和結果中進一步體現。  ## 連"
 ---
+
 
 # 語義情境效應
 

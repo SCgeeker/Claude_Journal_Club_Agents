@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-007
 title: "命名潛伏期"
-tags: [命名潛伏期, 反應時, 行為實驗, 心理計量學]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: method
+summary: "# 命名潛伏期  > **核心**: 無核心，論文無摘要，命名潛伏期通常是衡量命名效率的指標。  ## 說明 命名潛伏期是指從呈現刺激到參與者開始說出目標詞語之間的時間間隔。 它是衡量命名效率的常用指標。 較短的命名潛伏期通常表示更高的命名效率。  ## 連結網絡   **基於** → [[Ve"
 ---
+
 
 # 命名潛伏期
 

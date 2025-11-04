@@ -1,12 +1,8 @@
 ---
-id: Verdonschot-2010-011
 title: "統計顯著性"
-tags: [統計顯著性, p值, 假設檢驗, 科學研究]
-source: "Semantic Context Effects When Naming Japanese" (None)
-paper_id: 46
-created: 2025-11-04
-type: concept
+summary: "# 統計顯著性  > **核心**: 無核心，論文無摘要，統計顯著性是判斷研究結果是否可靠的標準。  ## 說明 統計顯著性是指在統計檢驗中，觀察到的結果不太可能是由於隨機誤差造成的。 通常使用p值來表示統計顯著性。 如果p值小於預先設定的顯著性水平（例如0.05），則認為結果具有統計顯著性。"
 ---
+
 
 # 統計顯著性
 

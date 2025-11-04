@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-001
 title: "知覺表徵的激活 (Activation of perceptual representations)"
-tags: [語言理解, 知覺, 表徵, 激活]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: concept
+summary: "# 知覺表徵的激活 (Activation of perceptual representations)  > **核心**: "Although many studies have investigated the activation of perceptual representation"
 ---
+
 
 # 知覺表徵的激活 (Activation of perceptual representations)
 

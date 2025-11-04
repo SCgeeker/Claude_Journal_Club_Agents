@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-010
 title: "語言影響認知的局限性"
-tags: [語言, 認知, 爭議, 局限性]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: question
+summary: "# 語言影響認知的局限性  > **核心**: 假定论文暗示了语言影响的局限性，核心句可以是 “The extent to which language truly *determines* thought remains a topic of debate.”  ## 說明 儘管有證據表明語言"
 ---
+
 
 # 語言影響認知的局限性
 

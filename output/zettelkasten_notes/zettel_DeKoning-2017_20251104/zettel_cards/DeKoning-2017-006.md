@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-006
 title: "內在屬性與匹配優勢"
-tags: [[認知心理學], [句圖驗證], [匹配優勢], [內在屬性]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: finding
+summary: "# 內在屬性與匹配優勢  > **核心**: "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, size, and colour, and no ma"
 ---
+
 
 # 內在屬性與匹配優勢
 

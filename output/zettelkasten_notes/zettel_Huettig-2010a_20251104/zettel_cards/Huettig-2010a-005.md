@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-005
 title: "行為實驗 (Behavioral Experiment)"
-tags: [實驗, 行為, 認知, 心理學]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: method
+summary: "# 行為實驗 (Behavioral Experiment)  > **核心**: 假定论文使用了行为实验，核心句可以是 “Behavioral experiments were conducted to investigate the influence of language on conc"
 ---
+
 
 # 行為實驗 (Behavioral Experiment)
 

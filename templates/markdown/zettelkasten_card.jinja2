@@ -1,16 +1,8 @@
 ---
-id: {{ id }}
 title: "{{ title }}"
-tags: [{{ tags|join(', ') }}]
-source: "{{ paper_title }}" ({{ year }})
-paper_id: {{ paper_id }}
-created: {{ created_date }}
-type: {{ card_type }}
+summary: |-
+  {{ core_summary }}
 ---
-
-# {{ title }}
-
-> **核心**: {{ core_summary }}
 
 ## 說明
 {{ detailed_explanation }}
@@ -47,7 +39,3 @@ type: {{ card_type }}
 ## 待解問題
 {{ open_questions }}
 {% endif %}
-
----
-*卡片類型*: {{ card_type }}
-{% if confidence %}*信心度*: {{ confidence }}{% endif %}

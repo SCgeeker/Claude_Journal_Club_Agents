@@ -1,12 +1,8 @@
 ---
-id: DeKoning-2017-003
 title: "心理模擬 (Mental Simulation)"
-tags: [[認知心理學], [心理語言學], [具身認知], [語言理解]]
-source: "" (None)
-paper_id: 14
-created: 2025-11-04
-type: concept
+summary: "# 心理模擬 (Mental Simulation)  > **核心**: "In capturing the meaning of text, readers mentally simulate the described situations and events through the r"
 ---
+
 
 # 心理模擬 (Mental Simulation)
 

@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-006
 title: "情境模擬（Contextual Simulation）"
-tags: [[模擬], [情境], [認知]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 情境模擬（Contextual Simulation）  > **核心**: [Simulation of the surrounding environment and relevant factors during conceptual processing.]  ## 說明 情境模擬是"
 ---
+
 
 # 情境模擬（Contextual Simulation）
 

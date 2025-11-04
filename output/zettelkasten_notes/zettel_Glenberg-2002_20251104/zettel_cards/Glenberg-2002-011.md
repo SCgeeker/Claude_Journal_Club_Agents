@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-011
 title: "語言的具身性範圍 (Scope of Embodied Language)"
-tags: [具身性, 語言, 範圍, 局限性]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: question
+summary: "# 語言的具身性範圍 (Scope of Embodied Language)  > **核心**: "What is the scope of this analysis? Clearly, our data illustrate an action-based understanding f"
 ---
+
 
 # 語言的具身性範圍 (Scope of Embodied Language)
 

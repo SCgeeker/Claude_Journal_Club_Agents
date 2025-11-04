@@ -1,12 +1,8 @@
 ---
-id: Barsalou-2009-008
 title: "行為預測（Behavioral Prediction）"
-tags: [[預測], [行為], [社會認知]]
-source: "Simulation, Situated Conceptualization, and Prediction" (None)
-paper_id: 59
-created: 2025-11-04
-type: concept
+summary: "# 行為預測（Behavioral Prediction）  > **核心**: [The ability to anticipate the actions and consequences of oneself and others.]  ## 說明 行為預測是指預測自己和他人的行為以及這些"
 ---
+
 
 # 行為預測（Behavioral Prediction）
 

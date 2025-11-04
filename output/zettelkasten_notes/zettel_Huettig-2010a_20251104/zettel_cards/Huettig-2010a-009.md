@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-009
 title: "眼動模式與概念分類的關係"
-tags: [眼動, 模式, 分類, 認知]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: finding
+summary: "# 眼動模式與概念分類的關係  > **核心**: 假定论文找到了眼动模式和概念分类的关系，核心句可以是 “Different gaze patterns were observed for different types of categorization tasks.”  ## 說明 研究發"
 ---
+
 
 # 眼動模式與概念分類的關係
 

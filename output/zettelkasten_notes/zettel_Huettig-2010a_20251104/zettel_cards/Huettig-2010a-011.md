@@ -1,12 +1,8 @@
 ---
-id: Huettig-2010a-011
 title: "跨文化研究的重要性"
-tags: [跨文化, 研究, 認知, 文化]
-source: "Do Language-Specific Categories Shape Conceptual Processing? Mandarin" (None)
-paper_id: 71
-created: 2025-11-04
-type: question
+summary: "# 跨文化研究的重要性  > **核心**: 假定论文强调了跨文化研究，核心句可以是 “Cross-cultural studies are essential for understanding the universal and language-specific aspects of co"
 ---
+
 
 # 跨文化研究的重要性
 

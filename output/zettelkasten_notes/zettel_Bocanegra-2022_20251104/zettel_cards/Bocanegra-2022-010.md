@@ -1,12 +1,8 @@
 ---
-id: Bocanegra-2022-010
-title: "語言對複雜知覺表徵的影響 (Language's influence on complex perceptual representations)"
-tags: [研究發現, 語言, 連接性表徵, 知覺, 影響]
-source: "JournalofMemoryandLanguage127(2022)104355" (2022)
-paper_id: 13
-created: 2025-11-04
-type: finding
+title: "語言對複雜知覺表徵的影響 (Language"
+summary: "# 語言對複雜知覺表徵的影響 (Language's influence on complex perceptual representations)  > **核心**: "Our findings show that the generation of conjunctive represe"
 ---
+
 
 # 語言對複雜知覺表徵的影響 (Language's influence on complex perceptual representations)
 

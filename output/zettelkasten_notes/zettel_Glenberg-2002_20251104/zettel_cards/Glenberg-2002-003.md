@@ -1,12 +1,8 @@
 ---
-id: Glenberg-2002-003
 title: "行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)"
-tags: [ACE, 具身認知, 語言理解, 行動干擾]
-source: "PsychonomicBulletin&Review" (1994)
-paper_id: 15
-created: 2025-11-04
-type: finding
+summary: "# 行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)  > **核心**: "When a sentence implied action in one direction (e.g., “Close the drawer” impli"
 ---
+
 
 # 行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)
 
