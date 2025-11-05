@@ -37,6 +37,7 @@ import sqlite3
 import json
 import yaml
 import re
+from typing import Dict
 
 
 def cmd_stats(args):

@@ -477,6 +477,12 @@ class RelationFinder:
             if not similar_results or 'ids' not in similar_results:
                 continue
 
+            # 檢查結果是否為空
+            if not similar_results['ids'] or len(similar_results['ids']) == 0:
+                continue
+            if not similar_results['ids'][0] or len(similar_results['ids'][0]) == 0:
+                continue
+
             # 處理每個相似卡片
             for j, similar_id in enumerate(similar_results['ids'][0]):
                 # 跳過自己
