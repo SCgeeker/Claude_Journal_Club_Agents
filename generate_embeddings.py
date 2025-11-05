@@ -268,7 +268,8 @@ class EmbeddingGenerator:
                 continue
 
             texts.append(text)
-            ids.append(f"zettel_{zettel_id}")
+            # 使用資料庫中的標準 ID 格式（不加前綴）
+            ids.append(zettel_id)
             metadatas.append({
                 "card_id": card_id,
                 "zettel_id": zettel_id,
