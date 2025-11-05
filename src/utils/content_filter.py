@@ -109,7 +109,12 @@ def _extract_ai_notes_from_personal_section(personal_section: str) -> str:
         ai_notes = match.group(1).strip()
         # Remove duplicate [AI Agent] markers if present
         ai_notes = re.sub(r'\*\*\[AI Agent\]\*\*:\s*', '', ai_notes)
-        return f"## AI 深度分析\n\n{ai_notes}"
+        # Remove **[Human]**: markers that might have been captured
+        ai_notes = re.sub(r'\*\*\[Human\]\*\*:\s*.*', '', ai_notes, flags=re.DOTALL)
+        ai_notes = ai_notes.strip()
+
+        if ai_notes and ai_notes != "（待填寫）":  # Filter out placeholder
+            return f"## AI 深度分析\n\n{ai_notes}"
 
     return ""
 
