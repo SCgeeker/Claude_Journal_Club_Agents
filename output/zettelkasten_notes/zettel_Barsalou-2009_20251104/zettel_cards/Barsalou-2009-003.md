@@ -1,32 +1,26 @@
 ---
 title: "預測（Prediction）"
-summary: "# 預測（Prediction）  > **核心**: [This entry is based on the title and presumed content regarding the role of prediction in cognition.]  ## 說明 預測在大腦功能中扮演"
+summary: "This entry is based on the title and presumed content regarding the role of prediction in cognition."
 ---
 
-
-# 預測（Prediction）
-
-> **核心**: [This entry is based on the title and presumed content regarding the role of prediction in cognition.]
-
-## 說明
 預測在大腦功能中扮演著至關重要的角色。大腦不斷地生成關於未來事件的預測，並根據實際發生的情況調整這些預測。預測不僅涉及對感覺輸入的預期，也包括對動作、情感和認知的預期。預測誤差被認為是學習和適應的關鍵驅動力。
+
 
 ## 連結網絡
 
 
-**基於** → [[Barsalou2009001]]
+**基於** → [[Barsalou-2009-001]]
 
 
-**導向** → [[Barsalou2009007]], [[Barsalou2009008]]
+**導向** → [[Barsalou-2009-007]], [[Barsalou-2009-008]]
 
 
-**相關** ↔ [[Barsalou2009002]]
+**相關** ↔ [[Barsalou-2009-002]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: Simulation, Situated Conceptualization, and Prediction
-
 
 
 ## 個人筆記

@@ -1,32 +1,30 @@
 ---
 title: "消除相關性 (Eliminating Correlation)"
-summary: "# 消除相關性 (Eliminating Correlation)  > **核心**: "In the present study, we investigated if a color-match effect in the sentence-picture verification tas"
+summary: "In the present study, we investigated if a color-match effect in the sentence-picture verification task is also found when the correlation between the presence of a color match and the required response is eliminated."
 ---
 
-
-# 消除相關性 (Eliminating Correlation)
-
 > **核心**: "In the present study, we investigated if a color-match effect in the sentence-picture verification task is also found when the correlation between the presence of a color match and the required response is eliminated."
+
 
 ## 說明
 研究旨在驗證，即使在消除了顏色匹配和所需反應之間的相關性之後，是否仍然可以觀察到句子-圖片驗證任務中的顏色匹配效應。這有助於確定心理模擬是否是一種自動的、不受策略影響的過程。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024006]]
+**基於** → [[vanZuijlen-2024-006]]
 
 
-**導向** → [[vanZuijlen2024003]]
+**導向** → [[vanZuijlen-2024-003]]
 
 
-**相關** ↔ [[vanZuijlen2024010]]
+**相關** ↔ [[vanZuijlen-2024-010]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

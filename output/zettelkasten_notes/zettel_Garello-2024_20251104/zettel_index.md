@@ -116,61 +116,50 @@ graph TD
 
     Garello-2024-012["行動語言理解與社會關係"]
 
-    Garello-2024-001 --> Garello2024002
+    Garello-2024-001 --> Garello-2024-002
 
-    Garello-2024-001 --> Garello2024003
+    Garello-2024-001 --> Garello-2024-003
 
-    Garello2024001 --> Garello-2024-002
 
-    Garello-2024-002 --> Garello2024003
+    Garello-2024-002 --> Garello-2024-003
 
-    Garello-2024-002 -.-> Garello2024004
+    Garello-2024-002 -.-> Garello-2024-004
 
-    Garello2024001 --> Garello-2024-003
+    Garello-2024-003 --> Garello-2024-005
 
-    Garello2024002 --> Garello-2024-003
+    Garello-2024-003 -.-> Garello-2024-006
 
-    Garello-2024-003 --> Garello2024005
+    Garello-2024-004 -.-> Garello-2024-002
 
-    Garello-2024-003 -.-> Garello2024006
+    Garello-2024-004 -.-> Garello-2024-005
 
-    Garello-2024-004 -.-> Garello2024002
+    Garello-2024-001 --> Garello-2024-005
 
-    Garello-2024-004 -.-> Garello2024005
+    Garello-2024-005 --> Garello-2024-007
 
-    Garello2024001 --> Garello-2024-005
+    Garello-2024-005 -.-> Garello-2024-004
 
-    Garello-2024-005 --> Garello2024007
+    Garello-2024-006 -.-> Garello-2024-003
 
-    Garello-2024-005 -.-> Garello2024004
+    Garello-2024-006 -.-> Garello-2024-008
 
-    Garello-2024-006 -.-> Garello2024003
 
-    Garello-2024-006 -.-> Garello2024008
+    Garello-2024-007 --> Garello-2024-009
 
-    Garello2024005 --> Garello-2024-007
+    Garello-2024-007 -.-> Garello-2024-004
 
-    Garello-2024-007 --> Garello2024009
+    Garello-2024-006 --> Garello-2024-008
 
-    Garello-2024-007 -.-> Garello2024004
+    Garello-2024-008 --> Garello-2024-010
 
-    Garello2024006 --> Garello-2024-008
 
-    Garello-2024-008 --> Garello2024010
+    Garello-2024-009 --> Garello-2024-011
 
-    Garello2024007 --> Garello-2024-009
+    Garello-2024-003 --> Garello-2024-012
 
-    Garello-2024-009 --> Garello2024011
+    Garello-2024-010 --> Garello-2024-012
 
-    Garello2024008 --> Garello-2024-010
-
-    Garello2024009 --> Garello-2024-011
-
-    Garello2024003 --> Garello-2024-012
-
-    Garello2024010 --> Garello-2024-012
-
-    Garello2024011 --> Garello-2024-012
+    Garello-2024-011 --> Garello-2024-012
 
 ```
 

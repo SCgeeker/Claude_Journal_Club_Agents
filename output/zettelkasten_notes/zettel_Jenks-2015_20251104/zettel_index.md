@@ -116,51 +116,38 @@ graph TD
 
     Jenks-2015-012["Further Research on the Acquisition of Definiteness in NCLs"]
 
-    Jenks-2015-001 --> Jenks2015002
+    Jenks-2015-001 --> Jenks-2015-002
 
-    Jenks-2015-001 --> Jenks2015003
+    Jenks-2015-001 --> Jenks-2015-003
 
-    Jenks2015001 --> Jenks-2015-002
 
-    Jenks-2015-002 --> Jenks2015004
+    Jenks-2015-002 --> Jenks-2015-004
 
-    Jenks-2015-002 --> Jenks2015005
+    Jenks-2015-002 --> Jenks-2015-005
 
-    Jenks-2015-002 --> Jenks2015006
+    Jenks-2015-002 --> Jenks-2015-006
 
-    Jenks2015001 --> Jenks-2015-003
 
-    Jenks-2015-003 --> Jenks2015007
+    Jenks-2015-003 --> Jenks-2015-007
 
-    Jenks2015002 --> Jenks-2015-004
 
-    Jenks-2015-004 --> Jenks2015008
+    Jenks-2015-004 --> Jenks-2015-008
 
-    Jenks2015002 --> Jenks-2015-005
 
-    Jenks-2015-005 -.-> Jenks2015006
+    Jenks-2015-005 -.-> Jenks-2015-006
 
-    Jenks2015002 --> Jenks-2015-006
 
-    Jenks-2015-006 -.-> Jenks2015005
+    Jenks-2015-006 -.-> Jenks-2015-005
 
-    Jenks2015003 --> Jenks-2015-007
+    Jenks-2015-002 --> Jenks-2015-009
 
-    Jenks2015004 --> Jenks-2015-008
+    Jenks-2015-009 --> Jenks-2015-010
 
-    Jenks2015002 --> Jenks-2015-009
+    Jenks-2015-009 --> Jenks-2015-011
 
-    Jenks-2015-009 --> Jenks2015010
+    Jenks-2015-010 --> Jenks-2015-012
 
-    Jenks-2015-009 --> Jenks2015011
-
-    Jenks2015009 --> Jenks-2015-010
-
-    Jenks2015009 --> Jenks-2015-011
-
-    Jenks2015010 --> Jenks-2015-012
-
-    Jenks2015011 --> Jenks-2015-012
+    Jenks-2015-011 --> Jenks-2015-012
 
 ```
 

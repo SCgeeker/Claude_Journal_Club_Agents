@@ -116,57 +116,52 @@ graph TD
 
     DeKoning-2017-012["未來研究方向"]
 
-    DeKoning-2017-001 --> DeKoning2017002
+    DeKoning-2017-001 --> DeKoning-2017-002
 
-    DeKoning-2017-001 --> DeKoning2017003
+    DeKoning-2017-001 --> DeKoning-2017-003
 
-    DeKoning2017001 --> DeKoning-2017-002
 
-    DeKoning-2017-002 --> DeKoning2017006
+    DeKoning-2017-002 --> DeKoning-2017-006
 
-    DeKoning-2017-002 --> DeKoning2017007
+    DeKoning-2017-002 --> DeKoning-2017-007
 
-    DeKoning-2017-002 -.-> DeKoning2017003
+    DeKoning-2017-002 -.-> DeKoning-2017-003
 
-    DeKoning-2017-003 --> DeKoning2017004
+    DeKoning-2017-003 --> DeKoning-2017-004
 
-    DeKoning-2017-003 --> DeKoning2017005
+    DeKoning-2017-003 --> DeKoning-2017-005
 
-    DeKoning-2017-003 -.-> DeKoning2017002
+    DeKoning-2017-003 -.-> DeKoning-2017-002
 
-    DeKoning-2017-004 --> DeKoning2017006
+    DeKoning-2017-004 --> DeKoning-2017-006
 
-    DeKoning-2017-005 --> DeKoning2017007
+    DeKoning-2017-005 --> DeKoning-2017-007
 
-    DeKoning2017001 --> DeKoning-2017-006
+    DeKoning-2017-001 --> DeKoning-2017-006
 
-    DeKoning2017004 --> DeKoning-2017-006
 
-    DeKoning-2017-006 -.-> DeKoning2017007
+    DeKoning-2017-006 -.-> DeKoning-2017-007
 
-    DeKoning2017001 --> DeKoning-2017-007
+    DeKoning-2017-001 --> DeKoning-2017-007
 
-    DeKoning2017005 --> DeKoning-2017-007
 
-    DeKoning-2017-007 -.-> DeKoning2017006
+    DeKoning-2017-007 -.-> DeKoning-2017-006
 
-    DeKoning-2017-008 --> DeKoning2017009
+    DeKoning-2017-008 --> DeKoning-2017-009
 
-    DeKoning-2017-008 -.-> DeKoning2017003
+    DeKoning-2017-008 -.-> DeKoning-2017-003
 
-    DeKoning2017008 --> DeKoning-2017-009
 
-    DeKoning-2017-009 --> DeKoning2017010
+    DeKoning-2017-009 --> DeKoning-2017-010
 
-    DeKoning2017009 --> DeKoning-2017-010
 
-    DeKoning2017001 --> DeKoning-2017-011
+    DeKoning-2017-001 --> DeKoning-2017-011
 
-    DeKoning2017006 --> DeKoning-2017-012
+    DeKoning-2017-006 --> DeKoning-2017-012
 
-    DeKoning2017007 --> DeKoning-2017-012
+    DeKoning-2017-007 --> DeKoning-2017-012
 
-    DeKoning2017009 --> DeKoning-2017-012
+    DeKoning-2017-009 --> DeKoning-2017-012
 
 ```
 

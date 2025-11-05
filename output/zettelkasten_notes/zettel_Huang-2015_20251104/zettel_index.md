@@ -116,95 +116,72 @@ graph TD
 
     Huang-2015-012["Implications for Ontological Studies of Linguistic Systems (對語言系統本體論研究的影響)"]
 
-    Huang-2015-001 --> Huang2015006
+    Huang-2015-001 --> Huang-2015-006
 
-    Huang-2015-001 --> Huang2015007
+    Huang-2015-001 --> Huang-2015-007
 
-    Huang-2015-002 --> Huang2015006
+    Huang-2015-002 --> Huang-2015-006
 
-    Huang-2015-002 --> Huang2015008
+    Huang-2015-002 --> Huang-2015-008
 
-    Huang-2015-003 --> Huang2015006
+    Huang-2015-003 --> Huang-2015-006
 
-    Huang-2015-003 --> Huang2015009
+    Huang-2015-003 --> Huang-2015-009
 
-    Huang-2015-003 --> Huang2015010
+    Huang-2015-003 --> Huang-2015-010
 
-    Huang-2015-003 -.-> Huang2015004
+    Huang-2015-003 -.-> Huang-2015-004
 
-    Huang-2015-004 --> Huang2015007
+    Huang-2015-004 --> Huang-2015-007
 
-    Huang-2015-004 --> Huang2015008
+    Huang-2015-004 --> Huang-2015-008
 
-    Huang-2015-004 -.-> Huang2015003
+    Huang-2015-004 -.-> Huang-2015-003
 
-    Huang-2015-005 --> Huang2015009
+    Huang-2015-005 --> Huang-2015-009
 
-    Huang-2015-005 --> Huang2015010
+    Huang-2015-005 --> Huang-2015-010
 
-    Huang2015001 --> Huang-2015-006
+    Huang-2015-006 --> Huang-2015-007
 
-    Huang2015002 --> Huang-2015-006
+    Huang-2015-006 --> Huang-2015-008
 
-    Huang2015003 --> Huang-2015-006
+    Huang-2015-007 --> Huang-2015-009
 
-    Huang-2015-006 --> Huang2015007
 
-    Huang-2015-006 --> Huang2015008
+    Huang-2015-005 --> Huang-2015-008
 
-    Huang2015001 --> Huang-2015-007
 
-    Huang2015004 --> Huang-2015-007
+    Huang-2015-008 --> Huang-2015-010
 
-    Huang2015006 --> Huang-2015-007
+    Huang-2015-008 --> Huang-2015-009
 
-    Huang-2015-007 --> Huang2015009
+    Huang-2015-009 --> Huang-2015-011
 
-    Huang2015002 --> Huang-2015-008
+    Huang-2015-009 --> Huang-2015-010
 
-    Huang2015005 --> Huang-2015-008
+    Huang-2015-010 --> Huang-2015-012
 
-    Huang2015006 --> Huang-2015-008
+    Huang-2015-001 --> Huang-2015-011
 
-    Huang-2015-008 --> Huang2015010
+    Huang-2015-002 --> Huang-2015-011
 
-    Huang2015003 --> Huang-2015-009
+    Huang-2015-003 --> Huang-2015-011
 
-    Huang2015007 --> Huang-2015-009
+    Huang-2015-011 -.-> Huang-2015-006
 
-    Huang2015008 --> Huang-2015-009
+    Huang-2015-011 -.-> Huang-2015-009
 
-    Huang-2015-009 --> Huang2015011
+    Huang-2015-001 --> Huang-2015-012
 
-    Huang2015003 --> Huang-2015-010
+    Huang-2015-002 --> Huang-2015-012
 
-    Huang2015008 --> Huang-2015-010
+    Huang-2015-006 --> Huang-2015-012
 
-    Huang2015009 --> Huang-2015-010
+    Huang-2015-007 --> Huang-2015-012
 
-    Huang-2015-010 --> Huang2015012
+    Huang-2015-008 --> Huang-2015-012
 
-    Huang2015001 --> Huang-2015-011
-
-    Huang2015002 --> Huang-2015-011
-
-    Huang2015003 --> Huang-2015-011
-
-    Huang-2015-011 -.-> Huang2015006
-
-    Huang-2015-011 -.-> Huang2015009
-
-    Huang2015001 --> Huang-2015-012
-
-    Huang2015002 --> Huang-2015-012
-
-    Huang2015006 --> Huang-2015-012
-
-    Huang2015007 --> Huang-2015-012
-
-    Huang2015008 --> Huang-2015-012
-
-    Huang2015010 --> Huang-2015-012
 
     Huang-2015-012 --> N/A
 

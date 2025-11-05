@@ -116,41 +116,31 @@ graph TD
 
     Tzeng-1991-012["量詞問題的未來研究方向"]
 
-    Tzeng-1991-001 --> Tzeng1991002
+    Tzeng-1991-001 --> Tzeng-1991-002
 
-    Tzeng-1991-001 --> Tzeng1991003
+    Tzeng-1991-001 --> Tzeng-1991-003
 
-    Tzeng1991001 --> Tzeng-1991-002
 
-    Tzeng-1991-002 --> Tzeng1991004
+    Tzeng-1991-002 --> Tzeng-1991-004
 
-    Tzeng1991001 --> Tzeng-1991-003
 
-    Tzeng-1991-003 --> Tzeng1991006
+    Tzeng-1991-003 --> Tzeng-1991-006
 
-    Tzeng1991002 --> Tzeng-1991-004
 
-    Tzeng-1991-004 --> Tzeng1991007
+    Tzeng-1991-004 --> Tzeng-1991-007
 
-    Tzeng-1991-005 -.-> Tzeng1991008
+    Tzeng-1991-005 -.-> Tzeng-1991-008
 
-    Tzeng1991003 --> Tzeng-1991-006
 
-    Tzeng-1991-006 --> Tzeng1991009
+    Tzeng-1991-006 --> Tzeng-1991-009
 
-    Tzeng1991004 --> Tzeng-1991-007
 
-    Tzeng-1991-007 --> Tzeng1991010
+    Tzeng-1991-007 --> Tzeng-1991-010
 
-    Tzeng-1991-008 -.-> Tzeng1991005
+    Tzeng-1991-008 -.-> Tzeng-1991-005
 
-    Tzeng1991006 --> Tzeng-1991-009
+    Tzeng-1991-011 --> Tzeng-1991-012
 
-    Tzeng1991007 --> Tzeng-1991-010
-
-    Tzeng-1991-011 --> Tzeng1991012
-
-    Tzeng1991011 --> Tzeng-1991-012
 
 ```
 

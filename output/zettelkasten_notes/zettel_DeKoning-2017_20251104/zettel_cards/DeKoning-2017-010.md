@@ -1,28 +1,24 @@
 ---
 title: "內在與外在屬性區分的重要性"
-summary: "# 內在與外在屬性區分的重要性  > **核心**: "Together, our findings suggest that it could advance the interpretation of match advantages if distinctions were made be"
+summary: "Together, our findings suggest that it could advance the interpretation of match advantages if distinctions were made between the effects obtained for intrinsic visual object properties and those obtained for extrinsic ones."
 ---
 
-
-# 內在與外在屬性區分的重要性
-
 > **核心**: "Together, our findings suggest that it could advance the interpretation of match advantages if distinctions were made between the effects obtained for intrinsic visual object properties and those obtained for extrinsic ones."
+
 
 ## 說明
 研究結果表明，在解釋匹配優勢時，區分內在視覺屬性和外在視覺屬性的影響可能是有益的。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017009]]
-
-
+**基於** → [[DeKoning-2017-009]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

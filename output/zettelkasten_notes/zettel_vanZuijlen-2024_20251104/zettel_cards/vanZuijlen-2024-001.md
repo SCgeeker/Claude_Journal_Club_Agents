@@ -1,28 +1,25 @@
 ---
 title: "具身認知 (Grounded Cognition)"
-summary: "# 具身認知 (Grounded Cognition)  > **核心**: "According to grounded cognition theories, the features that are activated during language comprehension are"
+summary: "According to grounded cognition theories, the features that are activated during language comprehension are based on earlier perceptual-motor experiences with the objects described in the sentences."
 ---
-
-
-# 具身認知 (Grounded Cognition)
 
 > **核心**: "According to grounded cognition theories, the features that are activated during language comprehension are based on earlier perceptual-motor experiences with the objects described in the sentences."
 
+
 ## 說明
 具身認知理論認為，語言理解過程中激活的特徵基於早期對象的感知運動經驗。換句話說，我們理解語言的方式與我們如何與世界互動息息相關。這個理論挑戰了傳統認知科學將認知視為獨立於身體和環境之外的觀點。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[vanZuijlen2024004]], [[vanZuijlen2024012]]
-
+**導向** → [[vanZuijlen-2024-004]], [[vanZuijlen-2024-012]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

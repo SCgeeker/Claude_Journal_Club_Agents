@@ -116,33 +116,23 @@ graph TD
 
     Glenberg-2002-012["具身認知與科學理解 (Embodied Cognition and Scientific Understanding)"]
 
-    Glenberg-2002-001 --> Glenberg2002003
+    Glenberg-2002-001 --> Glenberg-2002-003
 
-    Glenberg-2002-001 --> Glenberg2002005
+    Glenberg-2002-001 --> Glenberg-2002-005
 
-    Glenberg2002001 --> Glenberg-2002-003
 
-    Glenberg-2002-003 --> Glenberg2002004
+    Glenberg-2002-003 --> Glenberg-2002-004
 
-    Glenberg-2002-003 --> Glenberg2002006
+    Glenberg-2002-003 --> Glenberg-2002-006
 
-    Glenberg2002003 --> Glenberg-2002-004
+    Glenberg-2002-005 --> Glenberg-2002-007
 
-    Glenberg2002001 --> Glenberg-2002-005
+    Glenberg-2002-005 --> Glenberg-2002-008
 
-    Glenberg-2002-005 --> Glenberg2002007
+    Glenberg-2002-007 --> Glenberg-2002-008
 
-    Glenberg-2002-005 --> Glenberg2002008
 
-    Glenberg2002003 --> Glenberg-2002-006
-
-    Glenberg2002005 --> Glenberg-2002-007
-
-    Glenberg-2002-007 --> Glenberg2002008
-
-    Glenberg2002007 --> Glenberg-2002-008
-
-    Glenberg-2002-012 -.-> Glenberg2002001
+    Glenberg-2002-012 -.-> Glenberg-2002-001
 
 ```
 

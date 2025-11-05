@@ -116,57 +116,47 @@ graph TD
 
     Zwaan-2012-012["物件顏色匹配反轉效應的潛在原因"]
 
-    Zwaan-2012-001 --> Zwaan2012002
+    Zwaan-2012-001 --> Zwaan-2012-002
 
-    Zwaan-2012-001 --> Zwaan2012003
+    Zwaan-2012-001 --> Zwaan-2012-003
 
-    Zwaan2012001 --> Zwaan-2012-002
 
-    Zwaan-2012-002 --> Zwaan2012003
+    Zwaan-2012-002 --> Zwaan-2012-003
 
-    Zwaan2012001 --> Zwaan-2012-003
+    Zwaan-2012-003 --> Zwaan-2012-004
 
-    Zwaan2012002 --> Zwaan-2012-003
+    Zwaan-2012-003 --> Zwaan-2012-005
 
-    Zwaan-2012-003 --> Zwaan2012004
+    Zwaan-2012-003 --> Zwaan-2012-006
 
-    Zwaan-2012-003 --> Zwaan2012005
 
-    Zwaan-2012-003 --> Zwaan2012006
+    Zwaan-2012-004 --> Zwaan-2012-005
 
-    Zwaan2012003 --> Zwaan-2012-004
+    Zwaan-2012-004 -.-> Zwaan-2012-007
 
-    Zwaan-2012-004 --> Zwaan2012005
 
-    Zwaan-2012-004 -.-> Zwaan2012007
+    Zwaan-2012-005 -.-> Zwaan-2012-007
 
-    Zwaan2012003 --> Zwaan-2012-005
 
-    Zwaan-2012-005 -.-> Zwaan2012007
+    Zwaan-2012-006 --> Zwaan-2012-007
 
-    Zwaan2012003 --> Zwaan-2012-006
+    Zwaan-2012-004 --> Zwaan-2012-007
 
-    Zwaan-2012-006 --> Zwaan2012007
+    Zwaan-2012-005 --> Zwaan-2012-007
 
-    Zwaan2012004 --> Zwaan-2012-007
 
-    Zwaan2012005 --> Zwaan-2012-007
+    Zwaan-2012-008 --> Zwaan-2012-009
 
-    Zwaan2012006 --> Zwaan-2012-007
 
-    Zwaan-2012-008 --> Zwaan2012009
+    Zwaan-2012-010 -.-> Zwaan-2012-007
 
-    Zwaan2012008 --> Zwaan-2012-009
+    Zwaan-2012-011 --> Zwaan-2012-012
 
-    Zwaan-2012-010 -.-> Zwaan2012007
+    Zwaan-2012-006 --> Zwaan-2012-012
 
-    Zwaan-2012-011 --> Zwaan2012012
+    Zwaan-2012-012 -.-> Zwaan-2012-005
 
-    Zwaan2012006 --> Zwaan-2012-012
-
-    Zwaan-2012-012 -.-> Zwaan2012005
-
-    Zwaan-2012-012 -.-> Zwaan2012004
+    Zwaan-2012-012 -.-> Zwaan-2012-004
 
 ```
 

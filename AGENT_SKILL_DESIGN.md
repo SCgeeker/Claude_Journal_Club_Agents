@@ -1,9 +1,9 @@
 # Agent & Skill 架構設計方案
 
-**文檔版本**: v2.5 (Phase 1.5 + Phase 2 準備版)
-**最後更新**: 2025-11-04 22:30
-**狀態**: Phase 1 ✅ 完成 | Phase 1.5 ✅ 完成 | Phase 2 🔄 進行中 (80%) | 下階段 Phase 2.1-2.2 relation-finder & concept-mapper
-**基於**: Phase 1 完整實施 + Phase 1.5 向量搜索完成 + Phase 2 Zettelkasten標準化完成 + Phase 2.1 準備
+**文檔版本**: v2.6 (Phase 1.5 + Phase 2 + LLM 檢查整合版)
+**最後更新**: 2025-11-05 14:30
+**狀態**: Phase 1 ✅ 完成 | Phase 1.5 ✅ 完成 | Phase 2 🔄 進行中 (80%) | KB Manager Agent v1.1.0 ✅ LLM檢查功能
+**基於**: Phase 1 完整實施 + Phase 1.5 向量搜索完成 + Phase 2 Zettelkasten標準化完成 + LLM訪問檢查整合
 
 ---
 
@@ -50,16 +50,20 @@
 | **Phase 2** | 🔄 80% | Zettelkasten 標準化, 索引 YAML 統一 | 待完成：relation-finder, concept-mapper |
 | **Phase 2.1-2.2** | 📋 0% | 規劃中 | 下週啟動：relation-finder (識別概念對關係) |
 
-**核心 CLI 工具**: 11個 ✅ | **代碼總量**: ~12,000行 | **文檔覆蓋**: 5份主文檔 + TOOLS_REFERENCE.md
+**核心 CLI 工具**: 12個 ✅ (新增 check-llm) | **代碼總量**: ~12,800行 | **文檔覆蓋**: 5份主文檔 + TOOLS_REFERENCE.md
 
-**新增記錄（Phase 1.5 + Phase 2）**:
+**新增記錄（Phase 1.5 + Phase 2 + v1.1.0）**:
 - ✅ 向量搜索系統（Gemini + Ollama 雙提供者）
 - ✅ 語義搜索、混合搜索命令集成到 kb_manage.py
 - ✅ 704 張 Zettelkasten 卡片 YAML 簡化
 - ✅ 57 個索引檔案新增 YAML frontmatter
 - ✅ 創建 TOOLS_REFERENCE.md 工具速查表
+- ✅ **LLM 訪問檢查整合** (2025-11-05) ⭐ NEW
+  - CLI 命令: `kb_manage.py check-llm`
+  - Agent workflow: `check_llm_access`
+  - KB Manager Agent v1.0.0 → v1.1.0
 - 📝 建立測試框架（tests/ 目錄）
-- 📝 更新文檔 (AGENT_SKILL_DESIGN.md v2.5)
+- 📝 更新文檔 (AGENT_SKILL_DESIGN.md v2.6)
 
 ---
 
@@ -114,6 +118,19 @@
 - 整合測試工具到 kb_manage.py (3-5小時)
 - 歸檔臨時文件和測試報告
 - 清理代碼庫後再進入 Phase 2
+
+#### **✅ 2025-11-05 完成的任務** ⭐ NEW
+
+**LLM 訪問檢查整合** ✅:
+1. ✅ 在 kb_manage.py 新增 `check-llm` 命令 (+158行)
+2. ✅ 在 Agent workflows.yaml 新增 `check_llm_access` workflow (+58行)
+3. ✅ 更新 Agent instructions.md 新增第7個命令說明 (+58行)
+4. ✅ 創建 test_llm_access.py 獨立測試工具 (+174行)
+5. ✅ 創建 LLM_ACCESS_REPORT.md 詳細報告 (+350行)
+6. ✅ KB Manager Agent 版本升級: v1.0.0-mvp → v1.1.0-mvp
+7. ✅ 測試驗證: 基本功能 + verbose 模式全部通過
+
+**總新增**: +798行代碼和文檔
 
 #### **✅ 2025-11-04 完成的任務**
 
@@ -421,12 +438,13 @@ git tag -a v1.0-phase1-complete -m "Phase 1 Complete: Agent/Skill基礎設施"
 ├─────────────────────────────────────────────────────────────┤
 │                                                               │
 │  ┌───────────────────────────────────────────────────┐      │
-│  │  Knowledge Base Manager (知識庫管理員) ✅ MVP     │      │
+│  │  Knowledge Base Manager (知識庫管理員) ✅ v1.1.0  │      │
 │  │  • 批次處理論文                                    │      │
 │  │  • 質量檢查和元數據修復                            │      │
 │  │  • Zettelkasten整合                               │      │
 │  │  • 搜索和查詢                                      │      │
 │  │  • 生成簡報和筆記                                  │      │
+│  │  • LLM訪問檢查 ⭐ NEW (v1.1.0)                     │      │
 │  └───────────────────────────────────────────────────┘      │
 │                                                               │
 │  ┌──────────────────────────┐  ┌────────────────────────┐  │
@@ -498,9 +516,11 @@ git tag -a v1.0-phase1-complete -m "Phase 1 Complete: Agent/Skill基礎設施"
 
 ## Agent 設計摘要
 
-### 1. Knowledge Base Manager Agent ✅ (已完成)
+### 1. Knowledge Base Manager Agent ✅ (v1.1.0 已完成)
 
 **別名**: kb-manager, knowledge-integrator
+
+**版本**: v1.1.0-mvp (2025-11-05)
 
 **核心職責**:
 1. 批次處理PDF文件（批次導入、質量檢查）
@@ -508,6 +528,7 @@ git tag -a v1.0-phase1-complete -m "Phase 1 Complete: Agent/Skill基礎設施"
 3. 搜索和查詢知識（論文、Zettelkasten）
 4. 生成學術簡報和筆記
 5. 元數據增強和修復
+6. **LLM 訪問檢查和診斷** ⭐ NEW (v1.1.0)
 
 **調用的Skills**:
 - batch-processor (批次處理)
@@ -516,18 +537,19 @@ git tag -a v1.0-phase1-complete -m "Phase 1 Complete: Agent/Skill基礎設施"
 - zettel-indexer (Zettelkasten索引)
 - zettel-searcher (Zettelkasten搜索)
 
-**6個工作流** (workflows.yaml):
-1. `batch_import` - 批次導入PDF
+**7個工作流** (workflows.yaml):
+1. `batch_import_papers` - 批次導入論文到知識庫
 2. `quality_audit` - 質量審計
-3. `integrate_zettel` - 整合Zettelkasten
+3. `integrate_zettelkasten` - 整合Zettelkasten
 4. `search_knowledge` - 搜索知識
 5. `generate_slides` - 生成簡報
-6. `generate_notes` - 生成筆記
+6. `batch_generate_zettel` - 批次生成Zettelkasten
+7. **`check_llm_access`** - 檢查LLM訪問狀態 ⭐ NEW
 
-**實作狀態**: ✅ MVP完成
+**實作狀態**: ✅ v1.1.0 完成
 - 380行 Python 代碼
-- 750行 workflows.yaml
-- 387行 instructions.md
+- 647行 workflows.yaml (+58行 v1.1.0)
+- 445行 instructions.md (+58行 v1.1.0)
 - 完整手動測試指南
 
 **使用範例**:
@@ -1770,6 +1792,231 @@ claude_lit_workflow/
 
 ---
 
+## 🔧 KB Manager Agent v1.1.0 更新記錄 (2025-11-05)
+
+### LLM 訪問檢查功能整合
+
+**更新摘要**: KB Manager Agent 從 v1.0.0-mvp 升級到 v1.1.0-mvp，新增 LLM 訪問檢查和診斷功能。
+
+#### 新增功能
+
+**1. CLI 命令: `check-llm`**
+
+**位置**: `kb_manage.py` (行 1069-1223，共 156行)
+
+**功能描述**:
+- 測試所有 4 個 LLM 提供者的連接狀態
+- 自動檢測 API keys 配置
+- 實際驗證 API 連接（非僅環境變數檢查）
+- 提供配置建議和修復指引
+
+**測試提供者**:
+1. **Ollama** (本地) - 檢查服務和模型
+2. **Google Gemini** - 驗證 API key 和實際調用
+3. **OpenAI** - 驗證 API key
+4. **Anthropic Claude** - 驗證 API key
+
+**使用方式**:
+```bash
+# 基本檢查
+python kb_manage.py check-llm
+
+# 詳細建議模式
+python kb_manage.py check-llm --verbose
+```
+
+**輸出範例**:
+```
+============================================================
+LLM Access Status Check
+============================================================
+
+Testing Ollama (local)... [OK] 3 models available
+Testing Google Gemini... [OK] API key valid
+Testing OpenAI... [FAIL] API key not configured
+Testing Anthropic Claude... [FAIL] API key not configured
+
+============================================================
+SUMMARY
+============================================================
+Available providers: 2/4
+
+[WARN] Some providers unavailable
+Unavailable: OpenAI, Claude
+
+To configure missing providers:
+  - Edit .env file with valid API keys
+  - See LLM_ACCESS_REPORT.md for setup instructions
+
+------------------------------------------------------------
+RECOMMENDATIONS (verbose mode)
+------------------------------------------------------------
+Primary: Google Gemini (free quota, fast, high quality)
+Backup: Ollama (free, local, offline)
+```
+
+---
+
+**2. Agent Workflow: `check_llm_access`**
+
+**位置**: `.claude/agents/knowledge-integrator/workflows.yaml` (行 542-595，共 54行)
+
+**workflow 配置**:
+```yaml
+check_llm_access:
+  name: "檢查 LLM 訪問狀態"
+  description: "測試所有 LLM 提供者的連接狀態並提供配置建議"
+  priority: low
+
+  parameters:
+    optional:
+      - verbose: 是否顯示詳細建議 (default: false)
+
+  steps:
+    1. identify_intent - 確認是 LLM 檢查任務
+    2. execute_check - 執行 kb_manage.py check-llm
+    3. report_results - 顯示檢查結果和建議
+```
+
+**觸發詞**:
+- "檢查 LLM"
+- "測試 LLM"
+- "LLM 狀態"
+- "check llm"
+- "llm access"
+- "模型檢查"
+
+**Agent 對話範例**:
+```
+用戶: 檢查 LLM 狀態
+Agent: 好的！我將檢查所有 LLM 提供者的連接狀態。
+
+      [執行檢查...]
+
+      ✅ 可用提供者: 2/4
+
+      詳細結果：
+      ✅ Ollama (本地) - 3 個模型可用
+      ✅ Google Gemini - API key 有效
+      ❌ OpenAI - API key 未配置
+      ❌ Anthropic Claude - API key 未配置
+
+      建議：
+      - 主力使用 Google Gemini (免費額度充足，品質優秀)
+      - 備用使用 Ollama (完全免費，離線可用)
+      - 如需批次處理，建議配置 Claude Haiku (~$0.02/次)
+
+      💡 提示：
+      - 詳細報告：LLM_ACCESS_REPORT.md
+      - 配置 API keys：編輯 .env 文件
+```
+
+---
+
+**3. 文檔更新**
+
+**位置**: `.claude/agents/knowledge-integrator/instructions.md` (行 455-511，共 57行)
+
+**新增內容**:
+- 第 7 個命令說明："檢查 LLM 訪問狀態"
+- 完整工作流程定義
+- 範例對話
+- 參數說明
+- 使用建議
+
+**版本更新**: v1.0.0-mvp → v1.1.0-mvp
+
+---
+
+#### 技術實施細節
+
+**提供者測試邏輯**:
+
+| 提供者 | 測試方法 | 成功條件 | 失敗情況 |
+|--------|---------|---------|---------|
+| **Ollama** | GET /api/tags | HTTP 200 + models list | Connection refused / Timeout |
+| **Gemini** | 實際 API 調用 | 有效回應 ("Say 'Hi'") | 401 / API 錯誤 |
+| **OpenAI** | client.models.list() | 返回模型列表 | 401 (invalid key) |
+| **Claude** | 實際 API 調用 | 有效回應 ("Hi") | 401 (invalid key) |
+
+**錯誤處理**:
+```python
+try:
+    result = test_provider()
+except ConnectionError:
+    return False, "Service not running"
+except AuthenticationError:
+    return False, "Invalid API key"
+except TimeoutError:
+    return False, "Connection timeout"
+```
+
+---
+
+#### 測試結果
+
+**測試1**: 基本功能 ✅
+- 正確檢測 4 個提供者
+- Ollama: ✅ 3 個模型可用
+- Gemini: ✅ API key 有效
+- OpenAI: ❌ 未配置 (符合預期)
+- Claude: ❌ 未配置 (符合預期)
+- 統計摘要正確: 2/4 可用
+
+**測試2**: Verbose 模式 ✅
+- 顯示所有基本信息
+- 額外顯示推薦建議
+- Primary: Google Gemini
+- Backup: Ollama
+
+**測試3**: Help 菜單 ✅
+- `check-llm` 命令出現在命令列表中
+- 幫助文本正確顯示
+
+---
+
+#### 修改的文件
+
+| 文件 | 變更類型 | 行數 | 說明 |
+|------|---------|------|------|
+| `kb_manage.py` | 新增函數 | +158 | cmd_check_llm() + parser 配置 |
+| `workflows.yaml` | 新增 workflow | +58 | check_llm_access workflow |
+| `instructions.md` | 新增章節 | +58 | LLM 檢查說明和範例 |
+| `test_llm_access.py` | 新建 | +174 | 獨立測試工具 |
+| `LLM_ACCESS_REPORT.md` | 新建 | +350 | 詳細訪問狀態報告 |
+
+**總計**: +798 行新代碼和文檔
+
+---
+
+#### 使用建議
+
+**何時使用此功能**:
+
+1. **初次設置系統時** - 檢查哪些 LLM 可用，驗證 API keys 配置
+2. **LLM 調用失敗時** - 診斷連接問題，確認 API key 有效性
+3. **配置變更後** - 驗證新的 API keys，確認服務可用性
+4. **選擇 LLM 提供者前** - 查看當前可用選項，獲取使用建議
+
+**與其他功能的整合**:
+- `make_slides.py` - 簡報生成前檢查 LLM 可用性
+- `batch_process.py` - 批次處理前確認 LLM 提供者
+- `zettel_maker.py` - Zettelkasten 生成前驗證
+
+---
+
+#### 相關文檔
+
+| 文檔 | 位置 | 說明 |
+|------|------|------|
+| **詳細訪問報告** | `LLM_ACCESS_REPORT.md` | 完整的 LLM 狀態和配置指南 |
+| **測試工具** | `test_llm_access.py` | 獨立的命令行測試工具 |
+| **Agent 指南** | `.claude/agents/knowledge-integrator/instructions.md` | Agent 使用說明 (v1.1.0) |
+| **Workflow 定義** | `.claude/agents/knowledge-integrator/workflows.yaml` | 工作流配置 (647行) |
+| **模型配置** | `config/model_selection.yaml` | 模型選擇策略 |
+
+---
+
 ## 附錄
 
 ### A. 技術依賴清單
@@ -1863,8 +2110,12 @@ OLLAMA_URL=http://localhost:11434
 
 ---
 
-**文檔最後更新**: 2025-11-02 17:00
-**當前版本**: v2.3 (Phase 1.6 完成版)
-**總行數**: ~1,700行
-**變更內容**: 新增 Phase 1.6 元數據優化完整記錄 (YAML解析、6個優化工具、準確度提升至90%+)
-**備份位置**: `archive/AGENT_SKILL_DESIGN_v2.2_backup_20251102.md`
+**文檔最後更新**: 2025-11-05 14:30
+**當前版本**: v2.6 (Phase 1.5 + Phase 2 + LLM檢查整合版)
+**總行數**: ~2,100行
+**變更內容**:
+- ✅ LLM 訪問檢查功能整合 (KB Manager Agent v1.1.0)
+- ✅ 新增 check-llm CLI 命令 (+158行)
+- ✅ 新增 check_llm_access workflow (+58行)
+- ✅ 總計新增 +798行代碼和文檔
+**備份位置**: `archive/AGENT_SKILL_DESIGN_v2.5_backup_20251105.md`

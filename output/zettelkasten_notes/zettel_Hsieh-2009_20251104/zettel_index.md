@@ -116,45 +116,33 @@ graph TD
 
     Hsieh-2009-012["未來研究方向：句法平行性與機器翻譯"]
 
-    Hsieh-2009-001 --> Hsieh2009002
+    Hsieh-2009-001 --> Hsieh-2009-002
 
-    Hsieh-2009-001 --> Hsieh2009003
+    Hsieh-2009-001 --> Hsieh-2009-003
 
-    Hsieh2009001 --> Hsieh-2009-002
 
-    Hsieh-2009-002 --> Hsieh2009004
+    Hsieh-2009-002 --> Hsieh-2009-004
 
-    Hsieh-2009-002 --> Hsieh2009005
+    Hsieh-2009-002 --> Hsieh-2009-005
 
-    Hsieh2009001 --> Hsieh-2009-003
 
-    Hsieh-2009-003 --> Hsieh2009006
+    Hsieh-2009-003 --> Hsieh-2009-006
 
-    Hsieh2009002 --> Hsieh-2009-004
 
-    Hsieh-2009-004 --> Hsieh2007007
+    Hsieh-2009-004 --> Hsieh-2007-007
 
-    Hsieh2009002 --> Hsieh-2009-005
 
-    Hsieh-2009-005 --> Hsieh2009008
+    Hsieh-2009-005 --> Hsieh-2009-008
 
-    Hsieh2009003 --> Hsieh-2009-006
 
-    Hsieh-2009-006 --> Hsieh2009009
+    Hsieh-2009-006 --> Hsieh-2009-009
 
-    Hsieh2009004 --> Hsieh-2009-007
+    Hsieh-2009-004 --> Hsieh-2009-007
 
-    Hsieh-2009-007 --> Hsieh2009010
+    Hsieh-2009-007 --> Hsieh-2009-010
 
-    Hsieh2009005 --> Hsieh-2009-008
 
-    Hsieh-2009-008 --> Hsieh2009011
-
-    Hsieh2009006 --> Hsieh-2009-009
-
-    Hsieh2009007 --> Hsieh-2009-010
-
-    Hsieh2009008 --> Hsieh-2009-011
+    Hsieh-2009-008 --> Hsieh-2009-011
 
     Hsieh-2009-012 --> 無
 

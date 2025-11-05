@@ -116,67 +116,54 @@ graph TD
 
     Hsiao-2013-012["未來研究方向 (Future Research Directions)"]
 
-    Hsiao-2013-001 --> Hsiao2013002
+    Hsiao-2013-001 --> Hsiao-2013-002
 
-    Hsiao-2013-001 --> Hsiao2013003
+    Hsiao-2013-001 --> Hsiao-2013-003
 
-    Hsiao2013001 --> Hsiao-2013-002
 
-    Hsiao-2013-002 --> Hsiao2013004
+    Hsiao-2013-002 --> Hsiao-2013-004
 
-    Hsiao-2013-002 --> Hsiao2013005
+    Hsiao-2013-002 --> Hsiao-2013-005
 
-    Hsiao-2013-002 -.-> Hsiao2013003
+    Hsiao-2013-002 -.-> Hsiao-2013-003
 
-    Hsiao2013001 --> Hsiao-2013-003
 
-    Hsiao-2013-003 --> Hsiao2013006
+    Hsiao-2013-003 --> Hsiao-2013-006
 
-    Hsiao-2013-003 --> Hsiao2013007
+    Hsiao-2013-003 --> Hsiao-2013-007
 
-    Hsiao-2013-003 -.-> Hsiao2013002
+    Hsiao-2013-003 -.-> Hsiao-2013-002
 
-    Hsiao2013002 --> Hsiao-2013-004
 
-    Hsiao-2013-004 --> Hsiao2013008
+    Hsiao-2013-004 --> Hsiao-2013-008
 
-    Hsiao2013002 --> Hsiao-2013-005
 
-    Hsiao-2013-005 --> Hsiao2013008
+    Hsiao-2013-005 --> Hsiao-2013-008
 
-    Hsiao-2013-005 -.-> Hsiao2013004
+    Hsiao-2013-005 -.-> Hsiao-2013-004
 
-    Hsiao2013003 --> Hsiao-2013-006
 
-    Hsiao-2013-006 --> Hsiao201309
+    Hsiao-2013-006 --> Hsiao-2013-090
 
-    Hsiao2013003 --> Hsiao-2013-007
+    Hsiao-2013-008 --> Hsiao-2013-010
 
-    Hsiao-2013-007 --> Hsiao201310
+    Hsiao-2013-006 --> Hsiao-2013-009
 
-    Hsiao2013004 --> Hsiao-2013-008
+    Hsiao-2013-009 --> Hsiao-2013-010
 
-    Hsiao2013005 --> Hsiao-2013-008
+    Hsiao-2013-007 --> Hsiao-2013-010
 
-    Hsiao-2013-008 --> Hsiao201311
+    Hsiao-2013-010 --> Hsiao-2013-020
 
-    Hsiao2013006 --> Hsiao-2013-009
+    Hsiao-2013-008 --> Hsiao-2013-011
 
-    Hsiao-2013-009 --> Hsiao201311
+    Hsiao-2013-009 --> Hsiao-2013-011
 
-    Hsiao2013007 --> Hsiao-2013-010
+    Hsiao-2013-011 -.-> Hsiao-2013-012
 
-    Hsiao-2013-010 --> Hsiao201312
+    Hsiao-2013-010 --> Hsiao-2013-012
 
-    Hsiao2013008 --> Hsiao-2013-011
-
-    Hsiao2013009 --> Hsiao-2013-011
-
-    Hsiao-2013-011 -.-> Hsiao2013012
-
-    Hsiao2013010 --> Hsiao-2013-012
-
-    Hsiao2013011 --> Hsiao-2013-012
+    Hsiao-2013-011 --> Hsiao-2013-012
 
 ```
 

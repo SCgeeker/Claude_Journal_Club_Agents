@@ -1,30 +1,28 @@
 ---
 title: "顏色匹配效應 (Color-Match Effect)"
-summary: "# 顏色匹配效應 (Color-Match Effect)  > **核心**: "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evidence fo"
+summary: "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evidence for a color-match advantage on median reaction time and error rates."
 ---
 
-
-# 顏色匹配效應 (Color-Match Effect)
-
 > **核心**: "In both a native sample (Experiment 1) and a non-native sample (Experiment 2), we found strong evidence for a color-match advantage on median reaction time and error rates."
+
 
 ## 說明
 研究發現，當圖片中物體的顏色與句子中暗示的顏色相匹配時，參與者的反應時間更快，錯誤率更低。這個現象被稱為顏色匹配效應。這個效應支持了具身認知理論，表明人們在理解語言時會自動模擬物體的顏色。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024001]], [[vanZuijlen2024002]]
+**基於** → [[vanZuijlen-2024-001]], [[vanZuijlen-2024-002]]
 
 
 
-**相關** ↔ [[vanZuijlen2024007]]
+**相關** ↔ [[vanZuijlen-2024-007]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

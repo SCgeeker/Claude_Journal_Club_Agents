@@ -116,55 +116,42 @@ graph TD
 
     Tsang-2009-012["漢字理解的計算機模型"]
 
-    Tsang-2009-001 --> Tsang2009002
+    Tsang-2009-001 --> Tsang-2009-002
 
-    Tsang-2009-001 --> Tsang2009003
+    Tsang-2009-001 --> Tsang-2009-003
 
-    Tsang2009001 --> Tsang-2009-002
 
-    Tsang-2009-002 --> Tsang2009004
+    Tsang-2009-002 --> Tsang-2009-004
 
-    Tsang2009001 --> Tsang-2009-003
+    Tsang-2009-001 --> Tsang-2009-004
 
-    Tsang2009002 --> Tsang-2009-004
+    Tsang-2009-004 --> Tsang-2009-005
 
-    Tsang2009001 --> Tsang-2009-004
+    Tsang-2009-004 --> Tsang-2009-006
 
-    Tsang-2009-004 --> Tsang2009005
 
-    Tsang-2009-004 --> Tsang2009006
+    Tsang-2009-005 --> Tsang-2009-007
 
-    Tsang2009004 --> Tsang-2009-005
 
-    Tsang-2009-005 --> Tsang2009007
+    Tsang-2009-006 --> Tsang-2009-008
 
-    Tsang2009004 --> Tsang-2009-006
 
-    Tsang-2009-006 --> Tsang2009008
+    Tsang-2009-007 --> Tsang-2009-009
 
-    Tsang2009005 --> Tsang-2009-007
 
-    Tsang-2009-007 --> Tsang2009009
+    Tsang-2009-008 --> Tsang-2009-010
 
-    Tsang2009006 --> Tsang-2009-008
 
-    Tsang-2009-008 --> Tsang2009010
+    Tsang-2009-002 --> Tsang-2009-009
 
-    Tsang2009007 --> Tsang-2009-009
+    Tsang-2009-009 --> Tsang-2009-011
 
-    Tsang2009002 --> Tsang-2009-009
 
-    Tsang-2009-009 --> Tsang2009011
+    Tsang-2009-002 --> Tsang-2009-010
 
-    Tsang2009008 --> Tsang-2009-010
+    Tsang-2009-010 --> Tsang-2009-012
 
-    Tsang2009002 --> Tsang-2009-010
 
-    Tsang-2009-010 --> Tsang2009012
-
-    Tsang2009009 --> Tsang-2009-011
-
-    Tsang2009010 --> Tsang-2009-012
 
 ```
 

@@ -1,30 +1,27 @@
 ---
 title: "行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)"
-summary: "# 行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)  > **核心**: "When a sentence implied action in one direction (e.g., “Close the drawer” impli"
+summary: "When a sentence implied action in one direction (e.g., “Close the drawer” implies action away from the body), the participants had difficulty making a sensibility judgment requiring a response in the opposite direction."
 ---
 
-
-# 行動-句子相容性效應 (Action-Sentence Compatibility Effect, ACE)
-
 > **核心**: "When a sentence implied action in one direction (e.g., “Close the drawer” implies action away from the body), the participants had difficulty making a sensibility judgment requiring a response in the opposite direction."
+
 
 ## 說明
 行動-句子相容性效應 (ACE) 指出，當理解一個暗示特定方向動作的句子時（例如，「關上抽屜」暗示遠離身體的動作），個體在做出需要相反方向動作的判斷時會遇到困難。這個現象支持了具身認知理論，表明語言理解與行動計劃之間存在聯繫。
 
+
 ## 連結網絡
 
 
-**基於** → [[Glenberg2002001]]
+**基於** → [[Glenberg-2002-001]]
 
 
-**導向** → [[Glenberg2002004]], [[Glenberg2002006]]
-
+**導向** → [[Glenberg-2002-004]], [[Glenberg-2002-006]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

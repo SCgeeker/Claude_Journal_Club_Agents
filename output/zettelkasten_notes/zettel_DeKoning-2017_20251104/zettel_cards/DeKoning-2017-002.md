@@ -1,32 +1,30 @@
 ---
 title: "匹配優勢 (Match Advantage)"
-summary: "# 匹配優勢 (Match Advantage)  > **核心**: "Faster verification times on matching trials (match advantage) are considered supportive to the notion that rea"
+summary: "Faster verification times on matching trials (match advantage) are considered supportive to the notion that readers perform mental simulations during sentence comprehension."
 ---
 
-
-# 匹配優勢 (Match Advantage)
-
 > **核心**: "Faster verification times on matching trials (match advantage) are considered supportive to the notion that readers perform mental simulations during sentence comprehension."
+
 
 ## 說明
 匹配優勢指的是在句圖驗證任務中，當圖片與句子所暗示的視覺信息相匹配時，參與者驗證速度更快。這種現象被認為支持讀者在理解句子時會進行心理模擬的觀點。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017001]]
+**基於** → [[DeKoning-2017-001]]
 
 
-**導向** → [[DeKoning2017006]], [[DeKoning2017007]]
+**導向** → [[DeKoning-2017-006]], [[DeKoning-2017-007]]
 
 
-**相關** ↔ [[DeKoning2017003]]
+**相關** ↔ [[DeKoning-2017-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

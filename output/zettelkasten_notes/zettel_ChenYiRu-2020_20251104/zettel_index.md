@@ -116,61 +116,41 @@ graph TD
 
     ChenYiRu-2020-012["《新版實用視聽華語》分類詞教學的檢視與建議"]
 
-    ChenYiRu-2020-001 --> ChenYiRu2020002
+    ChenYiRu-2020-001 --> ChenYiRu-2020-002
 
-    ChenYiRu-2020-001 --> ChenYiRu2020003
+    ChenYiRu-2020-001 --> ChenYiRu-2020-003
 
-    ChenYiRu2020001 --> ChenYiRu-2020-002
 
-    ChenYiRu-2020-002 --> ChenYiRu2020005
+    ChenYiRu-2020-002 --> ChenYiRu-2020-005
 
-    ChenYiRu2020001 --> ChenYiRu-2020-003
 
-    ChenYiRu-2020-003 --> ChenYiRu2020006
+    ChenYiRu-2020-003 --> ChenYiRu-2020-006
 
-    ChenYiRu-2020-004 --> ChenYiRu2020005
+    ChenYiRu-2020-004 --> ChenYiRu-2020-005
 
-    ChenYiRu2020002 --> ChenYiRu-2020-005
+    ChenYiRu-2020-005 --> ChenYiRu-2020-007
 
-    ChenYiRu2020004 --> ChenYiRu-2020-005
 
-    ChenYiRu-2020-005 --> ChenYiRu2020007
+    ChenYiRu-2020-006 --> ChenYiRu-2020-008
 
-    ChenYiRu2020003 --> ChenYiRu-2020-006
+    ChenYiRu-2020-007 --> ChenYiRu-2020-009
 
-    ChenYiRu-2020-006 --> ChenYiRu2020008
+    ChenYiRu-2020-007 --> ChenYiRu-2020-010
 
-    ChenYiRu-2020-007 --> ChenYiRu2020009
+    ChenYiRu-2020-007 --> ChenYiRu-2020-011
 
-    ChenYiRu-2020-007 --> ChenYiRu2020010
 
-    ChenYiRu-2020-007 --> ChenYiRu2020011
+    ChenYiRu-2020-008 --> ChenYiRu-2020-010
 
-    ChenYiRu2020006 --> ChenYiRu-2020-008
 
-    ChenYiRu-2020-008 --> ChenYiRu2020010
+    ChenYiRu-2020-009 --> ChenYiRu-2020-012
 
-    ChenYiRu2020007 --> ChenYiRu-2020-009
+    ChenYiRu-2020-010 --> ChenYiRu-2020-012
 
-    ChenYiRu-2020-009 --> ChenYiRu2020012
 
-    ChenYiRu2020007 --> ChenYiRu-2020-010
+    ChenYiRu-2020-011 --> ChenYiRu-2020-012
 
-    ChenYiRu2020008 --> ChenYiRu-2020-010
-
-    ChenYiRu-2020-010 --> ChenYiRu2020012
-
-    ChenYiRu2020007 --> ChenYiRu-2020-011
-
-    ChenYiRu-2020-011 --> ChenYiRu2020012
-
-    ChenYiRu2020009 --> ChenYiRu-2020-012
-
-    ChenYiRu2020010 --> ChenYiRu-2020-012
-
-    ChenYiRu2020011 --> ChenYiRu-2020-012
-
-    ChenYiRu-2020-012 -.-> ChenYiRu2020007
+    ChenYiRu-2020-012 -.-> ChenYiRu-2020-007
 
 ```
 

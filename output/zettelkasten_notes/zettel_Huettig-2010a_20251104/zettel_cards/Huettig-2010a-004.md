@@ -1,15 +1,14 @@
 ---
 title: "普遍語法 (Universal Grammar)"
-summary: "# 普遍語法 (Universal Grammar)  > **核心**: 假定论文间接涉及了普遍语法，核心句可以是 “Universal Grammar posits that all languages share a common underlying structure.”  ## 說明"
+summary: "假定论文间接涉及了普遍语法，核心句可以是 “Universal Grammar posits that all languages share a common underlying structure.”"
 ---
-
-
-# 普遍語法 (Universal Grammar)
 
 > **核心**: 假定论文间接涉及了普遍语法，核心句可以是 “Universal Grammar posits that all languages share a common underlying structure.”
 
+
 ## 說明
 普遍語法理論認為，所有人類語言都共享一個共同的底層結構。 這個理論挑戰了語言相對性假設，認為人類具有先天的語言能力，而語言的差異只是表面的。
+
 
 ## 連結網絡
 
@@ -20,9 +19,9 @@ summary: "# 普遍語法 (Universal Grammar)  > **核心**: 假定论文间接�
 **對比** ⚡ [[Huettig2010a001]]
 
 
+
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

@@ -116,53 +116,39 @@ graph TD
 
     Ahrens-2016-012["Classifiers 的多義性 (Polysemy)"]
 
-    Ahrens-2016-001 --> Ahrens2016002
+    Ahrens-2016-001 --> Ahrens-2016-002
 
-    Ahrens-2016-001 --> Ahrens2016003
+    Ahrens-2016-001 --> Ahrens-2016-003
 
-    Ahrens2016001 --> Ahrens-2016-002
 
-    Ahrens-2016-002 --> Ahrens2016005
+    Ahrens-2016-002 --> Ahrens-2016-005
 
-    Ahrens-2016-002 --> Ahrens2016006
+    Ahrens-2016-002 --> Ahrens-2016-006
 
-    Ahrens2016001 --> Ahrens-2016-003
 
-    Ahrens-2016-003 -.-> Ahrens2016002
+    Ahrens-2016-003 -.-> Ahrens-2016-002
 
-    Ahrens2016001 --> Ahrens-2016-004
+    Ahrens-2016-001 --> Ahrens-2016-004
 
-    Ahrens2016002 --> Ahrens-2016-004
+    Ahrens-2016-002 --> Ahrens-2016-004
 
-    Ahrens-2016-004 --> Ahrens2016007
+    Ahrens-2016-004 --> Ahrens-2016-007
 
-    Ahrens2016002 --> Ahrens-2016-005
 
-    Ahrens-2016-005 --> Ahrens2016008
+    Ahrens-2016-005 --> Ahrens-2016-008
 
-    Ahrens2016002 --> Ahrens-2016-006
 
-    Ahrens-2016-006 --> Ahrens2016009
+    Ahrens-2016-006 --> Ahrens-2016-009
 
-    Ahrens-2016-006 --> Ahrens2016010
+    Ahrens-2016-006 --> Ahrens-2016-010
 
-    Ahrens-2016-006 --> Ahrens2016011
+    Ahrens-2016-006 --> Ahrens-2016-011
 
-    Ahrens2016004 --> Ahrens-2016-007
+    Ahrens-2016-008 -.-> Ahrens-2016-012
 
-    Ahrens2016005 --> Ahrens-2016-008
+    Ahrens-2016-008 --> Ahrens-2016-012
 
-    Ahrens-2016-008 -.-> Ahrens2016012
-
-    Ahrens2016006 --> Ahrens-2016-009
-
-    Ahrens2016006 --> Ahrens-2016-010
-
-    Ahrens2016006 --> Ahrens-2016-011
-
-    Ahrens2016008 --> Ahrens-2016-012
-
-    Ahrens-2016-012 -.-> Ahrens2016002
+    Ahrens-2016-012 -.-> Ahrens-2016-002
 
 ```
 

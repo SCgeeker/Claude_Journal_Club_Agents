@@ -116,53 +116,42 @@ graph TD
 
     Verdonschot-2010-012["研究局限性"]
 
-    Verdonschot-2010-001 --> Verdonschot2010002
+    Verdonschot-2010-001 --> Verdonschot-2010-002
 
-    Verdonschot-2010-001 --> Verdonschot2010003
+    Verdonschot-2010-001 --> Verdonschot-2010-003
 
-    Verdonschot2010001 --> Verdonschot-2010-002
 
-    Verdonschot-2010-002 --> Verdonschot2010004
+    Verdonschot-2010-002 --> Verdonschot-2010-004
 
-    Verdonschot-2010-002 -.-> Verdonschot2010003
+    Verdonschot-2010-002 -.-> Verdonschot-2010-003
 
-    Verdonschot2010001 --> Verdonschot-2010-003
 
-    Verdonschot-2010-003 --> Verdonschot2010005
+    Verdonschot-2010-003 --> Verdonschot-2010-005
 
-    Verdonschot-2010-003 -.-> Verdonschot2010002
+    Verdonschot-2010-003 -.-> Verdonschot-2010-002
 
-    Verdonschot2010002 --> Verdonschot-2010-004
 
-    Verdonschot-2010-004 --> Verdonschot2010006
+    Verdonschot-2010-004 --> Verdonschot-2010-006
 
-    Verdonschot2010003 --> Verdonschot-2010-005
 
-    Verdonschot-2010-005 --> Verdonschot2010007
+    Verdonschot-2010-005 --> Verdonschot-2010-007
 
-    Verdonschot2010004 --> Verdonschot-2010-006
 
-    Verdonschot-2010-006 --> Verdonschot2010008
+    Verdonschot-2010-006 --> Verdonschot-2010-008
 
-    Verdonschot2010005 --> Verdonschot-2010-007
 
-    Verdonschot-2010-007 --> Verdonschot2010009
+    Verdonschot-2010-007 --> Verdonschot-2010-009
 
-    Verdonschot2010006 --> Verdonschot-2010-008
 
-    Verdonschot-2010-008 --> Verdonschot2010010
+    Verdonschot-2010-008 --> Verdonschot-2010-010
 
-    Verdonschot2010007 --> Verdonschot-2010-009
 
-    Verdonschot-2010-009 --> Verdonschot2010011
+    Verdonschot-2010-009 --> Verdonschot-2010-011
 
-    Verdonschot2010008 --> Verdonschot-2010-010
 
-    Verdonschot-2010-010 --> Verdonschot2010012
+    Verdonschot-2010-010 --> Verdonschot-2010-012
 
-    Verdonschot2010009 --> Verdonschot-2010-011
 
-    Verdonschot2010010 --> Verdonschot-2010-012
 
 ```
 

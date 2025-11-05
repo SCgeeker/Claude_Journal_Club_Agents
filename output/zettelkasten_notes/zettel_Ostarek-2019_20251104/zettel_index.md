@@ -116,59 +116,41 @@ graph TD
 
     Ostarek-2019-012["後續研究方向"]
 
-    Ostarek-2019-001 --> Ostarek2019002
+    Ostarek-2019-001 --> Ostarek-2019-002
 
-    Ostarek-2019-001 --> Ostarek2019003
+    Ostarek-2019-001 --> Ostarek-2019-003
 
-    Ostarek2019001 --> Ostarek-2019-002
 
-    Ostarek-2019-002 --> Ostarek2019004
+    Ostarek-2019-002 --> Ostarek-2019-004
 
-    Ostarek-2019-002 --> Ostarek2019005
+    Ostarek-2019-002 --> Ostarek-2019-005
 
-    Ostarek2019001 --> Ostarek-2019-003
 
-    Ostarek2019002 --> Ostarek-2019-003
+    Ostarek-2019-002 --> Ostarek-2019-003
 
-    Ostarek-2019-003 --> Ostarek2019006
+    Ostarek-2019-003 --> Ostarek-2019-006
 
-    Ostarek-2019-003 -.-> Ostarek2019004
+    Ostarek-2019-003 -.-> Ostarek-2019-004
 
-    Ostarek2019002 --> Ostarek-2019-004
 
-    Ostarek-2019-004 --> Ostarek2019006
+    Ostarek-2019-004 --> Ostarek-2019-006
 
-    Ostarek-2019-004 -.-> Ostarek2019003
+    Ostarek-2019-004 -.-> Ostarek-2019-003
 
-    Ostarek2019002 --> Ostarek-2019-005
 
-    Ostarek-2019-005 --> Ostarek2019009
+    Ostarek-2019-005 --> Ostarek-2019-009
 
-    Ostarek2019003 --> Ostarek-2019-006
+    Ostarek-2019-006 --> Ostarek-2019-007
 
-    Ostarek2019004 --> Ostarek-2019-006
+    Ostarek-2019-006 --> Ostarek-2019-008
 
-    Ostarek-2019-006 --> Ostarek2019007
+    Ostarek-2019-008 --> Ostarek-2019-009
 
-    Ostarek-2019-006 --> Ostarek2019008
+    Ostarek-2019-009 --> Ostarek-2019-010
 
-    Ostarek2019006 --> Ostarek-2019-007
 
-    Ostarek2019006 --> Ostarek-2019-008
+    Ostarek-2019-011 --> Ostarek-2019-012
 
-    Ostarek-2019-008 --> Ostarek2019009
-
-    Ostarek2019005 --> Ostarek-2019-009
-
-    Ostarek2019008 --> Ostarek-2019-009
-
-    Ostarek-2019-009 --> Ostarek2019010
-
-    Ostarek2019009 --> Ostarek-2019-010
-
-    Ostarek-2019-011 --> Ostarek2019012
-
-    Ostarek2019011 --> Ostarek-2019-012
 
 ```
 

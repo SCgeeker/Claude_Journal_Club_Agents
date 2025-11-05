@@ -1,30 +1,27 @@
 ---
 title: "索引假說 (Indexical Hypothesis, IH)"
-summary: "# 索引假說 (Indexical Hypothesis, IH)  > **核心**: "According to the IH, three processes transform words and syntax into an action-based meaning. First, w"
+summary: "According to the IH, three processes transform words and syntax into an action-based meaning. First, words and phrases are indexed or mapped to perceptual symbols (Barsalou, 1999; Stanfield & Zwaan, 2001)."
 ---
 
-
-# 索引假說 (Indexical Hypothesis, IH)
-
 > **核心**: "According to the IH, three processes transform words and syntax into an action-based meaning. First, words and phrases are indexed or mapped to perceptual symbols (Barsalou, 1999; Stanfield & Zwaan, 2001)."
+
 
 ## 說明
 索引假說 (IH) 提出，意義是基於行動的。 該假說認為，詞語和語法透過三個過程轉化為基於行動的意義：首先，詞語和短語被索引或映射到知覺符號；其次，從知覺符號中提取可供性；第三，可供性在語法結構的指導下進行組合。
 
+
 ## 連結網絡
 
 
-**基於** → [[Glenberg2002001]]
+**基於** → [[Glenberg-2002-001]]
 
 
-**導向** → [[Glenberg2002007]], [[Glenberg2002008]]
-
+**導向** → [[Glenberg-2002-007]], [[Glenberg-2002-008]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

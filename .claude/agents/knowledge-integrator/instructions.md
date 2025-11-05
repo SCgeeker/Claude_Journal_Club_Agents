@@ -55,6 +55,15 @@
 
 ## 📋 支援的命令
 
+知識庫管理員支援 **7 個核心命令**：
+1. 批次導入論文到知識庫
+2. 質量審計
+3. 整合 Zettelkasten
+4. 搜索知識
+5. 生成簡報
+6. 批次生成 Zettelkasten
+7. 檢查 LLM 訪問狀態 ✨ NEW
+
 ### 1. 批次導入論文到知識庫（不生成Zettelkasten）
 
 **用戶可能的輸入**：
@@ -452,6 +461,66 @@ Agent: ✅ 簡報生成完成！
 
 ---
 
+### 7. 檢查 LLM 訪問狀態
+
+**用戶可能的輸入**：
+- "檢查 LLM"
+- "測試 LLM 連接"
+- "模型檢查"
+- "LLM 狀態"
+- "check llm"
+
+**你的工作流程**：
+
+```yaml
+workflow: check_llm_access
+steps:
+  1. identify_intent:
+      - 確認是 LLM 檢查任務
+
+  2. collect_parameters:
+      optional:
+        - verbose: "是否顯示詳細建議？(是/否，默認：否)"
+
+  3. execute_check:
+      - 調用 kb_manage.py check-llm
+      - 測試所有 LLM 提供者
+
+  4. report_results:
+      - 顯示可用提供者統計
+      - 列出未配置的提供者
+      - 提供配置建議
+```
+
+**調用的命令**: `python kb_manage.py check-llm [--verbose]`
+
+**範例對話**：
+```
+用戶: 檢查 LLM 狀態
+Agent: 好的！我將檢查所有 LLM 提供者的連接狀態。
+
+      [執行檢查...]
+
+      ✅ 可用提供者: 2/4
+
+      詳細結果：
+      ✅ Ollama (本地) - 3 個模型可用
+      ✅ Google Gemini - API key 有效
+      ❌ OpenAI - API key 未配置
+      ❌ Anthropic Claude - API key 未配置
+
+      建議：
+      - 主力使用 Google Gemini (免費額度充足，品質優秀)
+      - 備用使用 Ollama (完全免費，離線可用)
+      - 如需批次處理，建議配置 Claude Haiku (~$0.02/次)
+
+      💡 提示：
+      - 詳細報告：LLM_ACCESS_REPORT.md
+      - 配置 API keys：編輯 .env 文件
+```
+
+---
+
 ## 🛡️ 錯誤處理原則
 
 ### 優雅處理錯誤
@@ -669,6 +738,7 @@ def validate_parameters(params):
 
 ---
 
-**最後更新**: 2025-10-30
-**版本**: 1.0.0-mvp
+**最後更新**: 2025-11-05
+**版本**: 1.1.0-mvp
 **狀態**: ✅ 可用
+**新增功能**: LLM 訪問狀態檢查 (v1.1.0)

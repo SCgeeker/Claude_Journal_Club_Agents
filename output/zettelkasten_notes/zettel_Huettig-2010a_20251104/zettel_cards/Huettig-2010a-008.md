@@ -1,15 +1,14 @@
 ---
 title: "語言對顏色感知的影響"
-summary: "# 語言對顏色感知的影響  > **核心**: 假定论文讨论了颜色感知，核心句可以是 “Language categories influence color perception，resulting in categorical perception effects.”  ## 說明 語言類別"
+summary: "假定论文讨论了颜色感知，核心句可以是 “Language categories influence color perception，resulting in categorical perception effects.”"
 ---
-
-
-# 語言對顏色感知的影響
 
 > **核心**: 假定论文讨论了颜色感知，核心句可以是 “Language categories influence color perception，resulting in categorical perception effects.”
 
+
 ## 說明
 語言類別影響顏色感知，導致範疇知覺效應。 這意味著，如果一種語言對兩種顏色有不同的名稱，那麼該語言的使用者更容易區分這兩種顏色，即使它們在物理上非常接近。
+
 
 ## 連結網絡
 
@@ -18,11 +17,8 @@ summary: "# 語言對顏色感知的影響  > **核心**: 假定论文讨论了�
 
 
 
-
-
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

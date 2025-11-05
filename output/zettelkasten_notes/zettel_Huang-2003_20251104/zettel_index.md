@@ -116,63 +116,48 @@ graph TD
 
     Huang-2003-012["事件分類詞與事件類型和事件實例的關係"]
 
-    Huang-2003-001 --> Huang2003002
+    Huang-2003-001 --> Huang-2003-002
 
-    Huang2003001 --> Huang-2003-002
 
-    Huang-2003-002 --> Huang2003003
+    Huang-2003-002 --> Huang-2003-003
 
-    Huang-2003-002 --> Huang2003004
+    Huang-2003-002 --> Huang-2003-004
 
-    Huang2003002 --> Huang-2003-003
 
-    Huang-2003-003 --> Huang2003007
+    Huang-2003-003 --> Huang-2003-007
 
-    Huang-2003-003 --> Huang2003008
+    Huang-2003-003 --> Huang-2003-008
 
-    Huang-2003-003 --> Huang2003009
+    Huang-2003-003 --> Huang-2003-009
 
-    Huang2003002 --> Huang-2003-004
 
-    Huang-2003-004 --> Huang2003010
+    Huang-2003-004 --> Huang-2003-010
 
-    Huang-2003-005 --> Huang2003007
+    Huang-2003-005 --> Huang-2003-007
 
-    Huang-2003-005 --> Huang2003008
+    Huang-2003-005 --> Huang-2003-008
 
-    Huang-2003-005 --> Huang2003009
+    Huang-2003-005 --> Huang-2003-009
 
-    Huang-2003-005 -.-> Huang2003003
+    Huang-2003-005 -.-> Huang-2003-003
 
-    Huang-2003-006 --> Huang2003007
+    Huang-2003-006 --> Huang-2003-007
 
-    Huang2003006 --> Huang-2003-007
 
-    Huang-2003-007 --> Huang2003010
+    Huang-2003-007 --> Huang-2003-010
 
-    Huang-2003-007 -.-> Huang2003003
+    Huang-2003-007 -.-> Huang-2003-003
 
-    Huang-2003-007 -.-> Huang2003005
+    Huang-2003-007 -.-> Huang-2003-005
 
-    Huang2003003 --> Huang-2003-008
+    Huang-2003-008 --> Huang-2003-011
 
-    Huang2003005 --> Huang-2003-008
+    Huang-2003-009 --> Huang-2003-012
 
-    Huang-2003-008 --> Huang2003011
 
-    Huang2003003 --> Huang-2003-009
+    Huang-2003-010 -.-> Huang-2003-004
 
-    Huang2003005 --> Huang-2003-009
 
-    Huang-2003-009 --> Huang2003012
-
-    Huang2003007 --> Huang-2003-010
-
-    Huang-2003-010 -.-> Huang2003004
-
-    Huang2003008 --> Huang-2003-011
-
-    Huang2003009 --> Huang-2003-012
 
 ```
 

@@ -116,79 +116,61 @@ graph TD
 
     Potter-1979-012["Familiarity and Holistic Understanding (熟悉度與整體理解)"]
 
-    Potter-1979-001 --> Potter1979002
+    Potter-1979-001 --> Potter-1979-002
 
-    Potter-1979-001 --> Potter1979003
+    Potter-1979-001 --> Potter-1979-003
 
-    Potter1979001 --> Potter-1979-002
 
-    Potter-1979-002 --> Potter1979005
+    Potter-1979-002 --> Potter-1979-005
 
-    Potter-1979-002 --> Potter1979006
+    Potter-1979-002 --> Potter-1979-006
 
-    Potter1979001 --> Potter-1979-003
 
-    Potter1979002 --> Potter-1979-003
+    Potter-1979-002 --> Potter-1979-003
 
-    Potter-1979-003 --> Potter1979004
+    Potter-1979-003 --> Potter-1979-004
 
-    Potter-1979-003 --> Potter1979007
+    Potter-1979-003 --> Potter-1979-007
 
-    Potter-1979-003 -.-> Potter1979005
+    Potter-1979-003 -.-> Potter-1979-005
 
-    Potter1979003 --> Potter-1979-004
 
-    Potter-1979-004 --> Potter1979007
+    Potter-1979-004 --> Potter-1979-007
 
-    Potter-1979-004 --> Potter1979008
+    Potter-1979-004 --> Potter-1979-008
 
-    Potter-1979-004 -.-> Potter1979009
+    Potter-1979-004 -.-> Potter-1979-009
 
-    Potter-1979-005 --> Potter1979006
+    Potter-1979-005 --> Potter-1979-006
 
-    Potter-1979-005 -.-> Potter1979001
+    Potter-1979-005 -.-> Potter-1979-001
 
-    Potter-1979-005 -.-> Potter1979002
+    Potter-1979-005 -.-> Potter-1979-002
 
-    Potter1979002 --> Potter-1979-006
+    Potter-1979-007 --> Potter-1979-010
 
-    Potter1979005 --> Potter-1979-006
+    Potter-1979-007 -.-> Potter-1979-008
 
-    Potter1979003 --> Potter-1979-007
+    Potter-1979-003 --> Potter-1979-008
 
-    Potter1979004 --> Potter-1979-007
 
-    Potter-1979-007 --> Potter1979010
+    Potter-1979-008 --> Potter-1979-010
 
-    Potter-1979-007 -.-> Potter1979008
+    Potter-1979-009 -.-> Potter-1979-004
 
-    Potter1979003 --> Potter-1979-008
+    Potter-1979-009 -.-> Potter-1979-006
 
-    Potter1979004 --> Potter-1979-008
+    Potter-1979-010 --> Potter-1979-011
 
-    Potter-1979-008 --> Potter1979010
 
-    Potter-1979-009 -.-> Potter1979004
+    Potter-1979-011 --> Potter-1979-012
 
-    Potter-1979-009 -.-> Potter1979006
+    Potter-1979-011 -.-> Potter-1979-002
 
-    Potter1979007 --> Potter-1979-010
 
-    Potter1979008 --> Potter-1979-010
+    Potter-1979-012 -.-> Potter-1979-007
 
-    Potter-1979-010 --> Potter1979011
-
-    Potter1979010 --> Potter-1979-011
-
-    Potter-1979-011 --> Potter1979012
-
-    Potter-1979-011 -.-> Potter1979002
-
-    Potter1979011 --> Potter-1979-012
-
-    Potter-1979-012 -.-> Potter1979007
-
-    Potter-1979-012 -.-> Potter1979010
+    Potter-1979-012 -.-> Potter-1979-010
 
 ```
 

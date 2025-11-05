@@ -1,30 +1,28 @@
 ---
 title: "內在屬性與匹配優勢"
-summary: "# 內在屬性與匹配優勢  > **核心**: "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, size, and colour, and no ma"
+summary: "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, size, and colour, and no match advantage for theextrinsic visual property orientation."
 ---
 
-
-# 內在屬性與匹配優勢
-
 > **核心**: "Together, these results show small to largematchadvantagesfortheintrinsicvisualproperties shape, size, and colour, and no match advantage for theextrinsic visual property orientation."
+
 
 ## 說明
 研究發現，對於內在視覺屬性（形狀、大小、顏色），存在從小到大的匹配優勢，而對於外在視覺屬性（方向），則沒有匹配優勢。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017001]], [[DeKoning2017004]]
+**基於** → [[DeKoning-2017-001]], [[DeKoning-2017-004]]
 
 
 
-**相關** ↔ [[DeKoning2017007]]
+**相關** ↔ [[DeKoning-2017-007]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

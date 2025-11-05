@@ -116,53 +116,48 @@ graph TD
 
     Schuil-2013-012["Future Directions for Action Language Research"]
 
-    Schuil-2013-001 --> Schuil2013002
+    Schuil-2013-001 --> Schuil-2013-002
 
-    Schuil-2013-001 --> Schuil2013003
+    Schuil-2013-001 --> Schuil-2013-003
 
-    Schuil2013001 --> Schuil-2013-002
 
-    Schuil-2013-002 --> Schuil2013004
+    Schuil-2013-002 --> Schuil-2013-004
 
-    Schuil-2013-002 --> Schuil2013005
+    Schuil-2013-002 --> Schuil-2013-005
 
-    Schuil2013002 --> Schuil-2013-003
+    Schuil-2013-002 --> Schuil-2013-003
 
-    Schuil-2013-003 --> Schuil2013007
+    Schuil-2013-003 --> Schuil-2013-007
 
-    Schuil-2013-004 --> Schuil2013008
+    Schuil-2013-004 --> Schuil-2013-008
 
-    Schuil-2013-004 -.-> Schuil2013009
+    Schuil-2013-004 -.-> Schuil-2013-009
 
-    Schuil2013001 --> Schuil-2013-005
+    Schuil-2013-001 --> Schuil-2013-005
 
-    Schuil2013003 --> Schuil-2013-005
+    Schuil-2013-003 --> Schuil-2013-005
 
-    Schuil-2013-005 --> Schuil2013010
+    Schuil-2013-005 --> Schuil-2013-010
 
-    Schuil2013002 --> Schuil-2013-006
+    Schuil-2013-002 --> Schuil-2013-006
 
-    Schuil-2013-006 --> Schuil2013008
+    Schuil-2013-006 --> Schuil-2013-008
 
-    Schuil2013003 --> Schuil-2013-007
 
-    Schuil-2013-007 -.-> Schuil2013002
+    Schuil-2013-007 -.-> Schuil-2013-002
 
-    Schuil2013004 --> Schuil-2013-008
 
-    Schuil-2013-008 --> Schuil2013010
+    Schuil-2013-008 --> Schuil-2013-010
 
-    Schuil-2013-009 -.-> Schuil2013004
+    Schuil-2013-009 -.-> Schuil-2013-004
 
-    Schuil2013005 --> Schuil-2013-010
 
-    Schuil2013007 --> Schuil-2013-010
+    Schuil-2013-007 --> Schuil-2013-010
 
-    Schuil-2013-010 --> Schuil2013012
+    Schuil-2013-010 --> Schuil-2013-012
 
-    Schuil-2013-011 -.-> Schuil2013003
+    Schuil-2013-011 -.-> Schuil-2013-003
 
-    Schuil2013010 --> Schuil-2013-012
 
 ```
 

@@ -1,28 +1,24 @@
 ---
 title: "句子類型與行動-句子相容性效應 (Sentence Type and ACE)"
-summary: "# 句子類型與行動-句子相容性效應 (Sentence Type and ACE)  > **核心**: "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing"
+summary: "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing the transfer of concrete objects, and sentences describing the transfer of abstract entities, such as “Liz told you the story.”"
 ---
 
-
-# 句子類型與行動-句子相容性效應 (Sentence Type and ACE)
-
 > **核心**: "The ACE was demonstrated for three sentences types: imperative sentences, sentences describing the transfer of concrete objects, and sentences describing the transfer of abstract entities, such as “Liz told you the story.”"
+
 
 ## 說明
 研究發現，行動-句子相容性效應 (ACE) 不僅在祈使句和描述具體物件轉移的句子中存在，也出現在描述抽象概念轉移的句子中（例如，“Liz told you the story”）。這個發現表明，具身認知可能不僅僅局限於具體行動，也可能涉及抽象概念的理解。
 
+
 ## 連結網絡
 
 
-**基於** → [[Glenberg2002003]]
-
-
+**基於** → [[Glenberg-2002-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

@@ -1,15 +1,14 @@
 ---
 title: "未來研究方向"
-summary: "# 未來研究方向  > **核心**: 假定论文展望了未来的研究方向，核心句可以是 “Future research should explore the neural mechanisms underlying the influence of language on cognition.”"
+summary: "假定论文展望了未来的研究方向，核心句可以是 “Future research should explore the neural mechanisms underlying the influence of language on cognition.”"
 ---
-
-
-# 未來研究方向
 
 > **核心**: 假定论文展望了未来的研究方向，核心句可以是 “Future research should explore the neural mechanisms underlying the influence of language on cognition.”
 
+
 ## 說明
 未來的研究應該探索語言對認知影響的神經機制。 通過使用神經影像技術，例如腦電圖 (EEG) 和功能性磁共振成像 (fMRI)，我們可以了解語言如何影響大腦活動，以及哪些腦區參與了語言和認知之間的互動。
+
 
 ## 連結網絡
 
@@ -19,10 +18,8 @@ summary: "# 未來研究方向  > **核心**: 假定论文展望了未来的研�
 
 
 
-
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

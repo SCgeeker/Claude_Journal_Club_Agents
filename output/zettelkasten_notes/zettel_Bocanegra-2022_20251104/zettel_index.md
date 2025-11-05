@@ -116,67 +116,60 @@ graph TD
 
     Bocanegra-2022-012["未來研究方向 (Future Research Directions)"]
 
-    Bocanegra-2022-001 --> Bocanegra2022002
+    Bocanegra-2022-001 --> Bocanegra-2022-002
 
-    Bocanegra-2022-001 --> Bocanegra2022003
+    Bocanegra-2022-001 --> Bocanegra-2022-003
 
-    Bocanegra2022001 --> Bocanegra-2022-002
 
-    Bocanegra-2022-002 --> Bocanegra2022005
+    Bocanegra-2022-002 --> Bocanegra-2022-005
 
-    Bocanegra2022001 --> Bocanegra-2022-003
 
-    Bocanegra-2022-003 --> Bocanegra2022004
+    Bocanegra-2022-003 --> Bocanegra-2022-004
 
-    Bocanegra2022001 --> Bocanegra-2022-004
+    Bocanegra-2022-001 --> Bocanegra-2022-004
 
-    Bocanegra2022002 --> Bocanegra-2022-004
+    Bocanegra-2022-002 --> Bocanegra-2022-004
 
-    Bocanegra2022003 --> Bocanegra-2022-004
 
-    Bocanegra-2022-004 --> Bocanegra2022005
+    Bocanegra-2022-004 --> Bocanegra-2022-005
 
-    Bocanegra2022002 --> Bocanegra-2022-005
 
-    Bocanegra2022003 --> Bocanegra-2022-005
+    Bocanegra-2022-003 --> Bocanegra-2022-005
 
-    Bocanegra-2022-005 --> Bocanegra2022006
+    Bocanegra-2022-005 --> Bocanegra-2022-006
 
-    Bocanegra2022001 --> Bocanegra-2022-006
+    Bocanegra-2022-001 --> Bocanegra-2022-006
 
-    Bocanegra-2022-006 --> Bocanegra2022007
+    Bocanegra-2022-006 --> Bocanegra-2022-007
 
-    Bocanegra2022002 --> Bocanegra-2022-007
+    Bocanegra-2022-002 --> Bocanegra-2022-007
 
-    Bocanegra2022003 --> Bocanegra-2022-007
+    Bocanegra-2022-003 --> Bocanegra-2022-007
 
-    Bocanegra2022006 --> Bocanegra-2022-007
 
-    Bocanegra-2022-007 --> Bocanegra2022008
+    Bocanegra-2022-007 --> Bocanegra-2022-008
 
-    Bocanegra2022003 --> Bocanegra-2022-008
+    Bocanegra-2022-003 --> Bocanegra-2022-008
 
-    Bocanegra2022007 --> Bocanegra-2022-008
 
-    Bocanegra2022002 --> Bocanegra-2022-009
+    Bocanegra-2022-002 --> Bocanegra-2022-009
 
-    Bocanegra2022007 --> Bocanegra-2022-009
+    Bocanegra-2022-007 --> Bocanegra-2022-009
 
-    Bocanegra2022002 --> Bocanegra-2022-010
+    Bocanegra-2022-002 --> Bocanegra-2022-010
 
-    Bocanegra2022009 --> Bocanegra-2022-010
+    Bocanegra-2022-009 --> Bocanegra-2022-010
 
-    Bocanegra-2022-010 --> Bocanegra2022012
+    Bocanegra-2022-010 --> Bocanegra-2022-012
 
-    Bocanegra2022002 --> Bocanegra-2022-011
+    Bocanegra-2022-002 --> Bocanegra-2022-011
 
-    Bocanegra2022003 --> Bocanegra-2022-011
+    Bocanegra-2022-003 --> Bocanegra-2022-011
 
-    Bocanegra2022008 --> Bocanegra-2022-012
+    Bocanegra-2022-008 --> Bocanegra-2022-012
 
-    Bocanegra2022009 --> Bocanegra-2022-012
+    Bocanegra-2022-009 --> Bocanegra-2022-012
 
-    Bocanegra2022010 --> Bocanegra-2022-012
 
 ```
 

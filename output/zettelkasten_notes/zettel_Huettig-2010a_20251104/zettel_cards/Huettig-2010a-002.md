@@ -1,15 +1,14 @@
 ---
 title: "概念分類 (Conceptual Categorization)"
-summary: "# 概念分類 (Conceptual Categorization)  > **核心**: 假定论文讨论了概念分类，核心句可以是 “Conceptual categorization is the process by which objects and events are grouped i"
+summary: "假定论文讨论了概念分类，核心句可以是 “Conceptual categorization is the process by which objects and events are grouped into categories based on shared features.”"
 ---
-
-
-# 概念分類 (Conceptual Categorization)
 
 > **核心**: 假定论文讨论了概念分类，核心句可以是 “Conceptual categorization is the process by which objects and events are grouped into categories based on shared features.”
 
+
 ## 說明
 概念分類是指將事物和事件基於共同特徵歸類到不同類別的認知過程。 它是認知功能的基礎，幫助我們理解世界、做出預測和進行推理。 不同文化和語言可能對概念分類的方式產生影響。
+
 
 ## 連結網絡
 
@@ -26,7 +25,6 @@ summary: "# 概念分類 (Conceptual Categorization)  > **核心**: 假定论文
 
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

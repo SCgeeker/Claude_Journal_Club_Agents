@@ -116,51 +116,41 @@ graph TD
 
     Binder-2011-012["語義記憶的發展 (Development of Semantic Memory)"]
 
-    Binder-2011-001 --> Binder2011002
+    Binder-2011-001 --> Binder-2011-002
 
-    Binder-2011-001 --> Binder2011003
+    Binder-2011-001 --> Binder-2011-003
 
-    Binder2011001 --> Binder-2011-002
 
-    Binder-2011-002 --> Binder2011004
+    Binder-2011-002 --> Binder-2011-004
 
-    Binder2011001 --> Binder-2011-003
 
-    Binder-2011-003 --> Binder2011005
+    Binder-2011-003 --> Binder-2011-005
 
-    Binder2011002 --> Binder-2011-004
 
-    Binder-2011-004 --> Binder2011006
+    Binder-2011-004 --> Binder-2011-006
 
-    Binder-2011-004 -.-> Binder2011003
+    Binder-2011-004 -.-> Binder-2011-003
 
-    Binder2011003 --> Binder-2011-005
 
-    Binder-2011-005 --> Binder2011007
+    Binder-2011-005 --> Binder-2011-007
 
-    Binder2011004 --> Binder-2011-006
 
-    Binder-2011-006 --> Binder2011008
+    Binder-2011-006 --> Binder-2011-008
 
-    Binder2011005 --> Binder-2011-007
 
-    Binder-2011-007 --> Binder201109
+    Binder-2011-007 --> Binder-2011-090
 
-    Binder2011006 --> Binder-2011-008
+    Binder-2011-007 --> Binder-2011-009
 
-    Binder-2011-008 --> Binder201110
+    Binder-2011-009 --> Binder-2011-010
 
-    Binder2011007 --> Binder-2011-009
+    Binder-2011-008 --> Binder-2011-010
 
-    Binder-2011-009 --> Binder201111
+    Binder-2011-009 --> Binder-2011-011
 
-    Binder2011008 --> Binder-2011-010
+    Binder-2011-010 --> Binder-2011-012
 
-    Binder2011009 --> Binder-2011-011
-
-    Binder2011010 --> Binder-2011-012
-
-    Binder2011011 --> Binder-2011-012
+    Binder-2011-011 --> Binder-2011-012
 
 ```
 

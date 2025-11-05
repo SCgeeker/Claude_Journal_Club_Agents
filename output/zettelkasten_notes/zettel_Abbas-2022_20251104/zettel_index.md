@@ -184,15 +184,12 @@ graph TD
 
     Abbas-2022-001 --> Abbas-2022-003
 
-    Abbas-2022-001 --> Abbas-2022-002
 
     Abbas-2022-002 --> Abbas-2022-004
 
-    Abbas-2022-001 --> Abbas-2022-003
 
     Abbas-2022-001 --> Abbas-2022-004
 
-    Abbas-2022-002 --> Abbas-2022-004
 
     Abbas-2022-004 --> Abbas-2022-005
 
@@ -212,25 +209,12 @@ graph TD
 
     Abbas-2022-008 --> Abbas-2022-012
 
-    Abbas-2022-008 --> Abbas-2022-009
-
-    Abbas-2022-008 --> Abbas-2022-010
-
-    Abbas-2022-008 --> Abbas-2022-011
-
-    Abbas-2022-008 --> Abbas-2022-012
-
     Abbas-2022-013 -.-> Abbas-2022-014
 
     Abbas-2022-014 -.-> Abbas-2022-013
 
     Abbas-2022-015 --> Abbas-2022-018
 
-    Abbas-2022-005 --> Abbas-2022-016
-
-    Abbas-2022-005 --> Abbas-2022-017
-
-    Abbas-2022-015 --> Abbas-2022-018
 
 ```
 

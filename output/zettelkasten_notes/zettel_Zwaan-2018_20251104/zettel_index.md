@@ -116,55 +116,41 @@ graph TD
 
     Zwaan-2018-012["二級研究發現的穩健性 (Robustness of Secondary Findings)"]
 
-    Zwaan-2018-001 --> Zwaan2018002
+    Zwaan-2018-001 --> Zwaan-2018-002
 
-    Zwaan-2018-001 --> Zwaan2018003
+    Zwaan-2018-001 --> Zwaan-2018-003
 
-    Zwaan-2018-001 -.-> Zwaan2018005
+    Zwaan-2018-001 -.-> Zwaan-2018-005
 
-    Zwaan2018001 --> Zwaan-2018-002
 
-    Zwaan-2018-002 --> Zwaan2018004
+    Zwaan-2018-002 --> Zwaan-2018-004
 
-    Zwaan-2018-002 --> Zwaan2018007
+    Zwaan-2018-002 --> Zwaan-2018-007
 
-    Zwaan-2018-002 -.-> Zwaan2018003
+    Zwaan-2018-002 -.-> Zwaan-2018-003
 
-    Zwaan2018001 --> Zwaan-2018-003
 
-    Zwaan-2018-003 --> Zwaan2018006
+    Zwaan-2018-003 --> Zwaan-2018-006
 
-    Zwaan-2018-003 -.-> Zwaan2018002
+    Zwaan-2018-003 -.-> Zwaan-2018-002
 
-    Zwaan2018002 --> Zwaan-2018-004
 
-    Zwaan-2018-004 --> Zwaan2018006
+    Zwaan-2018-004 --> Zwaan-2018-006
 
-    Zwaan-2018-004 --> Zwaan201807
+    Zwaan-2018-004 --> Zwaan-2018-070
 
-    Zwaan-2018-004 -.-> Zwaan2018009
+    Zwaan-2018-004 -.-> Zwaan-2018-009
 
-    Zwaan-2018-005 -.-> Zwaan2018001
+    Zwaan-2018-005 -.-> Zwaan-2018-001
 
-    Zwaan2018003 --> Zwaan-2018-006
+    Zwaan-2018-006 --> Zwaan-2018-010
 
-    Zwaan2018004 --> Zwaan-2018-006
 
-    Zwaan-2018-006 --> Zwaan2018010
+    Zwaan-2018-007 --> Zwaan-2018-010
 
-    Zwaan2018002 --> Zwaan-2018-007
+    Zwaan-2018-008 --> Zwaan-2018-011
 
-    Zwaan-2018-007 --> Zwaan2018010
-
-    Zwaan-2018-008 --> Zwaan2018011
-
-    Zwaan-2018-009 -.-> Zwaan2018004
-
-    Zwaan2018006 --> Zwaan-2018-010
-
-    Zwaan2018007 --> Zwaan-2018-010
-
-    Zwaan2018008 --> Zwaan-2018-011
+    Zwaan-2018-009 -.-> Zwaan-2018-004
 
     Zwaan-2018-012 --> 未來研究
 

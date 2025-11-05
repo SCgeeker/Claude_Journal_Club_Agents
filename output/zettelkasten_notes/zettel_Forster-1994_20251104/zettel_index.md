@@ -116,45 +116,39 @@ graph TD
 
     Forster-1994-012["計算模型的局限性 (Limitations of Computational Models)"]
 
-    Forster-1994-001 --> Forster1994002
+    Forster-1994-001 --> Forster-1994-002
 
-    Forster-1994-001 --> Forster1994003
+    Forster-1994-001 --> Forster-1994-003
 
-    Forster1994001 --> Forster-1994-002
 
-    Forster-1994-002 --> Forster1994004
+    Forster-1994-002 --> Forster-1994-004
 
-    Forster-1994-002 -.-> Forster1994003
+    Forster-1994-002 -.-> Forster-1994-003
 
-    Forster1994001 --> Forster-1994-003
 
-    Forster-1994-003 --> Forster1994005
+    Forster-1994-003 --> Forster-1994-005
 
-    Forster-1994-003 -.-> Forster1994002
+    Forster-1994-003 -.-> Forster-1994-002
 
-    Forster1994002 --> Forster-1994-004
 
-    Forster-1994-004 --> Forster1994006
+    Forster-1994-004 --> Forster-1994-006
 
-    Forster1994003 --> Forster-1994-005
 
-    Forster-1994-005 --> Forster1994008
+    Forster-1994-005 --> Forster-1994-008
 
-    Forster1994004 --> Forster-1994-006
 
-    Forster1994005 --> Forster-1994-007
+    Forster-1994-005 --> Forster-1994-007
 
-    Forster1994005 --> Forster-1994-008
 
-    Forster1994004 --> Forster-1994-009
+    Forster-1994-004 --> Forster-1994-009
 
-    Forster1994005 --> Forster-1994-009
+    Forster-1994-005 --> Forster-1994-009
 
-    Forster1994001 --> Forster-1994-010
+    Forster-1994-001 --> Forster-1994-010
 
-    Forster1994005 --> Forster-1994-010
+    Forster-1994-005 --> Forster-1994-010
 
-    Forster1994009 --> Forster-1994-012
+    Forster-1994-009 --> Forster-1994-012
 
 ```
 

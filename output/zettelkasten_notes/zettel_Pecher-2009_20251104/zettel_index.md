@@ -116,51 +116,38 @@ graph TD
 
     Pecher-2009-012["任務需求 (Task Demands)"]
 
-    Pecher-2009-001 --> Pecher2009002
+    Pecher-2009-001 --> Pecher-2009-002
 
-    Pecher-2009-001 --> Pecher2009003
+    Pecher-2009-001 --> Pecher-2009-003
 
-    Pecher2009001 --> Pecher-2009-002
 
-    Pecher-2009-002 --> Pecher2009003
+    Pecher-2009-002 --> Pecher-2009-003
 
-    Pecher2009001 --> Pecher-2009-003
+    Pecher-2009-003 --> Pecher-2009-004
 
-    Pecher2009002 --> Pecher-2009-003
 
-    Pecher-2009-003 --> Pecher2009004
+    Pecher-2009-004 --> Pecher-2009-008
 
-    Pecher2009003 --> Pecher-2009-004
+    Pecher-2009-004 -.-> Pecher-2009-012
 
-    Pecher-2009-004 --> Pecher2009008
+    Pecher-2009-005 --> Pecher-2009-006
 
-    Pecher-2009-004 -.-> Pecher2009012
+    Pecher-2009-005 --> Pecher-2009-007
 
-    Pecher-2009-005 --> Pecher2009006
 
-    Pecher-2009-005 --> Pecher2009007
+    Pecher-2009-006 --> Pecher-2009-007
 
-    Pecher2009005 --> Pecher-2009-006
+    Pecher-2009-006 -.-> Pecher-2009-010
 
-    Pecher-2009-006 --> Pecher2009007
+    Pecher-2009-009 --> Pecher-2009-005
 
-    Pecher-2009-006 -.-> Pecher2009010
+    Pecher-2009-010 --> Pecher-2009-006
 
-    Pecher2009005 --> Pecher-2009-007
+    Pecher-2009-010 -.-> Pecher-2009-011
 
-    Pecher2009006 --> Pecher-2009-007
+    Pecher-2009-011 -.-> Pecher-2009-010
 
-    Pecher2009004 --> Pecher-2009-008
-
-    Pecher-2009-009 --> Pecher2009005
-
-    Pecher-2009-010 --> Pecher2009006
-
-    Pecher-2009-010 -.-> Pecher2009011
-
-    Pecher-2009-011 -.-> Pecher2009010
-
-    Pecher-2009-012 -.-> Pecher2009004
+    Pecher-2009-012 -.-> Pecher-2009-004
 
 ```
 

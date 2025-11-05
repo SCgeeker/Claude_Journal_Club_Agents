@@ -1066,6 +1066,163 @@ def cmd_set_cite_key(args):
         print(f"❌ 更新失敗")
 
 
+def cmd_check_llm(args):
+    """檢查 LLM 提供者訪問狀態"""
+    print("\n" + "=" * 60)
+    print("LLM Access Status Check")
+    print("=" * 60)
+    print()
+
+    # Check .env file
+    env_file = Path(".env")
+    if env_file.exists():
+        print("[OK] .env file exists")
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except ImportError:
+            print("[WARN] python-dotenv not installed, using environment variables")
+    else:
+        print("[WARN] .env file not found, using environment variables")
+    print()
+
+    results = {}
+    providers_tested = []
+
+    # Test Ollama
+    print("Testing Ollama (local)...", end=" ", flush=True)
+    try:
+        import requests
+        url = "http://localhost:11434"
+        response = requests.get(f"{url}/api/tags", timeout=5)
+        if response.status_code == 200:
+            data = response.json()
+            models = [m['name'] for m in data.get('models', [])]
+            results['Ollama'] = True
+            providers_tested.append(f"Ollama: {len(models)} models available")
+            print(f"[OK] {len(models)} models available")
+        else:
+            results['Ollama'] = False
+            print(f"[FAIL] HTTP {response.status_code}")
+    except Exception as e:
+        results['Ollama'] = False
+        print(f"[FAIL] {str(e)}")
+
+    # Test Google Gemini
+    print("Testing Google Gemini...", end=" ", flush=True)
+    try:
+        import os
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key or api_key.startswith("your-"):
+            results['Gemini'] = False
+            print("[FAIL] API key not configured")
+        else:
+            import google.generativeai as genai
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel('gemini-2.0-flash-exp')
+            response = model.generate_content("Say 'Hi'", request_options={"timeout": 10})
+            results['Gemini'] = True
+            providers_tested.append("Gemini: API key valid")
+            print(f"[OK] API key valid")
+    except Exception as e:
+        results['Gemini'] = False
+        print(f"[FAIL] {str(e)}")
+
+    # Test OpenAI
+    print("Testing OpenAI...", end=" ", flush=True)
+    try:
+        import os
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key or api_key.startswith("your-"):
+            results['OpenAI'] = False
+            print("[FAIL] API key not configured")
+        else:
+            from openai import OpenAI
+            client = OpenAI(api_key=api_key, timeout=10)
+            models = client.models.list()
+            results['OpenAI'] = True
+            providers_tested.append(f"OpenAI: {len(models.data)} models available")
+            print(f"[OK] {len(models.data)} models available")
+    except Exception as e:
+        results['OpenAI'] = False
+        error_msg = str(e)
+        if "401" in error_msg:
+            print("[FAIL] Invalid API key")
+        else:
+            print(f"[FAIL] {error_msg[:50]}")
+
+    # Test Anthropic Claude
+    print("Testing Anthropic Claude...", end=" ", flush=True)
+    try:
+        import os
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key or api_key.startswith("your-"):
+            results['Claude'] = False
+            print("[FAIL] API key not configured")
+        else:
+            import anthropic
+            client = anthropic.Anthropic(api_key=api_key, timeout=10)
+            message = client.messages.create(
+                model="claude-3-haiku-20240307",
+                max_tokens=10,
+                messages=[{"role": "user", "content": "Hi"}]
+            )
+            results['Claude'] = True
+            providers_tested.append("Claude: API key valid")
+            print("[OK] API key valid")
+    except Exception as e:
+        results['Claude'] = False
+        error_msg = str(e)
+        if "401" in error_msg:
+            print("[FAIL] Invalid API key")
+        else:
+            print(f"[FAIL] {error_msg[:50]}")
+
+    # Summary
+    print()
+    print("=" * 60)
+    print("SUMMARY")
+    print("=" * 60)
+
+    available = sum(results.values())
+    total = len(results)
+    print(f"Available providers: {available}/{total}")
+
+    if available == 0:
+        print("\n[WARN] No LLM providers available!")
+        print("Suggestions:")
+        print("  1. Check API keys in .env file")
+        print("  2. Ensure Ollama service is running (ollama serve)")
+        print("  3. Run 'python test_llm_access.py' for detailed diagnostics")
+    elif available < total:
+        print("\n[WARN] Some providers unavailable")
+        unavailable = [name for name, success in results.items() if not success]
+        print(f"Unavailable: {', '.join(unavailable)}")
+        print("\nTo configure missing providers:")
+        print("  - Edit .env file with valid API keys")
+        print("  - See LLM_ACCESS_REPORT.md for setup instructions")
+    else:
+        print("\n[OK] All providers available!")
+
+    # Show recommendations
+    if args.verbose and available > 0:
+        print("\n" + "-" * 60)
+        print("RECOMMENDATIONS")
+        print("-" * 60)
+        available_providers = [name for name, success in results.items() if success]
+
+        if 'Gemini' in available_providers:
+            print("Primary: Google Gemini (free quota, fast, high quality)")
+        if 'Ollama' in available_providers:
+            print("Backup: Ollama (free, local, offline)")
+        if 'Claude' in available_providers:
+            print("Batch: Claude Haiku (cheap ~$0.02/use, fast)")
+        if 'OpenAI' in available_providers:
+            print("Premium: OpenAI GPT-4 (highest quality)")
+
+    print()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
@@ -1130,6 +1287,10 @@ def main():
   python kb_manage.py cleanup --dry-run
   python kb_manage.py import-papers
   python kb_manage.py import-papers --dry-run
+
+  # LLM 訪問檢查
+  python kb_manage.py check-llm
+  python kb_manage.py check-llm --verbose
         """
     )
 
@@ -1294,6 +1455,13 @@ def main():
     parser_set_key.add_argument('paper_id', type=int, help='論文ID')
     parser_set_key.add_argument('cite_key', help='BibTeX cite_key')
     parser_set_key.set_defaults(func=cmd_set_cite_key)
+
+    # check-llm 命令
+    parser_check_llm = subparsers.add_parser('check-llm',
+                                            help='檢查 LLM 提供者訪問狀態')
+    parser_check_llm.add_argument('--verbose', '-v', action='store_true',
+                                 help='顯示詳細建議')
+    parser_check_llm.set_defaults(func=cmd_check_llm)
 
     args = parser.parse_args()
 

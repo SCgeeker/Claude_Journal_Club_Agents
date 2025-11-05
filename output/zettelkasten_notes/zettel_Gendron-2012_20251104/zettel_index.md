@@ -116,49 +116,41 @@ graph TD
 
     Gendron-2012-012["大脑机制 (Neural Mechanisms)"]
 
-    Gendron-2012-001 --> Gendron2012002
+    Gendron-2012-001 --> Gendron-2012-002
 
-    Gendron-2012-001 --> Gendron2012003
+    Gendron-2012-001 --> Gendron-2012-003
 
-    Gendron2012001 --> Gendron-2012-002
 
-    Gendron-2012-002 --> Gendron2012004
+    Gendron-2012-002 --> Gendron-2012-004
 
-    Gendron-2012-002 -.-> Gendron2012003
+    Gendron-2012-002 -.-> Gendron-2012-003
 
-    Gendron2012001 --> Gendron-2012-003
 
-    Gendron-2012-003 -.-> Gendron2012002
+    Gendron-2012-003 -.-> Gendron-2012-002
 
-    Gendron2012002 --> Gendron-2012-004
 
-    Gendron-2012-004 --> Gendron2012005
+    Gendron-2012-004 --> Gendron-2012-005
 
-    Gendron2012004 --> Gendron-2012-005
 
-    Gendron-2012-005 -.-> Gendron2012006
+    Gendron-2012-005 -.-> Gendron-2012-006
 
-    Gendron2012005 --> Gendron-2012-006
+    Gendron-2012-005 --> Gendron-2012-006
 
-    Gendron-2012-006 --> Gendron2012007
+    Gendron-2012-006 --> Gendron-2012-007
 
-    Gendron2012006 --> Gendron-2012-007
 
-    Gendron-2012-007 --> Gendron2012008
+    Gendron-2012-007 --> Gendron-2012-008
 
-    Gendron2012007 --> Gendron-2012-008
 
-    Gendron-2012-008 --> Gendron2012009
+    Gendron-2012-008 --> Gendron-2012-009
 
-    Gendron2012008 --> Gendron-2012-009
 
-    Gendron-2012-009 --> Gendron2012010
+    Gendron-2012-009 --> Gendron-2012-010
 
-    Gendron2012009 --> Gendron-2012-010
 
-    Gendron2012010 --> Gendron-2012-011
+    Gendron-2012-010 --> Gendron-2012-011
 
-    Gendron2012011 --> Gendron-2012-012
+    Gendron-2012-011 --> Gendron-2012-012
 
 ```
 

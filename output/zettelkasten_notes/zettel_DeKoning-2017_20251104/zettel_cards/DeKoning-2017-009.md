@@ -1,30 +1,27 @@
 ---
 title: "相關性分析結果"
-summary: "# 相關性分析結果  > **核心**: "significant correlations were found between all of the three intrinsic visual object properties (i.e. shape, size, and colour)"
+summary: "significant correlations were found between all of the three intrinsic visual object properties (i.e. shape, size, and colour); the extrinsic visual object propertyorientationappearednottobesignificantly correlated with any of the intrinsic visual object properties."
 ---
 
-
-# 相關性分析結果
-
 > **核心**: "significant correlations were found between all of the three intrinsic visual object properties (i.e. shape, size, and colour); the extrinsic visual object propertyorientationappearednottobesignificantly correlated with any of the intrinsic visual object properties."
+
 
 ## 說明
 研究發現，內在視覺屬性（形狀、大小、顏色）之間存在顯著的相關性，而外在視覺屬性（方向）與任何內在視覺屬性都沒有顯著相關性。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017008]]
+**基於** → [[DeKoning-2017-008]]
 
 
-**導向** → [[DeKoning2017010]]
-
+**導向** → [[DeKoning-2017-010]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

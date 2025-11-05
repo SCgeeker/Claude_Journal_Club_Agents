@@ -1,28 +1,25 @@
 ---
 title: "策略性反應 (Strategic Responding)"
-summary: "# 策略性反應 (Strategic Responding)  > **核心**: "A noticeable feature of the sentence-picture verification task is that there is a correlation between the"
+summary: "A noticeable feature of the sentence-picture verification task is that there is a correlation between the match status (match vs. mismatch) and the required (i.e., correct) response (‘’yes’’ vs. ‘’no’’)."
 ---
-
-
-# 策略性反應 (Strategic Responding)
 
 > **核心**: "A noticeable feature of the sentence-picture verification task is that there is a correlation between the match status (match vs. mismatch) and the required (i.e., correct) response (‘’yes’’ vs. ‘’no’’)."
 
+
 ## 說明
 在傳統的句子-圖片驗證任務中，匹配狀態（匹配或不匹配）與所需反應（“是”或“否”）之間存在相關性。這意味著參與者可能會利用這種相關性來輔助他們的反應，而不是真正理解句子的意思。這種現象稱為策略性反應。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[vanZuijlen2024007]], [[vanZuijlen2024011]]
-
+**導向** → [[vanZuijlen-2024-007]], [[vanZuijlen-2024-011]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

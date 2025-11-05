@@ -1,30 +1,29 @@
 ---
 title: "內在視覺屬性 (Intrinsic Visual Properties)"
-summary: "# 內在視覺屬性 (Intrinsic Visual Properties)  > **核心**: "Shape, size, and colour are intrinsic visual properties that distinguish an object from another.""
+summary: "Shape, size, and colour are intrinsic visual properties that distinguish an object from another."
 ---
-
-
-# 內在視覺屬性 (Intrinsic Visual Properties)
 
 > **核心**: "Shape, size, and colour are intrinsic visual properties that distinguish an object from another."
 
+
 ## 說明
 內在視覺屬性是指物體本身固有的視覺特性，例如形狀、大小和顏色。這些屬性使物體能夠與其他物體區分開來。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[DeKoning2017006]]
+**導向** → [[DeKoning-2017-006]]
 
 
 
-**對比** ⚡ [[DeKoning2017005]]
+**對比** ⚡ [[DeKoning-2017-005]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

@@ -1,30 +1,28 @@
 ---
 title: "心理模擬 (Mental Simulation)"
-summary: "# 心理模擬 (Mental Simulation)  > **核心**: "In capturing the meaning of text, readers mentally simulate the described situations and events through the r"
+summary: "In capturing the meaning of text, readers mentally simulate the described situations and events through the reactivation of previously acquired real-world perceptual, motor, and affective experiences."
 ---
-
-
-# 心理模擬 (Mental Simulation)
 
 > **核心**: "In capturing the meaning of text, readers mentally simulate the described situations and events through the reactivation of previously acquired real-world perceptual, motor, and affective experiences."
 
+
 ## 說明
 心理模擬是指讀者在理解文本時，通過重新激活先前獲得的感知、運動和情感經驗，在腦海中模擬所描述的情境和事件。這種模擬使得讀者能夠將描述的事件當作自身經歷的一部分。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[DeKoning2017004]], [[DeKoning2017005]]
+**導向** → [[DeKoning-2017-004]], [[DeKoning-2017-005]]
 
 
-**相關** ↔ [[DeKoning2017002]]
+**相關** ↔ [[DeKoning-2017-002]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

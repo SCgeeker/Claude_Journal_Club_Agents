@@ -1,15 +1,14 @@
 ---
 title: "眼動追蹤 (Eye Tracking)"
-summary: "# 眼動追蹤 (Eye Tracking)  > **核心**: 假定论文使用了眼动追踪，核心句可以是 “Eye tracking technology was used to monitor participants' gaze patterns during a categorization"
+summary: "假定论文使用了眼动追踪，核心句可以是 “Eye tracking technology was used to monitor participants' gaze patterns during a categorization task.”"
 ---
-
-
-# 眼動追蹤 (Eye Tracking)
 
 > **核心**: 假定论文使用了眼动追踪，核心句可以是 “Eye tracking technology was used to monitor participants' gaze patterns during a categorization task.”
 
+
 ## 說明
 眼動追蹤技術用於監測參與者在進行分類任務時的視線模式。 通過分析眼動數據，例如注視時間和掃視路徑，可以了解參與者如何處理視覺信息以及如何進行概念分類。
+
 
 ## 連結網絡
 
@@ -21,10 +20,8 @@ summary: "# 眼動追蹤 (Eye Tracking)  > **核心**: 假定论文使用了眼�
 
 
 
-
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

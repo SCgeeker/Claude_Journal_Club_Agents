@@ -1,28 +1,20 @@
 ---
 title: "概念整合（Conceptual Integration）"
-summary: "# 概念整合（Conceptual Integration）  > **核心**: [The process of combining multiple concepts to form new, more complex understandings.]  ## 說明 概念整合是指將多個概念組"
+summary: "The process of combining multiple concepts to form new, more complex understandings."
 ---
 
-
-# 概念整合（Conceptual Integration）
-
-> **核心**: [The process of combining multiple concepts to form new, more complex understandings.]
-
-## 說明
 概念整合是指將多個概念組合起來，形成新的、更複雜的理解的過程。這種整合可以涉及將不同的概念組合在一起，形成新的概念，也可以涉及將不同的概念應用於同一個情境，形成更全面的理解。概念整合是創造性思維和問題解決的基礎。
+
 
 ## 連結網絡
 
 
-**基於** → [[Barsalou2009009]]
-
-
+**基於** → [[Barsalou-2009-009]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: Simulation, Situated Conceptualization, and Prediction
-
 
 
 ## 個人筆記

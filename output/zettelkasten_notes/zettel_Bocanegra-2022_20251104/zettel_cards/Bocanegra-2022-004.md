@@ -1,30 +1,27 @@
 ---
 title: "知覺決策 (Perceptual Decision-Making)"
-summary: "# 知覺決策 (Perceptual Decision-Making)  > **核心**: "the process of perceptual decision-making (e. g., the process of target identification by matching t"
+summary: "the process of perceptual decision-making (e. g., the process of target identification by matching the shape and color dimensions of a target to those encoded in the representation)"
 ---
 
-
-# 知覺決策 (Perceptual Decision-Making)
-
 > **核心**: "the process of perceptual decision-making (e. g., the process of target identification by matching the shape and color dimensions of a target to those encoded in the representation)"
+
 
 ## 說明
 知覺決策指的是基於知覺信息做出判斷或選擇的過程。在論文的語境下，這指的是參與者在視覺辨識任務中，將目標的顏色和形狀與其心理表徵進行匹配，從而判斷目標是否與提示相符。
 
+
 ## 連結網絡
 
 
-**基於** → [[Bocanegra2022001]], [[Bocanegra2022002]], [[Bocanegra2022003]]
+**基於** → [[Bocanegra-2022-001]], [[Bocanegra-2022-002]], [[Bocanegra-2022-003]]
 
 
-**導向** → [[Bocanegra2022005]]
-
+**導向** → [[Bocanegra-2022-005]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

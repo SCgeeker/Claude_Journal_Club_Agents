@@ -1,30 +1,27 @@
 ---
 title: "填充試驗 (Filler Trials)"
-summary: "# 填充試驗 (Filler Trials)  > **核心**: "Crucially, we added color-match filler (i.e., “no”) trials to the stimuli presented in the experiment."  ## 說明 為了"
+summary: "Crucially, we added color-match filler (i.e., “no”) trials to the stimuli presented in the experiment."
 ---
 
-
-# 填充試驗 (Filler Trials)
-
 > **核心**: "Crucially, we added color-match filler (i.e., “no”) trials to the stimuli presented in the experiment."
+
 
 ## 說明
 為了消除匹配狀態與所需反應之間的相關性，研究人員在實驗中加入了顏色匹配的填充試驗。在這些試驗中，圖片中的物體顏色與句子暗示的顏色相匹配，但圖片中的物體並沒有在句子中被提及，所以正確的答案是“否”。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024006]]
+**基於** → [[vanZuijlen-2024-006]]
 
 
-**導向** → [[vanZuijlen2024003]], [[vanZuijlen2024011]]
-
+**導向** → [[vanZuijlen-2024-003]], [[vanZuijlen-2024-011]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

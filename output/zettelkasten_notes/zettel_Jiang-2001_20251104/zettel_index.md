@@ -116,47 +116,43 @@ graph TD
 
     Jiang-2001-012["研究方向：語言表徵的跨語言聯繫 (Research Direction: Cross-lingual connections in language representation)"]
 
-    Jiang-2001-001 --> Jiang2001002
+    Jiang-2001-001 --> Jiang-2001-002
 
-    Jiang-2001-001 --> Jiang2001003
+    Jiang-2001-001 --> Jiang-2001-003
 
-    Jiang2001001 --> Jiang-2001-002
 
-    Jiang-2001-002 --> Jiang2001004
+    Jiang-2001-002 --> Jiang-2001-004
 
-    Jiang-2001-002 --> Jiang2001005
+    Jiang-2001-002 --> Jiang-2001-005
 
-    Jiang-2001-002 -.-> Jiang2001003
+    Jiang-2001-002 -.-> Jiang-2001-003
 
-    Jiang-2001-003 -.-> Jiang2001001
+    Jiang-2001-003 -.-> Jiang-2001-001
 
-    Jiang-2001-003 -.-> Jiang2001002
+    Jiang-2001-003 -.-> Jiang-2001-002
 
-    Jiang2001002 --> Jiang-2001-004
 
-    Jiang-2001-004 --> Jiang2001008
+    Jiang-2001-004 --> Jiang-2001-008
 
-    Jiang2001002 --> Jiang-2001-005
 
-    Jiang-2001-005 --> Jiang2001008
+    Jiang-2001-005 --> Jiang-2001-008
 
-    Jiang-2001-006 --> Jiang2001007
+    Jiang-2001-006 --> Jiang-2001-007
 
-    Jiang2001006 --> Jiang-2001-007
 
-    Jiang-2001-008 -.-> Jiang2001004
+    Jiang-2001-008 -.-> Jiang-2001-004
 
-    Jiang-2001-008 -.-> Jiang2001005
+    Jiang-2001-008 -.-> Jiang-2001-005
 
-    Jiang-2001-009 -.-> Jiang2001001
+    Jiang-2001-009 -.-> Jiang-2001-001
 
-    Jiang-2001-010 -.-> Jiang2001001
+    Jiang-2001-010 -.-> Jiang-2001-001
 
-    Jiang2001006 --> Jiang-2001-011
+    Jiang-2001-006 --> Jiang-2001-011
 
-    Jiang2001001 --> Jiang-2001-012
+    Jiang-2001-001 --> Jiang-2001-012
 
-    Jiang2001002 --> Jiang-2001-012
+    Jiang-2001-002 --> Jiang-2001-012
 
 ```
 

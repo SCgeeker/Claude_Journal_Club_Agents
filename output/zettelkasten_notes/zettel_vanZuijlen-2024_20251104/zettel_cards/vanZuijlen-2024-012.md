@@ -1,30 +1,27 @@
 ---
 title: "知覺符號系統 (Perceptual Symbols System)"
-summary: "# 知覺符號系統 (Perceptual Symbols System)  > **核心**: "Language comprehenders use previous perceptual-motor experiences to construct simulations of object"
+summary: "Language comprehenders use previous perceptual-motor experiences to construct simulations of objects during language comprehension as proposed by Barsalou’s (1999) perceptual symbols system theory."
 ---
 
-
-# 知覺符號系統 (Perceptual Symbols System)
-
 > **核心**: "Language comprehenders use previous perceptual-motor experiences to construct simulations of objects during language comprehension as proposed by Barsalou’s (1999) perceptual symbols system theory."
+
 
 ## 說明
 知覺符號系統理論認為，語言理解者利用以往的感知運動經驗來構建對象的模擬。這個理論將概念知識與感知經驗聯繫起來，強調了具身認知的觀點。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024001]]
+**基於** → [[vanZuijlen-2024-001]]
 
 
-**導向** → [[vanZuijlen2024004]]
-
+**導向** → [[vanZuijlen-2024-004]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

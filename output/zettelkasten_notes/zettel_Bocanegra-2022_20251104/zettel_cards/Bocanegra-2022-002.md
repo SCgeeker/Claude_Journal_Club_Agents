@@ -1,32 +1,31 @@
 ---
 title: "連接性表徵 (Conjunctive Representation)"
-summary: "# 連接性表徵 (Conjunctive Representation)  > **核心**: "We define a conjunctive representation as the selective representation of an intersection of two se"
+summary: "We define a conjunctive representation as the selective representation of an intersection of two sets of features"
 ---
 
-
-# 連接性表徵 (Conjunctive Representation)
-
 > **核心**: "We define a conjunctive representation as the selective representation of an intersection of two sets of features"
+
 
 ## 說明
 連接性表徵指的是選擇性地表徵兩個或多個特徵集合的交集。在論文的語境下，這意味著人們在理解語言時，會將多個知覺特徵結合起來，形成一個更具體的表徵。例如，「紅色正方形」的連接性表徵，會同時包含紅色和正方形兩個特徵，排除其他顏色或形狀的可能性。
 
+
 ## 連結網絡
 
 
-**基於** → [[Bocanegra2022001]]
+**基於** → [[Bocanegra-2022-001]]
 
 
-**導向** → [[Bocanegra2022005]]
+**導向** → [[Bocanegra-2022-005]]
 
 
 
-**對比** ⚡ [[Bocanegra2022003]]
+**對比** ⚡ [[Bocanegra-2022-003]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

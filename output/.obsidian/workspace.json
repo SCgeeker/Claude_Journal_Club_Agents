@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d74dc8882bf1cb33",
+        "id": "5936e1168f7d8ab2",
         "type": "tabs",
         "children": [
           {
-            "id": "eb0bc8b2ee667ca0",
+            "id": "5afdb9166a3b0b1e",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,8 +20,37 @@
               "icon": "lucide-file",
               "title": "zettel_index"
             }
+          },
+          {
+            "id": "b419d9d0db2c4d8c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "zettel_index"
+            }
+          },
+          {
+            "id": "43e26fc589899d78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-009.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Wu-2020-009"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -170,14 +199,27 @@
       "obsidian-excalidraw-plugin:新建繪圖檔案": false
     }
   },
-  "active": "eb0bc8b2ee667ca0",
+  "active": "b419d9d0db2c4d8c",
   "lastOpenFiles": [
-    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-001.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-009.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_index.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-008.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-007.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-006.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-005.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-004.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-004.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-003.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-002.md",
+    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-001.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-007.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-008.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-009.md",
+    "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_cards/Barsalou-2009-001.md",
     "zettelkasten_notes/zettel_Ahrens-2016_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-001.md",
-    "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_index.md.tmp.13472.1762266560299",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_index.md.tmp.13472.1762266554888",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-020.md",
@@ -187,19 +229,6 @@
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-016.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-015.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-014.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-013.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-012.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-011.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-010.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-009.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-008.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-007.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-006.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-005.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-004.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-003.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-002.md",
-    "zettelkasten_notes/zettel_Her-2022_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards",
     "zettelkasten_notes/zettel_Wu-2020_20251104",
     "zettelkasten_notes/_archive_old_format_20251029/zettel_Linguistics_20251029/zettel_cards",

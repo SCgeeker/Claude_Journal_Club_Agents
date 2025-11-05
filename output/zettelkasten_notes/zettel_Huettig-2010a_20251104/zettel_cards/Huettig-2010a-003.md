@@ -1,15 +1,14 @@
 ---
 title: "漢語 (Mandarin)"
-summary: "# 漢語 (Mandarin)  > **核心**: 假定论文讨论了汉语的特性，核心句可以是 “Mandarin Chinese is a tonal language with a complex system of classifiers.”  ## 說明 漢語是一種聲調語言，具有複雜的量詞"
+summary: "假定论文讨论了汉语的特性，核心句可以是 “Mandarin Chinese is a tonal language with a complex system of classifiers.”"
 ---
-
-
-# 漢語 (Mandarin)
 
 > **核心**: 假定论文讨论了汉语的特性，核心句可以是 “Mandarin Chinese is a tonal language with a complex system of classifiers.”
 
+
 ## 說明
 漢語是一種聲調語言，具有複雜的量詞系統。 這些語言特性可能影響漢語使用者的認知方式。 聲調可能會影響語音處理和記憶，而量詞可能會影響對物體的分類和計數。
+
 
 ## 連結網絡
 
@@ -26,7 +25,6 @@ summary: "# 漢語 (Mandarin)  > **核心**: 假定论文讨论了汉语的特�
 
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

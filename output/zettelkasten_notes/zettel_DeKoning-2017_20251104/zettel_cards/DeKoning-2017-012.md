@@ -1,28 +1,24 @@
 ---
 title: "未來研究方向"
-summary: "# 未來研究方向  > **核心**: "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are responsible for the fact t"
+summary: "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are responsible for the fact that some visual object properties (shape, size, and colour) are strongly activated in the visualmodality during language comprehension, whilst others (orientation) are not."
 ---
 
-
-# 未來研究方向
-
 > **核心**: "Importantly, more research is required to substantiate this claim and to clarify what mechanisms are responsible for the fact that some visual object properties (shape, size, and colour) are strongly activated in the visualmodality during language comprehension, whilst others (orientation) are not."
+
 
 ## 說明
 作者提出，需要更多的研究來證實這項研究的結論，並闡明在語言理解過程中，為什麼某些視覺物體屬性（形狀、大小和顏色）在視覺模式中被強烈激活，而其他屬性（方向）則沒有。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017006]], [[DeKoning2017007]], [[DeKoning2017009]]
-
-
+**基於** → [[DeKoning-2017-006]], [[DeKoning-2017-007]], [[DeKoning-2017-009]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

@@ -1,30 +1,27 @@
 ---
 title: "心理模擬 (Mental Simulation)"
-summary: "# 心理模擬 (Mental Simulation)  > **核心**: "Pictures of objects are verified faster when they match the implied orientation, shape, and color in a senten"
+summary: "Pictures of objects are verified faster when they match the implied orientation, shape, and color in a sentence-picture verification task, suggesting that people mentally simulate these features during language comprehension."
 ---
 
-
-# 心理模擬 (Mental Simulation)
-
 > **核心**: "Pictures of objects are verified faster when they match the implied orientation, shape, and color in a sentence-picture verification task, suggesting that people mentally simulate these features during language comprehension."
+
 
 ## 說明
 心理模擬是指人們在理解語言時，會在腦海中模擬出相應的場景和物體。這種模擬包括物體的形狀、方向和顏色等特徵。當模擬結果與實際呈現的圖片相匹配時，語言理解的速度會更快。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024001]]
+**基於** → [[vanZuijlen-2024-001]]
 
 
-**導向** → [[vanZuijlen2024003]]
-
+**導向** → [[vanZuijlen-2024-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

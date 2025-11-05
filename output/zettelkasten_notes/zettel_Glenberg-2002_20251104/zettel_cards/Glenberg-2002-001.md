@@ -1,30 +1,29 @@
 ---
 title: "具身認知 (Embodied Cognition)"
-summary: "# 具身認知 (Embodied Cognition)  > **核心**: "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodied—that"
+summary: "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodied—that is, that it derives from the biomechanical nature of bodies and perceptual systems (Glenberg, 1997; Lakoff, 1987)."
 ---
-
-
-# 具身認知 (Embodied Cognition)
 
 > **核心**: "In contrast to meaning as an abstract symbol system, consider the possibility that meaning is embodied—that is, that it derives from the biomechanical nature of bodies and perceptual systems (Glenberg, 1997; Lakoff, 1987)."
 
+
 ## 說明
 具身認知理論認為，認知並非獨立於身體和環境的抽象符號運算，而是深深植根於身體的生物力學特性和感知系統之中。換句話說，我們的身體經驗、運動能力和感知方式塑造了我們的認知過程。這與傳統認知科學將認知視為一種符號處理的觀點形成對比。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[Glenberg2002003]], [[Glenberg2002005]]
+**導向** → [[Glenberg-2002-003]], [[Glenberg-2002-005]]
 
 
 
-**對比** ⚡ [[Glenberg2002002]]
+**對比** ⚡ [[Glenberg-2002-002]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

@@ -1,30 +1,23 @@
 ---
 title: "預測編碼（Predictive Coding）"
-summary: "# 預測編碼（Predictive Coding）  > **核心**: [A framework suggesting the brain constantly predicts sensory input and updates its internal model based on pre"
+summary: "A framework suggesting the brain constantly predicts sensory input and updates its internal model based on prediction errors."
 ---
 
-
-# 預測編碼（Predictive Coding）
-
-> **核心**: [A framework suggesting the brain constantly predicts sensory input and updates its internal model based on prediction errors.]
-
-## 說明
 預測編碼是一種認知理論，認為大腦不斷地生成對感覺輸入的預測，並將這些預測與實際接收到的感覺信息進行比較。如果預測與實際之間存在差異（即預測誤差），大腦就會調整其內部的模型，以減少未來的預測誤差。預測編碼被認為是學習和感知的基本機制。
+
 
 ## 連結網絡
 
 
-**基於** → [[Barsalou2009003]]
+**基於** → [[Barsalou-2009-003]]
 
 
-**導向** → [[Barsalou2009010]]
-
+**導向** → [[Barsalou-2009-010]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: Simulation, Situated Conceptualization, and Prediction
-
 
 
 ## 個人筆記

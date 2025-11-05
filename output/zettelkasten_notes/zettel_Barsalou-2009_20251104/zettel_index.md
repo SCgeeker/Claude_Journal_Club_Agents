@@ -122,7 +122,6 @@ graph TD
 
     Barsalou-2009-001 -.-> Barsalou-2009-004
 
-    Barsalou-2009-001 --> Barsalou-2009-002
 
     Barsalou-2009-002 --> Barsalou-2009-005
 
@@ -130,7 +129,6 @@ graph TD
 
     Barsalou-2009-002 -.-> Barsalou-2009-003
 
-    Barsalou-2009-001 --> Barsalou-2009-003
 
     Barsalou-2009-003 --> Barsalou-2009-007
 
@@ -142,29 +140,22 @@ graph TD
 
     Barsalou-2009-004 -.-> Barsalou-2009-002
 
-    Barsalou-2009-002 --> Barsalou-2009-005
 
     Barsalou-2009-005 --> Barsalou-2009-009
 
-    Barsalou-2009-002 --> Barsalou-2009-006
 
     Barsalou-2009-001 --> Barsalou-2009-006
 
-    Barsalou-2009-003 --> Barsalou-2009-007
 
     Barsalou-2009-007 --> Barsalou-2009-010
 
-    Barsalou-2009-003 --> Barsalou-2009-008
 
     Barsalou-2009-008 -.-> Barsalou-2009-002
 
-    Barsalou-2009-005 --> Barsalou-2009-009
 
     Barsalou-2009-009 --> Barsalou-2009-011
 
-    Barsalou-2009-007 --> Barsalou-2009-010
 
-    Barsalou-2009-009 --> Barsalou-2009-011
 
 ```
 

@@ -1,30 +1,27 @@
 ---
 title: "句子-圖片驗證任務 (Sentence-Picture Verification Task)"
-summary: "# 句子-圖片驗證任務 (Sentence-Picture Verification Task)  > **核心**: "In this so-called sentence-picture verification task, participants decide whether the o"
+summary: "In this so-called sentence-picture verification task, participants decide whether the object presented immediately after the sentence was mentioned in the preceding sentence or not."
 ---
 
-
-# 句子-圖片驗證任務 (Sentence-Picture Verification Task)
-
 > **核心**: "In this so-called sentence-picture verification task, participants decide whether the object presented immediately after the sentence was mentioned in the preceding sentence or not."
+
 
 ## 說明
 句子-圖片驗證任務是一種常用的實驗方法，用於研究語言理解過程。在這種任務中，參與者需要判斷圖片中的物體是否在之前的句子中被提及。反應時間和錯誤率是衡量語言理解效率的指標。
 
+
 ## 連結網絡
 
 
-**基於** → [[vanZuijlen2024001]]
+**基於** → [[vanZuijlen-2024-001]]
 
 
-**導向** → [[vanZuijlen2024003]], [[vanZuijlen2024007]]
-
+**導向** → [[vanZuijlen-2024-003]], [[vanZuijlen-2024-007]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

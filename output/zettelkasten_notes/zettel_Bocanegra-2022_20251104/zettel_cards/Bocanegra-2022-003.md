@@ -1,32 +1,31 @@
 ---
 title: "分離性表徵 (Disjunctive Representation)"
-summary: "# 分離性表徵 (Disjunctive Representation)  > **核心**: "a disjunctive representation as a general representation of the union of two sets of features"  ##"
+summary: "a disjunctive representation as a general representation of the union of two sets of features"
 ---
 
-
-# 分離性表徵 (Disjunctive Representation)
-
 > **核心**: "a disjunctive representation as a general representation of the union of two sets of features"
+
 
 ## 說明
 分離性表徵指的是一般性地表徵兩個或多個特徵集合的聯集。在論文的語境下，這意味著人們在理解語言時，只會激活與詞語相關的個別知覺特徵，而不會將它們結合起來。例如，「紅色正方形」的分離性表徵，可能只包含紅色或正方形兩個特徵，而不是同時包含兩者。
 
+
 ## 連結網絡
 
 
-**基於** → [[Bocanegra2022001]]
+**基於** → [[Bocanegra-2022-001]]
 
 
-**導向** → [[Bocanegra2022004]]
+**導向** → [[Bocanegra-2022-004]]
 
 
 
-**對比** ⚡ [[Bocanegra2022002]]
+**對比** ⚡ [[Bocanegra-2022-002]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

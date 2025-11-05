@@ -116,63 +116,56 @@ graph TD
 
     Bishop-2013-012["早期干預對大腦偏側化的影響 (Impact of Early Intervention on Cerebral Asymmetry)"]
 
-    Bishop-2013-001 --> Bishop2013002
+    Bishop-2013-001 --> Bishop-2013-002
 
-    Bishop-2013-001 --> Bishop2013003
+    Bishop-2013-001 --> Bishop-2013-003
 
-    Bishop2013001 --> Bishop-2013-002
 
-    Bishop-2013-002 --> Bishop2013004
+    Bishop-2013-002 --> Bishop-2013-004
 
-    Bishop-2013-002 --> Bishop2013005
+    Bishop-2013-002 --> Bishop-2013-005
 
-    Bishop-2013-002 -.-> Bishop2013003
+    Bishop-2013-002 -.-> Bishop-2013-003
 
-    Bishop-2013-003 --> Bishop2013006
+    Bishop-2013-003 --> Bishop-2013-006
 
-    Bishop-2013-003 --> Bishop2013007
+    Bishop-2013-003 --> Bishop-2013-007
 
-    Bishop-2013-003 -.-> Bishop2013002
+    Bishop-2013-003 -.-> Bishop-2013-002
 
-    Bishop2013002 --> Bishop-2013-004
 
-    Bishop-2013-004 --> Bishop2013008
+    Bishop-2013-004 --> Bishop-2013-008
 
-    Bishop-2013-004 -.-> Bishop2013005
+    Bishop-2013-004 -.-> Bishop-2013-005
 
-    Bishop-2013-005 -.-> Bishop2013002
+    Bishop-2013-005 -.-> Bishop-2013-002
 
-    Bishop-2013-005 -.-> Bishop2013004
+    Bishop-2013-005 -.-> Bishop-2013-004
 
-    Bishop2013001 --> Bishop-2013-006
+    Bishop-2013-001 --> Bishop-2013-006
 
-    Bishop-2013-006 -.-> Bishop2013007
+    Bishop-2013-006 -.-> Bishop-2013-007
 
-    Bishop2013003 --> Bishop-2013-007
+    Bishop-2013-008 --> Bishop-2013-012
 
-    Bishop2013004 --> Bishop-2013-008
+    Bishop-2013-001 --> Bishop-2013-009
 
-    Bishop-2013-008 --> Bishop2013012
+    Bishop-2013-009 -.-> Bishop-2013-010
 
-    Bishop2013001 --> Bishop-2013-009
+    Bishop-2013-010 -.-> Bishop-2013-009
 
-    Bishop-2013-009 -.-> Bishop2013010
+    Bishop-2013-003 --> Bishop-2013-011
 
-    Bishop-2013-010 -.-> Bishop2013009
+    Bishop-2013-011 -.-> Bishop-2013-001
 
-    Bishop2013003 --> Bishop-2013-011
+    Bishop-2013-011 -.-> Bishop-2013-002
 
-    Bishop-2013-011 -.-> Bishop2013001
 
-    Bishop-2013-011 -.-> Bishop2013002
+    Bishop-2013-012 --> Bishop-2013-006
 
-    Bishop2013008 --> Bishop-2013-012
+    Bishop-2013-012 -.-> Bishop-2013-001
 
-    Bishop-2013-012 --> Bishop2013006
-
-    Bishop-2013-012 -.-> Bishop2013001
-
-    Bishop-2013-012 -.-> Bishop2013004
+    Bishop-2013-012 -.-> Bishop-2013-004
 
 ```
 

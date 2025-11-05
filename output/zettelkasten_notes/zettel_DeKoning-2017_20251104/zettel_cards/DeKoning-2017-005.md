@@ -1,30 +1,29 @@
 ---
 title: "外在視覺屬性 (Extrinsic Visual Properties)"
-summary: "# 外在視覺屬性 (Extrinsic Visual Properties)  > **核心**: "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but"
+summary: "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but rather varies depending on aspects like the observer...or the way an object is positioned"
 ---
-
-
-# 外在視覺屬性 (Extrinsic Visual Properties)
 
 > **核心**: "Instead, orientation is an extrinsic visual property in that it is not inherent to an object, but rather varies depending on aspects like the observer...or the way an object is positioned"
 
+
 ## 說明
 外在視覺屬性是指物體本身不固有的視覺特性，例如方向。這些屬性取決於觀察者、觀察條件或物體的擺放方式等因素。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[DeKoning2017007]]
+**導向** → [[DeKoning-2017-007]]
 
 
 
-**對比** ⚡ [[DeKoning2017004]]
+**對比** ⚡ [[DeKoning-2017-004]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

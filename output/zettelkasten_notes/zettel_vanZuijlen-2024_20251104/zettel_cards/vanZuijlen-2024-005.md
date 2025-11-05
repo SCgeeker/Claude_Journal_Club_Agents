@@ -1,28 +1,26 @@
 ---
 title: "母語者與非母語者 (Native vs. Non-Native Speakers)"
-summary: "# 母語者與非母語者 (Native vs. Non-Native Speakers)  > **核心**: "In the present study we investigated whether such mental simulations also underlie understan"
+summary: "In the present study we investigated whether such mental simulations also underlie understanding of non-native languages."
 ---
-
-
-# 母語者與非母語者 (Native vs. Non-Native Speakers)
 
 > **核心**: "In the present study we investigated whether such mental simulations also underlie understanding of non-native languages."
 
+
 ## 說明
 該研究比較了母語者和非母語者在語言理解過程中是否都會進行心理模擬。研究結果表明，至少對於那些英語熟練的非母語者來說，他們在理解英語時也會進行心理模擬，這與母語者相似。
+
 
 ## 連結網絡
 
 
 
 
-**相關** ↔ [[vanZuijlen2024008]]
+**相關** ↔ [[vanZuijlen-2024-008]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

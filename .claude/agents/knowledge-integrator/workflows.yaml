@@ -536,6 +536,64 @@ workflows:
 
           💡 提示：卡片已可透過 /search 查詢
 
+  # ============================================================
+  # 7. 檢查 LLM 訪問狀態
+  # ============================================================
+  check_llm_access:
+    name: "檢查 LLM 訪問狀態"
+    description: "測試所有 LLM 提供者的連接狀態並提供配置建議"
+    priority: low
+
+    parameters:
+      optional:
+        - name: verbose
+          type: boolean
+          description: "是否顯示詳細建議"
+          default: false
+
+    steps:
+      - id: identify_intent
+        description: "確認是 LLM 檢查任務"
+        action: "識別用戶想要檢查 LLM 狀態"
+
+      - id: execute_check
+        description: "執行 LLM 訪問測試"
+        action: |
+          執行: python kb_manage.py check-llm {--verbose if verbose}
+
+          測試內容:
+          1. Ollama (本地) - 檢查服務和模型
+          2. Google Gemini - 驗證 API key
+          3. OpenAI - 驗證 API key
+          4. Anthropic Claude - 驗證 API key
+
+      - id: report_results
+        description: "報告檢查結果"
+        action: "顯示可用提供者統計和配置建議"
+        output_template: |
+          ============================================================
+          🔍 LLM 訪問狀態檢查完成
+          ============================================================
+
+          ✅ 可用提供者: {available_count}/{total_count}
+
+          {provider_details}
+
+          {recommendations if verbose}
+
+          💡 提示：
+          - 詳細報告: LLM_ACCESS_REPORT.md
+          - 運行測試: python test_llm_access.py
+          - 配置 API keys: 編輯 .env 文件
+
+    triggers:
+      - "檢查 LLM"
+      - "測試 LLM"
+      - "LLM 狀態"
+      - "check llm"
+      - "llm access"
+      - "模型檢查"
+
 # ============================================================
 # 錯誤處理配置
 # ============================================================
@@ -574,8 +632,15 @@ report_templates:
 # Agent元數據
 # ============================================================
 metadata:
-  version: "1.0.0-mvp"
+  version: "1.1.0-mvp"
   created: "2025-10-30"
-  updated: "2025-10-30"
+  updated: "2025-11-05"
   author: "Claude Code (Sonnet 4.5)"
   status: "active"
+  changelog:
+    - version: "1.1.0-mvp"
+      date: "2025-11-05"
+      changes:
+        - "新增 check_llm_access workflow"
+        - "整合 LLM 訪問測試功能"
+        - "支援 7 個核心工作流"

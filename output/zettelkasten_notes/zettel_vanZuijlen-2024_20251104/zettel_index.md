@@ -116,53 +116,48 @@ graph TD
 
     vanZuijlen-2024-012["知覺符號系統 (Perceptual Symbols System)"]
 
-    vanZuijlen-2024-001 --> vanZuijlen2024004
+    vanZuijlen-2024-001 --> vanZuijlen-2024-004
 
-    vanZuijlen-2024-001 --> vanZuijlen2024012
+    vanZuijlen-2024-001 --> vanZuijlen-2024-012
 
-    vanZuijlen2024001 --> vanZuijlen-2024-002
+    vanZuijlen-2024-001 --> vanZuijlen-2024-002
 
-    vanZuijlen-2024-002 --> vanZuijlen2024003
+    vanZuijlen-2024-002 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-002 --> vanZuijlen2024007
+    vanZuijlen-2024-002 --> vanZuijlen-2024-007
 
-    vanZuijlen2024001 --> vanZuijlen-2024-003
+    vanZuijlen-2024-001 --> vanZuijlen-2024-003
 
-    vanZuijlen2024002 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-003 -.-> vanZuijlen2024007
+    vanZuijlen-2024-003 -.-> vanZuijlen-2024-007
 
-    vanZuijlen2024001 --> vanZuijlen-2024-004
 
-    vanZuijlen-2024-004 --> vanZuijlen2024003
+    vanZuijlen-2024-004 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-005 -.-> vanZuijlen2024008
+    vanZuijlen-2024-005 -.-> vanZuijlen-2024-008
 
-    vanZuijlen-2024-006 --> vanZuijlen2024007
+    vanZuijlen-2024-006 --> vanZuijlen-2024-007
 
-    vanZuijlen-2024-006 --> vanZuijlen2024011
+    vanZuijlen-2024-006 --> vanZuijlen-2024-011
 
-    vanZuijlen2024006 --> vanZuijlen-2024-007
 
-    vanZuijlen-2024-007 --> vanZuijlen2024003
+    vanZuijlen-2024-007 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-007 --> vanZuijlen2024011
+    vanZuijlen-2024-007 --> vanZuijlen-2024-011
 
-    vanZuijlen-2024-008 -.-> vanZuijlen2024005
+    vanZuijlen-2024-008 -.-> vanZuijlen-2024-005
 
-    vanZuijlen-2024-009 --> vanZuijlen2024003
+    vanZuijlen-2024-009 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-010 -.-> vanZuijlen2024011
+    vanZuijlen-2024-010 -.-> vanZuijlen-2024-011
 
-    vanZuijlen2024006 --> vanZuijlen-2024-011
 
-    vanZuijlen-2024-011 --> vanZuijlen2024003
+    vanZuijlen-2024-011 --> vanZuijlen-2024-003
 
-    vanZuijlen-2024-011 -.-> vanZuijlen2024010
+    vanZuijlen-2024-011 -.-> vanZuijlen-2024-010
 
-    vanZuijlen2024001 --> vanZuijlen-2024-012
 
-    vanZuijlen-2024-012 --> vanZuijlen2024004
+    vanZuijlen-2024-012 --> vanZuijlen-2024-004
 
 ```
 

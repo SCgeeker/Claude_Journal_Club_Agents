@@ -1,30 +1,27 @@
 ---
 title: "雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)"
-summary: "# 雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)  > **核心**: "Our critical comparison is between single-feature trials where participants were as"
+summary: "Our critical comparison is between single-feature trials where participants were asked to visualize a one visual feature (i.e., “red”, “square”, “green” or “diamond”) and dual- feature trials where participants were asked to visualize two visual fea-tures simultaneously (i.e., “red square”, “green diamond”, “red dia-mond” or “green square”)."
 ---
 
-
-# 雙特徵與單特徵試驗 (Dual-feature vs. Single-feature Trials)
-
 > **核心**: "Our critical comparison is between single-feature trials where participants were asked to visualize a one visual feature (i.e., “red”, “square”, “green” or “diamond”) and dual- feature trials where participants were asked to visualize two visual fea-tures simultaneously (i.e., “red square”, “green diamond”, “red dia-mond” or “green square”)."
+
 
 ## 說明
 這是實驗中的一個關鍵操作。研究者將試驗分為兩種：雙特徵試驗要求參與者同時想像兩個視覺特徵（例如「紅色正方形」），而單特徵試驗只要求參與者想像一個視覺特徵（例如「紅色」）。通過比較兩種試驗的反應時間，研究者可以推斷參與者使用的是連接性表徵還是分離性表徵。
 
+
 ## 連結網絡
 
 
-**基於** → [[Bocanegra2022002]], [[Bocanegra2022003]], [[Bocanegra2022006]]
+**基於** → [[Bocanegra-2022-002]], [[Bocanegra-2022-003]], [[Bocanegra-2022-006]]
 
 
-**導向** → [[Bocanegra2022008]]
-
+**導向** → [[Bocanegra-2022-008]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

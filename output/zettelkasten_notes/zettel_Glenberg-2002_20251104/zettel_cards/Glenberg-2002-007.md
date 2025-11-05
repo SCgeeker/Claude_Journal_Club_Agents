@@ -1,30 +1,27 @@
 ---
 title: "可供性 (Affordances)"
-summary: "# 可供性 (Affordances)  > **核心**: "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & Glenberg, 2000).""
+summary: "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & Glenberg, 2000)."
 ---
 
-
-# 可供性 (Affordances)
-
 > **核心**: "Second, affordances are derived from the perceptual symbols (Glenberg & Robertson, 2000; Kaschak & Glenberg, 2000)."
+
 
 ## 說明
 在索引假說的框架下，可供性是指從知覺符號中提取出來的，個體與環境之間潛在的互動可能性。物體或環境所提供的可供性，決定了個體可以如何與之互動。例如，椅子提供了坐的可供性。
 
+
 ## 連結網絡
 
 
-**基於** → [[Glenberg2002005]]
+**基於** → [[Glenberg-2002-005]]
 
 
-**導向** → [[Glenberg2002008]]
-
+**導向** → [[Glenberg-2002-008]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

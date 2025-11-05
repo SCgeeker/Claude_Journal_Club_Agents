@@ -1,28 +1,25 @@
 ---
 title: "句圖驗證任務 (SPV task)"
-summary: "# 句圖驗證任務 (SPV task)  > **核心**: "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientationofobjects.""
+summary: "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientationofobjects."
 ---
-
-
-# 句圖驗證任務 (SPV task)
 
 > **核心**: "Inthesentence–pictureverification(SPV)task,peoplereadsentencesimplyingtheshape/ size/colour/orientationofobjects."
 
+
 ## 說明
 句圖驗證任務（SPV task）是一種實驗方法，參與者閱讀描述物體形狀、大小、顏色或方向的句子，然後驗證呈現的圖片是否與句子中的視覺信息匹配。驗證時間的快慢被認為能夠反映讀者在句子理解過程中是否進行了心理模擬。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[DeKoning2017002]], [[DeKoning2017003]]
-
+**導向** → [[DeKoning-2017-002]], [[DeKoning-2017-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

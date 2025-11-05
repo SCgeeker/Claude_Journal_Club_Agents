@@ -1,28 +1,26 @@
 ---
 title: "具身認知與科學理解 (Embodied Cognition and Scientific Understanding)"
-summary: "# 具身認知與科學理解 (Embodied Cognition and Scientific Understanding)  > **核心**: "Ochs et al. noted that this sort of explicit bodily identification was use"
+summary: "Ochs et al. noted that this sort of explicit bodily identification was used just when the scientists were having a difficult time understanding a new hypothesis."
 ---
-
-
-# 具身認知與科學理解 (Embodied Cognition and Scientific Understanding)
 
 > **核心**: "Ochs et al. noted that this sort of explicit bodily identification was used just when the scientists were having a difficult time understanding a new hypothesis."
 
+
 ## 說明
 研究指出，科學家在難以理解新的假設時，會使用明確的身體識別。 這表明，即使是抽象的科學概念，也可能需要透過身體經驗來理解。
+
 
 ## 連結網絡
 
 
 
 
-**相關** ↔ [[Glenberg2002001]]
+**相關** ↔ [[Glenberg-2002-001]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

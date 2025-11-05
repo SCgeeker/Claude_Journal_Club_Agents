@@ -1,28 +1,25 @@
 ---
 title: "知覺表徵的激活 (Activation of perceptual representations)"
-summary: "# 知覺表徵的激活 (Activation of perceptual representations)  > **核心**: "Although many studies have investigated the activation of perceptual representation"
+summary: "Although many studies have investigated the activation of perceptual representations during language"
 ---
-
-
-# 知覺表徵的激活 (Activation of perceptual representations)
 
 > **核心**: "Although many studies have investigated the activation of perceptual representations during language"
 
+
 ## 說明
 這個概念指的是在語言理解過程中，人們會激活與語言內容相關的知覺經驗。這意味著當我們聽到或讀到某些詞語時，我們的大腦會自動地激活與這些詞語相關的視覺、聽覺、觸覺等感官信息。這種激活過程被認為是理解語言的關鍵。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[Bocanegra2022002]], [[Bocanegra2022003]]
-
+**導向** → [[Bocanegra-2022-002]], [[Bocanegra-2022-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

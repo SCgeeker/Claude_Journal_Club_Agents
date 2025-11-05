@@ -1,15 +1,14 @@
 ---
 title: "行為實驗 (Behavioral Experiment)"
-summary: "# 行為實驗 (Behavioral Experiment)  > **核心**: 假定论文使用了行为实验，核心句可以是 “Behavioral experiments were conducted to investigate the influence of language on conc"
+summary: "假定论文使用了行为实验，核心句可以是 “Behavioral experiments were conducted to investigate the influence of language on conceptual categorization.”"
 ---
-
-
-# 行為實驗 (Behavioral Experiment)
 
 > **核心**: 假定论文使用了行为实验，核心句可以是 “Behavioral experiments were conducted to investigate the influence of language on conceptual categorization.”
 
+
 ## 說明
 行為實驗是一種常用的研究方法，用於探究語言對概念分類的影響。 通過操縱實驗條件，例如呈現不同的語言刺激，並觀察參與者的行為反應，可以推斷語言和認知之間的關係。
+
 
 ## 連結網絡
 
@@ -21,10 +20,8 @@ summary: "# 行為實驗 (Behavioral Experiment)  > **核心**: 假定论文使�
 
 
 
-
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記

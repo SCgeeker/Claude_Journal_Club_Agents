@@ -116,71 +116,64 @@ graph TD
 
     Zwaan-2002-012["Implications for Theories of Language Comprehension（對語言理解理論的影響）"]
 
-    Zwaan-2002-001 --> Zwaan2002002
+    Zwaan-2002-001 --> Zwaan-2002-002
 
-    Zwaan-2002-001 --> Zwaan2002003
+    Zwaan-2002-001 --> Zwaan-2002-003
 
-    Zwaan-2002-001 -.-> Zwaan2002005
+    Zwaan-2002-001 -.-> Zwaan-2002-005
 
-    Zwaan2002001 --> Zwaan-2002-002
 
-    Zwaan-2002-002 --> Zwaan2002006
+    Zwaan-2002-002 --> Zwaan-2002-006
 
-    Zwaan-2002-002 --> Zwaan2002007
+    Zwaan-2002-002 --> Zwaan-2002-007
 
-    Zwaan-2002-002 -.-> Zwaan2002003
+    Zwaan-2002-002 -.-> Zwaan-2002-003
 
-    Zwaan-2002-003 --> Zwaan2002004
+    Zwaan-2002-003 --> Zwaan-2002-004
 
-    Zwaan2002001 --> Zwaan-2002-004
+    Zwaan-2002-001 --> Zwaan-2002-004
 
-    Zwaan2002003 --> Zwaan-2002-004
 
-    Zwaan-2002-004 --> Zwaan2002008
+    Zwaan-2002-004 --> Zwaan-2002-008
 
-    Zwaan-2002-004 --> Zwaan2002009
+    Zwaan-2002-004 --> Zwaan-2002-009
 
-    Zwaan-2002-005 --> Zwaan2002008
+    Zwaan-2002-005 --> Zwaan-2002-008
 
-    Zwaan-2002-005 -.-> Zwaan2002001
+    Zwaan-2002-005 -.-> Zwaan-2002-001
 
-    Zwaan-2002-005 -.-> Zwaan2002006
+    Zwaan-2002-005 -.-> Zwaan-2002-006
 
     沒有直接的基礎方法概念，但一般的實驗心理學原理。 --> Zwaan-2002-006
 
-    Zwaan-2002-006 --> Zwaan2002008
+    Zwaan-2002-006 --> Zwaan-2002-008
 
     沒有直接的基礎方法概念，但一般的實驗心理學原理。 --> Zwaan-2002-007
 
-    Zwaan-2002-007 --> Zwaan2002009
+    Zwaan-2002-007 --> Zwaan-2002-009
 
-    Zwaan2002005 --> Zwaan-2002-008
+    Zwaan-2002-008 --> Zwaan-2002-009
 
-    Zwaan2002006 --> Zwaan-2002-008
+    Zwaan-2002-008 -.-> Zwaan-2002-004
 
-    Zwaan-2002-008 --> Zwaan2002009
+    Zwaan-2002-005 --> Zwaan-2002-009
 
-    Zwaan-2002-008 -.-> Zwaan2002004
 
-    Zwaan2002005 --> Zwaan-2002-009
+    Zwaan-2002-009 -.-> Zwaan-2002-004
 
-    Zwaan2002007 --> Zwaan-2002-009
+    Zwaan-2002-007 --> Zwaan-2002-010
 
-    Zwaan-2002-009 -.-> Zwaan2002004
+    Zwaan-2002-009 --> Zwaan-2002-011
 
-    Zwaan2002007 --> Zwaan-2002-010
+    Zwaan-2002-011 --> Zwaan-2002-012
 
-    Zwaan2002009 --> Zwaan-2002-011
+    Zwaan-2002-011 -.-> Zwaan-2002-001
 
-    Zwaan-2002-011 --> Zwaan2002012
+    Zwaan-2002-001 --> Zwaan-2002-012
 
-    Zwaan-2002-011 -.-> Zwaan2002001
+    Zwaan-2002-008 --> Zwaan-2002-012
 
-    Zwaan2002001 --> Zwaan-2002-012
-
-    Zwaan2002008 --> Zwaan-2002-012
-
-    Zwaan2002009 --> Zwaan-2002-012
+    Zwaan-2002-009 --> Zwaan-2002-012
 
     Zwaan-2002-012 --> 後續研究方向
 

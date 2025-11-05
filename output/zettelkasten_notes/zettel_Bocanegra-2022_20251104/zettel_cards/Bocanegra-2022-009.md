@@ -1,30 +1,29 @@
 ---
 title: "序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)"
-summary: "# 序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)  > **核心**: "we observe evidence for conjunctive perceptual repre- sentat"
+summary: "we observe evidence for conjunctive perceptual repre- sentations when participants represent feature combinations sequentially"
 ---
 
-
-# 序列呈現導致連接性表徵 (Sequential Presentation Leads to Conjunctive Representation)
-
 > **核心**: "we observe evidence for conjunctive perceptual repre- sentations when participants represent feature combinations sequentially"
+
 
 ## 說明
 研究發現，當參與者需要按照順序表徵多個特徵時，他們更傾向於使用連接性表徵。這意味著他們會將多個知覺特徵結合起來，形成一個更具體的表徵。
 
+
 ## 連結網絡
 
 
-**基於** → [[Bocanegra2022002]], [[Bocanegra2022007]]
+**基於** → [[Bocanegra-2022-002]], [[Bocanegra-2022-007]]
 
 
 
 
-**對比** ⚡ [[Bocanegra2022008]]
+**對比** ⚡ [[Bocanegra-2022-008]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: JournalofMemoryandLanguage127(2022)104355
-
 
 
 ## 個人筆記

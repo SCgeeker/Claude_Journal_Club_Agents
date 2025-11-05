@@ -1,15 +1,14 @@
 ---
 title: "抽象符號系統 (Abstract Symbol System)"
-summary: "# 抽象符號系統 (Abstract Symbol System)  > **核心**: "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning b"
+summary: "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning by using abstract, amodal, and arbitrary symbols (i.e., words) combined by syntactic rules (e.g., Burgess & Lund, 1997; Chomsky, 1980; Fodor, 2000; Kintsch, 1988; Pinker, 1994)."
 ---
-
-
-# 抽象符號系統 (Abstract Symbol System)
 
 > **核心**: "The dominant approach is to treat language as a symbol manipulation system: Language conveys meaning by using abstract, amodal, and arbitrary symbols (i.e., words) combined by syntactic rules (e.g., Burgess & Lund, 1997; Chomsky, 1980; Fodor, 2000; Kintsch, 1988; Pinker, 1994)."
 
+
 ## 說明
 抽象符號系統理論認為，語言是一種透過抽象符號（例如詞彙）的操縱來傳達意義的系統。這些符號是任意的，不直接與它們所指代的物件或概念相關聯。意義來自於符號之間的句法關係，而非符號本身的具體特性。這與具身認知理論形成了鮮明對比。
+
 
 ## 連結網絡
 
@@ -17,12 +16,12 @@ summary: "# 抽象符號系統 (Abstract Symbol System)  > **核心**: "The domi
 
 
 
-**對比** ⚡ [[Glenberg2002001]]
+**對比** ⚡ [[Glenberg-2002-001]]
+
 
 
 ## 來源脈絡
 - 📄 **文獻**: PsychonomicBulletin&Review
-
 
 
 ## 個人筆記

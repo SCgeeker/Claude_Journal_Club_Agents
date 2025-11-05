@@ -116,53 +116,37 @@ graph TD
 
     Horchak-2024-012["未來研究方向 (Future Research Direction)"]
 
-    Horchak-2024-001 --> Horchak2024002
+    Horchak-2024-001 --> Horchak-2024-002
 
-    Horchak-2024-001 --> Horchak2024003
+    Horchak-2024-001 --> Horchak-2024-003
 
-    Horchak2024001 --> Horchak-2024-002
 
-    Horchak-2024-002 --> Horchak2024005
+    Horchak-2024-002 --> Horchak-2024-005
 
-    Horchak2024001 --> Horchak-2024-003
 
-    Horchak-2024-003 --> Horchak2024006
+    Horchak-2024-003 --> Horchak-2024-006
 
-    Horchak-2024-004 --> Horchak2024006
+    Horchak-2024-004 --> Horchak-2024-006
 
-    Horchak2024002 --> Horchak-2024-005
 
-    Horchak-2024-005 --> Horchak2024007
+    Horchak-2024-005 --> Horchak-2024-007
 
-    Horchak2024003 --> Horchak-2024-006
+    Horchak-2024-006 --> Horchak-2024-008
 
-    Horchak2024004 --> Horchak-2024-006
 
-    Horchak-2024-006 --> Horchak2024008
+    Horchak-2024-007 --> Horchak-2024-008
 
-    Horchak2024005 --> Horchak-2024-007
+    Horchak-2024-008 --> Horchak-2024-009
 
-    Horchak-2024-007 --> Horchak2024008
 
-    Horchak2024006 --> Horchak-2024-008
+    Horchak-2024-009 --> Horchak-2024-010
 
-    Horchak2024007 --> Horchak-2024-008
 
-    Horchak-2024-008 --> Horchak2024009
+    Horchak-2024-010 --> Horchak-2024-011
 
-    Horchak2024008 --> Horchak-2024-009
 
-    Horchak-2024-009 --> Horchak2024010
+    Horchak-2024-011 --> Horchak-2024-012
 
-    Horchak2024009 --> Horchak-2024-010
-
-    Horchak-2024-010 --> Horchak2024011
-
-    Horchak2024010 --> Horchak-2024-011
-
-    Horchak-2024-011 --> Horchak2024012
-
-    Horchak2024011 --> Horchak-2024-012
 
 ```
 

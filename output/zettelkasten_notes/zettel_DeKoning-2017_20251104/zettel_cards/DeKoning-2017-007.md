@@ -1,30 +1,28 @@
 ---
 title: "外在屬性與視覺模擬"
-summary: "# 外在屬性與視覺模擬  > **核心**: "the extrinsic property orientation is the only visual object property that “falls out” to the fact that readers, depending o"
+summary: "the extrinsic property orientation is the only visual object property that “falls out” to the fact that readers, depending on the sentence context, might recruit other modalities to which orientation is more relevant."
 ---
 
-
-# 外在屬性與視覺模擬
-
 > **核心**: "the extrinsic property orientation is the only visual object property that “falls out” to the fact that readers, depending on the sentence context, might recruit other modalities to which orientation is more relevant."
+
 
 ## 說明
 研究認為，外在屬性（方向）沒有表現出匹配優勢，可能是因為讀者根據句子上下文，激活了與方向更相關的其他感覺模式（例如，運動）。
 
+
 ## 連結網絡
 
 
-**基於** → [[DeKoning2017001]], [[DeKoning2017005]]
+**基於** → [[DeKoning-2017-001]], [[DeKoning-2017-005]]
 
 
 
-**相關** ↔ [[DeKoning2017006]]
+**相關** ↔ [[DeKoning-2017-006]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

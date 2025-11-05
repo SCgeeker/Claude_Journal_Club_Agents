@@ -1,30 +1,28 @@
 ---
 title: "屬性穩定模擬假設"
-summary: "# 屬性穩定模擬假設  > **核心**: "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject property is involved...we could"
+summary: "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject property is involved...we could expect to find correlated match advantages across all visual object properties."
 ---
-
-
-# 屬性穩定模擬假設
 
 > **核心**: "Assumingthatanindividualconsistentlyengagesin mentalsimulationirrespectiveofwhichvisualobject property is involved...we could expect to find correlated match advantages across all visual object properties."
 
+
 ## 說明
 假設如果個體無論涉及哪種視覺屬性，都一致地進行心理模擬，那麼我們應該發現所有視覺屬性之間的匹配優勢都存在相關性。
+
 
 ## 連結網絡
 
 
 
-**導向** → [[DeKoning2017009]]
+**導向** → [[DeKoning-2017-009]]
 
 
-**相關** ↔ [[DeKoning2017003]]
+**相關** ↔ [[DeKoning-2017-003]]
 
 
 
 ## 來源脈絡
 - 📄 **文獻**: 
-
 
 
 ## 個人筆記

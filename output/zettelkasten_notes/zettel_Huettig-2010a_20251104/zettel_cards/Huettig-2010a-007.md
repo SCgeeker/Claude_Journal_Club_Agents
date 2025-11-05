@@ -1,15 +1,14 @@
 ---
 title: "漢語量詞對物體分類的影響"
-summary: "# 漢語量詞對物體分類的影響  > **核心**: 假定论文找到了量词的影响，核心句可以是 “The use of classifiers in Mandarin influenced participants' grouping of objects based on shape versus"
+summary: "假定论文找到了量词的影响，核心句可以是 “The use of classifiers in Mandarin influenced participants' grouping of objects based on shape versus material.”"
 ---
-
-
-# 漢語量詞對物體分類的影響
 
 > **核心**: 假定论文找到了量词的影响，核心句可以是 “The use of classifiers in Mandarin influenced participants' grouping of objects based on shape versus material.”
 
+
 ## 說明
 研究發現，漢語量詞的使用會影響參與者對物體的分類方式。 具體而言，使用不同量詞可能會導致參與者更傾向於基於形狀或材料對物體進行分類。
+
 
 ## 連結網絡
 
@@ -21,10 +20,8 @@ summary: "# 漢語量詞對物體分類的影響  > **核心**: 假定论文找�
 
 
 
-
 ## 來源脈絡
 - 📄 **文獻**: Do Language-Specific Categories Shape Conceptual Processing? Mandarin
-
 
 
 ## 個人筆記
