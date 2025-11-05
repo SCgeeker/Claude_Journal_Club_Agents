@@ -23,6 +23,7 @@ if sys.platform == 'win32':
 from src.embeddings.providers import GeminiEmbedder, OllamaEmbedder
 from src.embeddings.vector_db import VectorDatabase
 from src.knowledge_base.kb_manager import KnowledgeBaseManager
+from src.utils.content_filter import extract_ai_content
 
 
 class EmbeddingGenerator:
@@ -258,8 +259,11 @@ class EmbeddingGenerator:
                 components.append(f"描述: {description}")
 
             if content:
+                # 提取 AI 內容（過濾人類筆記）
+                ai_content = extract_ai_content(content)
                 # 內容可能很長，取前 1500 字元
-                components.append(f"內容: {content[:1500]}")
+                if ai_content:
+                    components.append(f"內容: {ai_content[:1500]}")
 
             text = "\n".join(components)
 

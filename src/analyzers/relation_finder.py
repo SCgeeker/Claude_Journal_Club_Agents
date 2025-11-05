@@ -19,6 +19,7 @@ sys.path.insert(0, str(project_root))
 
 from src.knowledge_base.kb_manager import KnowledgeBaseManager
 from src.embeddings.vector_db import VectorDatabase
+from src.utils.content_filter import extract_ai_content
 
 # 嘗試相對導入，失敗則使用絕對導入
 try:
@@ -679,8 +680,10 @@ class RelationFinder:
             bool: 是否有明確連結
         """
         content = card.get('content', '')
+        # 提取 AI 內容（過濾人類筆記）
+        ai_content = extract_ai_content(content)
         # 檢查 Obsidian 格式的連結: [[target_id]]
-        return f'[[{target_id}]]' in content
+        return f'[[{target_id}]]' in ai_content
 
     def _extract_shared_concepts_from_cards(self, card1: Dict, card2: Dict) -> List[str]:
         """提取兩張卡片的共同概念
