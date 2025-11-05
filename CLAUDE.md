@@ -870,6 +870,311 @@ echo "GOOGLE_API_KEY=your-api-key-here" >> .env
 
 ---
 
+## Concept Mapper - 概念網絡分析器 (Phase 2.2) ✅ NEW
+
+**Phase 2.2** 完成實作！基於圖論和網絡分析的 Zettelkasten 概念關係視覺化系統，支援 Obsidian 友好格式輸出。
+
+### 系統架構
+
+```
+src/analyzers/
+├── concept_mapper.py         # 概念網絡分析核心 (1,230行)
+├── obsidian_exporter.py      # Obsidian 格式導出器 (700行)
+└── relation_finder.py        # 關係識別器 (Phase 2.1)
+
+output/concept_analysis/
+├── concept_network.html      # D3.js 互動式網絡圖
+├── concept_network.dot       # Graphviz DOT 格式
+├── analysis_report.md        # 完整分析報告
+├── analysis_data.json        # 原始數據
+└── obsidian/                 # Obsidian 友好格式
+    ├── README.md
+    ├── suggested_links.md
+    ├── key_concepts_moc.md
+    ├── path_analysis.md
+    └── community_summaries/
+```
+
+### 核心功能
+
+#### 1. 概念網絡建構
+
+基於 Phase 2.1 的關係識別結果，建構完整的概念網絡：
+
+```python
+from src.analyzers.concept_mapper import ConceptMapper
+
+mapper = ConceptMapper()
+
+# 執行完整分析
+results = mapper.analyze_all(
+    output_dir="output/concept_analysis",
+    visualize=True,           # 生成 D3.js + Graphviz
+    obsidian_mode=True,       # 生成 Obsidian 格式
+    obsidian_options={
+        'suggested_links_min_confidence': 0.4,
+        'suggested_links_top_n': 50,
+        'moc_top_n': 20,
+        'max_communities': 10,
+        'path_top_n': 10
+    }
+)
+```
+
+**網絡統計**:
+- 節點數: 704
+- 邊數: 56,423
+- 平均度: 160.29
+- 網絡密度: 0.228
+
+#### 2. 社群檢測 (Louvain 算法)
+
+自動識別概念社群，將相關概念分組：
+
+```python
+communities = mapper.detect_communities()
+
+# 每個社群包含:
+# - community_id: 社群編號
+# - size: 節點數
+# - density: 社群密度
+# - hub_node: 中心節點
+# - top_concepts: 核心概念列表
+```
+
+**實際測試結果**:
+- 檢測到 1 個大型社群（高度相關的知識庫）
+- 社群密度: 0.228
+- 中心節點: Liu-2012-003 (視覺字符處理)
+
+#### 3. 中心性分析 (PageRank + Centrality)
+
+識別網絡中最具影響力的概念：
+
+```python
+centralities = mapper.analyze_centrality()
+
+# 每個節點包含:
+# - pagerank: PageRank 分數（整體影響力）
+# - degree_centrality: 度中心性（連接數）
+# - betweenness_centrality: 介數中心性（橋接能力）
+# - closeness_centrality: 接近中心性（平均距離）
+```
+
+**Top 5 核心概念**:
+1. Liu-2012-003 (PageRank: 0.0047, Degree: 0.836)
+2. Liu-2012-002 (PageRank: 0.0047, Degree: 0.832)
+3. Gao-2009a-001 (PageRank: 0.0046, Degree: 0.815)
+4. Liu-2012-005 (PageRank: 0.0046, Degree: 0.815)
+5. Gao-2009a-006 (PageRank: 0.0046, Degree: 0.812)
+
+#### 4. 路徑分析 (Concept Evolution)
+
+識別概念之間的推導和演化路徑：
+
+```python
+paths = mapper.find_influential_paths(min_length=2)
+
+# 每條路徑包含:
+# - start_node: 起始概念
+# - end_node: 結束概念
+# - path: 路徑節點列表
+# - length: 路徑長度
+# - confidence: 路徑信度
+```
+
+**注意**: 路徑數量取決於網絡結構，可能為 0（高度連接的網絡）
+
+#### 5. Obsidian 整合 ✨
+
+自動生成 Obsidian 友好的 Markdown 文件，包含完美的 Wiki Links：
+
+**Wiki Links 格式**:
+```markdown
+[[zettel_Abbas-2022_20251104/zettel_index#1. [目標設定理論](zettel_cards/Abbas-2022-001.md)|目標設定理論]]
+```
+
+**生成的文件**:
+
+1. **suggested_links.md** - 智能連結建議
+   - 基於向量相似度 (Gemini embeddings)
+   - 信度評分和關係類型
+   - 可直接複製到 Obsidian 使用
+
+2. **key_concepts_moc.md** - 核心概念地圖
+   - Top 20 概念（PageRank 排序）
+   - Hub 節點（高度連接）
+   - Bridge 節點（橋接概念）
+
+3. **community_summaries/** - 社群摘要
+   - 每個社群一個文件
+   - 包含所有概念的 Wiki Links
+   - 中心節點和核心概念標註
+
+4. **path_analysis.md** - 路徑分析
+   - 概念推導路徑
+   - 演化關係可視化
+
+5. **README.md** - 索引和統計
+   - 快速導航
+   - 網絡統計摘要
+   - 使用建議
+
+#### 6. 視覺化
+
+**D3.js 互動式網絡圖** (`concept_network.html`):
+- 縮放和拖曳
+- 點擊節點顯示詳細信息
+- 顏色編碼（根據社群）
+- 邊的粗細（根據關係強度）
+
+**Graphviz DOT 格式** (`concept_network.dot`):
+```bash
+# 轉換為高品質圖片
+dot -Tpng concept_network.dot -o network.png
+dot -Tsvg concept_network.dot -o network.svg
+```
+
+### CLI 使用
+
+```bash
+# 基本使用（完整分析 + Obsidian 格式）
+python kb_manage.py visualize-network --obsidian
+
+# 自定義參數
+python kb_manage.py visualize-network --obsidian \
+    --min-confidence 0.35 \
+    --top-n 100 \
+    --moc-top 30
+
+# 只要 Obsidian 格式，跳過視覺化
+python kb_manage.py visualize-network --obsidian --no-viz
+
+# 自定義輸出目錄
+python kb_manage.py visualize-network --obsidian \
+    --output my_analysis
+```
+
+**CLI 參數**:
+| 參數 | 說明 | 默認值 |
+|------|------|--------|
+| `--output` | 輸出目錄 | `output/concept_analysis` |
+| `--obsidian` | 生成 Obsidian 格式 | False |
+| `--no-viz` | 跳過視覺化 | False |
+| `--top-n` | 建議連結數量 | 50 |
+| `--min-confidence` | 最小信度 | 0.4 |
+| `--moc-top` | MOC 顯示數量 | 20 |
+| `--max-communities` | 最多社群數 | 10 |
+| `--max-paths` | 路徑數量 | 10 |
+
+### 在 Obsidian 中使用
+
+**步驟 1: 打開輸出目錄**
+```
+File → Open folder as vault → output/concept_analysis/obsidian/
+```
+
+**步驟 2: 瀏覽分析結果**
+1. 從 `README.md` 開始了解整體結構
+2. 查看 `key_concepts_moc.md` 識別核心概念
+3. 探索 `community_summaries/` 了解概念分組
+4. 應用 `suggested_links.md` 中的建議到你的筆記
+
+**步驟 3: 使用 Graph View**
+- 啟用 Obsidian 的 Graph View 插件
+- 查看概念之間的連接結構
+- 與 `concept_network.html` 對照
+
+### 技術細節
+
+**依賴庫**:
+- `networkx`: 圖論和網絡分析
+- `python-louvain`: 社群檢測
+- `numpy`: 數值計算
+- ChromaDB + Gemini: 向量相似度計算（Phase 1.5）
+
+**演算法**:
+- **社群檢測**: Louvain (modularity optimization)
+- **中心性**: PageRank, Degree, Betweenness, Closeness
+- **路徑搜索**: BFS/DFS with PageRank weighting
+- **相似度**: Cosine similarity (768-dim Gemini embeddings)
+
+**性能指標** (704 張卡片):
+| 指標 | 數值 |
+|------|------|
+| 分析時間 | ~2-3 分鐘 |
+| 記憶體使用 | ~500 MB |
+| 輸出大小 | ~5 MB (含視覺化) |
+| 網絡密度 | 0.228 (高度相關) |
+
+### 配置選項
+
+**調整信度閾值**:
+- `0.3`: 寬鬆（更多建議，可能有雜訊）
+- `0.4`: 平衡（默認，推薦）✅
+- `0.5`: 嚴格（高品質，但數量少）
+
+**依知識庫規模調整**:
+| 規模 | top-n | moc-top |
+|------|-------|---------|
+| <200 張 | 30-50 | 15-20 |
+| 200-500 張 | 50-100 | 20-30 |
+| 500-1000 張 | 100-200 | 30-50 |
+| >1000 張 | 200+ | 50-100 |
+
+### 故障排除
+
+**問題 1: suggested_links.md 為空**
+- 原因: 信度閾值過高
+- 解決: 降低 `--min-confidence` 至 0.3-0.35
+
+**問題 2: Wiki Links 無法跳轉**
+- 確認 Obsidian 已啟用 Wiki Links
+- 檢查路徑格式: `zettel_xxx/zettel_index#條目`
+
+**問題 3: 社群列表過長 (>500)**
+- 這是正常現象（高度相關的知識庫）
+- 關注 Top 概念和中心節點即可
+
+### 使用場景
+
+**場景 1: 知識結構探索**
+```bash
+# 1. 執行分析
+python kb_manage.py visualize-network --obsidian
+
+# 2. 在 Obsidian 中查看核心概念
+# 3. 使用 Graph View 了解知識結構
+# 4. 應用建議連結擴展筆記網絡
+```
+
+**場景 2: 文獻相關性研究**
+```bash
+# 1. 找到感興趣的概念在 key_concepts_moc.md
+# 2. 查看該概念所在的社群
+# 3. 探索相關概念和路徑
+# 4. 整合到文獻回顧中
+```
+
+**場景 3: 定期維護**
+```bash
+# 每週執行一次，更新概念網絡
+python kb_manage.py visualize-network --obsidian
+
+# 檢查新增卡片的位置
+# 應用新的連結建議
+# 更新核心概念筆記
+```
+
+### 文檔資源
+
+- **完整使用指南**: `OBSIDIAN_INTEGRATION_GUIDE.md` (3000+ 行)
+- **測試報告**: `OBSIDIAN_INTEGRATION_TEST_REPORT.md`
+- **代碼文檔**: `src/analyzers/concept_mapper.py` 頂部注釋
+- **Skill 文檔**: `.claude/skills/concept-mapper.md`
+
+---
+
 ## 學術風格系統
 
 基於Journal Club逆向工程，支援8種學術風格：

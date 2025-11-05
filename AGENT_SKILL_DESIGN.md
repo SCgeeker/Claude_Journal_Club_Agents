@@ -1,9 +1,9 @@
 # Agent & Skill 架構設計方案
 
-**文檔版本**: v2.8 (Phase 2.1 完成 + Phase 2.2 準備完成)
-**最後更新**: 2025-11-06 01:30
-**狀態**: Phase 1 ✅ 完成 | Phase 1.5 ✅ 完成 | Phase 2 ✅ 100% | Phase 2.1 ✅ 100% | Phase 2.2 📋 準備就緒 | KB Manager Agent v1.1.0
-**基於**: Phase 1-2.1 完成 + 系統清理完成 + 文檔整理完成 + 進入 Phase 2.2 準備
+**文檔版本**: v2.9 (Phase 2.2 完成 - Concept Mapper & Obsidian Integration)
+**最後更新**: 2025-11-05
+**狀態**: Phase 1 ✅ 完成 | Phase 1.5 ✅ 完成 | Phase 2 ✅ 100% | Phase 2.1 ✅ 100% | Phase 2.2 ✅ 100% | KB Manager Agent v1.1.0
+**基於**: Phase 1-2.2 完成 + Concept Mapper 實作完成 + Obsidian 深度整合 + 704 張卡片測試通過
 
 ---
 
@@ -49,9 +49,9 @@
 | **Phase 1.5** | ✅ 100% | 向量搜索系統, 語義搜索, hybrid search | 已完成 ✅ |
 | **Phase 2** | ✅ **100%** | Zettelkasten 標準化 + 格式修復工具 ⭐ | **已完成** ✅ |
 | **Phase 2.1** | ✅ **100%** | relation-finder + ID format fix ⭐⭐⭐ | 已完成（提前 1 週）✅ |
-| **Phase 2.2** | 📋 **準備就緒** | **反饋驗證 + 系統清理 + 文檔整理** 🎯 | **可以啟動**: concept-mapper 視覺化 |
+| **Phase 2.2** | ✅ **100%** | concept-mapper + Obsidian Integration ⭐⭐⭐⭐ | 已完成 ✅ |
 
-**核心 CLI 工具**: 13個 ✅ (新增 analyze-relations) | **代碼總量**: ~15,000行 | **文檔覆蓋**: 8份主文檔 + 3份使用指南
+**核心 CLI 工具**: 14個 ✅ (新增 visualize-network) | **代碼總量**: ~17,000行 | **文檔覆蓋**: 8份主文檔 + 4份使用指南
 
 **新增記錄（Phase 1.5 + Phase 2 + Phase 2.1 + Phase 2.2準備）**:
 - ✅ 向量搜索系統（Gemini + Ollama 雙提供者）
@@ -74,7 +74,7 @@
   - 多維度信度評分機制
   - ID 格式修復（向量 DB 統一）
   - **測試成果**: 56,568 條關係識別（超預期 565 倍）
-- ✅ **Phase 2.2 準備完成** (2025-11-06) 🎯 NEW
+- ✅ **Phase 2.2 準備完成** (2025-11-06) 🎯
   - **反饋驗證報告**: `FEEDBACK_VERIFICATION_REPORT_20251105.md` (747行)
     - 驗證 src/analyzers 模組整合（100% 確認）
     - 驗證所有已記錄任務完成狀態（118% 達成）
@@ -86,42 +86,70 @@
     - 5 風險類別分析 + 6 安全使用建議
     - 雙向量庫架構設計（保持 Plan B 完整性）
     - PersonalEmbeddingGenerator 完整實作（220+ 行）
+- ✅ **Phase 2.2 完成** (2025-11-05) ⭐⭐⭐⭐ NEW
+  - **Concept Mapper 核心實作** (1,230行)
+    - 概念網絡分析：Louvain 社群檢測 + PageRank 中心性
+    - 6 種關係類型識別（基於向量相似度）
+    - 路徑分析：BFS/DFS with PageRank weighting
+    - **測試成果**: 704 節點, 56,423 邊, 網絡密度 0.228
+  - **Obsidian Exporter** (700行)
+    - Wiki Links 錨點格式：`[[zettel_xxx/zettel_index#entry|title]]`
+    - 5 種輸出文件類型：suggested_links, key_concepts_moc, community_summaries, path_analysis, README
+    - 完美適配 Obsidian 工作流
+  - **CLI 整合**: `kb_manage.py visualize-network`
+    - 支援 8+ 參數（--obsidian, --min-confidence, --top-n 等）
+  - **完整文檔體系**:
+    - `OBSIDIAN_INTEGRATION_GUIDE.md` (3000+ 行完整使用指南)
+    - `OBSIDIAN_INTEGRATION_TEST_REPORT.md` (測試報告)
+    - `PHASE_2_2_COMPLETION_REPORT.md` (完成報告)
+    - `.claude/skills/concept-mapper.md` (Skill 文檔)
+    - `CLAUDE.md` 新增 Concept Mapper 章節 (~300行)
+  - **視覺化**: D3.js 互動網絡圖 + Graphviz DOT 靜態圖
 - 📝 建立測試框架（tests/ 目錄）
-- 📝 更新文檔 (AGENT_SKILL_DESIGN.md v2.8)
+- 📝 更新文檔 (AGENT_SKILL_DESIGN.md v2.9)
 
 ---
 
-### 🎯 當前狀態與下一步 (2025-11-06)
+### 🎯 當前狀態與下一步 (2025-11-05)
 
-#### **✅ Phase 2.2 準備工作完成 (2025-11-06)** 🎯 NEW
+#### **✅ Phase 2.2 完成 - Concept Mapper & Obsidian Integration (2025-11-05)** ⭐⭐⭐⭐ NEW
 
 **核心成果**：
-- ✅ **反饋驗證**: 完整驗證 Phase 2.1 所有功能整合和文檔記錄
-- ✅ **系統清理**: 移除 15+ 臨時文件，歸檔 36 MB 測試數據
-- ✅ **文檔整理**: 創建 3 份重要指南文檔（總計 3,034 行）
-- ✅ **知識庫狀態**: 704/704 卡片（100% 完美）
-- ✅ **代碼庫狀態**: 根目錄整潔，準備進入下一階段
+- ✅ **Concept Mapper 實作完成**: 1,230 行核心代碼，完整圖論網絡分析系統
+- ✅ **Obsidian 深度整合**: 700 行導出器，完美 Wiki Links 錨點格式
+- ✅ **CLI 整合完成**: kb_manage.py visualize-network 命令，支援 8+ 參數
+- ✅ **完整測試驗證**: 704 張卡片測試，56,423 條邊，100% 功能正常
+- ✅ **文檔體系完善**: 5 份文檔（總計 4,000+ 行），涵蓋使用指南到完成報告
 
-**清理成果統計**：
-- 刪除文件: 3 個 log 文件 + 全部 Python cache
-- 歸檔文件: 12 個測試文件和備份（36 MB）
-- 修復問題: 2 個 malformed path 文件成功刪除
-- 文檔更新: 3 份新增（747 + 576 + 1,711 行）
+**實作統計**：
+- 代碼文件: 3 個（concept_mapper.py, obsidian_exporter.py, kb_manage.py 修改）
+- 總代碼量: ~2,000 行（含 CLI 整合）
+- 文檔文件: 5 個（使用指南 3000+ 行、測試報告、完成報告、Skill 文檔、CLAUDE.md 章節）
+- 測試規模: 704 節點、56,423 邊、網絡密度 0.228
 
-**文檔體系完善**：
-1. **FEEDBACK_VERIFICATION_REPORT_20251105.md** (747行)
-   - 驗證 src/analyzers 整合（8 個文件使用）
-   - 確認所有任務完成狀態（6 計劃 + 2 額外 = 118%）
+**技術亮點**：
+1. **概念網絡分析**:
+   - Louvain 社群檢測（modularity optimization）
+   - PageRank, Degree, Betweenness, Closeness 中心性分析
+   - BFS/DFS 路徑分析（PageRank weighting）
 
-2. **PHASE2_2_PREPARATION_CLEANUP_20251105.md** (576行)
-   - 詳細清理記錄和歸檔結構
-   - 根目錄整潔度提升 67%
+2. **Obsidian 整合**:
+   - Wiki Links 錨點格式：`[[zettel_folder/zettel_index#entry|title]]`
+   - 5 種輸出文件：suggested_links, key_concepts_moc, community_summaries, path_analysis, README
+   - 完美適配 Obsidian 工作流
 
-3. **HUMAN_NOTES_USAGE_GUIDE.md** v1.1 (1,711行)
-   - 個人筆記安全使用完整指南
-   - 雙向量庫架構設計和實作
+3. **視覺化**:
+   - D3.js 互動網絡圖（縮放、拖曳、點擊）
+   - Graphviz DOT 靜態圖（可轉 PNG/SVG）
 
-**下一步**: 🚀 **Phase 2.2 concept-mapper 可以啟動**
+**文檔完整性**：
+1. **OBSIDIAN_INTEGRATION_GUIDE.md** (3000+ 行) - 完整使用指南
+2. **OBSIDIAN_INTEGRATION_TEST_REPORT.md** - 測試報告和評估
+3. **PHASE_2_2_COMPLETION_REPORT.md** - 項目完成報告
+4. **.claude/skills/concept-mapper.md** - Skill 快速參考
+5. **CLAUDE.md** (新增章節) - Concept Mapper 核心文檔 (~300行)
+
+**下一步**: 🎉 **Phase 2.2 完成！準備進入 Phase 3 或其他擴展開發**
 
 ---
 

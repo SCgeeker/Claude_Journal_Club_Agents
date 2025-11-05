@@ -1059,6 +1059,66 @@ def cmd_analyze_relations(args):
     print("\n" + "=" * 70 + "\n")
 
 
+def cmd_visualize_network(args):
+    """執行概念網絡完整分析並生成 Obsidian 友好格式 (Phase 2.2)"""
+    try:
+        from src.analyzers.concept_mapper import ConceptMapper
+    except ImportError:
+        print("❌ ConceptMapper 未安裝，請確認 src/analyzers/concept_mapper.py 已建立")
+        return
+
+    print("\n" + "=" * 70)
+    print("🔍 Phase 2.2: 概念網絡全面分析與視覺化")
+    print("=" * 70)
+
+    # 初始化 ConceptMapper
+    mapper = ConceptMapper()
+
+    # 準備 Obsidian 選項
+    obsidian_options = {
+        'suggested_links_top_n': args.top_n,
+        'suggested_links_min_confidence': args.min_confidence,
+        'moc_top_n': args.moc_top,
+        'max_communities': args.max_communities,
+        'path_top_n': args.max_paths
+    }
+
+    # 執行完整分析
+    try:
+        results = mapper.analyze_all(
+            output_dir=args.output,
+            visualize=not args.no_viz,
+            obsidian_mode=args.obsidian,
+            obsidian_options=obsidian_options if args.obsidian else None
+        )
+
+        print("\n" + "=" * 70)
+        print("✅ 分析完成！")
+        print("=" * 70)
+        print(f"\n輸出目錄: {args.output}")
+
+        if args.obsidian:
+            obsidian_dir = Path(args.output) / "obsidian"
+            print(f"Obsidian 輸出: {obsidian_dir}")
+            print("\n建議:")
+            print(f"  1. 在 Obsidian 中打開 {obsidian_dir.absolute()}")
+            print(f"  2. 從 README.md 開始瀏覽")
+            print(f"  3. 查看 key_concepts_moc.md 了解核心概念")
+
+        print("\n統計摘要:")
+        print(f"  - 節點數: {results.get('node_count', 'N/A')}")
+        print(f"  - 邊數: {results.get('edge_count', 'N/A')}")
+        print(f"  - 社群數: {results.get('community_count', 'N/A')}")
+        print(f"  - 路徑數: {results.get('path_count', 'N/A')}")
+
+        print("\n" + "=" * 70 + "\n")
+
+    except Exception as e:
+        print(f"\n❌ 分析過程中發生錯誤: {e}")
+        import traceback
+        traceback.print_exc()
+
+
 def _generate_relation_report(network: Dict, finder: 'RelationFinder') -> str:
     """生成 Zettelkasten 概念關係分析報告（Markdown格式）"""
     stats = network['statistics']
@@ -1689,6 +1749,27 @@ def main():
     parser_analyze_relations.add_argument('--max-nodes', type=int, default=50,
                                          help='Mermaid 圖表最大節點數 (默認: 50)')
     parser_analyze_relations.set_defaults(func=cmd_analyze_relations)
+
+    # visualize-network 命令 (Phase 2.2 - Concept Mapper)
+    parser_viz_network = subparsers.add_parser('visualize-network',
+                                               help='執行概念網絡完整分析並生成視覺化 (Phase 2.2)')
+    parser_viz_network.add_argument('--output', type=str, default='output/concept_analysis',
+                                   help='輸出目錄 (默認: output/concept_analysis)')
+    parser_viz_network.add_argument('--obsidian', action='store_true',
+                                   help='生成 Obsidian 友好格式')
+    parser_viz_network.add_argument('--no-viz', action='store_true',
+                                   help='跳過視覺化生成（D3.js 和 Graphviz）')
+    parser_viz_network.add_argument('--top-n', type=int, default=50,
+                                   help='建議連結顯示數量 (默認: 50)')
+    parser_viz_network.add_argument('--min-confidence', type=float, default=0.4,
+                                   help='建議連結最小信度 (默認: 0.4)')
+    parser_viz_network.add_argument('--moc-top', type=int, default=20,
+                                   help='關鍵概念地圖顯示數量 (默認: 20)')
+    parser_viz_network.add_argument('--max-communities', type=int, default=10,
+                                   help='最多顯示社群數 (默認: 10)')
+    parser_viz_network.add_argument('--max-paths', type=int, default=10,
+                                   help='路徑分析顯示數量 (默認: 10)')
+    parser_viz_network.set_defaults(func=cmd_visualize_network)
 
     # check-cite-keys 命令 (Phase 2)
     parser_check_keys = subparsers.add_parser('check-cite-keys',
