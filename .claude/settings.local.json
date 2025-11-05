@@ -42,7 +42,8 @@
       "Bash(do echo \"=== $old ===\" ls output/zettelkasten_notes/)",
       "Bash(timeout 600 python make_slides.py:*)",
       "Bash(grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(timeout 300 python:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

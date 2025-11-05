@@ -27,12 +27,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_index.md",
+                "file": "relations/concept_diagram.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "zettel_index"
+              "title": "concept_diagram"
+            }
+          },
+          {
+            "id": "652d6e0bbafa4151",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Drawing 2025-10-31 11.55.36.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2025-10-31 11.55.36.excalidraw"
             }
           },
           {
@@ -50,7 +62,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -107,7 +119,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "601c29831b6dfeb4",
@@ -199,10 +212,16 @@
       "obsidian-excalidraw-plugin:新建繪圖檔案": false
     }
   },
-  "active": "b419d9d0db2c4d8c",
+  "active": "43e26fc589899d78",
   "lastOpenFiles": [
+    "relations/concept_diagram.md",
+    "Excalidraw/Drawing 2025-10-31 11.55.36.excalidraw.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-009.md",
+    "relations/concept_analysis_report.md",
+    "relations/concept_cooccurrence.md",
+    "relations/concept_network.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_index.md",
+    "relations/concept_network.json",
     "zettelkasten_notes/zettel_Barsalou-2009_20251104/zettel_index.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-008.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards/Wu-2020-007.md",
@@ -224,11 +243,6 @@
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_index.md.tmp.13472.1762266554888",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-020.md",
     "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-019.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-018.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-017.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-016.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-015.md",
-    "zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-014.md",
     "zettelkasten_notes/zettel_Wu-2020_20251104/zettel_cards",
     "zettelkasten_notes/zettel_Wu-2020_20251104",
     "zettelkasten_notes/_archive_old_format_20251029/zettel_Linguistics_20251029/zettel_cards",
@@ -236,7 +250,6 @@
     "zettelkasten_notes/_archive_old_format_20251029/zettel_Zeelenberg2024_20251029/zettel_cards",
     "zettelkasten_notes/_archive_old_format_20251029/zettel_Zeelenberg2024_20251029",
     "zettelkasten_notes/_archive_old_format_20251029/zettel_Wu2020_20251029/zettel_cards",
-    "zettelkasten_notes/_archive_old_format_20251029/zettel_Wu2020_20251029",
     "zettelkasten_notes/_archive_old_format/zettel_Research_20251029/Screenshot 2025-10-29 143515.png"
   ]
 }
