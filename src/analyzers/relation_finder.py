@@ -18,6 +18,7 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.knowledge_base.kb_manager import KnowledgeBaseManager
+from src.embeddings.vector_db import VectorDatabase
 
 # 嘗試相對導入，失敗則使用絕對導入
 try:
@@ -60,6 +61,27 @@ class ConceptPair:
     association_strength: float
 
 
+@dataclass
+class ConceptRelation:
+    """Zettelkasten 概念關係 (Phase 2.1)
+
+    描述兩個 Zettelkasten 卡片之間的語義關係
+    """
+    card_id_1: str
+    card_id_2: str
+    card_title_1: str
+    card_title_2: str
+    relation_type: str  # 6 種: leads_to, based_on, related_to, contrasts_with, superclass_of, subclass_of
+    confidence_score: float  # 0.0-1.0
+    semantic_similarity: float  # 向量相似度
+    link_explicit: bool  # 卡片中是否有明確連結
+    shared_concepts: List[str]  # 共同概念
+    paper_ids: List[int]  # 關聯的論文 ID
+
+    def __repr__(self) -> str:
+        return f"ConceptRelation({self.card_id_1} --{self.relation_type}-> {self.card_id_2}, conf={self.confidence_score:.2f})"
+
+
 class RelationFinder:
     """關係發現主類"""
 
@@ -68,6 +90,13 @@ class RelationFinder:
         self.config = config or self._default_config()
         self.db_path = Path(kb_path) / "index.db"
         self.zettel_analyzer = ZettelConceptAnalyzer(kb_path=kb_path)
+
+        # Phase 2.1: 向量搜索整合
+        try:
+            self.vector_db = VectorDatabase(persist_directory="chroma_db")
+        except Exception as e:
+            print(f"Warning: Could not initialize vector database: {e}")
+            self.vector_db = None
 
     def _default_config(self) -> Dict:
         return {
@@ -360,6 +389,541 @@ class RelationFinder:
             pass
 
         return []
+
+    # ========== Phase 2.1: Zettelkasten 概念關係識別 ==========
+
+    def find_concept_relations(
+        self,
+        min_similarity: float = 0.4,
+        relation_types: Optional[List[str]] = None,
+        limit: int = 100
+    ) -> List[ConceptRelation]:
+        """識別 Zettelkasten 卡片間的語義關係 (Phase 2.1)
+
+        參數:
+            min_similarity: 最小語義相似度閾值（0.0-1.0）
+            relation_types: 要識別的關係類型列表，None 表示全部
+            limit: 每張卡片檢查的最大相似卡片數
+
+        返回:
+            List[ConceptRelation]: 識別出的概念關係列表
+
+        關係類型:
+            - leads_to (導向): A → B
+            - based_on (基於): A ← B
+            - related_to (相關): A ↔ B
+            - contrasts_with (對比): A ⊗ B
+            - superclass_of (上位概念): A ⊃ B
+            - subclass_of (下位概念): A ⊂ B
+        """
+        if not self.vector_db:
+            print("Error: Vector database not initialized")
+            return []
+
+        print("\n" + "="*70)
+        print("[Phase 2.1] Zettelkasten 概念關係識別")
+        print("="*70)
+
+        # 1. 獲取所有 Zettelkasten 卡片
+        print("\n[1] 讀取 Zettelkasten 卡片...")
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT zettel_id, title, core_concept, tags, domain, paper_id, content
+                FROM zettel_cards
+                ORDER BY zettel_id
+            """)
+            cards = []
+            for row in cursor.fetchall():
+                cards.append({
+                    'zettel_id': row[0],
+                    'title': row[1],
+                    'core_concept': row[2],
+                    'tags': row[3],
+                    'domain': row[4],
+                    'paper_id': row[5],
+                    'content': row[6]
+                })
+            conn.close()
+        except Exception as e:
+            print(f"Error reading cards: {e}")
+            return []
+
+        print(f"   找到 {len(cards)} 張卡片")
+
+        # 2. 對每張卡片找相似卡片
+        print(f"\n[2] 使用向量搜索尋找相似卡片...")
+        relations = []
+        processed_pairs = set()  # 避免重複處理 (A, B) 和 (B, A)
+
+        for i, card in enumerate(cards):
+            if (i + 1) % 50 == 0:
+                print(f"   進度: {i+1}/{len(cards)} 卡片")
+
+            card_id = card['zettel_id']
+
+            # 使用向量搜索找相似卡片
+            try:
+                similar_results = self.vector_db.find_similar_zettel(
+                    zettel_id=card_id,
+                    n_results=min(limit, len(cards) - 1),
+                    exclude_self=True
+                )
+            except Exception as e:
+                print(f"   Warning: Failed to find similar cards for {card_id}: {e}")
+                continue
+
+            if not similar_results or 'ids' not in similar_results:
+                continue
+
+            # 處理每個相似卡片
+            for j, similar_id in enumerate(similar_results['ids'][0]):
+                # 跳過自己
+                if similar_id == card_id:
+                    continue
+
+                # 避免重複處理
+                pair = tuple(sorted([card_id, similar_id]))
+                if pair in processed_pairs:
+                    continue
+                processed_pairs.add(pair)
+
+                # 獲取相似度
+                similarity = 1.0 - similar_results['distances'][0][j]  # ChromaDB 返回距離
+                if similarity < min_similarity:
+                    continue
+
+                # 找到對應的卡片數據
+                similar_card = next((c for c in cards if c['zettel_id'] == similar_id), None)
+                if not similar_card:
+                    continue
+
+                # 判定關係類型
+                relation_type = self._classify_relation_type(
+                    card, similar_card, similarity
+                )
+
+                # 過濾關係類型
+                if relation_types and relation_type not in relation_types:
+                    continue
+
+                # 計算信度
+                confidence = self._calculate_confidence(
+                    card, similar_card, similarity, relation_type
+                )
+
+                # 獲取共同概念
+                shared_concepts = self._extract_shared_concepts_from_cards(card, similar_card)
+
+                # 創建關係
+                relation = ConceptRelation(
+                    card_id_1=card_id,
+                    card_id_2=similar_id,
+                    card_title_1=card['title'],
+                    card_title_2=similar_card['title'],
+                    relation_type=relation_type,
+                    confidence_score=confidence,
+                    semantic_similarity=similarity,
+                    link_explicit=self._check_explicit_link(card, similar_id),
+                    shared_concepts=shared_concepts,
+                    paper_ids=[card['paper_id'], similar_card['paper_id']]
+                )
+                relations.append(relation)
+
+        print(f"\n[3] 識別完成")
+        print(f"   總關係數: {len(relations)}")
+
+        # 按信度排序
+        relations = sorted(relations, key=lambda r: r.confidence_score, reverse=True)
+
+        # 統計關係類型分布
+        type_counts = defaultdict(int)
+        for r in relations:
+            type_counts[r.relation_type] += 1
+
+        print(f"\n[4] 關係類型分布:")
+        for rel_type, count in sorted(type_counts.items(), key=lambda x: x[1], reverse=True):
+            print(f"   {rel_type:20} : {count:4} 個")
+
+        print("="*70 + "\n")
+
+        return relations
+
+    def _classify_relation_type(
+        self,
+        card1: Dict,
+        card2: Dict,
+        similarity: float
+    ) -> str:
+        """判定兩張卡片間的關係類型
+
+        判定邏輯:
+        1. 檢查明確連結方向（→ 或 ←）
+        2. 檢查內容中的關係關鍵詞
+        3. 根據相似度判定一般相關性
+
+        參數:
+            card1: 第一張卡片數據
+            card2: 第二張卡片數據
+            similarity: 向量相似度
+
+        返回:
+            str: 關係類型
+        """
+        content1 = card1.get('content', '').lower()
+        content2 = card2.get('content', '').lower()
+        card2_id = card2.get('zettel_id', '')
+
+        # 1. 檢查 card1 中是否有指向 card2 的明確連結
+        # 格式: [[card2_id]] 或 --leads_to--> card2_id
+        if f'[[{card2_id}]]' in card1.get('content', ''):
+            # 檢查連結周圍的上下文
+            if '-->' in content1 or '導向' in content1 or 'leads to' in content1:
+                return 'leads_to'
+            elif '<--' in content1 or '基於' in content1 or 'based on' in content1:
+                return 'based_on'
+
+        # 2. 檢查對比關係關鍵詞
+        contrast_keywords = ['但', '然而', '相反', '對比', 'however', 'but', 'contrast', 'differ']
+        if any(kw in content1 or kw in content2 for kw in contrast_keywords):
+            return 'contrasts_with'
+
+        # 3. 檢查上下位關係
+        superclass_keywords = ['包含', '抽象', '泛指', 'include', 'general', 'abstract', 'superclass']
+        subclass_keywords = ['具體', '特例', '實例', 'specific', 'instance', 'example', 'subclass']
+
+        if any(kw in content1 for kw in superclass_keywords):
+            return 'superclass_of'
+        if any(kw in content1 for kw in subclass_keywords):
+            return 'subclass_of'
+
+        # 4. 根據相似度判定
+        if similarity >= 0.7:
+            # 高相似度，可能是相關概念
+            return 'related_to'
+        elif similarity >= 0.5:
+            # 中等相似度
+            # 檢查是否有方向性關鍵詞
+            directional_keywords = ['因此', '所以', '導致', 'therefore', 'thus', 'result']
+            if any(kw in content1 for kw in directional_keywords):
+                return 'leads_to'
+            return 'related_to'
+        else:
+            # 低相似度，默認為一般相關
+            return 'related_to'
+
+    def _calculate_confidence(
+        self,
+        card1: Dict,
+        card2: Dict,
+        similarity: float,
+        relation_type: str
+    ) -> float:
+        """計算關係的信度評分（多維度）
+
+        評分維度:
+        - semantic_similarity (40%): 向量相似度
+        - link_explicit (30%): 明確連結存在
+        - co_occurrence (20%): 共同概念數量
+        - domain_consistency (10%): 領域一致性
+
+        參數:
+            card1, card2: 卡片數據
+            similarity: 向量相似度
+            relation_type: 關係類型
+
+        返回:
+            float: 信度評分 (0.0-1.0)
+        """
+        scores = {}
+
+        # 1. 語義相似度 (40%)
+        scores['semantic_similarity'] = similarity * 0.4
+
+        # 2. 明確連結 (30%)
+        has_explicit_link = self._check_explicit_link(card1, card2.get('zettel_id', ''))
+        scores['link_explicit'] = 0.3 if has_explicit_link else 0.0
+
+        # 3. 共同概念 (20%)
+        shared = self._extract_shared_concepts_from_cards(card1, card2)
+        # 正規化: 5個以上共同概念得滿分
+        shared_score = min(len(shared) / 5.0, 1.0) * 0.2
+        scores['co_occurrence'] = shared_score
+
+        # 4. 領域一致性 (10%)
+        domain1 = card1.get('domain', '')
+        domain2 = card2.get('domain', '')
+        domain_consistent = (domain1 == domain2) if domain1 and domain2 else False
+        scores['domain_consistency'] = 0.1 if domain_consistent else 0.05
+
+        # 總分
+        total_score = sum(scores.values())
+
+        return round(total_score, 3)
+
+    def _check_explicit_link(self, card: Dict, target_id: str) -> bool:
+        """檢查卡片中是否有指向目標卡片的明確連結
+
+        參數:
+            card: 卡片數據
+            target_id: 目標卡片 ID
+
+        返回:
+            bool: 是否有明確連結
+        """
+        content = card.get('content', '')
+        # 檢查 Obsidian 格式的連結: [[target_id]]
+        return f'[[{target_id}]]' in content
+
+    def _extract_shared_concepts_from_cards(self, card1: Dict, card2: Dict) -> List[str]:
+        """提取兩張卡片的共同概念
+
+        從以下來源提取概念:
+        - tags (標籤)
+        - core_concept (核心概念中的關鍵詞)
+        - title (標題中的關鍵詞)
+
+        參數:
+            card1, card2: 卡片數據
+
+        返回:
+            List[str]: 共同概念列表
+        """
+        def extract_concepts(card: Dict) -> Set[str]:
+            concepts = set()
+
+            # 1. 從標籤提取
+            tags = card.get('tags', '')
+            if tags:
+                try:
+                    if isinstance(tags, str):
+                        if tags.startswith('['):
+                            tag_list = json.loads(tags)
+                        else:
+                            tag_list = [t.strip() for t in tags.split(',')]
+                        concepts.update(tag_list)
+                    elif isinstance(tags, list):
+                        concepts.update(tags)
+                except:
+                    pass
+
+            # 2. 從核心概念提取關鍵詞
+            core = card.get('core_concept', '')
+            if core:
+                # 簡單分詞: 移除標點，按空格分割
+                words = re.findall(r'\w+', core.lower())
+                # 只保留長度 >= 3 的詞（過濾停用詞）
+                keywords = [w for w in words if len(w) >= 3]
+                concepts.update(keywords)
+
+            # 3. 從標題提取關鍵詞
+            title = card.get('title', '')
+            if title:
+                words = re.findall(r'\w+', title.lower())
+                keywords = [w for w in words if len(w) >= 3]
+                concepts.update(keywords)
+
+            return concepts
+
+        concepts1 = extract_concepts(card1)
+        concepts2 = extract_concepts(card2)
+
+        # 計算交集
+        shared = concepts1 & concepts2
+
+        return sorted(list(shared))
+
+    def build_concept_network(
+        self,
+        min_similarity: float = 0.4,
+        relation_types: Optional[List[str]] = None,
+        min_confidence: float = 0.3
+    ) -> Dict:
+        """建構 Zettelkasten 概念網絡 (Phase 2.1)
+
+        參數:
+            min_similarity: 最小語義相似度閾值
+            relation_types: 要包含的關係類型
+            min_confidence: 最小信度閾值
+
+        返回:
+            Dict: 包含 nodes, edges, statistics 的網絡數據
+        """
+        print("\n" + "="*70)
+        print("[Phase 2.1] 建構 Zettelkasten 概念網絡")
+        print("="*70)
+
+        # 1. 識別所有關係
+        print("\n[1] 識別概念關係...")
+        relations = self.find_concept_relations(
+            min_similarity=min_similarity,
+            relation_types=relation_types
+        )
+
+        # 過濾低信度關係
+        relations = [r for r in relations if r.confidence_score >= min_confidence]
+        print(f"   過濾後關係數: {len(relations)} (信度 >= {min_confidence})")
+
+        # 2. 建構節點列表
+        print("\n[2] 建構節點...")
+        node_dict = {}  # card_id -> node data
+        for relation in relations:
+            # 添加 card1
+            if relation.card_id_1 not in node_dict:
+                node_dict[relation.card_id_1] = {
+                    'card_id': relation.card_id_1,
+                    'title': relation.card_title_1,
+                    'degree': 0,  # 度（連接數）
+                    'in_degree': 0,
+                    'out_degree': 0,
+                    'paper_ids': []
+                }
+            # 添加 card2
+            if relation.card_id_2 not in node_dict:
+                node_dict[relation.card_id_2] = {
+                    'card_id': relation.card_id_2,
+                    'title': relation.card_title_2,
+                    'degree': 0,
+                    'in_degree': 0,
+                    'out_degree': 0,
+                    'paper_ids': []
+                }
+
+            # 更新度統計
+            node_dict[relation.card_id_1]['degree'] += 1
+            node_dict[relation.card_id_2]['degree'] += 1
+
+            # 根據關係類型更新有向度
+            if relation.relation_type == 'leads_to':
+                node_dict[relation.card_id_1]['out_degree'] += 1
+                node_dict[relation.card_id_2]['in_degree'] += 1
+            elif relation.relation_type == 'based_on':
+                node_dict[relation.card_id_1]['in_degree'] += 1
+                node_dict[relation.card_id_2]['out_degree'] += 1
+            else:
+                # 對稱關係
+                node_dict[relation.card_id_1]['out_degree'] += 1
+                node_dict[relation.card_id_1]['in_degree'] += 1
+                node_dict[relation.card_id_2]['out_degree'] += 1
+                node_dict[relation.card_id_2]['in_degree'] += 1
+
+            # 添加關聯論文
+            for paper_id in relation.paper_ids:
+                if paper_id not in node_dict[relation.card_id_1]['paper_ids']:
+                    node_dict[relation.card_id_1]['paper_ids'].append(paper_id)
+                if paper_id not in node_dict[relation.card_id_2]['paper_ids']:
+                    node_dict[relation.card_id_2]['paper_ids'].append(paper_id)
+
+        nodes = list(node_dict.values())
+        print(f"   節點數: {len(nodes)}")
+
+        # 3. 建構邊列表
+        print("\n[3] 建構邊...")
+        edges = []
+        for relation in relations:
+            edge = {
+                'source': relation.card_id_1,
+                'target': relation.card_id_2,
+                'relation_type': relation.relation_type,
+                'confidence': relation.confidence_score,
+                'similarity': relation.semantic_similarity,
+                'explicit_link': relation.link_explicit,
+                'shared_concepts': relation.shared_concepts
+            }
+            edges.append(edge)
+        print(f"   邊數: {len(edges)}")
+
+        # 4. 計算網絡統計
+        print("\n[4] 計算網絡統計...")
+        statistics = self._calculate_network_statistics(nodes, edges, relations)
+
+        # 5. 識別核心節點（高度節點）
+        hub_nodes = sorted(nodes, key=lambda n: n['degree'], reverse=True)[:10]
+
+        network = {
+            'nodes': nodes,
+            'edges': edges,
+            'statistics': statistics,
+            'hub_nodes': hub_nodes,
+            'relations': [asdict(r) for r in relations]  # 完整關係數據
+        }
+
+        print("\n[5] 網絡統計摘要:")
+        print(f"   節點數: {statistics['node_count']}")
+        print(f"   邊數: {statistics['edge_count']}")
+        print(f"   平均度: {statistics['avg_degree']:.2f}")
+        print(f"   最大度: {statistics['max_degree']}")
+        print(f"   網絡密度: {statistics['density']:.4f}")
+        print(f"\n[6] Top 5 核心節點 (Hub Nodes):")
+        for i, node in enumerate(hub_nodes[:5], 1):
+            print(f"   {i}. {node['card_id']:30} | 度: {node['degree']:3} | {node['title'][:40]}")
+
+        print("="*70 + "\n")
+
+        return network
+
+    def _calculate_network_statistics(
+        self,
+        nodes: List[Dict],
+        edges: List[Dict],
+        relations: List[ConceptRelation]
+    ) -> Dict:
+        """計算網絡統計指標
+
+        參數:
+            nodes: 節點列表
+            edges: 邊列表
+            relations: 關係列表
+
+        返回:
+            Dict: 統計指標
+        """
+        node_count = len(nodes)
+        edge_count = len(edges)
+
+        if node_count == 0:
+            return {
+                'node_count': 0,
+                'edge_count': 0,
+                'avg_degree': 0,
+                'max_degree': 0,
+                'min_degree': 0,
+                'density': 0,
+                'avg_confidence': 0,
+                'avg_similarity': 0
+            }
+
+        # 度統計
+        degrees = [n['degree'] for n in nodes]
+        avg_degree = sum(degrees) / len(degrees)
+        max_degree = max(degrees)
+        min_degree = min(degrees)
+
+        # 網絡密度 = 實際邊數 / 可能最大邊數
+        max_edges = node_count * (node_count - 1) / 2  # 無向圖
+        density = edge_count / max_edges if max_edges > 0 else 0
+
+        # 關係質量統計
+        avg_confidence = sum(r.confidence_score for r in relations) / len(relations) if relations else 0
+        avg_similarity = sum(r.semantic_similarity for r in relations) / len(relations) if relations else 0
+
+        # 關係類型統計
+        type_counts = defaultdict(int)
+        for r in relations:
+            type_counts[r.relation_type] += 1
+
+        return {
+            'node_count': node_count,
+            'edge_count': edge_count,
+            'avg_degree': round(avg_degree, 2),
+            'max_degree': max_degree,
+            'min_degree': min_degree,
+            'density': round(density, 4),
+            'avg_confidence': round(avg_confidence, 3),
+            'avg_similarity': round(avg_similarity, 3),
+            'relation_type_counts': dict(type_counts)
+        }
 
     # ========== 6. 統計和報告 ==========
 

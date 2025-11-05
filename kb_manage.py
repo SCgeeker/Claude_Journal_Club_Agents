@@ -968,6 +968,235 @@ def cmd_build_network(args):
     print(f"\n{'=' * 80}\n")
 
 
+def cmd_analyze_relations(args):
+    """分析 Zettelkasten 概念關係 (Phase 2.1)"""
+    if RelationFinder is None:
+        print("❌ RelationFinder 未安裝，請確認 src/analyzers/ 已建立")
+        return
+
+    print("\n" + "=" * 70)
+    print("🔍 Zettelkasten 概念關係分析 (Phase 2.1)")
+    print("=" * 70)
+
+    finder = RelationFinder()
+
+    # 根據參數選擇操作模式
+    if args.mode == 'find':
+        # 模式 1: 僅識別關係
+        print(f"\n模式: 識別概念關係")
+        print(f"最小相似度: {args.min_similarity}")
+        print(f"最小信度: {args.min_confidence}")
+        if args.relation_types:
+            print(f"關係類型: {args.relation_types}")
+
+        relations = finder.find_concept_relations(
+            min_similarity=args.min_similarity,
+            relation_types=args.relation_types.split(',') if args.relation_types else None,
+            limit=args.limit
+        )
+
+        # 過濾信度
+        relations = [r for r in relations if r.confidence_score >= args.min_confidence]
+
+        if relations:
+            print(f"\n📋 關係列表 (top {min(len(relations), 20)}):")
+            print("-" * 70)
+            for i, rel in enumerate(relations[:20], 1):
+                print(f"\n{i}. {rel.card_id_1} --{rel.relation_type}--> {rel.card_id_2}")
+                print(f"   {rel.card_title_1[:35]} → {rel.card_title_2[:35]}")
+                print(f"   信度: {rel.confidence_score:.3f} | 相似度: {rel.semantic_similarity:.3f}")
+                if rel.link_explicit:
+                    print(f"   ✓ 明確連結存在")
+                if rel.shared_concepts:
+                    print(f"   共同概念: {', '.join(rel.shared_concepts[:5])}")
+        else:
+            print("\n未找到符合條件的關係")
+
+    elif args.mode == 'network':
+        # 模式 2: 建構完整網絡
+        print(f"\n模式: 建構概念網絡")
+        print(f"最小相似度: {args.min_similarity}")
+        print(f"最小信度: {args.min_confidence}")
+
+        network = finder.build_concept_network(
+            min_similarity=args.min_similarity,
+            relation_types=args.relation_types.split(',') if args.relation_types else None,
+            min_confidence=args.min_confidence
+        )
+
+        # 顯示網絡摘要（已在 build_concept_network 中顯示）
+
+        # 導出為 JSON
+        if args.output:
+            output_path = Path(args.output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(network, f, ensure_ascii=False, indent=2, default=str)
+            print(f"\n💾 網絡數據已導出: {args.output}")
+
+        # 生成報告
+        if args.report:
+            report_path = Path(args.report)
+            report_path.parent.mkdir(parents=True, exist_ok=True)
+
+            report = _generate_relation_report(network, finder)
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(report)
+            print(f"💾 報告已生成: {args.report}")
+
+        # 生成 Mermaid 圖表
+        if args.mermaid:
+            mermaid_path = Path(args.mermaid)
+            mermaid_path.parent.mkdir(parents=True, exist_ok=True)
+
+            mermaid_diagram = _generate_mermaid_diagram(network, max_nodes=args.max_nodes)
+            with open(mermaid_path, 'w', encoding='utf-8') as f:
+                f.write(f"# Zettelkasten 概念網絡\n\n{mermaid_diagram}")
+            print(f"💾 Mermaid 圖表已生成: {args.mermaid}")
+
+    print("\n" + "=" * 70 + "\n")
+
+
+def _generate_relation_report(network: Dict, finder: 'RelationFinder') -> str:
+    """生成 Zettelkasten 概念關係分析報告（Markdown格式）"""
+    stats = network['statistics']
+    hub_nodes = network['hub_nodes']
+    relations = network['relations']
+
+    report_lines = [
+        "# Zettelkasten 概念關係分析報告",
+        "",
+        f"**生成時間**: {Path('.').absolute()}",
+        "",
+        "---",
+        "",
+        "## 📊 網絡統計",
+        "",
+        "| 指標 | 數值 |",
+        "|------|------|",
+        f"| **節點數** | {stats['node_count']} |",
+        f"| **邊數** | {stats['edge_count']} |",
+        f"| **平均度** | {stats['avg_degree']} |",
+        f"| **最大度** | {stats['max_degree']} |",
+        f"| **最小度** | {stats['min_degree']} |",
+        f"| **網絡密度** | {stats['density']} |",
+        f"| **平均信度** | {stats['avg_confidence']} |",
+        f"| **平均相似度** | {stats['avg_similarity']} |",
+        "",
+        "## 🎯 關係類型分布",
+        "",
+        "| 關係類型 | 數量 | 佔比 |",
+        "|---------|------|------|",
+    ]
+
+    total_relations = sum(stats['relation_type_counts'].values())
+    for rel_type, count in sorted(stats['relation_type_counts'].items(), key=lambda x: x[1], reverse=True):
+        percentage = (count / total_relations * 100) if total_relations > 0 else 0
+        report_lines.append(f"| {rel_type} | {count} | {percentage:.1f}% |")
+
+    report_lines.extend([
+        "",
+        "## 🌟 核心節點 (Hub Nodes)",
+        "",
+        "高度中心性節點（連接數最多的卡片）：",
+        "",
+        "| 排名 | 卡片 ID | 標題 | 度 | 入度 | 出度 |",
+        "|------|---------|------|-----|------|------|",
+    ])
+
+    for i, node in enumerate(hub_nodes[:10], 1):
+        title = node['title'][:40] + "..." if len(node['title']) > 40 else node['title']
+        report_lines.append(
+            f"| {i} | {node['card_id']} | {title} | {node['degree']} | "
+            f"{node['in_degree']} | {node['out_degree']} |"
+        )
+
+    report_lines.extend([
+        "",
+        "## 🔗 高信度關係 (Top 20)",
+        "",
+        "信度最高的概念關係：",
+        "",
+    ])
+
+    sorted_relations = sorted(relations, key=lambda r: r['confidence_score'], reverse=True)
+    for i, rel in enumerate(sorted_relations[:20], 1):
+        report_lines.extend([
+            f"### {i}. {rel['card_id_1']} → {rel['card_id_2']}",
+            f"- **關係類型**: {rel['relation_type']}",
+            f"- **信度**: {rel['confidence_score']:.3f}",
+            f"- **相似度**: {rel['semantic_similarity']:.3f}",
+            f"- **明確連結**: {'是' if rel['link_explicit'] else '否'}",
+        ])
+        if rel['shared_concepts']:
+            report_lines.append(f"- **共同概念**: {', '.join(rel['shared_concepts'][:8])}")
+        report_lines.append("")
+
+    report_lines.extend([
+        "---",
+        "",
+        "*報告由 Knowledge Production System (Phase 2.1) 自動生成*"
+    ])
+
+    return "\n".join(report_lines)
+
+
+def _generate_mermaid_diagram(network: Dict, max_nodes: int = 50) -> str:
+    """生成 Mermaid 概念網絡圖表"""
+    nodes = network['nodes']
+    relations = network['relations']
+
+    # 選擇最重要的節點（高度節點）
+    sorted_nodes = sorted(nodes, key=lambda n: n['degree'], reverse=True)[:max_nodes]
+    node_ids = {n['card_id'] for n in sorted_nodes}
+
+    lines = [
+        "```mermaid",
+        "graph TD",
+        ""
+    ]
+
+    # 添加節點
+    for node in sorted_nodes:
+        node_id = node['card_id'].replace('-', '_')  # Mermaid ID 不能有連字號
+        title = node['title'][:25] + "..." if len(node['title']) > 25 else node['title']
+        lines.append(f"    {node_id}[\"{title}\"]")
+
+    lines.append("")
+
+    # 添加邊（只顯示高信度關係）
+    sorted_relations = sorted(relations, key=lambda r: r['confidence_score'], reverse=True)
+    edge_count = 0
+    for rel in sorted_relations:
+        if rel['card_id_1'] not in node_ids or rel['card_id_2'] not in node_ids:
+            continue
+
+        node1_id = rel['card_id_1'].replace('-', '_')
+        node2_id = rel['card_id_2'].replace('-', '_')
+
+        # 根據關係類型選擇箭頭樣式
+        if rel['relation_type'] == 'leads_to':
+            arrow = '-->'
+        elif rel['relation_type'] == 'based_on':
+            arrow = '<--'
+        elif rel['relation_type'] == 'contrasts_with':
+            arrow = '-..->'
+        elif rel['confidence_score'] >= 0.7:
+            arrow = '==>'  # 高信度
+        else:
+            arrow = '-->'
+
+        lines.append(f"    {node1_id} {arrow} {node2_id}")
+        edge_count += 1
+
+        if edge_count >= 100:  # 限制邊數避免圖表過於複雜
+            break
+
+    lines.append("```")
+    return "\n".join(lines)
+
+
 def cmd_check_cite_keys(args):
     """檢查缺少 cite_key 的論文"""
     kb = KnowledgeBaseManager()
@@ -1435,6 +1664,30 @@ def main():
     parser_build_network.add_argument('--graphml', type=str,
                                      help='GraphML輸出路徑 (例如: network.graphml，需安裝networkx)')
     parser_build_network.set_defaults(func=cmd_build_network)
+
+    # analyze-relations 命令 (Phase 2.1 - Zettelkasten)
+    parser_analyze_relations = subparsers.add_parser('analyze-relations',
+                                                     help='分析 Zettelkasten 概念關係 (Phase 2.1)')
+    parser_analyze_relations.add_argument('--mode', choices=['find', 'network'],
+                                         default='network',
+                                         help='操作模式: find (僅識別關係) 或 network (建構網絡)')
+    parser_analyze_relations.add_argument('--min-similarity', type=float, default=0.4,
+                                         help='最小語義相似度閾值 (0-1，默認: 0.4)')
+    parser_analyze_relations.add_argument('--min-confidence', type=float, default=0.3,
+                                         help='最小信度閾值 (0-1，默認: 0.3)')
+    parser_analyze_relations.add_argument('--relation-types', type=str,
+                                         help='關係類型過濾（逗號分隔，如 "leads_to,based_on"）')
+    parser_analyze_relations.add_argument('--limit', type=int, default=100,
+                                         help='每張卡片檢查的最大相似卡片數 (默認: 100)')
+    parser_analyze_relations.add_argument('--output', type=str,
+                                         help='網絡數據 JSON 輸出路徑')
+    parser_analyze_relations.add_argument('--report', type=str,
+                                         help='Markdown 報告輸出路徑')
+    parser_analyze_relations.add_argument('--mermaid', type=str,
+                                         help='Mermaid 圖表輸出路徑')
+    parser_analyze_relations.add_argument('--max-nodes', type=int, default=50,
+                                         help='Mermaid 圖表最大節點數 (默認: 50)')
+    parser_analyze_relations.set_defaults(func=cmd_analyze_relations)
 
     # check-cite-keys 命令 (Phase 2)
     parser_check_keys = subparsers.add_parser('check-cite-keys',
