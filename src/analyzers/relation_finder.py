@@ -431,7 +431,7 @@ class RelationFinder:
             conn = sqlite3.connect(str(self.db_path))
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT zettel_id, title, core_concept, tags, domain, paper_id, content
+                SELECT zettel_id, title, core_concept, tags, domain, paper_id, content, ai_notes, human_notes
                 FROM zettel_cards
                 ORDER BY zettel_id
             """)
@@ -444,7 +444,9 @@ class RelationFinder:
                     'tags': row[3],
                     'domain': row[4],
                     'paper_id': row[5],
-                    'content': row[6]
+                    'content': row[6],
+                    'ai_notes': row[7],
+                    'human_notes': row[8]
                 })
             conn.close()
         except Exception as e:
@@ -679,9 +681,16 @@ class RelationFinder:
         返回:
             bool: 是否有明確連結
         """
-        content = card.get('content', '')
-        # 提取 AI 內容（過濾人類筆記）
-        ai_content = extract_ai_content(content)
+        # 優先使用 ai_notes（Plan B），如果為 NULL 則 fallback 到從 content 提取
+        ai_notes = card.get('ai_notes')
+        if ai_notes:
+            # ai_notes 已經是純 AI 內容，直接使用
+            ai_content = ai_notes
+        else:
+            # Fallback: 從 content 提取 AI 內容（過濾人類筆記）
+            content = card.get('content', '')
+            ai_content = extract_ai_content(content)
+
         # 檢查 Obsidian 格式的連結: [[target_id]]
         return f'[[{target_id}]]' in ai_content
 

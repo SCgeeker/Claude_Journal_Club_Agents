@@ -224,7 +224,7 @@ class EmbeddingGenerator:
         cursor = conn.cursor()
 
         query = """
-            SELECT card_id, zettel_id, title, content, core_concept, description
+            SELECT card_id, zettel_id, title, content, core_concept, description, ai_notes, human_notes
             FROM zettel_cards
         """
         if limit:
@@ -245,7 +245,7 @@ class EmbeddingGenerator:
         ids = []
         metadatas = []
 
-        for card_id, zettel_id, title, content, core_concept, description in cards:
+        for card_id, zettel_id, title, content, core_concept, description, ai_notes, human_notes in cards:
             # 組合文本：標題 + 核心概念 + 描述 + 內容
             components = []
 
@@ -258,12 +258,19 @@ class EmbeddingGenerator:
             if description:
                 components.append(f"描述: {description}")
 
-            if content:
-                # 提取 AI 內容（過濾人類筆記）
+            # 優先使用 ai_notes（Plan B），如果為 NULL 則 fallback 到從 content 提取
+            if ai_notes:
+                # ai_notes 已經是純 AI 內容，直接使用
+                ai_content = ai_notes
+            elif content:
+                # Fallback: 從 content 提取 AI 內容（過濾人類筆記）
                 ai_content = extract_ai_content(content)
+            else:
+                ai_content = None
+
+            if ai_content:
                 # 內容可能很長，取前 1500 字元
-                if ai_content:
-                    components.append(f"內容: {ai_content[:1500]}")
+                components.append(f"內容: {ai_content[:1500]}")
 
             text = "\n".join(components)
 
