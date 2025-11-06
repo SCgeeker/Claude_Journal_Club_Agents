@@ -28,6 +28,39 @@ except ImportError:
     from src.analyzers.zettel_concept_analyzer import ZettelConceptAnalyzer
 
 
+# ============================================================
+# Phase 2.3 改進: 領域相似度矩陣
+# ============================================================
+DOMAIN_SIMILARITY_MATRIX = {
+    # 認知科學相關
+    ('CogSci', 'AI'): 0.8,          # 高度相關（認知模型與AI）
+    ('CogSci', 'Linguistics'): 0.8,  # 高度相關（心理語言學）
+    ('CogSci', 'Neuroscience'): 0.9, # 極高相關（認知神經科學）
+    ('CogSci', 'Psychology'): 0.95,  # 極高相關（認知心理學）
+
+    # AI相關
+    ('AI', 'Linguistics'): 0.6,      # 中度相關（NLP）
+    ('AI', 'Neuroscience'): 0.7,     # 中高相關（神經網絡）
+    ('AI', 'ComputerScience'): 0.9,  # 極高相關
+
+    # 語言學相關
+    ('Linguistics', 'Psychology'): 0.7,      # 中高相關（心理語言學）
+    ('Linguistics', 'Anthropology'): 0.8,    # 高度相關（人類學語言學）
+    ('Linguistics', 'ComputerScience'): 0.5, # 中度相關（計算語言學）
+
+    # 神經科學相關
+    ('Neuroscience', 'Psychology'): 0.9,     # 極高相關
+    ('Neuroscience', 'Biology'): 0.85,       # 高度相關
+
+    # 其他交叉領域
+    ('Psychology', 'Sociology'): 0.7,        # 中高相關（社會心理學）
+    ('ComputerScience', 'Mathematics'): 0.8, # 高度相關
+}
+
+# 默認相似度（未在矩陣中定義的領域組合）
+DEFAULT_DOMAIN_SIMILARITY = 0.3
+
+
 @dataclass
 class Citation:
     """論文引用關係"""
@@ -650,21 +683,24 @@ class RelationFinder:
         # 1. 語義相似度 (40%)
         scores['semantic_similarity'] = similarity * 0.4
 
-        # 2. 明確連結 (30%)
-        has_explicit_link = self._check_explicit_link(card1, card2.get('zettel_id', ''))
-        scores['link_explicit'] = 0.3 if has_explicit_link else 0.0
+        # 2. 明確連結 (30%) - Phase 2.3 改進: 使用多層次連結檢測
+        link_strength = self._check_explicit_link_enhanced(card1, card2.get('zettel_id', ''))
+        # link_strength 範圍 0.0-1.0，映射到 30% 權重
+        scores['link_explicit'] = link_strength * 0.3
 
-        # 3. 共同概念 (20%)
-        shared = self._extract_shared_concepts_from_cards(card1, card2)
-        # 正規化: 5個以上共同概念得滿分
-        shared_score = min(len(shared) / 5.0, 1.0) * 0.2
-        scores['co_occurrence'] = shared_score
+        # 3. 共同概念 (20%) - Phase 2.3 改進: 使用加權評分
+        shared_concepts, weighted_similarity = self._extract_shared_concepts_enhanced(card1, card2)
+        # 使用加權相似度（已正規化到 0-1）
+        scores['co_occurrence'] = weighted_similarity * 0.2
 
-        # 4. 領域一致性 (10%)
-        domain1 = card1.get('domain', '')
-        domain2 = card2.get('domain', '')
-        domain_consistent = (domain1 == domain2) if domain1 and domain2 else False
-        scores['domain_consistency'] = 0.1 if domain_consistent else 0.05
+        # 4. 領域一致性 (10%) - Phase 2.3 改進: 使用領域相似度矩陣
+        domain1_str = card1.get('domain', '')
+        domain2_str = card2.get('domain', '')
+        domains1 = self._parse_domain(domain1_str)
+        domains2 = self._parse_domain(domain2_str)
+        domain_similarity = self._calculate_multi_domain_similarity(domains1, domains2)
+        # 將相似度映射到 0.03-0.10 範圍（保留原始權重 10%）
+        scores['domain_consistency'] = domain_similarity * 0.10
 
         # 總分
         total_score = sum(scores.values())
@@ -693,6 +729,157 @@ class RelationFinder:
 
         # 檢查 Obsidian 格式的連結: [[target_id]]
         return f'[[{target_id}]]' in ai_content
+
+    def _extract_section(self, content: str, section_name: str) -> str:
+        """從 Markdown 內容中提取特定區段
+
+        參數:
+            content: Markdown 內容
+            section_name: 區段名稱（例如 "連結網絡"、"來源脈絡"、"個人筆記"）
+
+        返回:
+            str: 區段內容，如果不存在則返回空字串
+        """
+        if not content:
+            return ""
+
+        # 構建區段標題的正則表達式（支援不同層級的標題）
+        # 例如：## 連結網絡、### 連結網絡
+        pattern = rf'^#+\s*{re.escape(section_name)}.*?$'
+
+        # 尋找區段開始位置
+        match = re.search(pattern, content, re.MULTILINE | re.IGNORECASE)
+        if not match:
+            return ""
+
+        # 提取從區段開始到下一個同級或更高級標題之間的內容
+        start_pos = match.end()
+
+        # 確定當前標題的層級（#的數量）
+        current_level = len(re.match(r'^#+', match.group()).group())
+
+        # 尋找下一個同級或更高級的標題
+        next_header_pattern = rf'^#{{{1},{current_level}}}(?!#)\s+'
+        remaining_content = content[start_pos:]
+        next_match = re.search(next_header_pattern, remaining_content, re.MULTILINE)
+
+        if next_match:
+            section_content = remaining_content[:next_match.start()]
+        else:
+            section_content = remaining_content
+
+        return section_content.strip()
+
+    def _extract_link_context(self, content: str, target_id: str, context_window: int = 50) -> str:
+        """提取連結周圍的語境
+
+        參數:
+            content: 文本內容
+            target_id: 目標卡片 ID
+            context_window: 上下文窗口大小（字元數）
+
+        返回:
+            str: 連結周圍的上下文，如果沒有連結則返回空字串
+        """
+        link_pattern = re.escape(f'[[{target_id}]]')
+        match = re.search(link_pattern, content)
+
+        if not match:
+            return ""
+
+        # 提取連結位置前後 context_window 個字元
+        start = max(0, match.start() - context_window)
+        end = min(len(content), match.end() + context_window)
+
+        context = content[start:end].strip()
+        return context
+
+    def _check_explicit_link_enhanced(self, card: Dict, target_id: str) -> float:
+        """增強版明確連結檢測（Phase 2.3 改進 1）
+
+        根據連結位置和語境給予不同評分:
+        - [AI Agent] 區段（帶語境）: 0.5-1.0（深度關聯）
+        - "## 連結網絡" 區段: 0.6-0.8（結構化關聯）
+        - "## 來源脈絡" 區段: 0.4（脈絡關聯）
+        - 其他區段（說明、標題）: 0.3（弱關聯）
+
+        參數:
+            card: 卡片數據
+            target_id: 目標卡片 ID
+
+        返回:
+            float: 連結強度評分 (0.0-1.0)，映射到 link_explicit 維度的貢獻
+        """
+        content = card.get('content', '')
+        if not content:
+            return 0.0
+
+        link_text = f'[[{target_id}]]'
+        if link_text not in content:
+            return 0.0
+
+        # 初始化最高分數
+        max_score = 0.0
+
+        # 1. 檢查 [AI Agent] 區段（在"## 個人筆記"內）
+        personal_notes = self._extract_section(content, '個人筆記')
+        if personal_notes:
+            # 提取 [AI Agent] 區段
+            ai_agent_pattern = r'\*\*\[AI Agent\]\*\*:\s*(.+?)(?=\*\*\[Human\]\*\*:|##|$)'
+            ai_agent_match = re.search(ai_agent_pattern, personal_notes, re.DOTALL)
+
+            if ai_agent_match and link_text in ai_agent_match.group(1):
+                # 提取連結語境
+                context = self._extract_link_context(ai_agent_match.group(1), target_id, context_window=50)
+
+                # 分析語境中的關係詞
+                relation_keywords = {
+                    'strong': ['基於', '來自', '延伸', '發展', '建立在', 'based on', 'derived from', 'extends'],
+                    'directional': ['導向', '指向', '通往', 'leads to', 'points to'],
+                    'critical': ['對比', '挑戰', '質疑', 'contrasts', 'challenges', 'questions'],
+                    'related': ['相關', '連結', '關聯', 'related', 'connected', 'linked']
+                }
+
+                # 根據語境詞彙給分
+                context_lower = context.lower()
+                if any(kw in context_lower for kw in relation_keywords['strong']):
+                    max_score = max(max_score, 1.0)  # 強關係
+                elif any(kw in context_lower for kw in relation_keywords['directional']):
+                    max_score = max(max_score, 0.8)  # 方向性關係
+                elif any(kw in context_lower for kw in relation_keywords['critical']):
+                    max_score = max(max_score, 0.7)  # 批判性關係
+                elif any(kw in context_lower for kw in relation_keywords['related']):
+                    max_score = max(max_score, 0.6)  # 一般相關
+                else:
+                    max_score = max(max_score, 0.5)  # AI Agent 區段但無明顯關係詞
+
+        # 2. 檢查"## 連結網絡"區段
+        link_network = self._extract_section(content, '連結網絡')
+        if link_network and link_text in link_network:
+            # 檢查是否有結構化的連結語義
+            context = self._extract_link_context(link_network, target_id, context_window=30)
+
+            # 識別連結語義類型
+            if any(marker in context for marker in ['基於 ->', '來自 ->']):
+                max_score = max(max_score, 0.8)  # 明確的基礎關係
+            elif any(marker in context for marker in ['導向 ->', '延伸 ->']):
+                max_score = max(max_score, 0.75)  # 明確的延伸關係
+            elif any(marker in context for marker in ['相關 <->', '對比 <->']):
+                max_score = max(max_score, 0.7)  # 明確的雙向關係
+            else:
+                max_score = max(max_score, 0.6)  # 連結網絡中但無特定語義
+
+        # 3. 檢查"## 來源脈絡"區段（future: prompt 改進）
+        source_context = self._extract_section(content, '來源脈絡')
+        if source_context and link_text in source_context:
+            max_score = max(max_score, 0.4)  # 脈絡關聯（較弱）
+
+        # 4. 檢查其他區段（說明、標題等）
+        if max_score == 0.0 and link_text in content:
+            # 在其他區段中找到連結
+            max_score = 0.3  # 弱關聯
+
+        return max_score
 
     def _extract_shared_concepts_from_cards(self, card1: Dict, card2: Dict) -> List[str]:
         """提取兩張卡片的共同概念
@@ -751,6 +938,292 @@ class RelationFinder:
         shared = concepts1 & concepts2
 
         return sorted(list(shared))
+
+    def _extract_chinese_keywords(self, text: str, top_n: int = 10) -> Set[str]:
+        """提取中文關鍵詞
+
+        使用預定義詞典 + 正則表達式提取常見學術詞彙
+        如果安裝了 jieba，則使用 jieba 分詞作為補充
+
+        參數:
+            text: 要提取關鍵詞的文本
+            top_n: 返回前 N 個關鍵詞
+
+        返回:
+            Set[str]: 關鍵詞集合
+        """
+        if not text:
+            return set()
+
+        keywords = set()
+
+        # 1. 預定義學術詞典（認知科學、語言學、AI 常用術語）
+        predefined_patterns = [
+            # 認知科學
+            r'(工作記憶|長期記憶|短期記憶|語義記憶|情節記憶)',
+            r'(注意力|選擇性注意|分散注意|注意機制)',
+            r'(心理表徵|心智模型|認知負荷|認知架構)',
+            r'(視覺處理|聽覺處理|多感官整合)',
+            r'(執行功能|抑制控制|工作記憶更新|認知彈性)',
+
+            # 語言學
+            r'(語法|句法|語義|語用|音韻|詞彙)',
+            r'(名詞|動詞|形容詞|副詞|量詞|分類詞)',
+            r'(語言習得|第二語言|母語|雙語)',
+            r'(語言演化|語言變化|語言接觸)',
+
+            # AI/機器學習
+            r'(深度學習|機器學習|神經網絡|卷積|循環神經)',
+            r'(自然語言處理|語言模型|詞向量|注意力機制)',
+            r'(監督學習|非監督學習|強化學習)',
+            r'(特徵提取|特徵工程|降維)',
+
+            # 研究方法
+            r'(實驗設計|對照組|實驗組|隨機分配)',
+            r'(量化研究|質性研究|混合方法)',
+            r'(信度|效度|內部一致性|建構效度)',
+            r'(統計檢定|顯著性|效果量)',
+
+            # 通用學術詞彙
+            r'(理論|模型|假設|預測|驗證)',
+            r'(數據|結果|發現|證據)',
+            r'(方法|程序|材料|參與者)',
+        ]
+
+        # 使用預定義模式提取
+        for pattern in predefined_patterns:
+            matches = re.findall(pattern, text)
+            keywords.update(matches)
+
+        # 2. 提取 2-4 個連續中文字符的詞組
+        chinese_words = re.findall(r'[\u4e00-\u9fa5]{2,4}', text)
+        keywords.update(chinese_words[:top_n * 2])  # 取前 2*top_n 個候選
+
+        # 3. 如果有 jieba，使用 jieba 分詞補充（可選）
+        try:
+            import jieba
+            jieba.setLogLevel(jieba.logging.INFO)  # 抑制 jieba 日誌
+            seg_list = jieba.cut(text)
+            for word in seg_list:
+                if len(word) >= 2 and re.search(r'[\u4e00-\u9fa5]', word):
+                    keywords.add(word)
+        except ImportError:
+            pass  # jieba 未安裝，跳過
+
+        # 4. 過濾停用詞和過短詞
+        stopwords = {'的', '了', '在', '是', '和', '與', '或', '但', '等',
+                     '因此', '所以', '如果', '雖然', '但是', '然而', '以及',
+                     '這個', '那個', '我們', '他們', '可以', '應該', '能夠'}
+        keywords = {w for w in keywords if len(w) >= 2 and w not in stopwords}
+
+        return keywords
+
+    def _extract_concepts_enhanced(self, card: Dict) -> Dict[str, float]:
+        """增強版概念提取（Phase 2.3 改進）
+
+        從 5 個來源提取概念，並給予不同權重:
+        - tags (1.0): 最準確
+        - core_concept (0.9): 次準確
+        - description (0.8): 首段說明
+        - title (0.7): 較簡短
+        - ai_notes (0.6): 較發散
+
+        參數:
+            card: 卡片數據
+
+        返回:
+            Dict[str, float]: 概念 -> 權重分數
+        """
+        concepts = {}  # concept -> weight
+
+        # 1. 從 tags 提取（權重 1.0）
+        tags = card.get('tags', '')
+        if tags:
+            try:
+                if isinstance(tags, str):
+                    if tags.startswith('['):
+                        tag_list = json.loads(tags)
+                    else:
+                        tag_list = [t.strip() for t in tags.split(',')]
+                elif isinstance(tags, list):
+                    tag_list = tags
+                else:
+                    tag_list = []
+
+                for tag in tag_list:
+                    tag = tag.strip().lower()
+                    if tag:
+                        concepts[tag] = max(concepts.get(tag, 0), 1.0)
+            except:
+                pass
+
+        # 2. 從 core_concept 提取（權重 0.9）
+        core = card.get('core_concept', '')
+        if core:
+            # 使用增強的中文分詞
+            keywords = self._extract_chinese_keywords(core, top_n=5)
+            for word in keywords:
+                word = word.lower()
+                concepts[word] = max(concepts.get(word, 0), 0.9)
+
+            # 英文關鍵詞（正則表達式）
+            english_words = re.findall(r'\b[a-z]{3,}\b', core.lower())
+            for word in english_words:
+                concepts[word] = max(concepts.get(word, 0), 0.9)
+
+        # 3. 從 description 提取（權重 0.8）- 新增！
+        description = card.get('description', '')
+        if description:
+            keywords = self._extract_chinese_keywords(description, top_n=8)
+            for word in keywords:
+                word = word.lower()
+                concepts[word] = max(concepts.get(word, 0), 0.8)
+
+            english_words = re.findall(r'\b[a-z]{3,}\b', description.lower())
+            for word in english_words[:10]:  # 限制英文詞數
+                concepts[word] = max(concepts.get(word, 0), 0.8)
+
+        # 4. 從 title 提取（權重 0.7）
+        title = card.get('title', '')
+        if title:
+            keywords = self._extract_chinese_keywords(title, top_n=5)
+            for word in keywords:
+                word = word.lower()
+                concepts[word] = max(concepts.get(word, 0), 0.7)
+
+            english_words = re.findall(r'\b[a-z]{3,}\b', title.lower())
+            for word in english_words:
+                concepts[word] = max(concepts.get(word, 0), 0.7)
+
+        # 5. 從 ai_notes 提取（權重 0.6）- 新增！
+        ai_notes = card.get('ai_notes', '')
+        if ai_notes:
+            keywords = self._extract_chinese_keywords(ai_notes, top_n=10)
+            for word in keywords:
+                word = word.lower()
+                concepts[word] = max(concepts.get(word, 0), 0.6)
+
+            english_words = re.findall(r'\b[a-z]{3,}\b', ai_notes.lower())
+            for word in english_words[:15]:  # 限制英文詞數
+                concepts[word] = max(concepts.get(word, 0), 0.6)
+
+        return concepts
+
+    def _extract_shared_concepts_enhanced(self, card1: Dict, card2: Dict) -> Tuple[List[str], float]:
+        """增強版共同概念提取（Phase 2.3 改進）
+
+        使用加權評分機制計算共同概念相似度
+
+        參數:
+            card1, card2: 卡片數據
+
+        返回:
+            Tuple[List[str], float]: (共同概念列表, 加權相似度分數)
+        """
+        concepts1 = self._extract_concepts_enhanced(card1)
+        concepts2 = self._extract_concepts_enhanced(card2)
+
+        # 找出共同概念
+        shared_concepts = set(concepts1.keys()) & set(concepts2.keys())
+
+        if not shared_concepts:
+            return [], 0.0
+
+        # 計算加權相似度
+        # 使用兩張卡片中較低的權重（保守估計）
+        weighted_score = sum(
+            min(concepts1[concept], concepts2[concept])
+            for concept in shared_concepts
+        )
+
+        # 正規化：除以兩張卡片的概念總權重的平均值
+        total_weight1 = sum(concepts1.values()) or 1.0
+        total_weight2 = sum(concepts2.values()) or 1.0
+        avg_total = (total_weight1 + total_weight2) / 2
+
+        normalized_score = min(weighted_score / avg_total, 1.0)
+
+        return sorted(list(shared_concepts)), normalized_score
+
+    def _parse_domain(self, domain_str: str) -> List[str]:
+        """解析領域字串（支援多領域）
+
+        範例:
+        - "CogSci" -> ["CogSci"]
+        - "CogSci, AI" -> ["CogSci", "AI"]
+        - "CogSci,Linguistics" -> ["CogSci", "Linguistics"]
+
+        參數:
+            domain_str: 領域字串
+
+        返回:
+            List[str]: 領域列表
+        """
+        if not domain_str:
+            return []
+
+        # 分割並清理空白
+        domains = [d.strip() for d in domain_str.split(',')]
+        return [d for d in domains if d]
+
+    def _get_domain_similarity(self, domain1: str, domain2: str) -> float:
+        """查詢兩個領域的相似度
+
+        參數:
+            domain1, domain2: 領域代碼
+
+        返回:
+            float: 相似度分數 (0.0-1.0)
+        """
+        if not domain1 or not domain2:
+            return DEFAULT_DOMAIN_SIMILARITY
+
+        # 相同領域
+        if domain1 == domain2:
+            return 1.0
+
+        # 查詢矩陣（順序無關）
+        key1 = (domain1, domain2)
+        key2 = (domain2, domain1)
+
+        if key1 in DOMAIN_SIMILARITY_MATRIX:
+            return DOMAIN_SIMILARITY_MATRIX[key1]
+        elif key2 in DOMAIN_SIMILARITY_MATRIX:
+            return DOMAIN_SIMILARITY_MATRIX[key2]
+        else:
+            return DEFAULT_DOMAIN_SIMILARITY
+
+    def _calculate_multi_domain_similarity(self, domains1: List[str], domains2: List[str]) -> float:
+        """計算多領域相似度（Phase 2.3 改進）
+
+        使用最大相似度策略：
+        找出所有領域對中相似度最高的組合
+
+        範例:
+        - card1: ["CogSci", "AI"]
+        - card2: ["Linguistics"]
+        - 計算: max(
+            similarity(CogSci, Linguistics),
+            similarity(AI, Linguistics)
+          )
+
+        參數:
+            domains1, domains2: 領域列表
+
+        返回:
+            float: 相似度分數 (0.0-1.0)
+        """
+        if not domains1 or not domains2:
+            return DEFAULT_DOMAIN_SIMILARITY
+
+        # 計算所有領域對的相似度，取最大值
+        max_similarity = 0.0
+        for d1 in domains1:
+            for d2 in domains2:
+                similarity = self._get_domain_similarity(d1, d2)
+                max_similarity = max(max_similarity, similarity)
+
+        return max_similarity
 
     def build_concept_network(
         self,
