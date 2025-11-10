@@ -245,6 +245,9 @@ class SlideMaker:
         else:
             self.anthropic_client = None
 
+        # OpenRouter: 不需要客戶端初始化，直接使用 requests + OPENROUTER_API_KEY
+        # 檢測在 _detect_available_providers() 中通過環境變數完成
+
     def _load_model_config(self) -> Dict:
         """載入模型選擇配置"""
         config_path = Path(__file__).parent.parent.parent / "config" / "model_selection.yaml"
@@ -372,6 +375,10 @@ class SlideMaker:
         if self.anthropic_client:
             providers.append('anthropic')
 
+        # 檢查 OpenRouter
+        if os.getenv('OPENROUTER_API_KEY'):
+            providers.append('openrouter')
+
         return providers
 
     def call_llm(self,
@@ -380,7 +387,8 @@ class SlideMaker:
                  provider: Optional[str] = None,
                  timeout: int = 300,
                  task_type: Optional[str] = None,
-                 style: Optional[str] = None) -> Tuple[str, str]:
+                 style: Optional[str] = None,
+                 max_tokens: int = 4096) -> Tuple[str, str]:
         """
         統一的LLM調用接口，支援多後端和自動fallback
 
@@ -391,6 +399,7 @@ class SlideMaker:
             timeout: 超時時間（秒）
             task_type: 任務類型（用於智能選擇）
             style: 學術風格（用於智能選擇）
+            max_tokens: 最大生成 tokens 數（僅 OpenRouter，默認 4096）
 
         Returns:
             (生成的內容, 使用的provider)
@@ -433,6 +442,9 @@ class SlideMaker:
                 elif attempt_provider == 'anthropic':
                     used_model = actual_model or "claude-3-haiku-20240307"
                     result = self.call_anthropic(prompt, used_model)
+                elif attempt_provider == 'openrouter':
+                    used_model = actual_model or "anthropic/claude-3.5-sonnet"
+                    result = self.call_openrouter(prompt, used_model, timeout, max_tokens)
                 else:
                     continue
 
@@ -671,6 +683,62 @@ class SlideMaker:
             return response.content[0].text
         except Exception as e:
             raise RuntimeError(f"Anthropic Claude API call failed: {e}")
+
+    def call_openrouter(self,
+                       prompt: str,
+                       model: str = "anthropic/claude-3.5-sonnet",
+                       timeout: int = 300,
+                       max_tokens: int = 4096) -> str:
+        """
+        調用 OpenRouter API 生成內容
+
+        Args:
+            prompt: 提示詞
+            model: 模型名稱（例如: anthropic/claude-3.5-sonnet）
+            timeout: 超時時間（秒）
+            max_tokens: 最大生成 tokens 數（默認 4096）
+
+        Returns:
+            生成的內容
+
+        支援的模型範例：
+            - anthropic/claude-3.5-sonnet (推薦用於 Zettelkasten)
+            - anthropic/claude-3-haiku (快速經濟)
+            - google/gemini-2.0-flash-exp (免費)
+        """
+        api_key = os.getenv('OPENROUTER_API_KEY')
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY not set. Please add it to .env file")
+
+        url = "https://openrouter.ai/api/v1/chat/completions"
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "HTTP-Referer": "https://github.com/claude-lit-workflow",
+            "X-Title": "Claude Lit Workflow - Zettelkasten Generator"
+        }
+
+        data = {
+            "model": model,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": max_tokens
+        }
+
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=timeout)
+            response.raise_for_status()
+
+            result = response.json()
+            return result['choices'][0]['message']['content']
+
+        except requests.exceptions.Timeout:
+            raise RuntimeError(f"OpenRouter API call timeout after {timeout}s")
+        except requests.exceptions.RequestException as e:
+            raise RuntimeError(f"OpenRouter API call failed: {e}")
+        except (KeyError, IndexError) as e:
+            raise RuntimeError(f"Failed to parse OpenRouter response: {e}")
 
     def parse_slides(self, content: str) -> List[Dict[str, str]]:
         """

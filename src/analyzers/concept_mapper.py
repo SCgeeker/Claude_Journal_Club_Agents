@@ -1123,6 +1123,7 @@ class ConceptMapper:
         json_path = output_path / "analysis_data.json"
         json_data = {
             'network_statistics': self.network.statistics,
+            'relations': self.network.relations,  # ✅ 修復：添加關係數據（已經是字典列表）
             'communities': [asdict(c) for c in communities],
             'influential_paths': [asdict(p) for p in influential_paths],
             'top_pagerank_nodes': top_pagerank
@@ -1140,7 +1141,7 @@ class ConceptMapper:
             obsidian_dir = output_path / "obsidian"
             exporter.export_all(
                 analysis_results={
-                    'relations': self.network.relations,
+                    'relations': self.network.relations,  # 已經是字典列表
                     'centralities': centralities,
                     'communities': communities,
                     'paths': influential_paths,

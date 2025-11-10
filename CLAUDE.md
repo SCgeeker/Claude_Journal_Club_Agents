@@ -1,3 +1,4 @@
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -84,41 +85,15 @@ claude_lit_workflow/
 
 ### 1. 環境設置
 
-```bash
-# 安裝依賴
-pip install -r requirements.txt
-
-# 初始化知識庫（首次使用）
-python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"
-```
+**範例**: [examples/quickstart/setup_environment.sh](examples/quickstart/setup_environment.sh)
 
 ### 2. 基本使用
 
-```bash
-# 分析單篇論文
-/analyze-paper paper.pdf
-
-# 分析並加入知識庫
-/analyze-paper paper.pdf --add-to-kb
-
-# 生成多種格式
-/analyze-paper paper.pdf --format all --style modern_academic
-```
+**範例**: [examples/quickstart/basic_usage.sh](examples/quickstart/basic_usage.sh)
 
 ### 3. 知識庫查詢
 
-```python
-from src.knowledge_base import KnowledgeBaseManager
-
-kb = KnowledgeBaseManager()
-
-# 搜索論文
-results = kb.search_papers("deep learning medical")
-
-# 查看統計
-stats = kb.get_stats()
-print(f"論文總數: {stats['total_papers']}")
-```
+**範例**: [examples/quickstart/kb_query.py](examples/quickstart/kb_query.py)
 
 ## 核心模組說明
 
@@ -126,17 +101,7 @@ print(f"論文總數: {stats['total_papers']}")
 
 **功能**: 從PDF提取文本、結構和元數據
 
-```python
-from src.extractors import PDFExtractor
-
-extractor = PDFExtractor(max_chars=50000)
-result = extractor.extract("paper.pdf")
-
-# 訪問提取結果
-title = result['structure']['title']
-authors = result['structure']['authors']
-abstract = result['structure']['abstract']
-```
+**範例**: [examples/pdf_extraction/extract_pdf.py](examples/pdf_extraction/extract_pdf.py)
 
 **特性**:
 - 支援兩種提取方法：pdfplumber（推薦）和PyPDF2
@@ -150,31 +115,7 @@ abstract = result['structure']['abstract']
 
 **功能**: 混合式知識庫管理（Markdown + SQLite）
 
-```python
-from src.knowledge_base import KnowledgeBaseManager
-
-kb = KnowledgeBaseManager()
-
-# 新增論文
-paper_id = kb.add_paper(
-    file_path="papers/smith_2024.md",
-    title="Deep Learning for Medical Diagnosis",
-    authors=["John Smith", "Jane Doe"],
-    year=2024,
-    keywords=["deep learning", "medical"],
-    content="完整內容..."
-)
-
-# 全文搜索
-results = kb.search_papers("deep learning", limit=10)
-
-# 主題管理
-topic_id = kb.add_topic("深度學習")
-kb.link_paper_to_topic(paper_id, topic_id)
-
-# 創建Markdown筆記
-md_path = kb.create_markdown_note(paper_data)
-```
+**範例**: [examples/knowledge_base/kb_management.py](examples/knowledge_base/kb_management.py)
 
 **數據庫結構**:
 - `papers`: 論文元數據
@@ -189,45 +130,9 @@ md_path = kb.create_markdown_note(paper_data)
 
 **功能**: 穩定地批次處理大量PDF文件，支援知識庫和Zettelkasten生成
 
-```bash
-# 批次處理資料夾中的所有PDF
-python batch_process.py --folder "D:\pdfs\mental_simulation"
+**CLI 範例**: [examples/batch_processing/batch_cli_usage.sh](examples/batch_processing/batch_cli_usage.sh)
 
-# 批次處理並加入知識庫
-python batch_process.py --folder "D:\pdfs" --domain CogSci --add-to-kb
-
-# 批次處理並生成 Zettelkasten
-python batch_process.py --folder "D:\pdfs" --domain CogSci --generate-zettel
-
-# 完整處理（知識庫 + Zettelkasten）
-python batch_process.py --folder "D:\pdfs" --domain CogSci --add-to-kb --generate-zettel --workers 4
-
-# 指定特定文件
-python batch_process.py --files paper1.pdf paper2.pdf --add-to-kb
-```
-
-**Python API**:
-```python
-from src.processors import BatchProcessor
-
-processor = BatchProcessor(max_workers=3, error_handling='skip')
-
-result = processor.process_batch(
-    pdf_paths="D:\\pdfs",
-    domain="CogSci",
-    add_to_kb=True,
-    generate_zettel=True,
-    zettel_config={
-        'detail_level': 'detailed',
-        'card_count': 20,
-        'llm_provider': 'google'
-    }
-)
-
-# 查看結果
-print(f"成功: {result.success}/{result.total}")
-print(result.to_report())
-```
+**Python API 範例**: [examples/batch_processing/batch_api_usage.py](examples/batch_processing/batch_api_usage.py)
 
 **核心特性**:
 - **平行處理**: ThreadPoolExecutor支援多工處理（預設3個worker）
@@ -262,47 +167,9 @@ print(result.to_report())
 
 **功能**: 檢查知識庫中論文的元數據質量，檢測問題並提供修復建議
 
-```bash
-# 檢查所有論文
-python check_quality.py
+**CLI 範例**: [examples/quality_checker/quality_check_cli.sh](examples/quality_checker/quality_check_cli.sh)
 
-# 檢查特定論文
-python check_quality.py --paper-id 27
-
-# 生成詳細報告
-python check_quality.py --detail comprehensive --output quality_report.txt
-
-# 僅顯示有嚴重問題的論文
-python check_quality.py --critical-only
-
-# 檢測重複論文（相似度 >= 85%）
-python check_quality.py --detect-duplicates --threshold 0.85
-
-# JSON格式輸出
-python check_quality.py --format json --output quality_report.json
-```
-
-**Python API**:
-```python
-from src.checkers import QualityChecker
-
-checker = QualityChecker()
-
-# 檢查單篇論文
-report = checker.check_paper(paper_id=27, auto_fix=False)
-print(f"評分: {report.overall_score}/100")
-print(f"質量等級: {report.quality_level}")
-
-# 檢查所有論文
-reports = checker.check_all_papers()
-summary = checker.generate_summary_report(reports, detail_level="comprehensive")
-print(summary)
-
-# 檢測重複
-duplicates = checker.detect_duplicates(threshold=0.85)
-for id1, id2, similarity in duplicates:
-    print(f"論文 {id1} 與 {id2} 相似度: {similarity:.2%}")
-```
+**Python API 範例**: [examples/quality_checker/quality_check_api.py](examples/quality_checker/quality_check_api.py)
 
 **檢查項目**:
 
@@ -399,474 +266,51 @@ for id1, id2, similarity in duplicates:
 
 ---
 
-## 向量搜索系統 (Vector Search) ✅ NEW
+## 向量搜索系統 (Vector Search) ✅
 
-**Phase 1.5** 完成實作！基於向量嵌入的語義搜索系統，支援論文和 Zettelkasten 卡片的智能檢索。
+**狀態**: Phase 1.5 完成實作
+**完整文檔**: [docs/modules/VECTOR_SEARCH.md](docs/modules/VECTOR_SEARCH.md)
 
-### 系統架構
+基於向量嵌入的語義搜索系統，支援論文和 Zettelkasten 卡片的智能檢索。
 
-```
-src/embeddings/
-├── providers/
-│   ├── gemini_embedder.py    # Google Gemini Embedding-001 (768維)
-│   └── ollama_embedder.py    # 本地 Qwen3-Embedding-4B (2560維)
-├── vector_db.py               # ChromaDB 封裝
-└── __init__.py
+### 核心功能
 
-generate_embeddings.py         # 批次生成腳本
-kb_manage.py                   # CLI整合（semantic-search, similar, hybrid-search）
-chroma_db/                     # ChromaDB 持久化目錄
-```
+- **語義搜索**: 使用自然語言查詢相關論文和卡片
+- **相似內容發現**: 根據 ID 尋找相關研究
+- **混合搜索**: 結合關鍵詞匹配（FTS）和語義理解
 
-### 核心組件
+### 兩種 Embedder
 
-#### 1. GeminiEmbedder (src/embeddings/providers/gemini_embedder.py)
+| Provider | 模型 | 維度 | 成本 | 速度 |
+|----------|------|------|------|------|
+| **Gemini** | embedding-001 | 768 | $0.00015/1K tokens | 快 |
+| **Ollama** | qwen3-embedding:4b | 2560 | $0 (本地) | 中 |
 
-Google Gemini Embedding-001 API 封裝，提供雲端高品質向量生成。
-
-```python
-from src.embeddings.providers import GeminiEmbedder
-
-embedder = GeminiEmbedder()
-# 模型: models/embedding-001
-# 維度: 768
-# 成本: $0.00015/1K tokens
-# 速率: 60 requests/min
-
-# 單個文本嵌入
-embedding = embedder.embed("深度學習應用", task_type="retrieval_document")
-
-# 批次嵌入（最多100個/批次）
-texts = ["文本1", "文本2", "文本3"]
-embeddings = embedder.embed_batch(texts, batch_size=100)
-
-# 成本估算
-cost = embedder.estimate_cost(texts)
-print(f"預估成本: ${cost:.4f}")
-```
-
-**特性**:
-- 自動速率限制（60 req/min）
-- 支援兩種任務類型：`retrieval_document`（文檔）和 `retrieval_query`（查詢）
-- 批次處理優化
-- 精確的成本估算
-
-#### 2. OllamaEmbedder (src/embeddings/providers/ollama_embedder.py)
-
-本地 Qwen3-Embedding-4B 模型封裝，完全免費的備用方案。
-
-```python
-from src.embeddings.providers import OllamaEmbedder
-
-embedder = OllamaEmbedder()
-# 模型: qwen3-embedding:4b
-# 維度: 2560
-# 成本: $0 (本地免費)
-# 速度: ~8.6 秒/文本 (CPU)
-
-# 檢查服務狀態
-info = embedder.get_info()
-print(f"服務可用: {info['service_available']}")
-
-# 嵌入文本
-embedding = embedder.embed("測試文本")
-```
-
-**特性**:
-- 完全本地運行，數據隱私
-- 自動檢查 Ollama 服務和模型可用性
-- 保守的速率限制（20 req/min，避免資源耗盡）
-- 適合大規模離線處理
-
-**安裝 Ollama 模型**:
-```bash
-# 啟動 Ollama
-ollama serve
-
-# 下載模型
-ollama pull qwen3-embedding:4b
-```
-
-#### 3. VectorDatabase (src/embeddings/vector_db.py)
-
-ChromaDB 封裝類，提供向量存儲和語義搜索功能。
-
-```python
-from src.embeddings.vector_db import VectorDatabase
-
-db = VectorDatabase(persist_directory="chroma_db")
-
-# 插入/更新論文向量
-db.upsert_papers(
-    embeddings=embeddings,      # numpy array or list
-    documents=texts,             # 文本內容
-    ids=["paper_1", "paper_2"], # 唯一ID
-    metadatas=[{...}, {...}]    # 元數據字典
-)
-
-# 語義搜索論文
-results = db.semantic_search_papers(
-    query_embedding=query_vec,
-    n_results=10,
-    where={"year": {"$gte": 2020}}  # 可選過濾條件
-)
-
-# 尋找相似論文
-similar = db.find_similar_papers(
-    paper_id="paper_14",
-    n_results=5,
-    exclude_self=True
-)
-
-# 統計信息
-stats = db.get_stats()
-print(f"論文向量數: {stats['papers_count']}")
-print(f"Zettelkasten 向量數: {stats['zettel_count']}")
-```
-
-**資料集合**:
-- `papers`: 論文向量集合
-- `zettelkasten`: Zettelkasten 卡片向量集合
-
-**支援的操作**:
-- `upsert`: 插入/更新向量
-- `semantic_search`: 語義搜索
-- `get_by_id`: 根據 ID 獲取
-- `find_similar`: 尋找相似內容
-- `delete`: 刪除向量
-- `reset`: 清空集合
-
-#### 4. 批次生成腳本 (generate_embeddings.py)
-
-為知識庫中的所有論文和 Zettelkasten 卡片批次生成向量嵌入。
+### 快速開始
 
 ```bash
-# 為所有內容生成嵌入（需確認成本）
-python generate_embeddings.py --provider gemini
+# 1. 生成嵌入
+python generate_embeddings.py
 
-# 自動確認（用於自動化）
-python generate_embeddings.py --provider gemini --yes
+# 2. 語義搜索
+python kb_manage.py semantic-search "認知科學"
 
-# 只處理論文
-python generate_embeddings.py --papers-only --limit 10
+# 3. 尋找相似內容
+python kb_manage.py similar <paper_id>
 
-# 只處理 Zettelkasten
-python generate_embeddings.py --zettel-only
-
-# 使用 Ollama（免費但較慢）
-python generate_embeddings.py --provider ollama
-
-# 查看統計
-python generate_embeddings.py --stats
+# 4. 混合搜索
+python kb_manage.py hybrid-search "machine learning"
 ```
 
-**文本組合策略**:
-
-**論文** (from `papers` table):
-```
-標題: {title}
-作者: {authors}
-摘要: {abstract}
-關鍵詞: {keywords}
-內容: {markdown_content[:2000]}  # 如果元數據不足
-```
-
-**Zettelkasten** (from `zettel_cards` table):
-```
-標題: {title}
-核心概念: {core_concept}
-描述: {description}
-內容: {content[:1500]}
-```
-
-**成本估算**:
-- 31篇論文 + 52張卡片 = 83個向量
-- 實際成本: ~$0.0173
-- 單次查詢: ~$0.00001
-
-### kb_manage.py CLI 整合
-
-系統提供三個強大的語義搜索命令，整合到知識庫管理工具中。
-
-#### 命令 1: semantic-search - 語義搜索
-
-根據自然語言查詢，搜索相關的論文或 Zettelkasten 卡片。
-
-```bash
-# 搜索論文
-python kb_manage.py semantic-search "深度學習應用" --type papers --limit 5
-
-# 搜索 Zettelkasten 卡片
-python kb_manage.py semantic-search "認知科學" --type zettel --limit 3
-
-# 搜索所有類型（默認）
-python kb_manage.py semantic-search "機器學習" --type all
-
-# 使用 Ollama（免費但較慢）
-python kb_manage.py semantic-search "AI研究" --provider ollama
-
-# 顯示詳細信息（摘要/內容預覽）
-python kb_manage.py semantic-search "語言學" --verbose
-```
-
-**輸出範例**:
-```
-============================================================
-🔍 語義搜索: '認知科學'
-提供者: GEMINI
-============================================================
-
-生成查詢向量...
-
-📄 搜索論文 (top 3):
-------------------------------------------------------------
-
-1. [38.6%] 華語分類詞的界定與教學上的分級
-   ID: 5
-   作者: ...
-   年份: 未知
-
-2. [34.2%] International Journal of Computer Processing
-   ID: 7
-   ...
-```
-
-**參數說明**:
-| 參數 | 說明 | 可選值 | 默認值 |
-|------|------|--------|--------|
-| `query` | 搜索查詢（必需） | 任意文字 | - |
-| `--type` | 搜索類型 | papers / zettel / all | all |
-| `--limit` | 返回數量 | 整數 | 5 |
-| `--provider` | 嵌入提供者 | gemini / ollama | gemini |
-| `--verbose, -v` | 顯示詳細信息 | 標記 | False |
-
-#### 命令 2: similar - 尋找相似內容
-
-根據論文或卡片 ID，尋找最相似的其他內容。
-
-```bash
-# 尋找與論文 14 相似的論文
-python kb_manage.py similar 14 --limit 5
-
-# 尋找與卡片相似的卡片
-python kb_manage.py similar zettel_CogSci-20251029-001 --limit 3
-
-# 也可以用 paper_ 前綴
-python kb_manage.py similar paper_14 --limit 5
-```
-
-**輸出範例**:
-```
-============================================================
-🔍 尋找與論文相似的內容
-論文: Journal of Cognitive Psychology
-============================================================
-
-📄 相似論文 (top 3):
-------------------------------------------------------------
-
-1. [71.8%] PsychonBullRev(2018)25:1968–1972
-   ID: 29
-   作者: Participant Nonnaivet, Open Science, A.Zwaan
-
-2. [68.1%] Educational Psychology
-   ID: 26
-   ...
-```
-
-**特性**:
-- 自動排除自身（`exclude_self=True`）
-- 高相似度結果（通常 60-80%）
-- 適合發現相關研究和連結知識
-
-**參數說明**:
-| 參數 | 說明 | 示例 |
-|------|------|------|
-| `id` | 論文ID或卡片ID（必需） | 14, paper_14, zettel_xxx |
-| `--limit` | 返回數量（默認: 5） | 3, 10, 20 |
-
-#### 命令 3: hybrid-search - 混合搜索
-
-結合全文搜索（FTS）和語義搜索，提供更全面的結果。
-
-```bash
-# 混合搜索
-python kb_manage.py hybrid-search "machine learning" --limit 10
-
-# 使用 Ollama
-python kb_manage.py hybrid-search "深度學習" --provider ollama
-```
-
-**輸出範例**:
-```
-============================================================
-🔍 混合搜索: 'machine learning'
-提供者: GEMINI
-============================================================
-
-📝 全文搜索結果:
-------------------------------------------------------------
-1. [FTS] LinguisticsVanguard2022
-   ID: 8
-2. [FTS] International Journal
-   ID: 7
-
-🔍 語義搜索結果:
-------------------------------------------------------------
-生成查詢向量...
-1. [22.6%] HCOMP2022 Proceedings
-   ID: 30
-...
-
-✨ 混合結果 (兩種方法的聯集):
-------------------------------------------------------------
-
-1. [SEM 22.6%] HCOMP2022 Proceedings
-   ID: 30
-   作者: ...
-
-2. [FTS + SEM 19.3%] Psychological Science
-   ID: 23
-   ...
-
-統計:
-  全文搜索: 2 篇
-  語義搜索: 5 篇
-  共同結果: 0 篇
-  總計: 7 篇
-```
-
-**特性**:
-- 結合關鍵詞匹配（FTS）和語義理解（向量搜索）
-- 按語義相似度排序
-- 標註每個結果的來源（FTS / SEM / 兩者）
-- 提供統計摘要
-
-**參數說明**:
-| 參數 | 說明 | 默認值 |
-|------|------|--------|
-| `query` | 搜索查詢（必需） | - |
-| `--limit` | 返回數量 | 10 |
-| `--provider` | 嵌入提供者 | gemini |
-
-### 使用工作流
-
-**典型場景 1: 初次設置**
-
-```bash
-# 1. 安裝依賴
-pip install chromadb tqdm google-generativeai numpy
-
-# 2. 設置 API Key（~/.bashrc 或 .env）
-export GOOGLE_API_KEY="your-api-key-here"
-
-# 3. 生成所有向量嵌入
-python generate_embeddings.py --provider gemini --yes
-
-# 4. 測試搜索
-python kb_manage.py semantic-search "認知科學" --limit 3
-```
-
-**場景 2: 新增論文後更新**
-
-```bash
-# 分析並加入知識庫
-python analyze_paper.py new_paper.pdf --add-to-kb
-
-# 只為新論文生成嵌入（假設是 ID 32）
-# 目前需要重新生成所有，未來可優化為增量更新
-python generate_embeddings.py --papers-only --yes
-
-# 驗證
-python kb_manage.py similar 32 --limit 5
-```
-
-**場景 3: 研究文獻相關性**
-
-```bash
-# 找到感興趣的論文
-python kb_manage.py search "深度學習"
-
-# 假設找到 ID 25，尋找相似論文
-python kb_manage.py similar 25 --limit 10
-
-# 使用語義搜索探索相關概念
-python kb_manage.py semantic-search "神經網絡架構" --type papers
-```
-
-### 性能與成本
-
-| 指標 | 數值 |
-|------|------|
-| **數據規模** | 31篇論文 + 52張卡片 = 83個向量 |
-| **生成成本** | ~$0.0173 (Gemini) / $0 (Ollama) |
-| **查詢成本** | ~$0.00001/次 (Gemini) / $0 (Ollama) |
-| **查詢時間** | 3-8秒 (含向量生成) |
-| **相似度範圍** | 同領域: 60-80% / 跨領域: 30-50% |
-
-**成本優化建議**:
-1. 大規模處理使用 Ollama（免費但慢）
-2. 互動式查詢使用 Gemini（快速且便宜）
-3. 定期批次更新而非即時更新
-
-### 搜索質量評估
-
-根據實測數據（31篇論文，52張卡片）：
-
-| 搜索類型 | 相似度範圍 | 準確性 | 評級 |
-|----------|-----------|--------|------|
-| 同領域論文查找 | 67-72% | 優秀 | ⭐⭐⭐⭐⭐ |
-| Zettelkasten 語義搜索 | 40-45% | 良好 | ⭐⭐⭐⭐ |
-| 跨領域概念搜索 | 33-44% | 良好 | ⭐⭐⭐⭐ |
-| 混合搜索精準度 | 14-23% | 良好 | ⭐⭐⭐⭐ |
-
-**觀察結果**:
-- Zettelkasten 卡片的相似度普遍較高（內容更聚焦）
-- 論文搜索在同領域表現優異
-- 混合搜索能發現 FTS 無法找到的語義相關內容
-
-### 故障排除
-
-**問題 1: `ModuleNotFoundError: No module named 'chromadb'`**
-```bash
-pip install chromadb tqdm numpy
-```
-
-**問題 2: Ollama 連接失敗**
-```bash
-# 檢查服務
-curl http://localhost:11434/api/tags
-
-# 啟動服務
-ollama serve
-
-# 下載模型
-ollama pull qwen3-embedding:4b
-```
-
-**問題 3: Google API Key 未設置**
-```bash
-export GOOGLE_API_KEY="your-api-key-here"
-
-# 或在 .env 文件中設置
-echo "GOOGLE_API_KEY=your-api-key-here" >> .env
-```
-
-**問題 4: 相似度偏低**
-- 確保查詢和文檔語言一致（中文/英文）
-- 使用更具體的查詢詞
-- 考慮使用混合搜索結合關鍵詞匹配
-
-### 下一步擴展
-
-**計畫中功能**:
-1. **auto_link_v2()**: 自動基於向量相似度建立論文-Zettelkasten 連結
-2. **增量更新**: 僅為新內容生成嵌入，無需重新生成所有
-3. **多語言支援**: 改進中英文混合查詢的相似度標準
-4. **加權混合搜索**: 允許調整 FTS 和語義搜索的權重
-5. **過濾條件**: 支援年份、作者、領域過濾
-
-**完整測試報告**: 參見 `VECTOR_SEARCH_TEST_REPORT.md`
+### 性能指標
+
+- 生成成本: ~$0.0173 (83個向量)
+- 查詢成本: ~$0.00001/次
+- 查詢時間: 3-8秒
+- 同領域相似度: 60-80%
+
+**詳細文檔**: [docs/modules/VECTOR_SEARCH.md](docs/modules/VECTOR_SEARCH.md)
+**範例代碼**: [examples/vector_search/](examples/vector_search/)
 
 ---
 
@@ -1175,6 +619,270 @@ python kb_manage.py visualize-network --obsidian
 
 ---
 
+## RelationFinder 改進方案 (Phase 2.3) 🔄 設計完成
+
+**狀態**: 📝 設計階段 | **優先級**: ⭐⭐⭐⭐⭐ 極高 | **預計時間**: 6-9天
+
+### 背景與動機
+
+**基準測試發現** (2025-11-05):
+- 測試規模: 704 張 Zettelkasten 卡片
+- 識別關係總數: 56,436
+- **關鍵問題**: 高信度關係數（≥ 0.4）= **0** ❌
+- **結果**: Obsidian 建議連結功能**完全無法使用**
+
+**問題診斷**:
+1. ❌ 平均信度評分 ~0.33（低於閾值 0.4）
+2. ❌ 明確連結覆蓋率僅 11.6%（82/704 張卡片）
+3. ❌ 網絡密度過高（0.228），無法區分真實關係
+4. ❌ 共同概念提取不足（未使用 description 欄位）
+
+**詳細報告**: `docs/BASELINE_RELATION_ANALYSIS.md`
+
+### 改進方案概覽
+
+**完整設計**: `docs/RELATION_FINDER_IMPROVEMENTS.md` (1200+ 行)
+
+#### 改進 1: 多層次明確連結檢測 ⭐⭐⭐
+
+**當前限制**: 只檢查 `[[zettel_id]]` Wiki Links
+
+**改進內容**:
+- **4層連結檢測**:
+  1. AI筆記中的Wiki Links（語境分析）→ 0.5-1.0
+  2. 連結網絡區塊（`## 連結網絡`）→ 0.6-0.8
+  3. 來源脈絡提及（`## 來源脈絡`）→ 0.4
+  4. 內容自然提及（標題出現）→ 0.3
+- **語境分析**: 識別「基於」、「導向」、「對比」等關係詞
+- **連結強度評分**: 從二元（0/0.3）→ 連續（0.0-0.3）
+
+**預期效果**:
+- 明確連結貢獻: 0.035 → **0.15+**（+329%）
+
+#### 改進 2: 擴展共同概念提取 ⭐⭐⭐
+
+**當前限制**: 只從 tags、core_concept、title 提取
+
+**改進內容**:
+- **5個來源（加權）**:
+  - tags (1.0) - 最準確
+  - core_concept (0.9) - 次準確
+  - **description (0.8)** - 新增！首段說明
+  - title (0.7) - 較簡短
+  - ai_notes (0.6) - 較發散
+- **中文分詞改進**: 支援 jieba 或預定義詞庫
+- **加權評分機制**: 不同來源權重不同
+
+**預期效果**:
+- 共同概念數量 +50%
+- 共同概念貢獻: 0.08 → **0.12+**（+50%）
+
+#### 改進 3: 領域相關性矩陣 ⭐⭐
+
+**當前限制**: 二元判斷（同領域=0.1，不同=0.05）
+
+**改進內容**:
+```yaml
+領域相關性矩陣:
+  CogSci ↔ AI: 0.8 (高度相關)
+  CogSci ↔ Linguistics: 0.8
+  AI ↔ Linguistics: 0.6 (中度相關)
+  其他組合: 0.3 (弱相關)
+```
+- **多領域支援**: 解析 "CogSci, AI" 格式
+- **細緻評分**: 0.03-0.10（而非 0.05/0.10）
+
+**預期效果**:
+- 領域貢獻: 0.075 → **0.09+**（+20%）
+
+#### 改進 4: AI Notes 連結生成 ⭐⭐
+
+**問題**: LLM 輸出的 AI note 缺少卡片間連結
+
+**解決方案**:
+- 更新 `templates/prompts/zettelkasten_template.jinja2`
+- 明確要求「必須建立 2-3 個卡片連結」
+- Few-shot 範例展示正確格式
+
+**預期效果**:
+- 明確連結覆蓋率: 11.6% → **50%+**
+
+#### 改進 5: 永久筆記生成器 ⭐ (長期)
+
+**功能**: 從 AI notes + Human notes 合成永久筆記
+
+```bash
+python kb_manage.py synthesize-permanent-note \
+    --topic "視覺注意與工作記憶" \
+    --zettel-ids CogSci-001 CogSci-003 CogSci-007
+```
+
+### 效果預估
+
+#### 跨領域卡片信度提升（範例）
+
+| 維度 | 當前 | 改進後 | 提升 |
+|------|-----|-------|------|
+| 語義相似度 (40%) | 0.26 | 0.26 | - |
+| 明確連結 (30%) | 0.00 | **0.12** | +40% |
+| 共同概念 (20%) | 0.04 | **0.10** | +150% |
+| 領域一致性 (10%) | 0.05 | **0.08** | +60% |
+| **總信度** | **0.35** | **0.56** | **+60%** |
+
+#### 整體系統改善目標
+
+| 指標 | 當前 | 目標（Phase 1） | 改進幅度 |
+|------|-----|----------------|----------|
+| 高信度關係數（≥ 0.4） | 0 | 5,000+ | +∞ |
+| 平均信度評分 | 0.33 | 0.50+ | +51.5% |
+| 建議連結可用性 | 0% | 可用 | ✅ |
+| 明確連結覆蓋率 | 11.6% | 50%+ | +331% |
+
+### 實施計畫
+
+#### Phase 1: 核心改進（P0優先級，1-2天）
+
+**改進 2 + 3**: 擴展共同概念 + 領域矩陣
+
+- [ ] 實作 `_extract_shared_concepts_enhanced()`
+- [ ] 加入 description 欄位提取
+- [ ] 實作中文分詞（預定義詞庫）
+- [ ] 定義領域相關性矩陣
+- [ ] 支援多領域解析
+- [ ] 更新信度計算邏輯
+- [ ] 撰寫單元測試
+
+**驗收標準**:
+- [ ] 共同概念數量平均增加 50%+
+- [ ] 跨領域卡片信度提升 20%+
+- [ ] 不破壞現有功能
+- [ ] 單元測試通過率 100%
+
+#### Phase 2: 連結增強（P1優先級，2-3天）
+
+**改進 1 + 4**: 多層次連結檢測 + Prompt 改進
+
+- [ ] 實作 `_check_explicit_link_enhanced()`
+- [ ] 實作 Markdown 區塊解析
+- [ ] 實作連結語境分析
+- [ ] 更新 Zettelkasten Prompt
+- [ ] 新增連結生成指引
+- [ ] Few-shot 範例優化
+- [ ] 測試新生成的卡片
+
+**驗收標準**:
+- [ ] AI notes 平均包含 2-3 個連結
+- [ ] 連結語境識別準確率 > 80%
+- [ ] 明確連結覆蓋率 > 30%
+- [ ] 整合測試通過
+
+#### Phase 3: 永久筆記（P2優先級，3-4天）
+
+**改進 5**: 永久筆記生成器
+
+- [ ] 實作 `PermanentNoteGenerator` 類
+- [ ] 實作合成 Prompt 建構
+- [ ] CLI 命令整合
+- [ ] 輸出格式優化
+- [ ] 使用文檔撰寫
+
+**驗收標準**:
+- [ ] 能從 3-5 張卡片合成永久筆記
+- [ ] 保留來源引用
+- [ ] 內容連貫且深入
+- [ ] 端到端測試通過
+
+### 配置更新
+
+**新增配置** (`config/settings.yaml`):
+
+```yaml
+# RelationFinder 配置
+relation_finder:
+  # 信度評分權重
+  confidence_weights:
+    semantic_similarity: 0.40
+    link_explicit: 0.30
+    co_occurrence: 0.20
+    domain_consistency: 0.10
+
+  # 共同概念來源權重
+  concept_source_weights:
+    tags: 1.0
+    core_concept: 0.9
+    description: 0.8
+    title: 0.7
+    ai_notes: 0.6
+
+  # 領域相關性矩陣
+  domain_similarity:
+    - [CogSci, AI, 0.8]
+    - [CogSci, Linguistics, 0.8]
+    - [AI, Linguistics, 0.6]
+    default: 0.3
+
+  # 連結檢測配置
+  link_detection:
+    enable_multi_layer: true
+    context_window: 50
+    link_strength_threshold: 0.3
+
+  # 中文分詞
+  chinese_segmentation:
+    method: "predefined"  # or "jieba"
+    min_keyword_length: 2
+    top_keywords: 10
+```
+
+### 測試策略
+
+**回歸測試流程**:
+
+1. **保存基準數據** ✅
+   - `output/concept_analysis/`（基準版本）
+   - `docs/BASELINE_RELATION_ANALYSIS.md`（報告）
+
+2. **改進後重新測試**
+   ```bash
+   python kb_manage.py visualize-network --obsidian \
+       --output output/concept_analysis_v2
+   ```
+
+3. **比較關鍵指標**
+   - 高信度關係數：0 → 5,000+
+   - 平均信度：0.33 → 0.50+
+   - 建議連結數量：0 → 50+
+   - 網絡結構改善
+
+4. **人工驗證**
+   - 隨機抽取 20 條高信度關係
+   - 人工評估準確率
+   - 目標準確率：> 80%
+
+### 向後相容性
+
+- ✅ **完全相容**: API 不變，內部邏輯改進
+- ✅ **配置可選**: 新增配置有默認值
+- ✅ **平滑升級**: 可逐步啟用新功能
+
+### 效能影響
+
+| 操作 | 當前 | 改進後 | 變化 |
+|------|-----|-------|------|
+| 單卡片關係計算 | ~0.5秒 | ~0.7秒 | +40% |
+| 完整網絡（704張） | 2-3分鐘 | 3-4分鐘 | +33% |
+
+**評估**: 效果提升遠大於性能損失，可接受。
+
+### 參考文檔
+
+- **改進方案詳細設計**: `docs/RELATION_FINDER_IMPROVEMENTS.md`（1200行）
+- **基準測試報告**: `docs/BASELINE_RELATION_ANALYSIS.md`
+- **技術細節**: `docs/RELATION_FINDER_TECHNICAL_DETAILS.md`
+- **實施檢查清單**: 見 RELATION_FINDER_IMPROVEMENTS.md 末尾
+
+---
+
 ## 學術風格系統
 
 基於Journal Club逆向工程，支援8種學術風格：
@@ -1202,6 +910,7 @@ python kb_manage.py visualize-network --obsidian
 - **英文** (english): English
 - **中英雙語** (bilingual): 中文為主，關鍵術語附英文
 
+**詳細說明**: [templates/styles/README.md](templates/styles/README.md)
 **配置**: `templates/styles/academic_styles.yaml`
 
 ## Slash Commands
@@ -1237,25 +946,7 @@ python kb_manage.py visualize-network --obsidian
 
 ### 使用方式
 
-```bash
-# 基本用法：從主題生成投影片
-python make_slides.py "深度學習應用" --style modern_academic --slides 15
-
-# 從PDF直接生成（快速模式）
-python make_slides.py "論文摘要" --pdf paper.pdf --style research_methods
-
-# 從PDF分析後生成（知識驅動模式，推薦）
-python make_slides.py "論文摘要" --pdf paper.pdf --analyze-first --style literature_review
-
-# 從知識庫已有論文生成（重用模式）
-python make_slides.py "論文簡報" --from-kb 1 --style modern_academic
-
-# 使用Google Gemini生成（更快）
-python make_slides.py "AI研究" --pdf paper.pdf --llm-provider google --model gemini-2.5-flash
-
-# 生成雙語投影片
-python make_slides.py "機器學習入門" --style teaching --language bilingual --slides 20
-```
+**完整範例**: [examples/slide_maker/slide_maker_usage.sh](examples/slide_maker/slide_maker_usage.sh)
 
 ### 參數說明
 
@@ -1298,29 +989,22 @@ python make_slides.py "機器學習入門" --style teaching --language bilingual
    - 優點：推理能力強、長文處理佳、haiku版本速度快且便宜
 
 **自動選擇邏輯**：
-```python
-# --llm-provider auto 時的優先順序
 1. Google Gemini (如果API key可用)
 2. OpenAI (如果API key可用)
 3. Anthropic Claude (如果API key可用)
 4. Ollama (如果服務運行中)
 5. 失敗並提示用戶
-```
 
 ### 三種工作流模式
 
+**完整範例**: [examples/slide_maker/slide_maker_usage.sh](examples/slide_maker/slide_maker_usage.sh)
+
 **1. 快速模式**（直接從PDF）
-```bash
-python make_slides.py "主題" --pdf paper.pdf
-```
 - 直接提取PDF文字生成投影片
 - 速度最快
 - 適合快速預覽
 
 **2. 知識驅動模式**（推薦）
-```bash
-python make_slides.py "主題" --pdf paper.pdf --analyze-first
-```
 - 先用 `analyze_paper.py` 分析PDF
 - 提取結構化信息（標題、作者、章節）
 - 保存到知識庫
@@ -1328,9 +1012,6 @@ python make_slides.py "主題" --pdf paper.pdf --analyze-first
 - **品質最高、內容最準確**
 
 **3. 重用模式**（從知識庫）
-```bash
-python make_slides.py "主題" --from-kb <paper_id>
-```
 - 從已有知識庫論文生成
 - 無需重新分析
 - 可用不同風格重複生成
@@ -1432,34 +1113,7 @@ PDF文本和結構提取
 
 ### 重要配置項
 
-```yaml
-# LLM後端（自動選擇最佳模型）
-llm:
-  default_backend: "auto"  # 自動選擇最佳模型
-  auto_select: true
-  ollama:
-    base_url: "http://localhost:11434"
-    default_model: "gemma2:latest"
-
-# PDF處理
-pdf:
-  max_characters: 50000
-  extraction_method: "pdfplumber"
-
-# 簡報生成
-slides:
-  default_style: "modern_academic"
-  default_detail: "standard"
-  default_language: "chinese"
-
-# 知識庫
-knowledge_base:
-  root_directory: "knowledge_base"
-  database_path: "knowledge_base/index.db"
-  indexing:
-    auto_index: true
-    full_text_search: true
-```
+**配置範例**: [examples/configuration/settings_example.yaml](examples/configuration/settings_example.yaml)
 
 ## 與SciMaker的整合
 
@@ -1544,30 +1198,17 @@ python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBa
 
 ## 故障排除
 
-### PDF提取失敗
+**完整指南**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
-```python
-# 嘗試切換提取方法
-extractor = PDFExtractor(method="pypdf2")  # 或 "pdfplumber"
-```
+### 常見問題快速參考
 
-### 知識庫索引錯誤
-
-```bash
-# 重新初始化數據庫
-rm knowledge_base/index.db
-python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"
-```
-
-### Ollama連接失敗
-
-```bash
-# 檢查Ollama是否運行
-curl http://localhost:11434/api/tags
-
-# 啟動Ollama
-ollama serve
-```
+| 問題類型 | 快速解決方案 | 詳細說明 |
+|----------|-------------|---------|
+| **PDF 提取失敗** | 切換提取方法: `PDFExtractor(method="pypdf2")` | [連結](docs/TROUBLESHOOTING.md#pdf-處理問題) |
+| **知識庫錯誤** | 重新初始化: `rm index.db && python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"` | [連結](docs/TROUBLESHOOTING.md#知識庫問題) |
+| **Ollama 連接失敗** | 啟動服務: `ollama serve` | [連結](docs/TROUBLESHOOTING.md#llm-連接問題) |
+| **向量搜索錯誤** | 安裝依賴: `pip install chromadb tqdm numpy` | [連結](docs/TROUBLESHOOTING.md#向量搜索問題) |
+| **編碼問題** | 使用 Windows Terminal 或 `chcp 65001` | [連結](docs/TROUBLESHOOTING.md#編碼和路徑問題) |
 
 ## 未來擴展方向
 
@@ -1612,513 +1253,21 @@ ollama serve
 
 ---
 
-**最後更新**: 2025-11-01
+**最後更新**: 2025-11-07
 **版本**: 0.6.0-alpha
-**狀態**: 自動模型選擇系統完成 - 智能LLM選擇與成本控制實作完成
+**狀態**: 文檔重構完成 - 模組化文檔結構建立
 
-### 本次更新 (2025-11-01) ⭐ 文檔一致性檢查與修正
+## 版本歷史
 
-**📝 文檔一致性更新**
+**完整變更日誌**: [CHANGELOG.md](CHANGELOG.md)
 
-本次更新檢查並修正了 CLAUDE.md 和 README.md 之間的不一致之處。
+### 最近更新
 
-#### **修正內容**:
+- **v0.6.0-alpha (2025-11-01)**: 文檔一致性檢查與修正
+- **v0.5.0-alpha (2025-10-31)**: 智能 LLM 模型選擇系統完成
+- **v0.4.0-alpha (2025-10-30)**: KB Manager Agent 工作流程重新設計
+- **v0.3.0-alpha (2025-10-29)**: Phase 1 完成 - 批次處理器 + 質量檢查器 + 檔案整理
+- **v0.2.0-alpha (2025-10-28)**: Markdown 簡報 + Zettelkasten 原子筆記系統
+- **v0.1.0-alpha (2025-10-27)**: Slide-maker Skill 完整實作
 
-1. **版本號統一**：
-   - README.md 版本從 0.2.0-alpha 更新為 0.6.0-alpha
-   - 與 CLAUDE.md 保持一致
-
-2. **LLM 模型名稱更新**：
-   - Google Gemini: gemini-2.5-flash → gemini-2.0-flash-exp
-   - Anthropic Claude: 新增 claude-3-haiku 描述（成本最低版本）
-   - 與實際配置檔 model_selection.yaml 保持一致
-
-3. **配置範例更新**：
-   - default_backend: "ollama" → "auto"
-   - 新增 auto_select: true
-   - 反映最新的自動模型選擇功能
-
-4. **日期更新**：
-   - 更新為 2025-11-01
-
-#### **驗證結果**:
-- ✅ 所有主要檔案均存在（analyze_paper.py, kb_manage.py, make_slides.py 等）
-- ✅ 新增模組檔案均存在（model_monitor.py, usage_reporter.py, batch_processor.py 等）
-- ✅ 配置檔與文檔描述一致
-
----
-
-### 前次更新 (2025-10-29) ⭐ Phase 1 完成
-
-**🚀 重大更新：批次處理器 + 質量檢查器 + 檔案整理系統**
-
-本次更新完成了 AGENT_SKILL_DESIGN.md 中的 Phase 1 所有P0優先級任務，建立了穩定的批次處理和質量控制基礎設施。
-
-#### **新增模組**:
-
-**1. 批次處理器 (Batch Processor)** ✅
-- **檔案**: `src/processors/batch_processor.py` (570行)、`batch_process.py` (237行)
-- **功能**: 穩定地批次處理大量PDF文件
-  - ThreadPoolExecutor平行處理（預設3個worker）
-  - 完整錯誤處理：skip/retry/stop三種策略
-  - Windows路徑支援：pathlib.Path處理中文和特殊字元
-  - Timeout機制：300秒/PDF
-  - 進度追蹤：實時顯示 `[1/15] ✅ Paper1.pdf`
-  - 整合知識庫和Zettelkasten生成
-  - 背景執行相容性：修復`sys.stdin.isatty()`檢測問題
-- **數據結構**:
-  - `ProcessResult`: 單文件處理結果
-  - `BatchResult`: 批次處理總結（含JSON/文本報告）
-- **測試**: 2篇PDF測試通過（1成功，1 timeout）
-- **文檔**: `.claude/skills/batch-processor.md` 完整Skill文檔
-
-**2. 質量檢查器 (Quality Checker)** ✅
-- **檔案**: `src/checkers/quality_checker.py` (801行)、`check_quality.py` (312行)
-- **功能**: 檢查知識庫論文元數據質量
-  - **5大檢查項目**: 標題、作者、年份、摘要、關鍵詞
-  - **290行YAML規則**: `quality_rules.yaml` 可自訂檢查規則
-  - **質量評分系統**: 0-100分，5個等級（優秀/良好/可接受/較差/嚴重）
-  - **重複檢測**: 相似度演算法（標題60% + 作者30% + 年份10%）
-  - **自動修復**: 架構完成（API整合待實作）
-  - **Windows編碼修復**: UTF-8輸出支援emoji
-- **實測結果**（30篇論文）:
-  - 平均評分: 68.2/100
-  - 發現79個問題（50個嚴重、20個警告）
-  - 最常見問題: 缺少年份(100%)、關鍵詞不足(67%)、摘要缺失(53%)
-  - 檢測到2篇無效標題格式（"Journal Pre-proof"、URL）
-  - 無重複論文（0.85閾值）
-- **CLI特性**:
-  - 多種詳細程度（minimal/standard/comprehensive）
-  - 過濾選項（--critical-only、--min-score）
-  - 重複檢測（--detect-duplicates --threshold 0.85）
-  - 多格式輸出（text/json）
-
-**3. 檔案整理系統 (Session Organizer)** ✅
-- **檔案**: `src/utils/session_organizer.py` (397行)、`cleanup_session.py`
-- **功能**: 自動整理工作階段產生的檔案
-  - 整理PDF分析結果、簡報、Zettelkasten到專屬資料夾
-  - 清理臨時檔案（.log、.tmp、cache）
-  - 安全保護：不刪除.git、src、知識庫等重要目錄
-  - 自動備份知識庫（index.db）
-  - Dry-run模式預覽變更
-  - 詳細清理報告（Markdown格式）
-- **配置**: `src/utils/cleanup_rules.yaml` YAML規則定義
-- **整合**: 批次處理完成後自動詢問是否執行整理
-
-#### **架構改進**:
-
-**新增目錄結構**:
-```
-src/
-├── processors/           # 批次處理模組
-│   ├── batch_processor.py
-│   └── __init__.py
-├── checkers/            # 質量檢查模組
-│   ├── quality_checker.py
-│   ├── quality_rules.yaml
-│   └── __init__.py
-└── utils/               # 工具模組
-    ├── session_organizer.py
-    ├── cleanup_rules.yaml
-    └── __init__.py
-```
-
-**新增CLI工具**:
-- `batch_process.py`: 批次處理命令列工具
-- `check_quality.py`: 質量檢查命令列工具
-- `cleanup_session.py`: 檔案整理命令列工具
-
-#### **技術細節**:
-
-**Windows相容性增強**:
-1. UTF-8編碼強制：`io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')`
-2. 路徑正規化：`pathlib.Path` 處理中文路徑和特殊字元
-3. 終端檢測：`sys.stdin.isatty()` 避免背景執行EOFError
-
-**錯誤處理改進**:
-1. Timeout機制：subprocess.run(timeout=300)
-2. 重試邏輯：可配置重試次數和策略
-3. 錯誤報告：詳細記錄失敗原因和堆疊追蹤
-
-**測試覆蓋**:
-- ✅ 批次處理器：2個PDF文件測試（1成功、1 timeout）
-- ✅ 質量檢查器：30篇論文完整檢查
-- ✅ 檔案整理：test文件創建和清理
-- ✅ 重複檢測：30篇論文相似度計算
-- ✅ 報告生成：text/json格式輸出
-
-#### **已知問題與限制**:
-
-1. **批次處理**:
-   - 大型PDF可能超時（300秒限制）
-   - 多個worker可能觸發API rate limiting
-   - 建議worker數: 2-4個
-
-2. **質量檢查**:
-   - 自動修復功能架構完成但未實作（需外部API整合）
-   - CrossRef/Semantic Scholar API整合為下階段任務
-   - 某些規則需根據實際使用調整閾值
-
-3. **知識庫元數據問題**:
-   - 所有論文缺少年份（analyze_paper.py未提取）
-   - 67%論文關鍵詞不足
-   - 53%論文摘要缺失
-   - 需改進PDF提取器的元數據提取能力
-
-#### **文檔更新**:
-- ✅ CLAUDE.md 新增批次處理器和質量檢查器完整說明
-- ✅ 架構圖更新（新增processors/、checkers/、utils/）
-- ✅ 核心模組說明（共250行詳細文檔）
-- ✅ 實測結果和使用建議
-
-#### **下一步計畫** (Phase 1 後續):
-1. **外部API整合** (P1優先級):
-   - CrossRef API: DOI查詢和元數據增強
-   - Semantic Scholar API: 標題查詢和引用資訊
-   - 實作自動修復功能
-2. **PDF提取改進**:
-   - 增強年份提取（從PDF metadata和內容）
-   - 改進關鍵詞提取（使用TF-IDF或LLM）
-3. **知識庫元數據修復**:
-   - 批次執行質量檢查
-   - 修復30篇現有論文的缺失元數據
-
----
-
-### 前次更新 (2025-10-28 晚間)
-
-**🎓 學術標準化改進 + 完整系統測試**
-
-**Zettelkasten核心改進**:
-- ✅ **核心概念直接擷取原文**
-  - 不翻譯、不改寫，保持學術嚴謹性
-  - 支援英文/中文原文保留
-  - 明確要求LLM逐字引用（附範例指導）
-- ✅ **AI/人類筆記明確標記**
-  - `**[AI Agent]**:` AI生成的批判性思考
-  - `**[Human]**: (TODO)` 人類待補充區域
-  - HTML註釋提示使用者添加內容
-- ✅ **AI筆記品質提升**
-  - 要求批判性思考、質疑、反思
-  - 指出概念局限性與爭議點
-  - 連結相關理論與研究
-- ✅ **ID格式自動修復**
-  - 正則表達式自動轉換錯誤格式
-  - `CogSci20251028001` → `CogSci-20251028-001`
-
-**完整系統測試**（2篇論文）:
-
-**測試1: Crockett-2025.pdf** (AI Surrogates)
-- ✅ 教學導向Markdown簡報（25張，comprehensive）
-  - 535行，19KB
-  - 循序漸進、概念詳解
-  - Marp相容格式
-- ✅ Zettelkasten原子筆記（12張卡片，CogSci領域）
-  - 語義化ID測試成功
-  - 概念連結網絡完整
-  - Mermaid視覺化
-
-**測試2: Allassonnière-Tang-2021.pdf** (Noun Categorization)
-- ✅ 加入知識庫（ID: 2）
-- ✅ 現代學術風格雙格式簡報（21張，detailed）
-  - PPTX: 53KB，智能排版
-  - Markdown: 11KB，389行
-  - 涵蓋語言演化完整內容
-- ✅ 改進版Zettelkasten（12張卡片，Linguistics領域）
-  - **核心概念全部為英文原文**（驗證成功）
-  - AI筆記包含深度批判性思考
-  - 人類TODO提示清晰
-
-**發現的問題**:
-- ⚠️ 簡報有繁簡中文混合（待修復Prompt）
-- ⚠️ 知識庫標題為URL時導致路徑錯誤（已workaround）
-
-**測試成果統計**:
-- 論文分析：2篇（已入庫）
-- 簡報生成：4個（教學MD、現代學術PPTX+MD）
-- Zettelkasten：2套（舊版+改進版，共24張卡片）
-- 格式穩定性：100%
-- 內容準確性：高（正確反映原文）
-- 學術嚴謹性：提升（原文保留）
-
----
-
-### 早間更新 (2025-10-28)
-
-**🎉 重大更新：Markdown輸出與Zettelkasten原子筆記**
-
-**新增功能**:
-- ✅ **Markdown簡報格式支援**（相容Marp/reveal.js）
-  - 通用學術風格Markdown模板
-  - 支援 `--format markdown/pptx/both` 參數
-  - 自動格式化為投影片結構
-- ✅ **Zettelkasten原子筆記系統**
-  - 專用生成器 `zettel_maker.py`
-  - 語義化ID格式（`領域-日期-序號`，如 `AI-20251028-001`）
-  - 雙檔案輸出（索引 + 獨立卡片文件）
-  - 概念連結網絡（基於/導向/相關/對比/上位/下位）
-  - 支援4種卡片類型（concept/method/finding/question）
-  - Mermaid圖表視覺化概念網絡
-- ✅ **增強的配置系統**
-  - Zettelkasten專屬配置（連結語義、ID格式、卡片數量）
-  - 專用Prompt模板 `zettelkasten_template.jinja2`
-  - 可調整領域代碼（`--domain` 參數）
-
-**架構改進**:
-- `src/generators/zettel_maker.py`: 原子筆記生成核心
-- `templates/markdown/`: 新增3個Jinja2模板
-  - `zettelkasten_card.jinja2`: 單張卡片模板
-  - `zettelkasten_index.jinja2`: 索引與網絡圖
-  - `academic_slides.jinja2`: 通用Markdown簡報
-- `templates/prompts/zettelkasten_template.jinja2`: Zettelkasten專用Prompt
-- `make_slides.py`: 整合Zettelkasten模式與格式選擇
-
-**使用範例**:
-```bash
-# Zettelkasten原子筆記（自動Markdown）
-python make_slides.py "深度學習" --pdf paper.pdf --style zettelkasten --domain AI
-
-# Markdown簡報格式
-python make_slides.py "研究方法" --pdf paper.pdf --format markdown --style modern_academic
-
-# 同時生成PPTX和Markdown
-python make_slides.py "文獻回顧" --pdf paper.pdf --format both --style literature_review
-```
-
-**輸出範例**（Zettelkasten）:
-```
-output/zettel_AI_20251028/
-├── zettel_index.md          # 索引+概念網絡圖+標籤分類
-└── zettel_cards/
-    ├── AI-20251028-001.md   # 獨立原子卡片
-    ├── AI-20251028-002.md
-    └── ...
-```
-
----
-
-### 前次更新 (2025-10-27)
-
-**完成功能**:
-- ✅ Slide-maker Skill完整實作
-- ✅ 多LLM後端支持（4種：Ollama/Gemini/OpenAI/Claude）
-- ✅ 8種學術風格（新增Zettelkasten）
-- ✅ 智能排版系統（自動字體調整、防溢出）
-- ✅ 三種工作流模式（快速/知識驅動/重用）
-- ✅ 知識庫內容儲存修復（Markdown包含完整PDF文字）
-- ✅ 投影片格式優化（標題提取、動態行距）
-
-**修復問題**:
-1. 知識庫Markdown空白內容問題
-2. 投影片標題顯示「投影片1」而非實際標題
-3. 文字內容溢出投影片邊界
-4. Google Gemini API整合和模型名稱
-
-**測試結果**:
-- 成功分析 Crockett-2025.pdf ("AI Surrogates and illusions of generalizability")
-- 生成21張高品質文獻回顧風格投影片
-- 內容準確度大幅提升（從幻覺內容→正確反映原文）
-- 格式問題完全解決
-
----
-
-### 本次更新 (2025-10-31) ⭐ 自動模型選擇系統完成
-
-**🚀 重大更新：智能LLM模型選擇與成本控制系統**
-
-本次更新完成了智能的LLM模型選擇系統，實現了自動根據任務需求、成本限制和效能指標選擇最佳模型的功能。
-
-#### **核心功能**:
-
-**1. 智能模型選擇**
-- **自動檢測可用模型**: 檢查API keys和服務狀態
-- **任務導向選擇**: 根據任務類型（zettelkasten、academic_slides等）選擇最佳模型
-- **風格導向選擇**: 根據學術風格（research_methods、teaching等）優化模型選擇
-- **策略模式**: 支援balanced、quality_first、cost_first、speed_first四種策略
-
-**2. 成本控制與監控**
-- **實時成本追蹤**: 記錄每次API調用的token使用和成本
-- **多層級限制**: 支援會話、每日、每月成本限制
-- **自動切換機制**: 接近成本限制時自動切換到免費模型
-- **配額管理**: 追蹤Gemini等免費配額使用情況
-
-**3. 使用報告生成**
-- **每日報告**: 包含總覽、模型使用詳情、任務分布、錯誤記錄
-- **週報告**: 週總覽、每日趨勢、模型排行、成本分析、優化建議
-- **Markdown格式**: 易讀的表格和統計圖表
-
-**4. CLI增強**
-```bash
-# 新增的CLI參數
---selection-strategy balanced  # 選擇策略
---max-cost 0.5                # 成本限制
---usage-report                 # 生成使用報告
---monitor                      # 啟用詳細監控
-```
-
-#### **實作文件**:
-
-| 文件 | 功能 | 行數 |
-|------|------|------|
-| `config/model_selection.yaml` | 模型定義與映射配置 | 309行 |
-| `src/utils/model_monitor.py` | 使用監控與成本追蹤 | 441行 |
-| `src/utils/usage_reporter.py` | 報告生成器 | 321行 |
-| `src/generators/slide_maker.py` | 整合智能選擇邏輯 | 新增約200行 |
-| `make_slides.py` | CLI參數支援 | 新增約100行 |
-
-#### **測試結果**:
-- ✅ Claude 3 Haiku成功整合並測試
-- ✅ Google Gemini免費配額追蹤正常
-- ✅ 自動模型選擇邏輯運作正常
-- ⚠️ MiniMax-M2僅CLI支援，JSON格式仍有問題
-
----
-
-### 前次更新 (2025-10-30) ⭐ Workflows重新設計
-
-**🎯 重大更新：KB Manager Agent工作流程重新設計**
-
-本次更新重新設計了KB Manager Agent的工作流結構，明確區分兩種獨立的工作流程，提升用戶體驗和系統清晰度。
-
-#### **核心變更**:
-
-**1. 工作流重新命名和職責分離**
-- `batch_import` → **`batch_import_papers`**（批次導入論文到知識庫）
-  - 專注於「知識庫管理」單一職責
-  - 移除 `generate_zettel` 參數（避免混淆）
-  - `domain` 移除默認值，強制用戶選擇（支援自定義領域）
-
-- `generate_notes` → **`batch_generate_zettel`**（批次生成Zettelkasten）
-  - 重新命名反映批次處理能力（流程A）
-  - `source` 支援 folder_path（批次）、pdf_path（單篇）和 paper_id
-  - `domain` 移除默認值，強制用戶選擇（支援自定義領域）
-  - 新增 `add_to_kb` 和 `auto_link` 參數（默認為 true）
-  - 提升優先級為 `high`
-
-- `generate_slides` → 保持不變（流程B）
-  - 明確標註：**只生成簡報**，不生成Zettelkasten
-  - 不在對話中詢問「是否生成Zettelkasten」
-
-**2. 參數設計改進**
-- **domain 支援自定義**: 保留 ["CogSci", "Linguistics", "AI", "Research", "Other"] 預設選項，同時允許輸入自定義領域名稱
-- **batch_generate_zettel 新增參數**:
-  - `add_to_kb`: default = true（自動加入知識庫）
-  - `auto_link`: default = true（自動關聯論文）
-  - `source`: 支援資料夾/PDF/paper_id（統一入口）
-
-**3. 技術實施**:
-
-**修改檔案**:
-| 檔案 | 修改內容 | 行數 |
-|------|---------|------|
-| `workflows.yaml` | 重新命名、調整參數、移除generate_zettel | ~50行 |
-| `instructions.md` | 新增流程A章節、更新流程B說明、範例對話 | ~100行 |
-| `batch_processor.py` | 支援單個PDF文件路徑 | ~30行 |
-
-**batch_processor.py 增強**:
-```python
-def _find_pdfs(self, path: str) -> List[str]:
-    """
-    支援:
-    - 資料夾路徑: 返回所有PDF文件
-    - 單個PDF路徑: 返回包含該文件的列表
-    """
-    path_obj = Path(path)
-
-    if path_obj.is_file() and path_obj.suffix.lower() == '.pdf':
-        return [str(path_obj)]  # 支援單個PDF ✅
-
-    if path_obj.is_dir():
-        return [str(f) for f in path_obj.glob("*.pdf")]
-
-    return []
-```
-
-#### **工作流程對比**:
-
-| 項目 | 流程A（batch_generate_zettel） | 流程B（generate_slides） |
-|------|-------------------------------|-------------------------|
-| **用途** | 批次生成Zettelkasten原子筆記 | 生成學術簡報（PPTX/Markdown） |
-| **輸入** | 資料夾/PDF/paper_id | PDF/paper_id/topic |
-| **批次支援** | ✅ 是 | ❌ 否（單篇） |
-| **生成Zettelkasten** | ✅ 是（主要功能） | ❌ 否 |
-| **生成簡報** | ❌ 否 | ✅ 是（主要功能） |
-| **知識庫整合** | ✅ 自動（add_to_kb=true） | ✅ 自動 |
-| **自動關聯論文** | ✅ 是（auto_link=true） | N/A |
-
-#### **範例對話**:
-
-**流程A（批次生成Zettelkasten）**:
-```
-用戶: 批次處理 D:\pdfs\mental_simulation 並生成Zettelkasten
-Agent: 好的！請問這些論文屬於哪個領域？（必填）
-      1. CogSci（認知科學）
-      2. Linguistics（語言學）
-      3. AI（人工智慧）
-      4. Research（通用研究）
-      5. Other（或輸入自定義領域）
-
-用戶: CogSci
-
-Agent: 每篇論文生成多少張卡片？(默認：20)
-
-用戶: 默認
-
-Agent: ✅ 開始處理...
-      [1/15] 處理中: paper1.pdf → 生成20張卡片
-      ...
-      完成！卡片總數: 300張
-      已加入知識庫並自動關聯（成功率: 95%）
-```
-
-**流程B（只生成簡報）**:
-```
-用戶: 為 Crockett-2025.pdf 生成簡報
-Agent: 好的！請告訴我簡報主題？
-
-用戶: AI 代理者與認知科學研究
-
-Agent: 選擇簡報風格：
-      1. modern_academic（現代學術）
-      2. teaching（教學導向）
-      ...
-
-用戶: teaching
-
-Agent: ✅ 簡報生成完成！
-      文件路徑: output/AI代理者_teaching.pptx
-      （不詢問「是否生成Zettelkasten」）⚠️
-```
-
-#### **文檔更新**:
-- ✅ `workflows.yaml`: 工作流重新命名和參數調整
-- ✅ `instructions.md`: 新增流程A章節、更新流程B說明
-- ✅ `batch_processor.py`: 支援單個PDF文件
-- ✅ `WORKFLOWS_REDESIGN_FEASIBILITY.md`: 完整可行性評估報告
-- ✅ `KB_MANAGER_WORKFLOW_REVIEW.md`: 工作流程確認報告
-
-#### **驗收標準**:
-- ✅ 流程A支援批次和單篇處理
-- ✅ 流程B只生成簡報，不提示Zettelkasten
-- ✅ domain支援自定義領域名稱
-- ✅ 參數互不衝突，職責分離清晰
-- ✅ 向後兼容，保留原有結構
-
-#### **影響範圍**:
-- 用戶體驗: 更清晰的工作流選擇
-- Agent引導: 明確的意圖識別和引導邏輯
-- 系統架構: 職責分離，易於維護
-
-#### **下一步**:
-- 準備進入 Phase 2 開發（relation-finder、concept-mapper）
-- 基於新的工作流結構開發後續功能
-- 持續優化用戶體驗和系統穩定性
-
----
-
-**更新時間**: 2025-10-30 22:00
-**實施工作量**: 3小時（符合預估）
-**狀態**: ✅ **工作流重新設計完成**
-- 設計及測試Agent, Skill的工作告一段落，要更新AGENT—SKILL—DESIGN.md的“當前狀態摘要”到"目錄“之間摘要及建議內容，並以此做為整理工作過程產生之檔案的整理參考。
-- bib file path = "D:\core\Research\Program_verse\+\My Library.bib"
-- Create and update code in English. 用繁體中文輸出給人類用戶的說明及報告。
+**詳細內容**: 請參閱 [CHANGELOG.md](CHANGELOG.md)

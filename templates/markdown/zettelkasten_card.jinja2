@@ -30,10 +30,12 @@ summary: |-
 ## 個人筆記
 
 {% if personal_notes %}
-**[AI Agent]**: {{ personal_notes }}
+{{ personal_notes }}
+{% else %}
+🤖 **AI**:
 
+✍️ **Human**:
 {% endif %}
-**[Human]**: (TODO) <!-- 請在此處添加您的個人思考、批判性評論或延伸想法 -->
 
 {% if open_questions %}
 ## 待解問題

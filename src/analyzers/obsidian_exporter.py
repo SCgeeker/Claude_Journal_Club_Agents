@@ -235,20 +235,23 @@ class ObsidianExporter:
         # 過濾和排序關係
         filtered_relations = [
             rel for rel in relations
-            if rel.get('confidence', 0) >= min_confidence
+            if rel.get('confidence', 0) >= min_confidence  # 修復：使用正確的字段名 'confidence'
         ]
 
         filtered_relations.sort(
-            key=lambda r: r.get('confidence', 0),
+            key=lambda r: r.get('confidence', 0),  # 修復：使用正確的字段名 'confidence'
             reverse=True
         )
+
+        # 保存高信度關係總數（在截取前）
+        high_confidence_count = len(filtered_relations)
 
         # 只取 top-n
         filtered_relations = filtered_relations[:top_n]
 
         lines.append(f"\n## 📊 統計\n")
         lines.append(f"- 總關係數: {len(relations)}")
-        lines.append(f"- 高信度關係 (≥ {min_confidence}): {len(filtered_relations)}")
+        lines.append(f"- 高信度關係 (≥ {min_confidence}): {high_confidence_count}")  # 修復：顯示真實總數
         lines.append(f"- 本文檔顯示: Top {min(top_n, len(filtered_relations))} 建議\n")
 
         # 按關係類型分組

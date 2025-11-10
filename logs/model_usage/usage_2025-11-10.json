@@ -1,0 +1,116 @@
+{
+  "date": "2025-11-10",
+  "models": {
+    "openrouter_google/gemini-2.0-flash-exp:free": {
+      "provider": "openrouter",
+      "model": "google/gemini-2.0-flash-exp:free",
+      "requests": 2,
+      "successful": 1,
+      "failed": 1,
+      "tokens": 6,
+      "cost": 0.0,
+      "avg_response_time": 4.37744402885437,
+      "task_types": {}
+    },
+    "ollama_google/gemini-2.0-flash-exp:free": {
+      "provider": "ollama",
+      "model": "google/gemini-2.0-flash-exp:free",
+      "requests": 1,
+      "successful": 0,
+      "failed": 1,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.031011581420898438,
+      "task_types": {}
+    },
+    "openrouter_deepseek/deepseek-r1:free": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-r1:free",
+      "requests": 3,
+      "successful": 0,
+      "failed": 3,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 1.8752792676289876,
+      "task_types": {}
+    },
+    "ollama_deepseek/deepseek-r1:free": {
+      "provider": "ollama",
+      "model": "deepseek/deepseek-r1:free",
+      "requests": 3,
+      "successful": 0,
+      "failed": 3,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.023971954981486004,
+      "task_types": {}
+    },
+    "openrouter_deepseek/deepseek-r1": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-r1",
+      "requests": 2,
+      "successful": 2,
+      "failed": 0,
+      "tokens": 3726,
+      "cost": 0.0,
+      "avg_response_time": 22.091136932373047,
+      "task_types": {}
+    },
+    "openrouter_meta-llama/llama-3.3-70b-instruct": {
+      "provider": "openrouter",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "requests": 1,
+      "successful": 1,
+      "failed": 0,
+      "tokens": 3209,
+      "cost": 0.0,
+      "avg_response_time": 190.63576912879944,
+      "task_types": {}
+    }
+  },
+  "total_cost": 0.0,
+  "total_requests": 12,
+  "total_tokens": 6941,
+  "errors": [
+    {
+      "time": "2025-11-10T19:51:07.376068",
+      "model": "openrouter_google/gemini-2.0-flash-exp:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-10T19:51:07.409041",
+      "model": "ollama_google/gemini-2.0-flash-exp:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-10T19:55:45.438803",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-10T19:55:45.446525",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-10T19:58:18.606417",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-10T19:58:18.635265",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-10T20:04:56.360679",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-10T20:04:56.401908",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    }
+  ]
+}

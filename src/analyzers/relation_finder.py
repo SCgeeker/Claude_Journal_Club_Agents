@@ -1337,7 +1337,7 @@ class RelationFinder:
             'edges': edges,
             'statistics': statistics,
             'hub_nodes': hub_nodes,
-            'relations': [asdict(r) for r in relations]  # 完整關係數據
+            'relations': edges  # 使用 edges（已包含所有關係數據，且格式正確：source/target）
         }
 
         print("\n[5] 網絡統計摘要:")
