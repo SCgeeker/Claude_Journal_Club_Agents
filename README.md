@@ -1,213 +1,285 @@
-# Knowledge Production System
+# Knowledge Production System | 知識生產系統
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Community](https://img.shields.io/badge/join-community-blue.svg)](https://github.com/yourusername/claude_lit_workflow/discussions)
 
-**學術文獻處理與知識生產系統** - 基於Claude Code與多LLM的智能化學術工作流
+> **AI-Powered Zettelkasten Card Generation for Academic Research**
+> **學術研究的 AI 驅動 Zettelkasten 原子卡片生成系統**
 
-## 🎯 核心功能
+Transform academic papers into atomic knowledge cards automatically. Community-driven optimization for better card generation methods.
 
-### 📄 PDF文獻分析
-- 智能提取論文結構（標題、作者、摘要、章節）
-- 支援兩種提取引擎（pdfplumber、PyPDF2）
-- 字元限制：50,000（可配置）
-
-### 📊 多風格學術簡報生成
-支援8種學術風格 × 5種詳細程度 × 3種語言：
-
-**學術風格**：
-- Classic Academic（經典學術）
-- Modern Academic（現代學術）⭐ 推薦
-- Clinical（臨床導向）
-- Research Methods（研究方法）
-- Literature Review（文獻回顧）
-- Case Analysis（案例分析）
-- Teaching（教學導向）
-- Zettelkasten（原子筆記）
-
-**輸出格式**：
-- PowerPoint (PPTX) - 16:9寬螢幕，智能排版
-- Markdown - 相容Marp/reveal.js
-- Both - 同時生成兩種格式
-
-### 🗂️ Zettelkasten原子筆記系統
-
-創新功能：
-- ✅ **核心概念直接擷取原文**（不翻譯、不改寫）
-- ✅ **語義化ID格式**（`領域-日期-序號`）
-- ✅ **AI/人類筆記分離**（`[AI Agent]` + `[Human] TODO`）
-- ✅ **概念連結網絡**（基於/導向/相關/對比）
-- ✅ **Mermaid視覺化**（概念網絡圖）
-- ✅ **雙檔案輸出**（索引 + 獨立卡片）
-
-### 🤖 多LLM後端支持
-
-- **Ollama**（本地）：完全離線、數據隱私
-- **Google Gemini**：速度快、品質高
-- **OpenAI**：GPT-4、GPT-3.5
-- **Anthropic Claude**：推理能力強
-
-自動故障轉移與提供者偵測。
-
-### 📚 混合式知識庫
-
-- Markdown筆記 + SQLite索引
-- 全文搜索（FTS5）
-- 主題分類與標籤
-- 論文引用關係
+自動將學術論文轉換為原子化知識卡片。社群驅動優化卡片生成方法。
 
 ---
 
-## 🚀 快速開始
+## 🎯 Core Feature | 核心功能
 
-### 安裝
+### 🗂️ Zettelkasten Atomic Card Generation | Zettelkasten 原子卡片生成
 
-```bash
-# 克隆倉庫
-git clone https://github.com/your-username/knowledge-production-system.git
-cd knowledge-production-system
+**The essential tool for academic note-taking**
+**學術筆記的必備工具**
 
-# 安裝依賴
-pip install -r requirements.txt
+#### What makes it special? | 為什麼特別？
 
-# 初始化知識庫
-python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"
+✅ **Direct Quote Extraction | 直接擷取原文**
+- Preserves original English concepts without translation
+- 保留英文原始概念，不翻譯不改寫
+
+✅ **Semantic ID System | 語義化 ID 系統**
+- Format: `Domain-YYYYMMDD-NNN` (e.g., `CogSci-20251028-001`)
+- 格式：`領域-日期-序號`（例如：`CogSci-20251028-001`）
+
+✅ **AI/Human Note Separation | AI/人類筆記分離**
+- `[AI Agent]` for AI-generated insights
+- `[Human] TODO` for your own annotations
+- `[AI Agent]` 標記 AI 生成的洞見
+- `[Human] TODO` 標記你的個人註解
+
+✅ **Concept Link Network | 概念連結網絡**
+- Relationship types: Based on, Leads to, Related, Contrasts with
+- 關係類型：基於、導向、相關、對比
+
+✅ **Visual Network Graph | 視覺化網絡圖**
+- Mermaid diagrams for concept relationships
+- 使用 Mermaid 圖表展示概念關係
+
+#### Output Structure | 輸出結構
+
+```
+output/zettelkasten_notes/zettel_PaperTitle_20251112/
+├── zettel_index.md          # Master index with network graph | 主索引+網絡圖
+└── zettel_cards/
+    ├── Domain-20251112-001.md
+    ├── Domain-20251112-002.md
+    └── ...
 ```
 
-### 配置API密鑰
+#### Example Card | 卡片範例
 
-創建 `.env` 文件：
+```markdown
+---
+id: CogSci-20251028-001
+domain: CogSci
+card_number: 1
+core_concept: "Embodied Cognition"
+---
+
+## 核心概念 | Core Concept
+> "Embodied cognition suggests that cognitive processes are deeply rooted
+> in the body's interactions with the world"
+
+**中文說明**：具身認知理論認為，認知過程深植於身體與世界的互動中...
+
+## AI筆記 | AI Notes
+[AI Agent] 這個理論挑戰了傳統的「心智即計算」觀點...
+
+## 我的筆記 | My Notes
+[Human] TODO: 連結到 Barsalou 的知覺符號理論
+
+## 連結網絡 | Link Network
+- **基於** [[CogSci-20251028-003|Symbol Grounding]]
+- **導向** [[CogSci-20251028-005|Motor Simulation]]
+- **對比** [[CogSci-20251028-010|Abstract Cognition]]
+
+## 來源脈絡 | Source Context
+- **來源**: Wilson & Golonka (2013)
+- **段落**: Section 2.1, p.245
+```
+
+---
+
+## 🤖 Multi-LLM Support | 多 LLM 支持
+
+**Choose your preferred AI backend** | **選擇您偏好的 AI 後端**
+
+| Provider | Pros | Use Case |
+|----------|------|----------|
+| **Ollama** | 🔒 Fully offline, privacy | 完全離線，隱私保護 |
+| **Google Gemini** | ⚡ Fast & high quality | 速度快，品質高 |
+| **OpenAI** | 🧠 GPT-4, best reasoning | GPT-4，推理最佳 |
+| **Anthropic Claude** | 📚 Long context, analysis | 長文本，深度分析 |
+
+**Automatic fallback** if one provider fails.
+**自動故障轉移** 當某個提供者失敗時。
+
+---
+
+## 🚀 Quick Start | 快速開始
+
+### 1. Installation | 安裝
 
 ```bash
-# 選擇一個或多個LLM提供者
+# Clone the repository | 克隆倉庫
+git clone https://github.com/yourusername/claude_lit_workflow.git
+cd claude_lit_workflow
+
+# Install dependencies | 安裝依賴
+pip install -r requirements.txt
+```
+
+### 2. Configure API Keys | 配置 API 密鑰
+
+Create a `.env` file | 創建 `.env` 文件：
+
+```bash
+# Choose one or more LLM providers | 選擇一個或多個 LLM 提供者
 GOOGLE_API_KEY=your-google-api-key
 OPENAI_API_KEY=your-openai-api-key
 ANTHROPIC_API_KEY=your-anthropic-api-key
 
-# Ollama（本地，無需API key）
+# Ollama (local, no API key needed) | Ollama（本地，無需 API 密鑰）
 OLLAMA_URL=http://localhost:11434
 ```
 
-### 基本使用
+### 3. Generate Your First Zettelkasten | 生成您的第一個 Zettelkasten
 
 ```bash
-# 1. 分析論文
-python analyze_paper.py paper.pdf --add-to-kb
-
-# 2. 生成簡報（現代學術風格）
-python make_slides.py "研究主題" --pdf paper.pdf --style modern_academic --format both
-
-# 3. 生成Zettelkasten筆記
-python make_slides.py "論文標題" --pdf paper.pdf --style zettelkasten --domain YourField
-
-# 4. 從知識庫生成
-python make_slides.py "主題" --from-kb 1 --style teaching --format markdown
-```
-
----
-
-## 📖 詳細文檔
-
-- [快速開始指南](QUICKSTART.md)
-- [專案結構](PROJECT_STRUCTURE.md)
-- [開發文檔](CLAUDE.md)（包含完整設計理念）
-
----
-
-## 🎨 使用範例
-
-### 範例1：教學簡報
-
-```bash
-python make_slides.py "深度學習基礎" \
-  --pdf paper.pdf \
-  --style teaching \
-  --detail comprehensive \
-  --language chinese \
-  --format markdown \
-  --slides 25
-```
-
-**輸出**：535行Markdown簡報，循序漸進、概念詳解
-
-### 範例2：Zettelkasten筆記
-
-```bash
-python make_slides.py "Cognitive Science Research" \
+# Basic usage | 基本用法
+python make_slides.py "Paper Title" \
   --pdf paper.pdf \
   --style zettelkasten \
+  --domain YourField
+
+# Example with cognitive science paper | 認知科學論文範例
+python make_slides.py "Embodied Cognition" \
+  --pdf wilson2013.pdf \
+  --style zettelkasten \
   --domain CogSci \
-  --detail standard
+  --detail comprehensive
 ```
 
-**輸出**：
-```
-output/zettel_CogSci_20251028/
-├── zettel_index.md          # 索引+網絡圖
-└── zettel_cards/
-    ├── CogSci-20251028-001.md
-    ├── CogSci-20251028-002.md
-    └── ...
-```
-
-每張卡片包含：
-- 英文原文核心概念（直接擷取）
-- 中文詳細說明
-- AI批判性思考
-- 人類筆記TODO區域
-- 概念連結網絡
+**Output | 輸出**:
+- 20 atomic cards by default | 預設 20 張原子卡片
+- One master index with concept network graph | 一個包含概念網絡圖的主索引
+- Ready for Obsidian or any Markdown editor | 可用於 Obsidian 或任何 Markdown 編輯器
 
 ---
 
-## 🏗️ 系統架構
+## 📊 Additional Features | 其他功能
+
+### Academic Slide Generation | 學術簡報生成
+
+Generate presentation slides in multiple styles:
+以多種風格生成簡報投影片：
+
+```bash
+python make_slides.py "Research Topic" \
+  --pdf paper.pdf \
+  --style modern_academic \
+  --format pptx \
+  --language chinese
+```
+
+**8 Academic Styles | 8 種學術風格**:
+- Classic Academic | 經典學術
+- Modern Academic | 現代學術 ⭐
+- Clinical | 臨床導向
+- Research Methods | 研究方法
+- Literature Review | 文獻回顧
+- Case Analysis | 案例分析
+- Teaching | 教學導向
+- Zettelkasten | 原子筆記
+
+### Knowledge Base | 知識庫
+
+Built-in hybrid knowledge base:
+內建混合式知識庫：
+
+- Markdown notes + SQLite index | Markdown 筆記 + SQLite 索引
+- Full-text search (FTS5) | 全文搜索 (FTS5)
+- Topic classification | 主題分類
+- Citation relationships | 引用關係
+
+---
+
+## 🤝 Community & Contribution | 社群與貢獻
+
+**We welcome contributions!** Especially for optimizing card generation methods.
+**歡迎貢獻！**特別是優化卡片生成方法的貢獻。
+
+### How to Contribute | 如何貢獻
+
+1. **Fork this repository** | Fork 本倉庫
+2. **Create a feature branch** | 創建功能分支
+   ```bash
+   git checkout -b feature/BetterCardGeneration
+   ```
+3. **Make your improvements** | 進行改進
+   - Optimize prompt templates | 優化 prompt 模板
+   - Enhance concept extraction | 增強概念提取
+   - Improve link detection | 改進連結檢測
+4. **Submit a pull request** | 提交 Pull Request
+
+### Discussion Topics | 討論主題
+
+- 💬 Best practices for card generation | 卡片生成最佳實踐
+- 💬 Domain-specific optimizations | 領域特定優化
+- 💬 Multi-language support | 多語言支持
+- 💬 Integration with other tools | 與其他工具整合
+
+Join our discussions: [GitHub Discussions](https://github.com/yourusername/claude_lit_workflow/discussions)
+加入討論: [GitHub Discussions](https://github.com/yourusername/claude_lit_workflow/discussions)
+
+---
+
+## 📖 Documentation | 文檔
+
+### English
+- [Quick Start Guide](docs/QUICKSTART.md)
+- [Developer Documentation](CLAUDE.md)
+- [Project Structure](docs/PROJECT_STRUCTURE.md)
+
+### 中文
+- [快速開始指南](docs/QUICKSTART.md)
+- [開發者文檔](CLAUDE.md)
+- [專案結構](docs/PROJECT_STRUCTURE.md)
+
+---
+
+## 🏗️ System Architecture | 系統架構
 
 ```
 claude_lit_workflow/
 ├── src/
-│   ├── extractors/          # PDF提取
-│   ├── generators/          # 簡報與筆記生成
-│   └── knowledge_base/      # 知識庫管理
+│   ├── extractors/          # PDF extraction | PDF 提取
+│   ├── generators/          # Card & slide generation | 卡片與簡報生成
+│   │   └── zettel_maker.py  # Core Zettelkasten generator | 核心 Zettelkasten 生成器
+│   └── knowledge_base/      # Knowledge base manager | 知識庫管理
 ├── templates/
-│   ├── markdown/            # Markdown模板
-│   ├── prompts/             # LLM Prompt
-│   └── styles/              # 學術風格定義
-├── config/
-│   └── settings.yaml        # 系統配置
-└── knowledge_base/          # 知識儲存
-    ├── papers/              # Markdown筆記
-    └── index.db             # SQLite索引
+│   ├── prompts/             # LLM prompts | LLM 提示詞
+│   │   └── zettelkasten_template.jinja2
+│   └── styles/              # Academic styles | 學術風格
+└── config/
+    └── settings.yaml        # System configuration | 系統配置
 ```
 
 ---
 
-## 🤝 貢獻
+## 📄 License | 授權
 
-歡迎貢獻！請遵循以下步驟：
-
-1. Fork本倉庫
-2. 創建功能分支（`git checkout -b feature/AmazingFeature`）
-3. 提交更改（`git commit -m 'Add some AmazingFeature'`）
-4. 推送到分支（`git push origin feature/AmazingFeature`）
-5. 開啟Pull Request
+MIT License - see [LICENSE](LICENSE) file
+MIT 授權 - 詳見 [LICENSE](LICENSE) 文件
 
 ---
 
-## 📄 授權
+## 🙏 Acknowledgments | 致謝
 
-本專案採用 MIT License - 詳見 [LICENSE](LICENSE) 文件
-
----
-
-## 🙏 致謝
-
-- 基於Claude Code開發環境
-- Prompt工程參考學術簡報最佳實踐
-- Zettelkasten方法論
+- Built with [Claude Code](https://claude.ai/code) | 使用 Claude Code 開發
+- Inspired by Zettelkasten methodology | 受 Zettelkasten 方法論啟發
+- Powered by multiple LLM providers | 由多個 LLM 提供者驅動
 
 ---
 
-## 📧 聯繫
+## 📧 Contact | 聯繫
 
-有問題或建議？歡迎開啟Issue討論！
+**Questions or suggestions?** Open an issue!
+**有問題或建議？** 開啟一個 Issue！
 
-**專案狀態**：Alpha v0.4.0 - 積極開發中
+**Project Status** | **專案狀態**: v0.3.0 - Stable for community use
+**專案狀態**: v0.3.0 - 穩定版本，適合社群使用
+
+---
+
+**⭐ Star this repo if you find it useful!**
+**⭐ 如果覺得有用請給個星星！**
