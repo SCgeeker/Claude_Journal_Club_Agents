@@ -1,0 +1,47 @@
+# 配置範例：config/settings.yaml 主要配置項
+
+# LLM後端（自動選擇最佳模型）
+llm:
+  default_backend: "auto"  # 自動選擇最佳模型
+  auto_select: true
+  ollama:
+    base_url: "http://localhost:11434"
+    default_model: "gemma2:latest"
+  google:
+    default_model: "gemini-2.0-flash-exp"
+  openai:
+    default_model: "gpt-4"
+  anthropic:
+    default_model: "claude-3-haiku"
+
+# PDF處理
+pdf:
+  max_characters: 50000
+  extraction_method: "pdfplumber"  # 或 "pypdf2"
+
+# 簡報生成
+slides:
+  default_style: "modern_academic"
+  default_detail: "standard"
+  default_language: "chinese"
+  default_slides: 15
+
+# 知識庫
+knowledge_base:
+  root_directory: "knowledge_base"
+  database_path: "knowledge_base/index.db"
+  indexing:
+    auto_index: true
+    full_text_search: true
+
+# 批次處理
+batch_processing:
+  max_workers: 3
+  error_handling: "skip"  # skip / retry / stop
+  timeout: 300  # 秒
+
+# 向量搜索
+vector_search:
+  default_provider: "gemini"  # gemini / ollama
+  embedding_dimension: 768  # gemini: 768, ollama: 2560
+  persist_directory: "chroma_db"

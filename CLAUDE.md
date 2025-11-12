@@ -619,7 +619,82 @@ python kb_manage.py visualize-network --obsidian
 
 ---
 
-## RelationFinder 改進方案 (Phase 2.3) 🔄 設計完成
+## Zettelkasten 卡片生成系統改進 (Phase 2.3) ✅ 已完成
+
+**狀態**: ✅ 已完成 (2025-11-12) | **版本**: v0.7.0-alpha
+
+### 完成摘要
+
+成功修復 Phase 2.3 測試中發現的所有問題，完成三個 LLM（Gemini 2.0 Flash, DeepSeek R1, Llama 3.3 70B）的 Zettelkasten 卡片生成品質驗證，並確立為系統預設 LLM。
+
+**完整報告**: [PHASE23_FIXES_COMPLETED_20251112.md](PHASE23_FIXES_COMPLETED_20251112.md)
+
+### 修復問題清單
+
+#### 1. 模型識別功能 ✅
+- **問題**: 無法分辨不同 LLM 生成的卡片
+- **修復**: 在輸出目錄名稱中加入模型標識
+- **結果**:
+  - Gemini: `zettel_Jones-2024_20251112_gemini_2.0_flash_exp/`
+  - DeepSeek: `zettel_Jones-2024_20251112_deepseek_r1/`
+  - Llama: `zettel_Jones-2024_20251112_llama_3.3_70b_instruct/`
+
+#### 2. 調試輸出系統 ✅
+- **功能**: 自動保存 LLM 原始輸出到調試文件
+- **用途**: 故障排查和品質分析
+- **位置**: `output/debug_llm_output_{cite_key}_{model_name}.txt`
+
+#### 3. 連結網絡解析器增強 ✅
+- **問題**: 出現錯誤連結 `[[- **** - []]]`
+- **原因**: LLM 生成空連結時，解析器錯誤提取 Markdown 格式符號
+- **修復**: 6 層過濾機制
+  - 過濾空字串
+  - 過濾只有標點符號
+  - 過濾 Markdown 格式符號 (`- ****`, `***`, `--`)
+  - 過濾開頭為 `-` 的字串
+  - 過濾長度 < 3 的字串
+  - 使用正則表達式: `^[\-\*\s]+$`
+- **結果**: 所有三個 LLM 錯誤連結數 = 0
+
+#### 4. max_tokens 優化 ✅
+- **問題**: Llama 生成 11/20 張卡片（輸出被截斷）
+- **修復**: 為 DeepSeek 和 Llama 增加 max_tokens 至 16000
+- **結果**: 成功生成 20/20 張卡片
+
+### 三個預設 LLM 規格驗證
+
+| 模型 | 卡片數量 | 錯誤連結 | 語言 | 來源脈絡 | max_tokens |
+|------|---------|---------|------|---------|------------|
+| **Gemini 2.0 Flash** | 20/20 ✅ | 0 ✅ | 中文 ✅ | 完整 ✅ | 4096 |
+| **DeepSeek R1** | 20/20 ✅ | 0 ✅ | 中文 ✅ | 完整 ✅ | 16000 |
+| **Llama 3.3 70B** | 20/20 ✅ | 0 ✅ | 中文 ✅ | 完整 ✅ | 16000 |
+
+### 使用場景建議
+
+| LLM | 優點 | 適用場景 | 成本 |
+|-----|------|---------|------|
+| **Gemini 2.0 Flash** | 速度快、品質高 | 日常使用、批次處理 | 中 |
+| **DeepSeek R1** | 推理能力強、輸出詳細 | 複雜推理、深度分析 | 中 |
+| **Llama 3.3 70B** | 平衡性能、穩定 | 標準任務、備用選項 | 中 |
+
+### 修改的文件
+
+1. **regenerate_zettel_with_openrouter.py**
+   - 模型名稱規範化
+   - 調試輸出保存
+   - max_tokens 策略優化
+
+2. **src/generators/zettel_maker.py**
+   - 連結提取過濾增強
+   - 正則表達式匹配
+
+3. **templates/prompts/zettelkasten_template.jinja2** (之前修復)
+   - DeepSeek 任務明確性
+   - 來源脈絡生成要求
+
+---
+
+## RelationFinder 改進方案 (Phase 2.4) 🔄 設計完成
 
 **狀態**: 📝 設計階段 | **優先級**: ⭐⭐⭐⭐⭐ 極高 | **預計時間**: 6-9天
 
@@ -1251,11 +1326,38 @@ python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBa
 
 本專案基於SciMaker的Journal Club模組逆向工程成果，感謝原始系統的設計理念和實作參考。
 
+## 下一步發展方向
+
+### 🚀 Zotero + Obsidian 整合 (Phase 3 規劃中)
+
+**設計文檔**: `D:/core/research/Program_verse/2025-11-09-Zotero-Obsidian-Integration-Design.md`
+
+**核心目標**:
+- 從 Zotero BibTeX 和 PDF 庫生成 Papers + Zettelkasten
+- 輸出到 Obsidian vault (Program_verse/Atlas/Sources/)
+- 基於 Connection notes 的漸進式遷移策略
+
+**試點計畫**:
+- 選定 2 個高品質 Connection notes（共 ~25 篇論文）
+- 生成完整的 Papers + Zettelkasten（~500 張卡片）
+- 驗證 MOC 自動生成功能
+- 評估是否可取代手動 Connection notes
+
+**實施順序**:
+1. Phase A (1-2天): BibTeX 解析 + 路徑配置
+2. Phase B (2-3天): Papers 生成 + 重複檢測
+3. Phase C (3-5天): MOC 自動生成（基於 Phase 2.2 Concept Mapper）
+
+**前置條件**:
+- ✅ Phase 2.3 完成（Zettelkasten 穩定）
+- ✅ Phase 0 清理完成（知識庫重置）
+- 🔄 等待驗證和開發
+
 ---
 
-**最後更新**: 2025-11-07
-**版本**: 0.6.0-alpha
-**狀態**: 文檔重構完成 - 模組化文檔結構建立
+**最後更新**: 2025-11-12
+**版本**: 0.7.1-alpha
+**狀態**: Phase 0 清理完成 + Phase 3 規劃啟動
 
 ## 版本歷史
 
@@ -1263,11 +1365,15 @@ python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBa
 
 ### 最近更新
 
-- **v0.6.0-alpha (2025-11-01)**: 文檔一致性檢查與修正
-- **v0.5.0-alpha (2025-10-31)**: 智能 LLM 模型選擇系統完成
-- **v0.4.0-alpha (2025-10-30)**: KB Manager Agent 工作流程重新設計
-- **v0.3.0-alpha (2025-10-29)**: Phase 1 完成 - 批次處理器 + 質量檢查器 + 檔案整理
-- **v0.2.0-alpha (2025-10-28)**: Markdown 簡報 + Zettelkasten 原子筆記系統
-- **v0.1.0-alpha (2025-10-27)**: Slide-maker Skill 完整實作
+- **v0.7.1-alpha (2025-11-12)**: Phase 0 清理 + Phase 3 規劃
+  - ✅ 完整清理知識庫和 output 資料夾（重新開始）
+  - ✅ 備份舊數據到 backups/20251112/
+  - ✅ 歸檔 26 個工作文件到 docs/archive/2025-11/
+  - ✅ Zotero-Obsidian 整合設計完成
+  - 📋 確定試點策略（2 個 Connection notes，漸進式遷移）
+- **v0.7.0-alpha (2025-11-12)**: Phase 2.3 完成 - Zettelkasten 卡片生成系統改進
+  - ✅ 修復連結網絡解析器（過濾錯誤連結）
+  - ✅ 確立三個預設 LLM（Gemini 2.0 Flash, DeepSeek R1, Llama 3.3 70B）
+- **v0.6.0-alpha ~ v0.1.0-alpha**: 詳見 [CHANGELOG.md](CHANGELOG.md)
 
 **詳細內容**: 請參閱 [CHANGELOG.md](CHANGELOG.md)

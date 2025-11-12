@@ -43,7 +43,10 @@
       "Bash(timeout 600 python make_slides.py:*)",
       "Bash(grep:*)",
       "Bash(find:*)",
-      "Bash(timeout 300 python:*)"
+      "Bash(timeout 300 python:*)",
+      "WebFetch(domain:help.obsidian.md)",
+      "Bash(mkdir:*)",
+      "Bash(timeout 40 sleep:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

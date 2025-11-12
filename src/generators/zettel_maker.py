@@ -178,6 +178,10 @@ class ZettelMaker:
                 self._save_section_content(current_section, section_content, card)
                 current_section = 'links'
                 section_content = []
+            elif line_stripped in ['來源脈絡:', 'Source Context:', '來源脈絡：']:
+                self._save_section_content(current_section, section_content, card)
+                current_section = 'source_context'
+                section_content = []
             elif line_stripped in ['個人筆記:', 'Personal Notes:', '個人筆記：']:
                 self._save_section_content(current_section, section_content, card)
                 current_section = 'notes'
@@ -210,6 +214,20 @@ class ZettelMaker:
 
         if section == 'explanation':
             card['detailed_explanation'] = content_text
+        elif section == 'source_context':
+            # 解析來源脈絡的位置和情境
+            for line in content:
+                line_stripped = line.strip()
+                if line_stripped.startswith('- **位置'):
+                    # 提取位置信息（例如：- **位置**: Methods）
+                    if ':' in line_stripped:
+                        card['section'] = line_stripped.split(':', 1)[1].strip()
+                elif line_stripped.startswith('- **情境'):
+                    # 提取情境信息
+                    if ':' in line_stripped:
+                        card['context'] = line_stripped.split(':', 1)[1].strip()
+            # 保存完整的來源脈絡文本
+            card['source_context'] = content_text
         elif section == 'notes':
             card['personal_notes'] = content_text
         elif section == 'questions':
@@ -241,7 +259,8 @@ class ZettelMaker:
             for match in wiki_matches:
                 # 移除可能的顯示文本（格式：[[link|display]]）
                 link_id = match.split('|')[0].strip()
-                if link_id and not link_id.endswith('.pdf'):
+                # 過濾空白連結、PDF連結、和無效格式
+                if link_id and not link_id.endswith('.pdf') and not link_id.startswith('-') and len(link_id) > 2:
                     links.append(link_id)
             return links
 
@@ -255,13 +274,22 @@ class ZettelMaker:
         parts = line.split(',')
         for part in parts:
             part = part.strip()
-            if part and not part.endswith(':') and not part.endswith('.pdf'):
-                # 檢測舊格式：XXX20251028001 → XXX-20251028-001
-                match = re.match(r'^([A-Za-z]+)(\d{8})(\d{3})$', part)
-                if match:
-                    domain, date, seq = match.groups()
-                    part = f"{domain}-{date}-{seq}"
-                links.append(part)
+            # 過濾無效格式：空字串、只有標點、只有格式符號
+            if not part or part.endswith(':') or part.endswith('.pdf'):
+                continue
+            # 過濾 Markdown 格式符號（例如：- ****, ***, --, 等）
+            if re.match(r'^[\-\*\s]+$', part):
+                continue
+            # 過濾開頭為 '-' 或長度不足的連結
+            if part.startswith('-') or len(part) < 3:
+                continue
+
+            # 檢測舊格式：XXX20251028001 → XXX-20251028-001
+            match = re.match(r'^([A-Za-z]+)(\d{8})(\d{3})$', part)
+            if match:
+                domain, date, seq = match.groups()
+                part = f"{domain}-{date}-{seq}"
+            links.append(part)
 
         return links
 
@@ -280,7 +308,7 @@ class ZettelMaker:
         Returns:
             輸出文件路徑
         """
-        # 合併論文信息
+        # 合併論文信息（優先使用卡片級別的值）
         render_data = {
             **card_data,
             'paper_title': paper_info.get('title', ''),
@@ -289,9 +317,10 @@ class ZettelMaker:
             'citation': paper_info.get('citation', ''),
             'cite_key': paper_info.get('cite_key', ''),
             'created_date': datetime.now().strftime("%Y-%m-%d"),
-            'section': paper_info.get('section', ''),
-            'page_number': paper_info.get('page', ''),
-            'context': paper_info.get('context', ''),
+            # 優先使用卡片級別的來源脈絡信息
+            'section': card_data.get('section') or paper_info.get('section', ''),
+            'page_number': card_data.get('page_number') or paper_info.get('page', ''),
+            'context': card_data.get('context') or paper_info.get('context', ''),
             'confidence': paper_info.get('confidence', '')
         }
 
@@ -386,7 +415,10 @@ class ZettelMaker:
         cards = self.parse_llm_output(llm_output)
 
         if not cards:
-            raise ValueError("無法解析任何卡片，請檢查LLM輸出格式")
+            # 保存原始輸出用於調試
+            debug_file = output_dir.parent / f"debug_llm_output_{output_dir.name}.txt"
+            debug_file.write_text(llm_output, encoding='utf-8')
+            raise ValueError(f"無法解析任何卡片，請檢查LLM輸出格式。原始輸出已保存至: {debug_file}")
 
         # 2. 創建卡片目錄
         cards_dir = output_dir / "zettel_cards"

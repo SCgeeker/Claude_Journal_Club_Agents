@@ -94,8 +94,10 @@ styles:
     id_format: "{domain}-{date}-{seq}"  # 如: NeuroPsy-20251028-001
     default_card_count:
       minimal: 5
+      brief: 8
       standard: 12
       detailed: 20
+      comprehensive: 30  # 預設值，LLM 可生成更多（20-30+張）
     atomic_note_template: |
       每張原子卡片應包含：
       - 語義化ID（領域-日期-序號）

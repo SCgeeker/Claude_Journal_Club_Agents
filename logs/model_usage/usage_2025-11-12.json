@@ -1,0 +1,42 @@
+{
+  "date": "2025-11-12",
+  "models": {
+    "openrouter_deepseek/deepseek-r1": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-r1",
+      "requests": 5,
+      "successful": 5,
+      "failed": 0,
+      "tokens": 19109,
+      "cost": 0.0,
+      "avg_response_time": 153.28800745010375,
+      "task_types": {}
+    },
+    "google_gemini-2.0-flash-exp": {
+      "provider": "google",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 7,
+      "successful": 7,
+      "failed": 0,
+      "tokens": 23498,
+      "cost": 0.0,
+      "avg_response_time": 34.981217418398174,
+      "task_types": {}
+    },
+    "openrouter_meta-llama/llama-3.3-70b-instruct": {
+      "provider": "openrouter",
+      "model": "meta-llama/llama-3.3-70b-instruct",
+      "requests": 2,
+      "successful": 2,
+      "failed": 0,
+      "tokens": 7186,
+      "cost": 0.0,
+      "avg_response_time": 190.3271963596344,
+      "task_types": {}
+    }
+  },
+  "total_cost": 0.0,
+  "total_requests": 14,
+  "total_tokens": 49793,
+  "errors": []
+}
