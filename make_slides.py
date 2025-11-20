@@ -70,6 +70,85 @@ def print_available_options():
     print()
 
 
+def _query_related_cards(
+    paper_content: str,
+    cite_key: str,
+    limit: int = 10
+) -> list:
+    """
+    查詢知識庫中與當前論文相關的卡片（用於跨論文連結）
+
+    策略：
+    1. 使用向量搜索查詢語義相似的卡片
+    2. 排除同一論文的卡片（避免自我引用）
+    3. 返回 Top N 最相關的卡片
+
+    Args:
+        paper_content: 論文內容（用於語義搜索）
+        cite_key: 當前論文 cite_key（用於排除同一論文的卡片）
+        limit: 返回數量上限
+
+    Returns:
+        相關卡片列表，每個卡片包含:
+        - zettel_id: 卡片 ID
+        - title: 卡片標題
+        - core_concept: 核心概念
+        - card_type: 卡片類型
+        - source_paper: 來源論文 cite_key
+    """
+    try:
+        from src.integrations.vector_db import VectorDatabase
+        from src.integrations.embedder import get_embedder
+
+        vector_db = VectorDatabase()
+
+        # 提取論文摘要（前 1000 字）用於查詢
+        query_text = paper_content[:1000] if paper_content else ""
+
+        if not query_text:
+            return []
+
+        # 生成查詢嵌入
+        embedder = get_embedder(provider='google')  # 使用 Gemini embedder
+        query_embedding = embedder.embed(query_text, task_type="retrieval_query")
+
+        # 向量搜索相似卡片（查詢 2 倍數量以便過濾）
+        results = vector_db.semantic_search_zettel(
+            query_embedding=query_embedding,
+            n_results=limit * 2
+        )
+
+        if not results or not results.get('ids') or not results['ids'][0]:
+            return []
+
+        # 過濾並構建結果
+        related_cards = []
+        for i, zettel_id in enumerate(results['ids'][0]):
+            # 排除同一 cite_key 的卡片
+            if not zettel_id.startswith(cite_key):
+                metadata = results['metadatas'][0][i] if results.get('metadatas') else {}
+
+                # 構建卡片數據
+                card = {
+                    'zettel_id': zettel_id,
+                    'title': metadata.get('title', 'Unknown'),
+                    'core_concept': metadata.get('core_concept', ''),
+                    'card_type': metadata.get('card_type', 'concept'),
+                    'source_paper': zettel_id.split('-')[0] if '-' in zettel_id else 'Unknown'
+                }
+
+                related_cards.append(card)
+
+                if len(related_cards) >= limit:
+                    break
+
+        return related_cards
+
+    except Exception as e:
+        print(f"  [WARN] 無法查詢相關卡片: {e}")
+        return []
+
+
 def _get_cite_key_or_fallback(paper_data: dict) -> str:
     """
     獲取論文的 cite_key（嚴格模式）
@@ -371,6 +450,18 @@ def main():
                 # 從 PDF 文件名提取
                 cite_key_for_cards = Path(args.pdf).stem
 
+            # ✅ 查詢知識庫中的相關卡片（用於跨論文連結）
+            print("🔍 查詢知識庫相關概念...")
+            related_cards = _query_related_cards(
+                paper_content=pdf_content,
+                cite_key=cite_key_for_cards,
+                limit=10
+            )
+            if related_cards:
+                print(f"  找到 {len(related_cards)} 個相關概念（將用於建立跨論文連結）")
+            else:
+                print("  未找到相關概念（將只建立論文內連結）")
+
             # 生成prompt
             date_str = datetime.now().strftime("%Y%m%d")
             zettel_prompt = zettel_template.render(
@@ -380,7 +471,8 @@ def main():
                 domain=args.domain,  # 保留 domain（用於 metadata）
                 date=date_str,       # 保留 date（可能用於顯示）
                 cite_key=cite_key_for_cards,  # 新增 cite_key（用於卡片 ID）
-                language=args.language
+                language=args.language,
+                existing_related_cards=related_cards  # ✅ 新增：相關卡片（用於跨論文連結）
             )
 
             # 調用LLM

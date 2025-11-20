@@ -46,7 +46,8 @@
       "Bash(timeout 300 python:*)",
       "WebFetch(domain:help.obsidian.md)",
       "Bash(mkdir:*)",
-      "Bash(timeout 40 sleep:*)"
+      "Bash(timeout 40 sleep:*)",
+      "Bash(set PYTHONIOENCODING=utf-8:*)"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

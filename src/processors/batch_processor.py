@@ -40,6 +40,8 @@ class ProcessResult:
     zettel_dir: Optional[str] = None
     error: Optional[str] = None
     processing_time: float = 0.0
+    zettel_imported_to_db: int = 0  # ✅ 新增：導入到數據庫的卡片數
+    zettel_failed_import: int = 0   # ✅ 新增：導入失敗的卡片數
 
     def to_dict(self) -> dict:
         """轉為字典"""
@@ -347,6 +349,8 @@ class BatchProcessor:
 
             paper_id = None
             zettel_dir = None
+            zettel_imported = 0
+            zettel_failed = 0
 
             # 步驟 1: 分析 PDF 並加入知識庫（如果需要）
             if add_to_kb:
@@ -361,6 +365,37 @@ class BatchProcessor:
                     config=zettel_config
                 )
 
+                # ✅ 步驟 3: 導入 Zettelkasten 卡片到數據庫
+                if zettel_dir and paper_id:
+                    zettel_dir_path = Path(zettel_dir) if not isinstance(zettel_dir, Path) else zettel_dir
+
+                    # 如果 zettel_dir 是字符串路徑，提取目錄名稱
+                    if isinstance(zettel_dir, str):
+                        # 從輸出中提取目錄（例如："output/zettelkasten_notes/zettel_XXX"）
+                        import re
+                        match = re.search(r'(output[/\\]zettelkasten_notes[/\\]zettel_[^/\\]+)', zettel_dir)
+                        if match:
+                            zettel_dir_path = Path(match.group(1))
+                        else:
+                            # 嘗試直接解析
+                            parts = zettel_dir.split()
+                            for part in parts:
+                                if 'zettel_' in part:
+                                    zettel_dir_path = Path(part.strip())
+                                    break
+
+                    if zettel_dir_path and zettel_dir_path.exists():
+                        import_stats = self._import_zettel_to_kb(
+                            zettel_dir_path,
+                            paper_id,
+                            domain
+                        )
+                        zettel_imported = import_stats['imported']
+                        zettel_failed = import_stats['failed']
+                        print(f"  [DB] 已導入 {zettel_imported} 張卡片到數據庫（失敗: {zettel_failed}）")
+                    else:
+                        print(f"  [WARN] Zettelkasten 目錄不存在或無法解析: {zettel_dir}")
+
             processing_time = time.time() - start_time
 
             return ProcessResult(
@@ -368,7 +403,9 @@ class BatchProcessor:
                 success=True,
                 paper_id=paper_id,
                 zettel_dir=zettel_dir,
-                processing_time=processing_time
+                processing_time=processing_time,
+                zettel_imported_to_db=zettel_imported,
+                zettel_failed_import=zettel_failed
             )
 
         except Exception as e:
@@ -476,6 +513,68 @@ class BatchProcessor:
 
         except Exception as e:
             raise RuntimeError(f"生成 Zettelkasten 失敗: {e}")
+
+    def _import_zettel_to_kb(
+        self,
+        zettel_dir: Path,
+        paper_id: int,
+        domain: str
+    ) -> Dict[str, int]:
+        """
+        導入 Zettelkasten 卡片到知識庫
+
+        Args:
+            zettel_dir: Zettelkasten 目錄路徑
+            paper_id: 論文 ID
+            domain: 領域代碼
+
+        Returns:
+            統計結果: {'imported': int, 'failed': int}
+        """
+        from src.knowledge_base import KnowledgeBaseManager
+
+        kb = KnowledgeBaseManager()
+
+        # 定位卡片目錄
+        cards_dir = zettel_dir / 'zettel_cards'
+        if not cards_dir.exists():
+            print(f"  [WARN] 卡片目錄不存在: {cards_dir}")
+            return {'imported': 0, 'failed': 0}
+
+        # 獲取所有卡片文件
+        card_files = list(cards_dir.glob('*.md'))
+        if not card_files:
+            print(f"  [WARN] 未找到卡片文件: {cards_dir}")
+            return {'imported': 0, 'failed': 0}
+
+        imported = 0
+        failed = 0
+
+        for card_file in card_files:
+            try:
+                # 使用 kb.parse_zettel_card() 解析
+                card_data = kb.parse_zettel_card(str(card_file))
+
+                if card_data:
+                    # 導入到數據庫
+                    card_id = kb.add_zettel_card(card_data)
+
+                    # 關聯到論文
+                    if card_id and card_id > 0:
+                        kb.link_zettel_to_paper(card_id, paper_id)
+                        imported += 1
+                    else:
+                        failed += 1
+                        print(f"  [WARN] 卡片導入失敗 (card_id={card_id}): {card_file.name}")
+                else:
+                    failed += 1
+                    print(f"  [WARN] 卡片解析失敗: {card_file.name}")
+
+            except Exception as e:
+                print(f"  [ERROR] 導入卡片時發生錯誤 ({card_file.name}): {e}")
+                failed += 1
+
+        return {'imported': imported, 'failed': failed}
 
     def _find_pdfs(self, path: str) -> List[str]:
         """

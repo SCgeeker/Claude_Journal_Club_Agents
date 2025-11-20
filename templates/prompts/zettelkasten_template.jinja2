@@ -4,8 +4,29 @@
 
 {% if pdf_content %}
 參考論文內容（請優先依據以下論文內容提取原子化概念）：
-{{ pdf_content | truncate(50000) }}
+{{ pdf_content | truncate(40000) }}
 
+{% endif %}
+{% if existing_related_cards and existing_related_cards|length > 0 %}
+---
+
+**知識庫現有相關概念** (供建立跨論文連結參考):
+
+以下是知識庫中與本論文主題相關的現有概念卡片，生成新卡片時可適當建立連結：
+
+{% for card in existing_related_cards %}
+- **[[{{ card.zettel_id }}]]**: {{ card.title }}
+  - 核心: {{ card.core_concept[:150] }}
+  - 類型: {{ card.card_type }}
+  - 來源: {{ card.source_paper }}
+{% endfor %}
+
+**建立跨論文連結指引**:
+- 如果新概念**基於**或**延伸**自上述任何概念，請在「連結網絡」中標註
+- 如果新概念與上述概念**相關**或**對比**，也可建立連結
+- 跨論文連結使用相同格式: `[[zettel_id]]`（例如：`[[Crockett-2025-003]]`）
+
+---
 {% endif %}
 請為論文「{{ topic }}」創建Zettelkasten原子筆記卡片集，共{{ card_count }}張卡片（comprehensive 模式可依需要超過此數量）。
 
