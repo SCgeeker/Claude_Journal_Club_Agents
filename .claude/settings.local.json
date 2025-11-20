@@ -48,7 +48,9 @@
       "Bash(mkdir:*)",
       "Bash(timeout 40 sleep:*)",
       "Bash(set PYTHONIOENCODING=utf-8:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(timeout 600 python:*)",
+      "mcp__sequential-thinking__sequentialthinking"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

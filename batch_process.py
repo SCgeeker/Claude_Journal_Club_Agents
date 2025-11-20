@@ -63,7 +63,7 @@ def main():
         """
     )
 
-    # 輸入來源（二選一）
+    # 輸入來源（三選一）
     input_group = parser.add_mutually_exclusive_group(required=True)
     input_group.add_argument(
         '--folder',
@@ -75,6 +75,24 @@ def main():
         type=str,
         nargs='+',
         help='指定的PDF文件列表'
+    )
+    input_group.add_argument(
+        '--from-bibtex',
+        type=str,
+        help='從 BibTeX 文件讀取（Phase 3：Zotero + Obsidian 整合）'
+    )
+
+    # Phase 3 選項
+    parser.add_argument(
+        '--pdf-index',
+        type=str,
+        help='PDF 索引文件（Phase 3：用於從 BibTeX cite key 解析 PDF 路徑）'
+    )
+
+    parser.add_argument(
+        '--pdf-base-dir',
+        type=str,
+        help='PDF 基礎目錄（Phase 3：覆蓋索引中的路徑）'
     )
 
     # 處理選項
@@ -150,13 +168,85 @@ def main():
 
     args = parser.parse_args()
 
+    # Phase 3: 驗證參數組合
+    if args.from_bibtex and not args.pdf_index:
+        parser.error("--from-bibtex 需要 --pdf-index 參數")
+
     # 準備 PDF 路徑
-    if args.folder:
+    if args.from_bibtex:
+        # Phase 3: 從 BibTeX + PDF index 處理
+        import json
+        import re
+
+        print(f"\n📚 Phase 3: 從 BibTeX 讀取")
+        print(f"   BibTeX: {args.from_bibtex}")
+        print(f"   PDF Index: {args.pdf_index}")
+
+        # 載入 PDF index
+        try:
+            with open(args.pdf_index, 'r', encoding='utf-8') as f:
+                index_data = json.load(f)
+                pdf_index = index_data['index']
+            print(f"   ✅ 載入 PDF 索引: {len(pdf_index)} 個 cite keys")
+        except Exception as e:
+            print(f"\n❌ 錯誤: 無法載入 PDF 索引: {e}")
+            sys.exit(1)
+
+        # 解析 BibTeX 獲取 cite keys
+        try:
+            with open(args.from_bibtex, 'r', encoding='utf-8') as f:
+                bibtex_content = f.read()
+
+            # 提取 cite keys: @article{CiteKey,
+            cite_keys = re.findall(r'@\w+\{([^,]+),', bibtex_content)
+            cite_keys = [ck.strip() for ck in cite_keys if not ck.startswith('%')]
+            print(f"   ✅ 從 BibTeX 提取: {len(cite_keys)} 個 cite keys")
+        except Exception as e:
+            print(f"\n❌ 錯誤: 無法讀取 BibTeX: {e}")
+            sys.exit(1)
+
+        # 從 PDF index 解析 PDF 路徑
+        pdf_paths = []
+        missing_pdfs = []
+
+        for cite_key in cite_keys:
+            if cite_key in pdf_index:
+                entry = pdf_index[cite_key]
+                pdf_path = entry['full_path']
+
+                # 如果指定了 pdf_base_dir，覆蓋路徑
+                if args.pdf_base_dir:
+                    from pathlib import Path
+                    pdf_path = str(Path(args.pdf_base_dir) / entry['filename'])
+
+                pdf_paths.append(pdf_path)
+            else:
+                missing_pdfs.append(cite_key)
+
+        if missing_pdfs:
+            print(f"\n⚠️  警告: {len(missing_pdfs)} 個 cite keys 無法解析:")
+            for ck in missing_pdfs[:5]:
+                print(f"      - {ck}")
+            if len(missing_pdfs) > 5:
+                print(f"      ... 和 {len(missing_pdfs) - 5} 個其他")
+            print()
+
+        if not pdf_paths:
+            print("\n❌ 錯誤: 沒有可處理的 PDF 文件")
+            sys.exit(1)
+
+        print(f"   ✅ 解析成功: {len(pdf_paths)}/{len(cite_keys)} PDFs")
+        print()
+
+    elif args.folder:
         pdf_paths = args.folder
         print(f"\n📁 掃描資料夾: {args.folder}")
     else:
         pdf_paths = args.files
         print(f"\n📄 處理文件: {len(args.files)} 個")
+
+    # Ensure Path is imported for report saving
+    from pathlib import Path
 
     # 準備 Zettelkasten 配置
     zettel_config = None
