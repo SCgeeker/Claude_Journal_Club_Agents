@@ -172,19 +172,21 @@ class ObsidianExporter:
             return self.card_map[card_id]['path']
         return card_id
 
-    def _format_wiki_link(self, card_id: str, use_index_anchor: bool = True) -> str:
-        """格式化 Wiki Link（支持 zettel_index.md 錨點格式）
+    def _format_wiki_link(self, card_id: str, use_alias: bool = True, use_index_anchor: bool = False) -> str:
+        """格式化 Wiki Link（使用直接卡片路徑）
 
         參數:
             card_id: 卡片 ID
-            use_index_anchor: 是否使用 zettel_index.md 錨點格式
+            use_alias: 是否使用別名（|title），在表格中應設為 False 避免管道符號問題
+            use_index_anchor: 已棄用，保留參數以向後相容
 
         返回:
             格式化的 Wiki Link 字符串
 
         範例:
-            簡單格式: [[Abbas-2022-001]]
-            錨點格式: [[zettelkasten_notes/zettel_Abbas-2022_20251104/zettel_index#1. [目標設定理論](zettel_cards/Abbas-2022-001.md)|目標設定理論]]
+            完整格式（use_alias=True）: [[zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-001|目標設定理論]]
+            簡單格式（use_alias=False）: [[zettel_Abbas-2022_20251104/zettel_cards/Abbas-2022-001]]
+            找不到時: [[card_id]]
         """
         if card_id not in self.card_map:
             # 找不到卡片信息，使用簡單格式
@@ -192,17 +194,18 @@ class ObsidianExporter:
 
         card_info = self.card_map[card_id]
         title = card_info['title']
+        card_path = card_info['path']
 
-        if not use_index_anchor or 'index_path' not in card_info:
-            # 簡單格式：直接連結卡片標題
-            return f"[[{title}]]"
+        # 移除 .md 副檔名（Obsidian Wiki Link 不需要副檔名）
+        if card_path.endswith('.md'):
+            card_path = card_path[:-3]
 
-        # 複雜格式：連結到 zettel_index.md 的特定條目
-        index_path = card_info['index_path']
-        index_entry = card_info['index_entry']
-
-        # 格式: [[index_path#條目|顯示標題]]
-        return f"[[{index_path}#{index_entry}|{title}]]"
+        if use_alias:
+            # 完整格式：帶別名的連結（適用於正文）
+            return f"[[{card_path}|{title}]]"
+        else:
+            # 簡單格式：不帶別名（適用於表格，避免管道符號衝突）
+            return f"[[{card_path}]]"
 
     def _get_timestamp(self) -> str:
         """獲取當前時間戳"""
@@ -284,8 +287,9 @@ class ObsidianExporter:
 
                 source_title = self._get_note_title(source_id)
                 target_title = self._get_note_title(target_id)
-                source_link = self._format_wiki_link(source_id, use_index_anchor=True)
-                target_link = self._format_wiki_link(target_id, use_index_anchor=True)
+                # 代碼區塊中使用完整格式（帶別名）
+                source_link = self._format_wiki_link(source_id, use_alias=True)
+                target_link = self._format_wiki_link(target_id, use_alias=True)
 
                 lines.append(f"### {i}. {source_title} → {target_title}\n")
                 lines.append(f"- **信度**: {confidence:.2f} (相似度: {similarity:.2f})")
@@ -341,7 +345,8 @@ class ObsidianExporter:
 
         for i, cent in enumerate(sorted_centralities, 1):
             card_id = cent.node_id
-            wiki_link = self._format_wiki_link(card_id, use_index_anchor=True)
+            # 表格中使用簡單格式（無別名）避免管道符號問題
+            wiki_link = self._format_wiki_link(card_id, use_alias=False)
 
             lines.append(
                 f"| {i} | {wiki_link} | {cent.pagerank:.4f} | "
@@ -362,7 +367,8 @@ class ObsidianExporter:
         lines.append("### Hub 節點（高度連接）\n")
         lines.append("這些概念與許多其他概念相連，是知識網絡的中心。\n")
         for hub in hubs:
-            wiki_link = self._format_wiki_link(hub.node_id, use_index_anchor=True)
+            # 列表項目使用完整格式（帶別名）
+            wiki_link = self._format_wiki_link(hub.node_id, use_alias=True)
             lines.append(f"- {wiki_link} (度: {hub.degree_centrality:.3f})")
 
         # Bridge 節點（高介數中心性）
@@ -370,7 +376,8 @@ class ObsidianExporter:
         lines.append("\n### Bridge 節點（橋接概念）\n")
         lines.append("這些概念連接不同的知識領域，是跨領域整合的關鍵。\n")
         for bridge in bridges:
-            wiki_link = self._format_wiki_link(bridge.node_id, use_index_anchor=True)
+            # 列表項目使用完整格式（帶別名）
+            wiki_link = self._format_wiki_link(bridge.node_id, use_alias=True)
             lines.append(f"- {wiki_link} (介數: {bridge.betweenness_centrality:.3f})")
 
         lines.append("\n---\n")
@@ -419,7 +426,8 @@ class ObsidianExporter:
             lines.append("## 📊 社群統計\n")
             lines.append(f"- **節點數**: {comm.size}")
             lines.append(f"- **密度**: {comm.density:.3f}")
-            hub_link = self._format_wiki_link(comm.hub_node, use_index_anchor=True)
+            # 列表項目使用完整格式（帶別名）
+            hub_link = self._format_wiki_link(comm.hub_node, use_alias=True)
             lines.append(f"- **中心節點**: {hub_link}\n")
 
             # 核心概念
@@ -434,7 +442,8 @@ class ObsidianExporter:
             sorted_nodes = sorted(comm.nodes, key=lambda nid: self._get_note_title(nid))
 
             for node_id in sorted_nodes:
-                wiki_link = self._format_wiki_link(node_id, use_index_anchor=True)
+                # 列表項目使用完整格式（帶別名）
+                wiki_link = self._format_wiki_link(node_id, use_alias=True)
                 lines.append(f"- {wiki_link}")
 
             lines.append("\n---\n")
@@ -498,7 +507,8 @@ class ObsidianExporter:
             # 詳細節點列表
             lines.append("**節點詳情**:\n")
             for j, node_id in enumerate(path.path, 1):
-                wiki_link = self._format_wiki_link(node_id, use_index_anchor=True)
+                # 列表項目使用完整格式（帶別名）
+                wiki_link = self._format_wiki_link(node_id, use_alias=True)
                 lines.append(f"{j}. {wiki_link}")
 
             lines.append("")
