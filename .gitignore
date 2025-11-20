@@ -61,6 +61,8 @@ htmlcov/
 *.db-shm
 *.db-wal
 knowledge_base/backups/
+knowledge_base/index.db       # Exclude full database (contains embargo papers)
+!knowledge_base/index_public.db  # Include public database (examples only)
 chroma_db/
 
 # Logs and temporary files
@@ -99,6 +101,7 @@ Thumbs.db
 .env.production
 .secrets/
 
-# Note: Keep index.db in git (knowledge base is important)
+# Note: Keep index_public.db in git (public examples for demonstration)
+# Note: Exclude index.db from git (contains embargo research papers)
 # Note: Keep output/zettelkasten_notes in git (Zettelkasten output is important)
 # Note: Keep knowledge_base/papers/ in git (paper notes are important)
