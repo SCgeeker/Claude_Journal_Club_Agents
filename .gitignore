@@ -61,6 +61,7 @@ htmlcov/
 *.db-shm
 *.db-wal
 knowledge_base/backups/
+backups/**/*.db                # Exclude all database backups
 knowledge_base/index.db       # Exclude full database (contains embargo papers)
 !knowledge_base/index_public.db  # Include public database (examples only)
 chroma_db/
@@ -73,11 +74,14 @@ temp_*.json
 
 # Large output directories
 output/
-archive/
 downloads/
 *.zip
 *.tar.gz
 *.rar
+
+# Archive tools (keep in git, but exclude large archives)
+archive/**/*.zip
+archive/**/*.tar.gz
 
 # System files
 Thumbs.db
