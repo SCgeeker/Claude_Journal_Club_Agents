@@ -1,0 +1,22 @@
+{
+  "date": "2025-10-31",
+  "models": {
+    "anthropic_claude-3-haiku-20240307": {
+      "provider": "anthropic",
+      "model": "claude-3-haiku-20240307",
+      "requests": 1,
+      "successful": 1,
+      "failed": 0,
+      "tokens": 19,
+      "cost": 1.425e-05,
+      "avg_response_time": 1.7534687519073486,
+      "task_types": {
+        "quick_draft": 1
+      }
+    }
+  },
+  "total_cost": 1.425e-05,
+  "total_requests": 1,
+  "total_tokens": 19,
+  "errors": []
+}

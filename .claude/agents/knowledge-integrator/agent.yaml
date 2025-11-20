@@ -1,0 +1,68 @@
+# Knowledge Base Manager Agent 配置
+# 知識庫管理員Agent - MVP版本
+
+agent:
+  name: knowledge-integrator
+  alias: kb-manager
+  version: "1.0.0-mvp"
+  description: |
+    知識庫管理和整合專家。負責批次處理PDF、質量檢查、
+    Zettelkasten索引和知識搜索等任務。
+
+  type: conversational  # 對話式Agent，會主動詢問參數
+
+  # 核心能力（MVP版本）
+  capabilities:
+    - batch_pdf_processing    # 批次處理PDF
+    - quality_checking        # 質量檢查
+    - zettel_indexing         # Zettelkasten索引
+    - knowledge_search        # 知識搜索
+    - slide_generation        # 簡報生成
+    - note_generation         # 筆記生成
+
+  # 支援的工作流
+  workflows:
+    - batch_import           # 批次導入PDF
+    - quality_audit          # 質量審計
+    - integrate_zettel       # 整合Zettelkasten
+    - search_knowledge       # 搜索知識
+    - generate_slides        # 生成簡報
+    - generate_notes         # 生成筆記
+
+  # 調用的Skills
+  skills:
+    primary:
+      - batch-processor     # 批次處理核心
+      - quality-checker     # 質量檢查核心
+      - zettel-indexer      # Zettelkasten索引（NEW）
+      - zettel-searcher     # Zettelkasten搜索（NEW）
+
+    generation:
+      - slide-maker         # 學術簡報生成
+      - zettel-maker        # Zettelkasten筆記生成
+
+    base:
+      - pdf-extractor       # PDF提取
+      - kb-connector        # 知識庫操作
+
+  # Agent行為配置
+  behavior:
+    interaction_mode: conversational   # 對話式（主動詢問參數）
+    error_handling: graceful          # 優雅處理錯誤，不中斷
+    parameter_collection: interactive # 交互式收集參數
+    confirmation_required: true       # 執行前需確認
+    progress_reporting: enabled       # 啟用進度報告
+
+  # 默認配置
+  defaults:
+    llm_provider: google
+    llm_model: gemini-2.5-flash
+    max_workers: 3
+    timeout: 300
+    encoding: utf-8
+
+  # Phase 2 功能（暫時禁用）
+  future_skills:
+    - relation-finder    # 關係發現（Phase 2）
+    - concept-mapper     # 概念映射（Phase 2）
+    - viz-generator      # 圖表生成（Phase 3）

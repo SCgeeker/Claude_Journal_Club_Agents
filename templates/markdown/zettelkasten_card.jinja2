@@ -1,16 +1,8 @@
 ---
-id: {{ id }}
 title: "{{ title }}"
-tags: [{{ tags|join(', ') }}]
-source: "{{ paper_title }}" ({{ year }})
-paper_id: {{ paper_id }}
-created: {{ created_date }}
-type: {{ card_type }}
+summary: |-
+  {{ core_summary }}
 ---
-
-# {{ title }}
-
-> **核心**: {{ core_summary }}
 
 ## 說明
 {{ detailed_explanation }}
@@ -38,16 +30,14 @@ type: {{ card_type }}
 ## 個人筆記
 
 {% if personal_notes %}
-**[AI Agent]**: {{ personal_notes }}
+{{ personal_notes }}
+{% else %}
+🤖 **AI**:
 
+✍️ **Human**:
 {% endif %}
-**[Human]**: (TODO) <!-- 請在此處添加您的個人思考、批判性評論或延伸想法 -->
 
 {% if open_questions %}
 ## 待解問題
 {{ open_questions }}
 {% endif %}
-
----
-*卡片類型*: {{ card_type }}
-{% if confidence %}*信心度*: {{ confidence }}{% endif %}

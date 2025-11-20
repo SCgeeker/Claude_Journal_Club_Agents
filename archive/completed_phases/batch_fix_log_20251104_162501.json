@@ -1,0 +1,16 @@
+{
+  "success": 15,
+  "failed": 2,
+  "errors": [
+    {
+      "paper_id": 14,
+      "pdf_path": "D:\\core\\Research\\Program_verse\\+\\pdf\\De Koning-2017.pdf",
+      "error": "缺少 cite_key"
+    },
+    {
+      "paper_id": 25,
+      "pdf_path": "D:\\core\\Research\\Program_verse\\+\\pdf\\van Zuijlen-2024.pdf",
+      "error": "缺少 cite_key"
+    }
+  ]
+}

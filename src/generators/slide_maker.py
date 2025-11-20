@@ -10,6 +10,8 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime
+import time
+import yaml as yaml_lib
 
 try:
     from jinja2 import Template
@@ -22,6 +24,21 @@ try:
     YAML_AVAILABLE = True
 except ImportError:
     YAML_AVAILABLE = False
+
+# 嘗試導入模型監控模塊
+try:
+    from src.utils.model_monitor import ModelMonitor
+    MONITOR_AVAILABLE = True
+except ImportError:
+    try:
+        # 備用導入路徑
+        import sys
+        sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+        from src.utils.model_monitor import ModelMonitor
+        MONITOR_AVAILABLE = True
+    except ImportError:
+        MONITOR_AVAILABLE = False
+        ModelMonitor = None
 
 try:
     from pptx import Presentation
@@ -63,7 +80,8 @@ class SlideMaker:
                  styles_config: Optional[str] = None,
                  llm_provider: str = "auto",
                  ollama_url: str = "http://localhost:11434",
-                 api_key: Optional[str] = None):
+                 api_key: Optional[str] = None,
+                 selection_strategy: str = "balanced"):
         """
         初始化投影片生成器
 
@@ -73,6 +91,7 @@ class SlideMaker:
             llm_provider: LLM提供者 (auto/ollama/openai/google/anthropic)
             ollama_url: Ollama API地址
             api_key: API金鑰（OpenAI/Google/Anthropic用）
+            selection_strategy: 模型選擇策略 (balanced/quality_first/cost_first/speed_first)
         """
         if not JINJA2_AVAILABLE:
             raise ImportError("Jinja2 not installed. Run: pip install jinja2")
@@ -86,6 +105,19 @@ class SlideMaker:
         self.llm_provider = llm_provider.lower()
         self.ollama_url = ollama_url
         self.api_key = api_key or os.getenv('LLM_API_KEY')
+        self.selection_strategy = selection_strategy
+
+        # 初始化模型監控器
+        self.model_monitor = None
+        if MONITOR_AVAILABLE:
+            try:
+                self.model_monitor = ModelMonitor()
+            except Exception as e:
+                print(f"⚠️  模型監控器初始化失敗：{e}")
+                self.model_monitor = None
+
+        # 載入模型選擇配置
+        self.model_config = self._load_model_config()
 
         # 載入模板
         if template_path is None:
@@ -97,6 +129,16 @@ class SlideMaker:
         # 載入風格配置
         if styles_config is None:
             styles_config = Path(__file__).parent.parent.parent / "templates" / "styles" / "academic_styles.yaml"
+
+        # 雲端模型推薦配置
+        self.CLOUD_MODEL_RECOMMENDATIONS = {
+            'zettelkasten': 'minimax-m2:cloud',  # 230B，深度思考和概念提取
+            'research_methods': 'minimax-m2:cloud',  # 需要嚴謹分析
+            'literature_review': 'minimax-m2:cloud',  # 需要綜合分析
+            'modern_academic': 'gpt-oss:20b-cloud',  # 平衡效能
+            'teaching': 'phi3.5:cloud',  # 快速清晰的教學內容
+            'default': 'gpt-oss:20b-cloud'  # 通用預設
+        }
 
         with open(styles_config, 'r', encoding='utf-8') as f:
             self.styles_config = yaml.safe_load(f)
@@ -171,9 +213,12 @@ class SlideMaker:
         return prompt
 
     def _init_llm_clients(self):
-        """初始化LLM客戶端"""
+        """初始化LLM客戶端（僅初始化指定的provider）"""
+        # 只有在 auto 模式或明確指定時才初始化對應的客戶端
+        # 這避免了不必要的 API 初始化和錯誤
+
         # Google Gemini
-        if GOOGLE_AVAILABLE and (self.api_key or os.getenv('GOOGLE_API_KEY')):
+        if (self.llm_provider in ["auto", "google"]) and GOOGLE_AVAILABLE and (self.api_key or os.getenv('GOOGLE_API_KEY')):
             try:
                 genai.configure(api_key=self.api_key or os.getenv('GOOGLE_API_KEY'))
                 self.google_client = genai
@@ -183,7 +228,7 @@ class SlideMaker:
             self.google_client = None
 
         # OpenAI
-        if OPENAI_AVAILABLE and (self.api_key or os.getenv('OPENAI_API_KEY')):
+        if (self.llm_provider in ["auto", "openai"]) and OPENAI_AVAILABLE and (self.api_key or os.getenv('OPENAI_API_KEY')):
             try:
                 self.openai_client = openai.OpenAI(api_key=self.api_key or os.getenv('OPENAI_API_KEY'))
             except Exception:
@@ -192,13 +237,115 @@ class SlideMaker:
             self.openai_client = None
 
         # Anthropic Claude
-        if ANTHROPIC_AVAILABLE and (self.api_key or os.getenv('ANTHROPIC_API_KEY')):
+        if (self.llm_provider in ["auto", "anthropic"]) and ANTHROPIC_AVAILABLE and (self.api_key or os.getenv('ANTHROPIC_API_KEY')):
             try:
                 self.anthropic_client = anthropic.Anthropic(api_key=self.api_key or os.getenv('ANTHROPIC_API_KEY'))
             except Exception:
                 self.anthropic_client = None
         else:
             self.anthropic_client = None
+
+        # OpenRouter: 不需要客戶端初始化，直接使用 requests + OPENROUTER_API_KEY
+        # 檢測在 _detect_available_providers() 中通過環境變數完成
+
+    def _load_model_config(self) -> Dict:
+        """載入模型選擇配置"""
+        config_path = Path(__file__).parent.parent.parent / "config" / "model_selection.yaml"
+        if config_path.exists():
+            try:
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    return yaml.safe_load(f)
+            except Exception as e:
+                print(f"⚠️  載入模型配置失敗：{e}")
+        return {}
+
+    def _select_best_model(self, task_type: Optional[str] = None,
+                          style: Optional[str] = None) -> Tuple[str, str]:
+        """
+        智能選擇最佳模型
+
+        Args:
+            task_type: 任務類型（zettelkasten/academic_slides等）
+            style: 學術風格
+
+        Returns:
+            (provider, model_name) 元組
+        """
+        if not self.model_config:
+            # 沒有配置，使用默認
+            return self._get_default_model()
+
+        # 獲取可用的提供者
+        available_providers = self._detect_available_providers()
+        if not available_providers:
+            raise RuntimeError("沒有可用的LLM提供者")
+
+        # 根據風格獲取推薦模型
+        candidates = []
+        if style and "style_model_mapping" in self.model_config:
+            style_mapping = self.model_config["style_model_mapping"].get(style, {})
+            candidates.extend(style_mapping.get("preferred", []))
+            candidates.extend(style_mapping.get("fallback", []))
+            avoid = style_mapping.get("avoid", [])
+        elif task_type and "task_model_mapping" in self.model_config:
+            task_mapping = self.model_config["task_model_mapping"].get(task_type, {})
+            candidates.extend(task_mapping.get("preferred", []))
+            candidates.extend(task_mapping.get("fallback", []))
+            avoid = task_mapping.get("avoid", [])
+        else:
+            # 使用優先級順序
+            models = self.model_config.get("models", {})
+            sorted_models = sorted(models.items(),
+                                 key=lambda x: x[1].get("priority", 999))
+            candidates = [m[0] for m in sorted_models]
+            avoid = []
+
+        # 選擇第一個可用的模型
+        for model_id in candidates:
+            if model_id in avoid:
+                continue
+
+            model_info = self.model_config.get("models", {}).get(model_id)
+            if not model_info:
+                continue
+
+            provider = model_info.get("provider")
+            model_name = model_info.get("model_name")
+
+            # 檢查提供者是否可用
+            if provider not in available_providers:
+                continue
+
+            # 檢查配額（如果有監控器）
+            if self.model_monitor:
+                quota_status = self.model_monitor.check_quota_status(provider, model_name)
+                if quota_status.get("exceeded", False):
+                    continue
+
+                # 檢查成本限制
+                cost_status = self.model_monitor.check_cost_status()
+                if cost_status.get("controlled") and cost_status["session"].get("exceeded"):
+                    # 成本超限，選擇免費模型
+                    if not model_info.get("free_quota", False):
+                        continue
+
+            print(f"🎯 智能選擇模型：{model_id} ({provider}/{model_name})")
+            return provider, model_name
+
+        # 沒有找到合適的，使用默認
+        return self._get_default_model()
+
+    def _get_default_model(self) -> Tuple[str, str]:
+        """獲取默認模型"""
+        available = self._detect_available_providers()
+        if "google" in available:
+            return "google", "gemini-2.0-flash-exp"
+        elif "anthropic" in available:
+            return "anthropic", "claude-3-haiku-20240307"
+        elif "ollama" in available:
+            return "ollama", "gpt-oss:20b-cloud"
+        else:
+            raise RuntimeError("沒有可用的LLM提供者")
 
     def _check_ollama_health(self) -> bool:
         """檢查Ollama服務健康狀態"""
@@ -228,13 +375,20 @@ class SlideMaker:
         if self.anthropic_client:
             providers.append('anthropic')
 
+        # 檢查 OpenRouter
+        if os.getenv('OPENROUTER_API_KEY'):
+            providers.append('openrouter')
+
         return providers
 
     def call_llm(self,
                  prompt: str,
                  model: Optional[str] = None,
                  provider: Optional[str] = None,
-                 timeout: int = 300) -> Tuple[str, str]:
+                 timeout: int = 300,
+                 task_type: Optional[str] = None,
+                 style: Optional[str] = None,
+                 max_tokens: int = 4096) -> Tuple[str, str]:
         """
         統一的LLM調用接口，支援多後端和自動fallback
 
@@ -243,20 +397,23 @@ class SlideMaker:
             model: 模型名稱
             provider: 指定LLM提供者（可選，None則自動選擇）
             timeout: 超時時間（秒）
+            task_type: 任務類型（用於智能選擇）
+            style: 學術風格（用於智能選擇）
+            max_tokens: 最大生成 tokens 數（僅 OpenRouter，默認 4096）
 
         Returns:
             (生成的內容, 使用的provider)
         """
-        # 決定使用的provider
+        # 決定使用的provider和model
+        actual_model = model
         if provider is None:
             if self.llm_provider == "auto":
-                available = self._detect_available_providers()
-                if not available:
-                    raise RuntimeError("沒有可用的LLM提供者。請檢查：\n"
-                                     "1. Ollama服務是否運行\n"
-                                     "2. 是否設置了API金鑰環境變數（GOOGLE_API_KEY/OPENAI_API_KEY/ANTHROPIC_API_KEY）")
-                provider = available[0]  # 使用第一個可用的
-                print(f"🤖 自動選擇LLM提供者：{provider}")
+                # 使用智能選擇
+                selected_provider, selected_model = self._select_best_model(task_type, style)
+                provider = selected_provider
+                if not model:  # 如果沒有指定模型，使用智能選擇的
+                    actual_model = selected_model
+                print(f"🤖 智能選擇：{provider}/{actual_model}")
             else:
                 provider = self.llm_provider
 
@@ -270,24 +427,65 @@ class SlideMaker:
         # 嘗試調用LLM（帶fallback）
         last_error = None
         for attempt_provider in fallback_chain:
+            start_time = time.time()
             try:
+                # 根據提供者調用對應的方法
                 if attempt_provider == 'ollama':
-                    result = self.call_ollama(prompt, model or "gemmapro:latest", timeout)
-                    return result, 'ollama'
-
+                    used_model = actual_model or "gpt-oss:20b-cloud"
+                    result = self.call_ollama(prompt, used_model, timeout)
                 elif attempt_provider == 'google':
-                    result = self.call_google(prompt, model or "gemini-pro")
-                    return result, 'google'
-
+                    used_model = actual_model or "gemini-2.0-flash-exp"
+                    result = self.call_google(prompt, used_model)
                 elif attempt_provider == 'openai':
-                    result = self.call_openai(prompt, model or "gpt-3.5-turbo")
-                    return result, 'openai'
-
+                    used_model = actual_model or "gpt-3.5-turbo"
+                    result = self.call_openai(prompt, used_model)
                 elif attempt_provider == 'anthropic':
-                    result = self.call_anthropic(prompt, model or "claude-3-sonnet-20240229")
-                    return result, 'anthropic'
+                    used_model = actual_model or "claude-3-haiku-20240307"
+                    result = self.call_anthropic(prompt, used_model)
+                elif attempt_provider == 'openrouter':
+                    used_model = actual_model or "anthropic/claude-3.5-sonnet"
+                    result = self.call_openrouter(prompt, used_model, timeout, max_tokens)
+                else:
+                    continue
+
+                # 計算響應時間
+                response_time = time.time() - start_time
+
+                # 追蹤使用情況（如果有監控器）
+                if self.model_monitor:
+                    # 估算token數（簡單估算：字元數/4）
+                    estimated_tokens = (len(prompt) + len(result)) // 4
+                    usage_info = self.model_monitor.track_usage(
+                        model_name=used_model,
+                        provider=attempt_provider,
+                        tokens_used=estimated_tokens,
+                        response_time=response_time,
+                        success=True,
+                        task_type=task_type
+                    )
+
+                    # 檢查是否需要切換模型
+                    if usage_info.get("quota_status", {}).get("warning"):
+                        print(f"⚠️  配額警告：{used_model} 使用量接近限制")
+                    if usage_info.get("cost_status", {}).get("session", {}).get("warning"):
+                        print(f"💰 成本警告：當前會話成本 ${usage_info['session_cost']:.2f}")
+
+                return result, attempt_provider
 
             except Exception as e:
+                # 追蹤失敗（如果有監控器）
+                if self.model_monitor:
+                    response_time = time.time() - start_time
+                    self.model_monitor.track_usage(
+                        model_name=actual_model or "unknown",
+                        provider=attempt_provider,
+                        tokens_used=0,
+                        response_time=response_time,
+                        success=False,
+                        task_type=task_type,
+                        error_message=str(e)
+                    )
+
                 last_error = e
                 if len(fallback_chain) > 1:
                     print(f"⚠️  {attempt_provider} 失敗：{str(e)}")
@@ -300,19 +498,92 @@ class SlideMaker:
 
     def call_ollama(self,
                    prompt: str,
-                   model: str = "gemma2:latest",
+                   model: str = "gpt-oss:20b-cloud",
                    timeout: int = 300) -> str:
         """
-        調用Ollama API生成內容
+        調用Ollama API生成內容（支援本地和雲端模型）
 
         Args:
             prompt: 提示詞
-            model: 模型名稱
+            model: 模型名稱（支援 :cloud 後綴的雲端模型）
             timeout: 超時時間（秒）
 
         Returns:
             生成的內容
+
+        支援的雲端模型：
+            - minimax-m2:cloud (230B, 支援thinking) - 僅CLI
+            - gpt-oss:20b-cloud (20B)
+            - qwen2.5-coder:cloud (3.1B, 程式碼分析)
+            - phi3.5:cloud (3.8B, 通用任務)
         """
+        # 特殊處理 MiniMax-M2:cloud - 使用CLI方式
+        if model.lower() == "minimax-m2:cloud":
+            import subprocess
+            import tempfile
+            import os
+
+            try:
+                # 將prompt寫入臨時文件以避免命令行長度限制
+                with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt', encoding='utf-8') as f:
+                    f.write(prompt)
+                    temp_file = f.name
+
+                # 使用ollama CLI運行
+                cmd = f'type "{temp_file}" | ollama run {model}'
+
+                result = subprocess.run(
+                    cmd,
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                    encoding='utf-8',
+                    errors='ignore',  # 忽略編碼錯誤
+                    timeout=timeout
+                )
+
+                # 清理臨時文件
+                try:
+                    os.unlink(temp_file)
+                except:
+                    pass
+
+                if result.returncode != 0:
+                    raise RuntimeError(f"Ollama CLI failed: {result.stderr}")
+
+                # 返回輸出，移除thinking部分和ANSI控制字符
+                output = result.stdout
+
+                # 移除ANSI轉義序列
+                import re
+                ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+                output = ansi_escape.sub('', output)
+
+                # 提取thinking之後的實際回應
+                if "Thinking..." in output:
+                    # 找到"...done thinking."之後的內容
+                    if "...done thinking." in output:
+                        parts = output.split("...done thinking.")
+                        if len(parts) > 1:
+                            output = parts[1].strip()
+                    elif "done thinking" in output:
+                        parts = output.split("done thinking")
+                        if len(parts) > 1:
+                            output = parts[1].strip()
+
+                # 清理殘留的控制字符
+                output = re.sub(r'\[.*?\]', '', output)
+                output = re.sub(r'[⠙⠹⠸⠴⠦⠧⠏⠋]', '', output)
+                output = output.strip()
+
+                return output.strip()
+
+            except subprocess.TimeoutExpired:
+                raise RuntimeError(f"Ollama CLI timeout after {timeout} seconds")
+            except Exception as e:
+                raise RuntimeError(f"Ollama CLI execution failed: {e}")
+
+        # 其他模型使用API方式
         api_endpoint = f"{self.ollama_url}/api/generate"
 
         payload = {
@@ -412,6 +683,62 @@ class SlideMaker:
             return response.content[0].text
         except Exception as e:
             raise RuntimeError(f"Anthropic Claude API call failed: {e}")
+
+    def call_openrouter(self,
+                       prompt: str,
+                       model: str = "anthropic/claude-3.5-sonnet",
+                       timeout: int = 300,
+                       max_tokens: int = 4096) -> str:
+        """
+        調用 OpenRouter API 生成內容
+
+        Args:
+            prompt: 提示詞
+            model: 模型名稱（例如: anthropic/claude-3.5-sonnet）
+            timeout: 超時時間（秒）
+            max_tokens: 最大生成 tokens 數（默認 4096）
+
+        Returns:
+            生成的內容
+
+        支援的模型範例：
+            - anthropic/claude-3.5-sonnet (推薦用於 Zettelkasten)
+            - anthropic/claude-3-haiku (快速經濟)
+            - google/gemini-2.0-flash-exp (免費)
+        """
+        api_key = os.getenv('OPENROUTER_API_KEY')
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY not set. Please add it to .env file")
+
+        url = "https://openrouter.ai/api/v1/chat/completions"
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "HTTP-Referer": "https://github.com/claude-lit-workflow",
+            "X-Title": "Claude Lit Workflow - Zettelkasten Generator"
+        }
+
+        data = {
+            "model": model,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "max_tokens": max_tokens
+        }
+
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=timeout)
+            response.raise_for_status()
+
+            result = response.json()
+            return result['choices'][0]['message']['content']
+
+        except requests.exceptions.Timeout:
+            raise RuntimeError(f"OpenRouter API call timeout after {timeout}s")
+        except requests.exceptions.RequestException as e:
+            raise RuntimeError(f"OpenRouter API call failed: {e}")
+        except (KeyError, IndexError) as e:
+            raise RuntimeError(f"Failed to parse OpenRouter response: {e}")
 
     def parse_slides(self, content: str) -> List[Dict[str, str]]:
         """

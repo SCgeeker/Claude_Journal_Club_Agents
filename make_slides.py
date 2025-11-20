@@ -10,10 +10,10 @@ import argparse
 from pathlib import Path
 
 # 設置UTF-8編碼（Windows相容性）
-if sys.platform == 'win32':
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+# if sys.platform == 'win32':
+#     import io
+#     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+#     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # 添加src到路徑
 sys.path.insert(0, str(Path(__file__).parent / 'src'))
@@ -68,6 +68,112 @@ def print_available_options():
     for key, desc in AVAILABLE_LANGUAGES.items():
         print(f"   • {key:15s} - {desc}")
     print()
+
+
+def _query_related_cards(
+    paper_content: str,
+    cite_key: str,
+    limit: int = 10
+) -> list:
+    """
+    查詢知識庫中與當前論文相關的卡片（用於跨論文連結）
+
+    策略：
+    1. 使用向量搜索查詢語義相似的卡片
+    2. 排除同一論文的卡片（避免自我引用）
+    3. 返回 Top N 最相關的卡片
+
+    Args:
+        paper_content: 論文內容（用於語義搜索）
+        cite_key: 當前論文 cite_key（用於排除同一論文的卡片）
+        limit: 返回數量上限
+
+    Returns:
+        相關卡片列表，每個卡片包含:
+        - zettel_id: 卡片 ID
+        - title: 卡片標題
+        - core_concept: 核心概念
+        - card_type: 卡片類型
+        - source_paper: 來源論文 cite_key
+    """
+    try:
+        from src.integrations.vector_db import VectorDatabase
+        from src.integrations.embedder import get_embedder
+
+        vector_db = VectorDatabase()
+
+        # 提取論文摘要（前 1000 字）用於查詢
+        query_text = paper_content[:1000] if paper_content else ""
+
+        if not query_text:
+            return []
+
+        # 生成查詢嵌入
+        embedder = get_embedder(provider='google')  # 使用 Gemini embedder
+        query_embedding = embedder.embed(query_text, task_type="retrieval_query")
+
+        # 向量搜索相似卡片（查詢 2 倍數量以便過濾）
+        results = vector_db.semantic_search_zettel(
+            query_embedding=query_embedding,
+            n_results=limit * 2
+        )
+
+        if not results or not results.get('ids') or not results['ids'][0]:
+            return []
+
+        # 過濾並構建結果
+        related_cards = []
+        for i, zettel_id in enumerate(results['ids'][0]):
+            # 排除同一 cite_key 的卡片
+            if not zettel_id.startswith(cite_key):
+                metadata = results['metadatas'][0][i] if results.get('metadatas') else {}
+
+                # 構建卡片數據
+                card = {
+                    'zettel_id': zettel_id,
+                    'title': metadata.get('title', 'Unknown'),
+                    'core_concept': metadata.get('core_concept', ''),
+                    'card_type': metadata.get('card_type', 'concept'),
+                    'source_paper': zettel_id.split('-')[0] if '-' in zettel_id else 'Unknown'
+                }
+
+                related_cards.append(card)
+
+                if len(related_cards) >= limit:
+                    break
+
+        return related_cards
+
+    except Exception as e:
+        print(f"  [WARN] 無法查詢相關卡片: {e}")
+        return []
+
+
+def _get_cite_key_or_fallback(paper_data: dict) -> str:
+    """
+    獲取論文的 cite_key（嚴格模式）
+
+    Args:
+        paper_data: 論文資料字典（必須包含 cite_key）
+
+    Returns:
+        cite_key 字串
+
+    Raises:
+        ValueError: 如果缺少 cite_key
+    """
+    # ⭐ 只接受資料庫中的 cite_key，不提供備用方案
+    if paper_data.get('cite_key') and paper_data['cite_key'].strip():
+        return paper_data['cite_key'].strip()
+
+    # ❌ 不再提供備用生成
+    paper_id = paper_data.get('id', '未知')
+    raise ValueError(
+        f"\n論文 ID {paper_id} 缺少 cite_key。\n"
+        f"請執行以下命令修正：\n"
+        f"  1. python kb_manage.py check-cite-keys\n"
+        f"  2. python kb_manage.py update-from-bib 'My Library.bib'\n"
+    )
 
 
 def main():
@@ -128,8 +234,8 @@ def main():
                        help='輸出格式：pptx(PowerPoint)、markdown或both（預設：pptx）')
     parser.add_argument('--domain', type=str, default='Research',
                        help='領域代碼（Zettelkasten用，如NeuroPsy、AI、CompBio等，預設：Research）')
-    parser.add_argument('--model', type=str, default='gemma2:latest',
-                       help='LLM模型名稱（預設：gemma2:latest）')
+    parser.add_argument('--model', type=str, default=None,
+                       help='LLM模型名稱（預設：None，使用智能選擇）')
     parser.add_argument('--llm-provider', type=str, default='auto',
                        choices=['auto', 'ollama', 'google', 'openai', 'anthropic'],
                        help='LLM提供者（預設：auto自動選擇）')
@@ -140,6 +246,13 @@ def main():
     parser.add_argument('--custom', type=str, help='自訂要求（可選）')
     parser.add_argument('--list-options', action='store_true',
                        help='列出所有可用的風格、詳細程度和語言選項')
+
+    # 自動模型選擇參數
+    parser.add_argument('--selection-strategy', type=str, default='balanced',
+                       choices=['balanced', 'quality_first', 'cost_first', 'speed_first'],
+                       help='模型選擇策略：balanced(平衡)、quality_first(品質優先)、cost_first(成本優先)、speed_first(速度優先)，預設：balanced')
+    parser.add_argument('--usage-report', action='store_true',
+                       help='生成使用報告（每日和週報）')
 
     args = parser.parse_args()
 
@@ -174,6 +287,8 @@ def main():
     print(f"投影片數：{args.slides}")
     print(f"LLM模型：{args.model}")
     print(f"LLM提供者：{args.llm_provider}")
+    if args.llm_provider == 'auto':
+        print(f"選擇策略：{args.selection_strategy}")
 
     if args.from_kb:
         print(f"知識庫來源：論文ID {args.from_kb}")
@@ -192,12 +307,14 @@ def main():
         maker = SlideMaker(
             llm_provider=args.llm_provider,
             ollama_url=args.ollama_url,
-            api_key=args.api_key
+            api_key=args.api_key,
+            selection_strategy=args.selection_strategy
         )
 
         # 準備內容和主題
         pdf_content = None
         effective_topic = args.topic
+        paper_data = None  # 儲存論文資訊供後續使用
 
         # 情況1：從知識庫讀取論文
         if args.from_kb:
@@ -211,6 +328,7 @@ def main():
                 print("💡 提示：使用 'python kb_manage.py list' 查看所有論文")
                 return 1
 
+            paper_data = paper  # 保存論文資訊供後續使用
             effective_topic = paper['title']
 
             # 讀取 Markdown 筆記內容（結構化）
@@ -324,15 +442,37 @@ def main():
             style_config = zettel_maker.styles_config['styles']['zettelkasten']
             card_count = style_config['default_card_count'].get(args.detail, 12)
 
+            # 獲取 cite_key（用於卡片 ID）
+            cite_key_for_cards = "Unknown"  # 默認值
+            if args.from_kb and paper_data:
+                cite_key_for_cards = _get_cite_key_or_fallback(paper_data)
+            elif args.pdf:
+                # 從 PDF 文件名提取
+                cite_key_for_cards = Path(args.pdf).stem
+
+            # ✅ 查詢知識庫中的相關卡片（用於跨論文連結）
+            print("🔍 查詢知識庫相關概念...")
+            related_cards = _query_related_cards(
+                paper_content=pdf_content,
+                cite_key=cite_key_for_cards,
+                limit=10
+            )
+            if related_cards:
+                print(f"  找到 {len(related_cards)} 個相關概念（將用於建立跨論文連結）")
+            else:
+                print("  未找到相關概念（將只建立論文內連結）")
+
             # 生成prompt
             date_str = datetime.now().strftime("%Y%m%d")
             zettel_prompt = zettel_template.render(
                 topic=effective_topic,
                 pdf_content=pdf_content,
                 card_count=card_count,
-                domain=args.domain,
-                date=date_str,
-                language=args.language
+                domain=args.domain,  # 保留 domain（用於 metadata）
+                date=date_str,       # 保留 date（可能用於顯示）
+                cite_key=cite_key_for_cards,  # 新增 cite_key（用於卡片 ID）
+                language=args.language,
+                existing_related_cards=related_cards  # ✅ 新增：相關卡片（用於跨論文連結）
             )
 
             # 調用LLM
@@ -341,14 +481,43 @@ def main():
             print(f"✅ 使用 {used_provider} 生成完成")
 
             # 解析並生成卡片
-            output_dir = Path(args.output) if args.output else Path(f"output/zettel_{args.domain}_{date_str}")
-            paper_info = {
-                'title': effective_topic,
-                'authors': '',
-                'year': datetime.now().year,
-                'paper_id': args.from_kb if args.from_kb else '',
-                'citation': effective_topic
-            }
+            # 資料夾命名策略：優先使用 paper_id + short_title + domain（確保唯一性和可追溯性）
+            if args.output:
+                # 使用者指定輸出路徑
+                output_dir = Path(args.output)
+            elif args.from_kb and paper_data:
+                # 從知識庫：使用 cite_key + date（移除 domain，保留在 metadata 中）
+                # ⭐ 優先使用原始 bibtex cite_key
+                cite_key = _get_cite_key_or_fallback(paper_data)
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{cite_key}_{date_str}")
+            elif args.pdf:
+                # 從PDF檔案：使用PDF檔名
+                pdf_stem = Path(args.pdf).stem
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{pdf_stem}_{date_str}")
+            else:
+                # 回退：使用domain（僅當無法確定來源時）
+                output_dir = Path(f"output/zettelkasten_notes/zettel_{args.domain}_{date_str}")
+            # 準備論文資訊（優先使用 paper_data）
+            if paper_data:
+                paper_info = {
+                    'title': paper_data['title'],
+                    'authors': ', '.join(paper_data.get('authors', [])),
+                    'year': paper_data.get('year', datetime.now().year),
+                    'paper_id': args.from_kb if args.from_kb else '',
+                    'cite_key': paper_data.get('cite_key', ''),
+                    'citation': paper_data['title']
+                }
+            else:
+                # 從 PDF 文件名提取 cite_key
+                pdf_cite_key = Path(args.pdf).stem if args.pdf else ''
+                paper_info = {
+                    'title': effective_topic,
+                    'authors': '',
+                    'year': datetime.now().year,
+                    'paper_id': args.from_kb if args.from_kb else '',
+                    'cite_key': pdf_cite_key,
+                    'citation': effective_topic
+                }
 
             result = zettel_maker.generate_zettelkasten(
                 llm_output=llm_output,
@@ -429,6 +598,31 @@ def main():
                 print("-" * 70)
                 print(result['llm_output'][:300] + "...")
                 print("-" * 70)
+
+        # 生成使用報告（如果請求）
+        if args.usage_report:
+            print("\n" + "=" * 70)
+            print("📊 生成使用報告...")
+            print("=" * 70)
+
+            from utils.usage_reporter import UsageReporter
+            reporter = UsageReporter()
+
+            # 生成今日報告
+            daily_report = reporter.generate_daily_report()
+            print("\n今日使用報告：")
+            print("-" * 70)
+            print(daily_report)
+
+            # 保存報告
+            from datetime import datetime
+            date_str = datetime.now().strftime('%Y%m%d')
+            reporter.save_report(daily_report, f"daily_{date_str}.md")
+
+            # 生成週報告
+            weekly_report = reporter.generate_weekly_report()
+            reporter.save_report(weekly_report, f"weekly_{date_str}.md")
+            print("\n✅ 報告已保存到 logs/model_usage/reports/ 目錄")
 
         return 0
 

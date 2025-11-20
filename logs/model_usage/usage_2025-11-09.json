@@ -1,0 +1,225 @@
+{
+  "date": "2025-11-09",
+  "models": {
+    "google_gemini-2.0-flash-exp": {
+      "provider": "google",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 9,
+      "successful": 8,
+      "failed": 1,
+      "tokens": 43776,
+      "cost": 0.0,
+      "avg_response_time": 31.497430271572536,
+      "task_types": {}
+    },
+    "openrouter_anthropic/claude-3-haiku": {
+      "provider": "openrouter",
+      "model": "anthropic/claude-3-haiku",
+      "requests": 1,
+      "successful": 1,
+      "failed": 0,
+      "tokens": 42,
+      "cost": 0.0,
+      "avg_response_time": 2.316450595855713,
+      "task_types": {}
+    },
+    "openrouter_google/gemini-2.0-flash-exp:free": {
+      "provider": "openrouter",
+      "model": "google/gemini-2.0-flash-exp:free",
+      "requests": 4,
+      "successful": 0,
+      "failed": 4,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 2.024019420146942,
+      "task_types": {}
+    },
+    "ollama_google/gemini-2.0-flash-exp:free": {
+      "provider": "ollama",
+      "model": "google/gemini-2.0-flash-exp:free",
+      "requests": 4,
+      "successful": 0,
+      "failed": 4,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.025067508220672607,
+      "task_types": {}
+    },
+    "openrouter_deepseek/deepseek-r1:free": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-r1:free",
+      "requests": 3,
+      "successful": 0,
+      "failed": 3,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 1.8929088115692139,
+      "task_types": {}
+    },
+    "ollama_deepseek/deepseek-r1:free": {
+      "provider": "ollama",
+      "model": "deepseek/deepseek-r1:free",
+      "requests": 3,
+      "successful": 0,
+      "failed": 3,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.024822155634562176,
+      "task_types": {}
+    },
+    "openrouter_meta-llama/llama-3.3-70b-instruct:free": {
+      "provider": "openrouter",
+      "model": "meta-llama/llama-3.3-70b-instruct:free",
+      "requests": 2,
+      "successful": 0,
+      "failed": 2,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 5.669450521469116,
+      "task_types": {}
+    },
+    "ollama_meta-llama/llama-3.3-70b-instruct:free": {
+      "provider": "ollama",
+      "model": "meta-llama/llama-3.3-70b-instruct:free",
+      "requests": 2,
+      "successful": 0,
+      "failed": 2,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.04388022422790527,
+      "task_types": {}
+    },
+    "ollama_gemini-2.0-flash-exp": {
+      "provider": "ollama",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 1,
+      "successful": 0,
+      "failed": 1,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 0.04662775993347168,
+      "task_types": {}
+    },
+    "openrouter_gemini-2.0-flash-exp": {
+      "provider": "openrouter",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 1,
+      "successful": 0,
+      "failed": 1,
+      "tokens": 0,
+      "cost": 0.0,
+      "avg_response_time": 1.5144989490509033,
+      "task_types": {}
+    }
+  },
+  "total_cost": 0.0,
+  "total_requests": 30,
+  "total_tokens": 43818,
+  "errors": [
+    {
+      "time": "2025-11-09T17:18:22.497122",
+      "model": "openrouter_google/gemini-2.0-flash-exp:free",
+      "error": "OPENROUTER_API_KEY not set. Please add it to .env file"
+    },
+    {
+      "time": "2025-11-09T17:18:22.520109",
+      "model": "ollama_google/gemini-2.0-flash-exp:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:18:22.628179",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OPENROUTER_API_KEY not set. Please add it to .env file"
+    },
+    {
+      "time": "2025-11-09T17:18:22.658392",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:18:22.767714",
+      "model": "openrouter_meta-llama/llama-3.3-70b-instruct:free",
+      "error": "OPENROUTER_API_KEY not set. Please add it to .env file"
+    },
+    {
+      "time": "2025-11-09T17:18:22.797718",
+      "model": "ollama_meta-llama/llama-3.3-70b-instruct:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:19:05.224052",
+      "model": "openrouter_google/gemini-2.0-flash-exp:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T17:19:05.255198",
+      "model": "ollama_google/gemini-2.0-flash-exp:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:19:08.934066",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T17:19:08.968031",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:19:20.437206",
+      "model": "openrouter_meta-llama/llama-3.3-70b-instruct:free",
+      "error": "OpenRouter API call failed: Response ended prematurely"
+    },
+    {
+      "time": "2025-11-09T17:19:20.498639",
+      "model": "ollama_meta-llama/llama-3.3-70b-instruct:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:21:22.684707",
+      "model": "openrouter_google/gemini-2.0-flash-exp:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T17:21:22.705581",
+      "model": "ollama_google/gemini-2.0-flash-exp:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T17:23:32.990548",
+      "model": "openrouter_deepseek/deepseek-r1:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T17:23:33.005141",
+      "model": "ollama_deepseek/deepseek-r1:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T20:42:18.004744",
+      "model": "google_gemini-2.0-flash-exp",
+      "error": "Google Gemini not available. Install: pip install google-generativeai"
+    },
+    {
+      "time": "2025-11-09T20:42:18.052656",
+      "model": "ollama_gemini-2.0-flash-exp",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    },
+    {
+      "time": "2025-11-09T20:42:19.571730",
+      "model": "openrouter_gemini-2.0-flash-exp",
+      "error": "OpenRouter API call failed: 400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T20:43:29.327635",
+      "model": "openrouter_google/gemini-2.0-flash-exp:free",
+      "error": "OpenRouter API call failed: 429 Client Error: Too Many Requests for url: https://openrouter.ai/api/v1/chat/completions"
+    },
+    {
+      "time": "2025-11-09T20:43:29.365319",
+      "model": "ollama_google/gemini-2.0-flash-exp:free",
+      "error": "Ollama API call failed: 404 Client Error: Not Found for url: http://localhost:11434/api/generate"
+    }
+  ]
+}

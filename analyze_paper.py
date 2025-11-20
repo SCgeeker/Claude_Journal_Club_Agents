@@ -23,6 +23,17 @@ sys.path.insert(0, str(Path(__file__).parent))
 from src.extractors import PDFExtractor
 from src.knowledge_base import KnowledgeBaseManager
 
+# 導入質量檢查和修復工具
+try:
+    from src.checkers.quality_checker import QualityChecker
+except ImportError:
+    QualityChecker = None
+
+try:
+    from fix_metadata import MetadataFixer
+except ImportError:
+    MetadataFixer = None
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -30,9 +41,23 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
+  # 基本分析
   python analyze_paper.py paper.pdf
+
+  # 分析並加入知識庫
   python analyze_paper.py paper.pdf --add-to-kb
-  python analyze_paper.py paper.pdf --add-to-kb --format json
+
+  # 分析並驗證質量
+  python analyze_paper.py paper.pdf --validate
+
+  # 分析、驗證並加入知識庫
+  python analyze_paper.py paper.pdf --add-to-kb --validate
+
+  # 分析、驗證並嘗試自動修復（需要 LLM）
+  python analyze_paper.py paper.pdf --validate --auto-fix
+
+  # 輸出JSON格式
+  python analyze_paper.py paper.pdf --format json
   python analyze_paper.py paper.pdf --output-json result.json
         """
     )
@@ -46,6 +71,12 @@ def main():
     parser.add_argument('--output-json', help='JSON輸出文件路徑')
     parser.add_argument('--max-chars', type=int, default=50000,
                        help='最大字元數 (默認: 50000)')
+    parser.add_argument('--validate', action='store_true',
+                       help='驗證元數據質量（警告缺失字段）')
+    parser.add_argument('--auto-fix', action='store_true',
+                       help='自動修復缺失的元數據（使用LLM）')
+    parser.add_argument('--min-score', type=int, default=60,
+                       help='最低質量分數（配合--validate使用，默認: 60）')
 
     args = parser.parse_args()
 
@@ -108,7 +139,64 @@ def main():
         else:
             print(abstract)
 
-    # 5. 輸出JSON（如果指定）
+    # 5. 質量檢查（如果啟用）
+    if args.validate or args.auto_fix:
+        print(f"\n{'='*60}")
+        print("🔍 元數據質量檢查")
+        print(f"{'='*60}")
+
+        # 構建簡化的元數據檢查（不依賴 QualityChecker）
+        issues = []
+        quality_score = 100
+
+        # 檢查標題
+        if not structure['title'] or len(structure['title']) < 10:
+            issues.append("缺少有效標題")
+            quality_score -= 25
+
+        # 檢查作者
+        if not structure['authors'] or len(structure['authors']) == 0:
+            issues.append("缺少作者信息")
+            quality_score -= 20
+
+        # 檢查摘要
+        if not structure['abstract'] or len(structure['abstract']) < 50:
+            issues.append("缺少摘要或摘要過短")
+            quality_score -= 25
+
+        # 檢查關鍵詞
+        if not structure['keywords'] or len(structure['keywords']) < 3:
+            issues.append("缺少關鍵詞或關鍵詞過少")
+            quality_score -= 15
+
+        print(f"📊 質量分數: {quality_score}/100")
+
+        if issues:
+            print(f"\n⚠️  發現 {len(issues)} 個問題:")
+            for i, issue in enumerate(issues, 1):
+                print(f"   {i}. {issue}")
+
+            if quality_score < args.min_score:
+                print(f"\n❌ 質量分數 ({quality_score}) 低於最低要求 ({args.min_score})")
+
+                if args.auto_fix:
+                    print(f"\n🔧 嘗試自動修復...")
+                    print(f"⚠️  自動修復功能需要 LLM API（未實作完整版本）")
+                    print(f"建議: 使用 --add-to-kb 導入後，再執行:")
+                    print(f"  python kb_manage.py metadata-fix --batch")
+                else:
+                    print(f"\n提示: 使用 --auto-fix 選項嘗試自動修復")
+
+                    if not args.add_to_kb:
+                        print(f"建議: 先不要導入知識庫，修正後再重新分析")
+                        response = input(f"\n是否仍要繼續加入知識庫？(y/N): ")
+                        if response.lower() != 'y':
+                            print(f"\n❌ 已取消加入知識庫")
+                            args.add_to_kb = False
+        else:
+            print(f"✅ 元數據質量良好，沒有發現問題")
+
+    # 6. 輸出JSON（如果指定）
     if args.output_json or args.format in ['json', 'both']:
         json_path = args.output_json or pdf_path.stem + '_analysis.json'
         with open(json_path, 'w', encoding='utf-8') as f:

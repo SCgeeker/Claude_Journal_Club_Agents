@@ -1,0 +1,33 @@
+{
+  "zettel_id": "Linguistics-20251029-003",
+  "title": "\"Mass Noun Hypothesis (質量名詞假說)\"",
+  "content": "<已省略，共 946 字元>",
+  "card_type": "concept",
+  "domain": "Linguistics",
+  "tags": [
+    "Mass Noun Hypothesis",
+    "Classifier Languages",
+    "Count Nouns"
+  ],
+  "source_info": "\"Chinese Classifiers and Count Nouns\" (2025)",
+  "file_path": "D:\\core\\research\\claude_lit_workflow\\output\\zettelkasten_notes\\zettel_Linguistics_20251029\\zettel_cards\\Linguistics-20251029-003.md",
+  "created_at": "2025-10-29",
+  "core_concept": "(MH1) Classifier languages have no count nouns. (MH2) All the common nouns of classifier languages are mass nouns.",
+  "description": "Mass Noun Hypothesis（質量名詞假說）認為，classifier languages沒有count noun，所有common noun都是mass noun。這個假說是許多語言學家、哲學家和人類學家的觀點，也是本文作者主要反駁的對象。",
+  "ai_notes": "[AI Agent] 這個假說的核心在於將classifier languages的名詞全部歸類為mass noun，從而解釋了其與數字結合時需要classifier的現象。然而，這種解釋是否過於簡化了？是否存在其他可能性？",
+  "human_notes": "(TODO) <!-- 請在此處添加您的個人思考、批判性評論或延伸想法 -->",
+  "links": [
+    {
+      "relation_type": "基於",
+      "target_ids": [
+        "Linguistics-20251029-001"
+      ]
+    },
+    {
+      "relation_type": "導向",
+      "target_ids": [
+        "Linguistics-20251029-006"
+      ]
+    }
+  ]
+}

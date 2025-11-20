@@ -1,0 +1,646 @@
+# Knowledge Base Manager Agent - 工作流定義
+# MVP版本支援6個核心工作流
+
+workflows:
+  # ============================================================
+  # 1. 批次導入論文到知識庫（不生成Zettelkasten）
+  # ============================================================
+  batch_import_papers:
+    name: "批次導入論文到知識庫"
+    description: "批次處理PDF並加入知識庫（不生成Zettelkasten）"
+    priority: high
+
+    parameters:
+      required:
+        - name: folder_path
+          type: string
+          description: "包含PDF的資料夾路徑"
+          example: "D:\\pdfs\\mental_simulation"
+
+      optional:
+        - name: domain
+          type: string
+          description: "論文領域（必填）"
+          options: ["CogSci", "Linguistics", "AI", "Research", "Other"]
+          note: "可選擇預設領域或輸入自定義領域名稱"
+
+        - name: add_to_kb
+          type: boolean
+          description: "是否加入知識庫"
+          default: true
+
+        - name: max_workers
+          type: integer
+          description: "平行處理的執行緒數"
+          min: 1
+          max: 8
+          default: 3
+
+    steps:
+      - id: identify_intent
+        description: "確認是批次導入任務"
+        action: "驗證folder_path是否存在"
+
+      - id: collect_parameters
+        description: "收集必要參數"
+        action: "詢問缺失的參數"
+        prompts:
+          domain: "這些論文屬於哪個領域？（必填）\n1. CogSci（認知科學）\n2. Linguistics（語言學）\n3. AI（人工智慧）\n4. Research（通用研究）\n5. Other（或輸入自定義領域名稱）"
+
+      - id: confirm
+        description: "確認配置"
+        action: "顯示摘要並詢問確認"
+        template: |
+          即將執行批次導入論文：
+          - 資料夾: {folder_path}
+          - 領域: {domain}
+          - 加入知識庫: {add_to_kb}
+          - 執行緒數: {max_workers}
+
+          是否繼續？(是/否)
+
+      - id: execute
+        description: "執行批次處理"
+        skill: batch-processor
+        parameters:
+          pdf_paths: "{folder_path}"
+          domain: "{domain}"
+          add_to_kb: "{add_to_kb}"
+          max_workers: "{max_workers}"
+
+      - id: report
+        description: "生成報告"
+        action: "顯示處理結果和統計"
+        template: |
+          ✅ 批次處理完成！
+
+          📊 統計：
+          - 總數: {total}
+          - 成功: {success}
+          - 失敗: {failed}
+          - 處理時間: {processing_time}
+
+          詳細報告: {report_path}
+
+    error_handling:
+      strategy: "graceful"
+      actions:
+        - "記錄錯誤但不中斷"
+        - "生成錯誤摘要"
+        - "提供修復建議"
+
+  # ============================================================
+  # 2. 質量審計
+  # ============================================================
+  quality_audit:
+    name: "質量審計"
+    description: "檢查知識庫的元數據質量"
+    priority: medium
+
+    parameters:
+      optional:
+        - name: severity
+          type: string
+          description: "檢查嚴重程度"
+          options: ["critical", "high", "all"]
+          default: "all"
+
+        - name: auto_fix
+          type: boolean
+          description: "是否自動修復"
+          default: false
+
+        - name: detect_duplicates
+          type: boolean
+          description: "是否檢測重複論文"
+          default: false
+
+        - name: report_format
+          type: string
+          description: "報告格式"
+          options: ["text", "json"]
+          default: "text"
+
+    steps:
+      - id: identify_intent
+        description: "確認是質量檢查任務"
+
+      - id: collect_parameters
+        description: "收集參數"
+        prompts:
+          auto_fix: "發現問題時是否自動修復？(是/否，默認：否)"
+          detect_duplicates: "是否檢測重複論文？(是/否，默認：否)"
+
+      - id: confirm
+        description: "確認配置"
+        template: |
+          即將執行質量檢查：
+          - 嚴重程度: {severity}
+          - 自動修復: {auto_fix}
+          - 檢測重複: {detect_duplicates}
+
+          是否繼續？
+
+      - id: execute
+        description: "執行質量檢查"
+        skill: quality-checker
+        parameters:
+          severity: "{severity}"
+          auto_fix: "{auto_fix}"
+          detect_duplicates: "{detect_duplicates}"
+
+      - id: report
+        description: "生成報告"
+        template: |
+          ✅ 質量檢查完成！
+
+          📊 發現 {issues_found} 個問題：
+          - 嚴重: {critical}
+          - 高: {high}
+          - 警告: {warning}
+
+          {auto_fix_summary}
+
+          詳細報告: {report_path}
+
+  # ============================================================
+  # 3. 整合Zettelkasten
+  # ============================================================
+  integrate_zettel:
+    name: "整合Zettelkasten"
+    description: "索引Zettelkasten筆記到知識庫"
+    priority: high
+
+    parameters:
+      optional:
+        - name: zettel_dir
+          type: string
+          description: "Zettelkasten根目錄"
+          default: "output/zettelkasten_notes"
+
+        - name: domain
+          type: string
+          description: "限定領域"
+          options: ["CogSci", "Linguistics", "AI", "all"]
+          default: "all"
+
+        - name: auto_link
+          type: boolean
+          description: "自動關聯論文"
+          default: true
+
+        - name: similarity_threshold
+          type: float
+          description: "論文匹配相似度閾值"
+          min: 0.5
+          max: 1.0
+          default: 0.7
+
+    steps:
+      - id: identify_intent
+        description: "確認是Zettelkasten索引任務"
+
+      - id: collect_parameters
+        description: "收集參數"
+        prompts:
+          zettel_dir: "Zettelkasten資料夾路徑？(默認：output/zettelkasten_notes)"
+          domain: "限定領域？(CogSci/Linguistics/AI/all)"
+          auto_link: "是否自動關聯論文？(是/否，默認：是)"
+
+      - id: confirm
+        description: "確認配置"
+        template: |
+          即將索引Zettelkasten：
+          - 資料夾: {zettel_dir}
+          - 領域: {domain}
+          - 自動關聯論文: {auto_link}
+
+          是否繼續？
+
+      - id: execute_index
+        description: "執行索引"
+        skill: zettel-indexer
+        parameters:
+          zettel_folder: "{zettel_dir}"
+          domain: "{domain}"
+
+      - id: execute_link
+        description: "執行論文關聯"
+        condition: "{auto_link} == true"
+        skill: kb-connector
+        method: auto_link_zettel_papers
+        parameters:
+          similarity_threshold: "{similarity_threshold}"
+
+      - id: report
+        description: "生成報告"
+        template: |
+          ✅ Zettelkasten索引完成！
+
+          📊 統計：
+          - 總卡片數: {total_cards}
+          - 成功索引: {success}
+          - 失敗: {failed}
+
+          🔗 論文關聯：
+          - 已關聯: {linked}
+          - 未匹配: {unmatched}
+
+          詳細報告: {report_path}
+
+  # ============================================================
+  # 4. 搜索知識
+  # ============================================================
+  search_knowledge:
+    name: "搜索知識"
+    description: "搜索論文和Zettelkasten卡片"
+    priority: medium
+
+    parameters:
+      required:
+        - name: query
+          type: string
+          description: "搜索關鍵詞"
+          example: "mental simulation"
+
+      optional:
+        - name: target
+          type: string
+          description: "搜索目標"
+          options: ["papers", "zettel", "all"]
+          default: "all"
+
+        - name: domain
+          type: string
+          description: "限定領域"
+          options: ["CogSci", "Linguistics", "AI", "all"]
+          default: "all"
+
+        - name: limit
+          type: integer
+          description: "結果數量"
+          min: 1
+          max: 100
+          default: 20
+
+    steps:
+      - id: identify_intent
+        description: "確認是搜索任務"
+        action: "從用戶輸入提取query"
+
+      - id: collect_parameters
+        description: "收集參數"
+        prompts:
+          target: "搜索目標？\n1. papers（論文）\n2. zettel（Zettelkasten）\n3. all（全部）"
+          domain: "限定領域？(CogSci/Linguistics/AI/all)"
+
+      - id: execute_search
+        description: "執行搜索"
+        actions:
+          - condition: "{target} in ['zettel', 'all']"
+            skill: zettel-searcher
+            method: search_zettel
+            parameters:
+              query: "{query}"
+              domain: "{domain}"
+              limit: "{limit}"
+
+          - condition: "{target} in ['papers', 'all']"
+            skill: kb-connector
+            method: search_papers
+            parameters:
+              query: "{query}"
+              limit: "{limit}"
+
+      - id: report
+        description: "顯示搜索結果"
+        template: |
+          🔍 搜索結果：'{query}'
+
+          {zettel_results}
+          {paper_results}
+
+  # ============================================================
+  # 5. 生成簡報
+  # ============================================================
+  generate_slides:
+    name: "生成簡報"
+    description: "生成學術簡報（PPTX/Markdown）"
+    priority: medium
+
+    parameters:
+      required:
+        - name: topic
+          type: string
+          description: "簡報主題"
+
+        - name: source
+          type: string
+          description: "來源（paper_id/pdf_path/from-kb）"
+
+      optional:
+        - name: style
+          type: string
+          description: "簡報風格"
+          options: ["modern_academic", "research_methods", "literature_review", "teaching"]
+          default: "modern_academic"
+
+        - name: detail
+          type: string
+          description: "詳細程度"
+          options: ["brief", "standard", "detailed"]
+          default: "standard"
+
+        - name: language
+          type: string
+          description: "語言"
+          options: ["chinese", "english", "bilingual"]
+          default: "chinese"
+
+        - name: slides
+          type: integer
+          description: "投影片數量"
+          default: 15
+
+        - name: format
+          type: string
+          description: "輸出格式"
+          options: ["pptx", "markdown", "both"]
+          default: "pptx"
+
+    steps:
+      - id: identify_intent
+        description: "確認是簡報生成任務"
+
+      - id: collect_parameters
+        description: "收集參數"
+        prompts:
+          topic: "簡報主題？"
+          source: "來源？(paper_id/pdf路徑/from-kb)"
+          style: "風格？(modern_academic/research_methods/literature_review/teaching)"
+
+      - id: confirm
+        description: "確認配置"
+        template: |
+          即將生成簡報：
+          - 主題: {topic}
+          - 來源: {source}
+          - 風格: {style}
+          - 詳細程度: {detail}
+          - 語言: {language}
+          - 投影片數: {slides}
+
+          是否繼續？
+
+      - id: execute
+        description: "生成簡報"
+        skill: slide-maker
+        parameters:
+          topic: "{topic}"
+          source: "{source}"
+          style: "{style}"
+          detail: "{detail}"
+          language: "{language}"
+          slides: "{slides}"
+          format: "{format}"
+
+      - id: report
+        description: "顯示結果"
+        template: |
+          ✅ 簡報生成完成！
+
+          📊 輸出：
+          - 格式: {format}
+          - 投影片數: {slides}
+          - 文件路徑: {output_path}
+
+  # ============================================================
+  # 6. 批次生成Zettelkasten（流程A）
+  # ============================================================
+  batch_generate_zettel:
+    name: "批次生成Zettelkasten"
+    description: "從PDF批次生成原子筆記並加入知識庫"
+    priority: high
+
+    parameters:
+      required:
+        - name: source
+          type: string
+          description: "來源（folder_path/pdf_path/paper_id）支援批次和單篇"
+          example: "D:\\pdfs\\mental_simulation 或 paper.pdf"
+
+      optional:
+        - name: domain
+          type: string
+          description: "領域（必填）"
+          options: ["CogSci", "Linguistics", "AI", "Research", "Other"]
+          note: "可選擇預設領域或輸入自定義領域名稱"
+
+        - name: add_to_kb
+          type: boolean
+          description: "是否加入知識庫"
+          default: true
+
+        - name: auto_link
+          type: boolean
+          description: "是否自動關聯論文"
+          default: true
+
+        - name: card_count
+          type: integer
+          description: "每篇論文生成的卡片數量"
+          min: 5
+          max: 50
+          default: 20
+
+        - name: detail_level
+          type: string
+          description: "詳細程度"
+          options: ["brief", "standard", "detailed"]
+          default: "detailed"
+
+        - name: llm_provider
+          type: string
+          description: "LLM提供者"
+          options: ["google", "openai", "ollama"]
+          default: "google"
+
+    steps:
+      - id: identify_intent
+        description: "確認是Zettelkasten生成任務"
+
+      - id: detect_source_type
+        description: "檢測來源類型（資料夾、單篇PDF或paper_id）"
+        action: |
+          if is_folder(source):
+            mode = "batch"
+          elif is_pdf_file(source):
+            mode = "single"
+          else:
+            mode = "paper_id"
+
+      - id: collect_parameters
+        description: "收集參數"
+        prompts:
+          source: "來源？(資料夾路徑/PDF路徑/paper_id)"
+          domain: "領域？（必填）\n1. CogSci\n2. Linguistics\n3. AI\n4. Research\n5. Other（或輸入自定義領域）"
+          card_count: "每篇論文生成多少張卡片？(默認：20)"
+          detail_level: "詳細程度？(brief/standard/detailed，默認：detailed)"
+
+      - id: confirm
+        description: "確認配置"
+        template: |
+          即將生成Zettelkasten筆記：
+          - 來源: {source} (模式: {mode})
+          - 領域: {domain}
+          - 卡片數: {card_count}
+          - 詳細程度: {detail_level}
+          - 加入知識庫: {add_to_kb}
+          - 自動關聯論文: {auto_link}
+
+          是否繼續？
+
+      - id: execute
+        description: "生成筆記"
+        action: |
+          if mode == "batch":
+            調用 batch-processor
+            參數: generate_zettel=true
+          else:
+            調用 zettel-maker
+        skill: zettel-maker
+        parameters:
+          source: "{source}"
+          domain: "{domain}"
+          card_count: "{card_count}"
+          detail_level: "{detail_level}"
+          llm_provider: "{llm_provider}"
+          add_to_kb: "{add_to_kb}"
+          auto_link: "{auto_link}"
+
+      - id: report
+        description: "顯示結果"
+        template: |
+          ✅ Zettelkasten筆記生成完成！
+
+          📊 輸出：
+          - 處理模式: {mode}
+          - 卡片總數: {total_cards}
+          - 領域: {domain}
+          - 資料夾: {output_path}
+
+          🔗 知識庫整合：
+          - 已加入知識庫: {add_to_kb}
+          - 已自動關聯論文: {auto_link}
+          - 關聯成功: {linked_count}/{total_cards}
+
+          💡 提示：卡片已可透過 /search 查詢
+
+  # ============================================================
+  # 7. 檢查 LLM 訪問狀態
+  # ============================================================
+  check_llm_access:
+    name: "檢查 LLM 訪問狀態"
+    description: "測試所有 LLM 提供者的連接狀態並提供配置建議"
+    priority: low
+
+    parameters:
+      optional:
+        - name: verbose
+          type: boolean
+          description: "是否顯示詳細建議"
+          default: false
+
+    steps:
+      - id: identify_intent
+        description: "確認是 LLM 檢查任務"
+        action: "識別用戶想要檢查 LLM 狀態"
+
+      - id: execute_check
+        description: "執行 LLM 訪問測試"
+        action: |
+          執行: python kb_manage.py check-llm {--verbose if verbose}
+
+          測試內容:
+          1. Ollama (本地) - 檢查服務和模型
+          2. Google Gemini - 驗證 API key
+          3. OpenAI - 驗證 API key
+          4. Anthropic Claude - 驗證 API key
+
+      - id: report_results
+        description: "報告檢查結果"
+        action: "顯示可用提供者統計和配置建議"
+        output_template: |
+          ============================================================
+          🔍 LLM 訪問狀態檢查完成
+          ============================================================
+
+          ✅ 可用提供者: {available_count}/{total_count}
+
+          {provider_details}
+
+          {recommendations if verbose}
+
+          💡 提示：
+          - 詳細報告: LLM_ACCESS_REPORT.md
+          - 運行測試: python test_llm_access.py
+          - 配置 API keys: 編輯 .env 文件
+
+    triggers:
+      - "檢查 LLM"
+      - "測試 LLM"
+      - "LLM 狀態"
+      - "check llm"
+      - "llm access"
+      - "模型檢查"
+
+# ============================================================
+# 錯誤處理配置
+# ============================================================
+error_handling:
+  global_strategy: "graceful"
+  retry_limit: 1
+  timeout: 300  # 秒
+
+  common_errors:
+    - error: "FileNotFoundError"
+      message: "找不到指定的文件或資料夾"
+      suggestion: "請檢查路徑是否正確"
+
+    - error: "PermissionError"
+      message: "沒有權限訪問文件"
+      suggestion: "請檢查文件權限或以管理員身份執行"
+
+    - error: "TimeoutError"
+      message: "操作超時"
+      suggestion: "請減少處理數量或增加timeout設定"
+
+    - error: "IntegrityError"
+      message: "數據庫完整性錯誤"
+      suggestion: "可能存在重複記錄，請檢查數據"
+
+# ============================================================
+# 報告模板
+# ============================================================
+report_templates:
+  batch_import: "BATCH_IMPORT_REPORT_{timestamp}.md"
+  quality_audit: "QUALITY_AUDIT_REPORT_{timestamp}.md"
+  integrate_zettel: "ZETTEL_INDEX_REPORT_{timestamp}.md"
+  search_results: "SEARCH_RESULTS_{timestamp}.txt"
+
+# ============================================================
+# Agent元數據
+# ============================================================
+metadata:
+  version: "1.1.0-mvp"
+  created: "2025-10-30"
+  updated: "2025-11-05"
+  author: "Claude Code (Sonnet 4.5)"
+  status: "active"
+  changelog:
+    - version: "1.1.0-mvp"
+      date: "2025-11-05"
+      changes:
+        - "新增 check_llm_access workflow"
+        - "整合 LLM 訪問測試功能"
+        - "支援 7 個核心工作流"

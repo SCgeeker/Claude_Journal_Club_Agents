@@ -1,0 +1,975 @@
+{
+  "current_kb_size": 31,
+  "target_size": 100,
+  "papers_needed": 75,
+  "expected_final_size": 106,
+  "papers": [
+    {
+      "key": "Gao-2009a",
+      "entry_type": "article",
+      "title": "Mental Representation and Cognitive Consequences of {{Chinese",
+      "author": "gao, ming y. and malt, barbara c.",
+      "year": "",
+      "score": 10,
+      "matches": [
+        "kw:classifier",
+        "kw:chinese",
+        "kw:classifiers"
+      ]
+    },
+    {
+      "key": "Li-2017b",
+      "entry_type": "article",
+      "title": "Monster Character Profiling and {{Chinese",
+      "author": "li, larry hong-lin and lin, po-hsien",
+      "year": "",
+      "score": 9,
+      "matches": [
+        "kw:classifier",
+        "kw:chinese",
+        "kw:classifiers"
+      ]
+    },
+    {
+      "key": "Verdonschot-2010",
+      "entry_type": "article",
+      "title": "Semantic Context Effects When Naming {{Japanese",
+      "author": "verdonschot, rinus g. and la heij, wido and schiller, niels o.",
+      "year": "",
+      "score": 7,
+      "matches": [
+        "kw:chinese",
+        "kw:japanese",
+        "title:japanese"
+      ]
+    },
+    {
+      "key": "Her-2010",
+      "entry_type": "article",
+      "title": "On the Semantic Distinction between Classifiers and Measure Words in {{Chinese",
+      "author": "her, one-soon and hsieh, c. t.",
+      "year": "",
+      "score": 6,
+      "matches": [
+        "title:classifier",
+        "title:measure word",
+        "title:chinese"
+      ]
+    },
+    {
+      "key": "Her-2020",
+      "entry_type": "article",
+      "title": "A Statistical Explanation of the Distribution of Sortal Classifiers in Languages of the World via Computational Classifiers",
+      "author": "her, one-soon and tang, marc",
+      "year": "",
+      "score": 6,
+      "matches": [
+        "kw:classifier",
+        "title:classifier",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Hsu-2011a",
+      "entry_type": "article",
+      "title": "Effects of Visual Complexity and Sublexical Information in the Occipitotemporal Cortex in the Reading of {{Chinese",
+      "author": "hsu, chun-hsien and lee, chia-ying and marantz, alec",
+      "year": "",
+      "score": 6,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:visual"
+      ]
+    },
+    {
+      "key": "Li-2017",
+      "entry_type": "article",
+      "title": "{An ERP study on the mental simulation of implied object color information during Chinese sentence comprehension",
+      "author": "li, ying and shang, lingling",
+      "year": "",
+      "score": 6,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Mok-2009",
+      "entry_type": "article",
+      "title": "Word-Superiority Effect as a Function of Semantic Transparency of {{Chinese",
+      "author": "mok, leh woon",
+      "year": "",
+      "score": 6,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Chan-2019",
+      "entry_type": "article",
+      "title": "An Elephant Needs a Head but a Horse Does Not: {{An ERP",
+      "author": "chan, shiao-hui",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:classifier",
+        "kw:chinese",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Frankowsky-2022",
+      "entry_type": "article",
+      "title": "The Interplay between Classifier Choice and Animacy in {{Mandarin-Chinese",
+      "author": "frankowsky, maximilian and ke, dan and zwitserlood, pienie and michel, ren{\\'e",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:classifier",
+        "title:classifier",
+        "title:chinese"
+      ]
+    },
+    {
+      "key": "Her-2022",
+      "entry_type": "article",
+      "title": "Defining Numeral Classifiers and Identifying Classifier Languages of the World",
+      "author": "her, one-soon and hammarstr{\\\"o",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "title:classifier languages"
+      ]
+    },
+    {
+      "key": "Ho-1997",
+      "entry_type": "article",
+      "title": "Phonological Skills Are Important in Learning to Read {{Chinese",
+      "author": "ho, connie suk-han and bryant, peter",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Hsiao-2013",
+      "entry_type": "article",
+      "title": "The Modulation of Stimulus Structure on Visual Field Asymmetry Effects: The Case of {{Chinese",
+      "author": "hsiao, j. h. and cheng, liao",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:visual"
+      ]
+    },
+    {
+      "key": "Lee-2020",
+      "entry_type": "book",
+      "title": "Numeral Classifier and Classifier Languages: {{Chinese",
+      "author": "",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifier languages"
+      ]
+    },
+    {
+      "key": "Liu-2012",
+      "entry_type": "article",
+      "title": "Similar Alterations in Brain Function for Phonological and Semantic Processing to Visual Characters in {{Chinese",
+      "author": "liu, li and wang, wenjing and you, wenping and li, yi and awati, neha and zhao, xu and booth, james and peng, danling",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:visual"
+      ]
+    },
+    {
+      "key": "McBride-Chang-2008a",
+      "entry_type": "article",
+      "title": "Word Recognition and Cognitive Profiles of {{Chinese",
+      "author": "{mcbride-chang",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Schuil-2013",
+      "entry_type": "article",
+      "title": "Sentential Context Modulates the Involvement of the Motor Cortex in Action Language Processing: An {{fMRI",
+      "author": "schuil, karen d. i. and smits, marion and zwaan, rolf a.",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "domain:cognition",
+        "domain:semantic",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Tsang-2009",
+      "entry_type": "article",
+      "title": "Do Position-General Radicals Have a Role to Play in Processing {{Chinese",
+      "author": "tsang, yiu-kei and chen, hsuan-chih",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Tzeng-1991",
+      "entry_type": "article",
+      "title": "The Classifier Problem in {{Chinese",
+      "author": "tzeng, o. j. and chen, s. and hung, d. l.",
+      "year": "",
+      "score": 5,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Barsalou-2009",
+      "entry_type": "article",
+      "title": "Simulation, Situated Conceptualization, and Prediction",
+      "author": "barsalou, lawrence w.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:cognition",
+        "domain:language",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Binder-2011",
+      "entry_type": "article",
+      "title": "The Neurobiology of Semantic Memory",
+      "author": "binder, j. r. and desai, r. h.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:animals",
+        "domain:semantic",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Bishop-2013",
+      "entry_type": "article",
+      "title": "Cerebral Asymmetry and Language Development: Cause, Correlate, or Consequence?",
+      "author": "bishop, d. v.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:animals",
+        "domain:cognition",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Chen-2023c",
+      "entry_type": "misc",
+      "title": "Classifiers and {{Mental Simulation Effects",
+      "author": "chen, sau-chin",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Chen-2025",
+      "entry_type": "article",
+      "title": "Parallel Development of Numerals and Numeral Classifiers in Children's Acquisition of {{Mandarin Chinese",
+      "author": "chen, yupin and her, one-soon",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Cui-2013",
+      "entry_type": "article",
+      "title": "Neural Correlates of Quantity Processing of Numeral Classifiers",
+      "author": "cui, jiaxin and yu, xiaodan and yang, hong and chen, chuansheng and liang, peipeng and zhou, xinlin",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:quantity",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "DeKoning-2017b",
+      "entry_type": "article",
+      "title": "Mental Simulation of Four Visual Object Properties: Similarities and Differences as Assessed by the Sentence-Picture Verification Task",
+      "author": "de koning, bj{\\\"o",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:simulation"
+      ]
+    },
+    {
+      "key": "Engelen-2011",
+      "entry_type": "article",
+      "title": "Perceptual Simulation in Developing Language Comprehension",
+      "author": "engelen, jan a. a. and bouwmeester, samantha and {de bruin",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:cognition",
+        "domain:language",
+        "domain:simulation"
+      ]
+    },
+    {
+      "key": "Forster-1994",
+      "entry_type": "article",
+      "title": "Computational Modeling and Elementary Process Analysis in Visual Word Recognition",
+      "author": "forster, kenneth i.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Garello-2024",
+      "entry_type": "article",
+      "title": "From Breaking Bread to Breaking Hearts: Embodied Simulation and Action Language Comprehension",
+      "author": "garello, stefana and ferroni, francesca and gallese, vittorio and cuccio, valentina and ardizzi, martina",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:cognition",
+        "domain:language",
+        "domain:simulation"
+      ]
+    },
+    {
+      "key": "Gendron-2012",
+      "entry_type": "article",
+      "title": "Emotion Words Shape Emotion Percepts",
+      "author": "gendron, m. and lindquist, k. a. and barsalou, lawrence w. and barrett, l. f.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Her-2012a",
+      "entry_type": "article",
+      "title": "Distinguishing Classifiers and Measure Words: {{A",
+      "author": "her, one-soon",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:measure word",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Hsieh-2009",
+      "entry_type": "article",
+      "title": "Limited Syntactic Parallelism in {{Chinese",
+      "author": "hsieh, yufen and boland, julie and zhang, yaxu and yan, ming",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Huang-2013",
+      "entry_type": "article",
+      "title": "The Effects of Numeral Classifiers and Taxonomic Categories on {{Chinese",
+      "author": "huang, shuping and chen, jenn-yeu",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Huettig-2010a",
+      "entry_type": "article",
+      "title": "Do Language-Specific Categories Shape Conceptual Processing? {{Mandarin",
+      "author": "huettig, falk and chen, jidong and bowerman, melissa and majid, asifa",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:classifier",
+        "domain:classifier",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Jenks-2015",
+      "entry_type": "article",
+      "title": "Two Kinds of Definites in Numeral Classifier Languages",
+      "author": "jenks, peter",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:classifier languages",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Jiang-2001",
+      "entry_type": "article",
+      "title": "Cross-{{Language Priming Asymmetries",
+      "author": "jiang, nan and forster, kenneth i.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "domain:cognition",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Kuo-2009",
+      "entry_type": "article",
+      "title": "Classifier Effects on Human Categorization: The Role of Shape Classifiers in {{Mandarin Chinese",
+      "author": "kuo, jenny yi-chun and sera, maria d.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Lam-2013a",
+      "entry_type": "article",
+      "title": "{Awareness of Orthographic Structure in Children's Learning of Chinese Characters",
+      "author": "lam, ho-cheong and tsui, amy bike-may",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Li-2008",
+      "entry_type": "article",
+      "title": "Pitch Accent and Lexical Tone Processing in {{Chinese",
+      "author": "li, xiaoqing and yang, yufang and hagoort, peter",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Li-2009",
+      "entry_type": "article",
+      "title": "On the Segmentation of {{Chinese",
+      "author": "li, xingshan and rayner, keith and cave, kyle r.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Lin-2009a",
+      "entry_type": "article",
+      "title": "Maternal Mediation of Writing in {{Chinese",
+      "author": "lin, dan and {mcbride-chang",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Liu-2024b",
+      "entry_type": "article",
+      "title": "Mental Simulation of Colour Properties during Language Comprehension: Influence of Context and Comprehension Stages",
+      "author": "liu, donglin and wang, lijuan and han, ying",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:cognition",
+        "domain:language",
+        "domain:simulation"
+      ]
+    },
+    {
+      "key": "Norman-1965",
+      "entry_type": "article",
+      "title": "Short-Term Recognition Memory for Single Digits and Pairs of Digits.",
+      "author": "norman, donald a. and wickelgren, wayne a.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:number",
+        "domain:cognition",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Post-2023",
+      "entry_type": "article",
+      "title": "Classifiers in a Language with Articles",
+      "author": "post, m.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "QiuYiXuanYi-ShiuanChiu-2013",
+      "entry_type": "article",
+      "title": "{透過台灣手語像似性來瞭解手部動作的意義",
+      "author": "{邱倚璿(yi-shiuan chiu)",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:cognition",
+        "domain:semantic",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Raveh-2008",
+      "entry_type": "article",
+      "title": "Visual and Auditory Morphological Priming in Adults with Developmental Dyslexia",
+      "author": "raveh, m. and schiff, r.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Tan-2005a",
+      "entry_type": "article",
+      "title": "Neuroanatomical Correlates of Phonological Processing of {{Chinese",
+      "author": "tan, li hai and laird, angela r. and li, karl and fox, peter t.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Tsang-2024",
+      "entry_type": "article",
+      "title": "Rethinking Orthographic Neighbor in {{Chinese",
+      "author": "tsang, yiu-kei and zou, yun and wang, jie and wong, andus wing-kuen",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:cognition"
+      ]
+    },
+    {
+      "key": "Wang-2009a",
+      "entry_type": "article",
+      "title": "Acquisition of Linguistic Information to the Left of Fixation during the Reading of {{Chinese",
+      "author": "wang, chin-an and tsai, jie-li and inhoff, albrecht w. and tzeng, ovid j. l.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Wu-2024",
+      "entry_type": "book",
+      "title": "Cognitive Linguistics and Second Language Acquisition of {{Chinese",
+      "author": "wu, shu-ling and huang, lihong and polley, carl",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Yeung-2013",
+      "entry_type": "article",
+      "title": "A Model of Reading Comprehension in {{Chinese",
+      "author": "yeung, pui-sze and ho, connie suk-han and chan, david wai-ock and chung, kevin kien-hoa and wong, yau-kai",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Yi-2009",
+      "entry_type": "article",
+      "title": "Chinese {{Classifiers",
+      "author": "yi, byeong-uk",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Zhang-2007",
+      "entry_type": "article",
+      "title": "Numeral Classifiers in {{Mandarin Chinese",
+      "author": "zhang, hong",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "title:classifier",
+        "title:chinese",
+        "title:classifiers"
+      ]
+    },
+    {
+      "key": "Zhang-2012",
+      "entry_type": "article",
+      "title": "Neural Evidence for Direct Meaning Access from Orthography in {{Chinese",
+      "author": "zhang, john x. and xiao, zhuangwei and weng, xuchu",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "ZhengZhaoMingChao-MingCheng-2011",
+      "entry_type": "article",
+      "title": "{不忽略主流學術的趨勢、不盲從一般流行的看法：研究生涯的回顧與反思",
+      "author": "{鄭昭明(chao-ming cheng)",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "domain:language",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Zhou-2009",
+      "entry_type": "article",
+      "title": "Processing the {{Chinese",
+      "author": "zhou, xiaolin and ye, zheng and cheung, him and chen, hsuan-chih",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:chinese",
+        "title:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Zhou-2010",
+      "entry_type": "article",
+      "title": "Semantic Integration Processes at Different Levels of Syntactic Hierarchy during Sentence Comprehension: {{An ERP",
+      "author": "zhou, xiaolin and jiang, xiaoming and ye, zheng and zhang, yaxu and lou, kaiyang and zhan, weidong",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "kw:classifier",
+        "domain:classifier",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Zwaan-2004",
+      "entry_type": "article",
+      "title": "Moving Words: Dynamic Representations in Language Comprehension",
+      "author": "zwaan, rolf a. and madden, carol j. and yaxley, richard h. and aveyard, mark e.",
+      "year": "",
+      "score": 4,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "-2020",
+      "entry_type": "misc",
+      "title": "{是三「粒、顆、個」蘋果？ 政大何萬順破解你所不知道的「分類詞」",
+      "author": "",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:classifier",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Ahrens-2016",
+      "entry_type": "incollection",
+      "title": "Classifiers",
+      "author": "ahrens, kathleen and huang, chu-ren",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Awh-2007",
+      "entry_type": "article",
+      "title": "Visual Working Memory Represents a Fixed Number of Items Regardless of Complexity",
+      "author": "awh, e. and barton, b. and vogel, e. k.",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "title:number",
+        "domain:visual",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Becker-1980",
+      "entry_type": "article",
+      "title": "Semantic Context Effects in Visual Word Recognition: {{An",
+      "author": "becker, c.a.",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "domain:visual",
+        "domain:cognition",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Bergen-2005a",
+      "entry_type": "incollection",
+      "title": "Embodied Construction Grammar in Simulation-Based Language Understanding",
+      "author": "bergen, benjamin k. and chang, nancy",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "domain:language",
+        "domain:simulation",
+        "domain:embodied"
+      ]
+    },
+    {
+      "key": "Bi-2007",
+      "entry_type": "article",
+      "title": "The Interaction between Semantic and the Nonsemantic Systems in Reading: {{Evidence",
+      "author": "bi, yanchao and han, zaizhu and weekes, brendan and shu, hua",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "domain:semantic"
+      ]
+    },
+    {
+      "key": "Blythe-2012",
+      "entry_type": "article",
+      "title": "Inserting Spaces into {{Chinese",
+      "author": "blythe, hazel i. and liang, feifei and zang, chuanli and wang, jingxin and yan, guoli and bai, xuejun and liversedge, simon p.",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "title:chinese"
+      ]
+    },
+    {
+      "key": "Brainerd-2008",
+      "entry_type": "article",
+      "title": "Semantic Processing in \"Associative\" False Memory",
+      "author": "brainerd, c. j. and yang, y. and reyna, v. f. and howe, m. l. and mills, b. a.",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "domain:cognition",
+        "domain:semantic",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Brown-2013",
+      "entry_type": "article",
+      "title": "Visual Working Memory Is Enhanced by Mixed Strategy Use and Semantic Coding",
+      "author": "brown, louise a and wesley, robert w",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "domain:visual",
+        "domain:semantic",
+        "domain:memory"
+      ]
+    },
+    {
+      "key": "Cai-2011",
+      "entry_type": "article",
+      "title": "Lexical and Syntactic Representations in Closely Related Languages: {{Evidence",
+      "author": "cai, zhenguang g. and pickering, martin j. and yan, hao and branigan, holly p.",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "domain:language"
+      ]
+    },
+    {
+      "key": "Chen-2009a",
+      "entry_type": "article",
+      "title": "Homophone Density and Phonological Frequency in {{Chinese",
+      "author": "chen, hsin-chin and vaid, jyotsna and wu, jei-tun",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "title:chinese"
+      ]
+    },
+    {
+      "key": "Chen-2013",
+      "entry_type": "article",
+      "title": "The Syllable as the Proximate Unit in {{Mandarin Chinese",
+      "author": "chen, train-min and chen, jenn-yeu",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "title:chinese"
+      ]
+    },
+    {
+      "key": "Chen-2014a",
+      "entry_type": "incollection",
+      "title": "Visual, {{Phonological",
+      "author": "chen, xi and anderson, richardc and li, hong and shu, hua",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:chinese",
+        "domain:visual"
+      ]
+    },
+    {
+      "key": "Chen-2020b",
+      "entry_type": "article",
+      "title": "Distinguishing Classifiers in {{Taiwanese Southern Min",
+      "author": "chen, meng ying and hsieh, miao ling and her, one soon",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "ChenYiRu-2020",
+      "entry_type": "article",
+      "title": "華語分類詞的界定與教學上的分級",
+      "author": "{陳羿如",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "kw:classifier",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Cheung-2016a",
+      "entry_type": "incollection",
+      "title": "Classifiers",
+      "author": "cheung, candice chi-hang",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "title:classifier",
+        "title:classifiers",
+        "domain:classifier"
+      ]
+    },
+    {
+      "key": "Connell-2007",
+      "entry_type": "article",
+      "title": "Representing Object Colour in Language Comprehension",
+      "author": "connell, louise",
+      "year": "",
+      "score": 3,
+      "matches": [
+        "domain:cognition",
+        "domain:language",
+        "domain:embodied"
+      ]
+    }
+  ]
+}
