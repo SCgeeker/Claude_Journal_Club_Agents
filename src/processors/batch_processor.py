@@ -547,7 +547,8 @@ class BatchProcessor:
             print(f"  [WARN] 未找到卡片文件: {cards_dir}")
             return {'imported': 0, 'failed': 0}
 
-        imported = 0
+        inserted = 0
+        duplicate = 0
         failed = 0
 
         for card_file in card_files:
@@ -556,16 +557,22 @@ class BatchProcessor:
                 card_data = kb.parse_zettel_card(str(card_file))
 
                 if card_data:
-                    # 導入到數據庫
-                    card_id = kb.add_zettel_card(card_data)
+                    # 導入到數據庫 - 使用結構化回傳
+                    result = kb.add_zettel_card(card_data)
 
-                    # 關聯到論文
-                    if card_id and card_id > 0:
-                        kb.link_zettel_to_paper(card_id, paper_id)
-                        imported += 1
-                    else:
+                    if result['status'] == 'inserted':
+                        # 關聯到論文
+                        kb.link_zettel_to_paper(result['card_id'], paper_id)
+                        inserted += 1
+                    elif result['status'] == 'duplicate':
+                        # 重複卡片也嘗試關聯（可能是重新處理）
+                        if result['card_id'] > 0:
+                            kb.link_zettel_to_paper(result['card_id'], paper_id)
+                        duplicate += 1
+                        print(f"  [DUPLICATE] {card_file.name}: {result['message']}")
+                    else:  # error
                         failed += 1
-                        print(f"  [WARN] 卡片導入失敗 (card_id={card_id}): {card_file.name}")
+                        print(f"  [FAILED] {card_file.name}: {result['message']}")
                 else:
                     failed += 1
                     print(f"  [WARN] 卡片解析失敗: {card_file.name}")
@@ -574,7 +581,7 @@ class BatchProcessor:
                 print(f"  [ERROR] 導入卡片時發生錯誤 ({card_file.name}): {e}")
                 failed += 1
 
-        return {'imported': imported, 'failed': failed}
+        return {'inserted': inserted, 'duplicate': duplicate, 'failed': failed}
 
     def _find_pdfs(self, path: str) -> List[str]:
         """

@@ -73,11 +73,11 @@ def test_add_single_card():
         print(f"[ERROR] 卡片解析失敗")
         return False
 
-    card_id = kb.add_zettel_card(card_data)
+    result = kb.add_zettel_card(card_data)
 
-    if card_id > 0:
+    if result['status'] == 'inserted':
         print(f"[OK] 卡片新增成功")
-        print(f"   card_id: {card_id}")
+        print(f"   card_id: {result['card_id']}")
         print(f"   zettel_id: {card_data['zettel_id']}")
         print()
 
@@ -92,7 +92,7 @@ def test_add_single_card():
             print()
 
             # 驗證連結
-            links = kb.get_zettel_links(card_id)
+            links = kb.get_zettel_links(result['card_id'])
             print(f"[OK] 連結信息: {len(links)} 條")
             for link in links:
                 print(f"   {link['relation_type']} → {link['target_zettel_id']}")
@@ -101,8 +101,11 @@ def test_add_single_card():
         else:
             print(f"[ERROR] 資料庫驗證失敗：無法讀取卡片")
             return False
+    elif result['status'] == 'duplicate':
+        print(f"[DUPLICATE] 卡片已存在: {result['message']}")
+        return True  # 重複不算失敗
     else:
-        print(f"[ERROR] 卡片新增失敗 (card_id={card_id})")
+        print(f"[ERROR] 卡片新增失敗: {result['message']}")
         return False
 
 

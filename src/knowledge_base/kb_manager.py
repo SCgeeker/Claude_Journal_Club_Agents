@@ -6,10 +6,17 @@
 import sqlite3
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Literal, TypedDict
 from datetime import datetime
 import re
 import yaml
+
+
+class ZettelAddResult(TypedDict):
+    """add_zettel_card() 回傳結果結構"""
+    status: Literal['inserted', 'duplicate', 'error']
+    card_id: int
+    message: str
 
 
 class KnowledgeBaseManager:
@@ -1071,12 +1078,19 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                             metadata[key] = value
 
             # 4. 初始化結果字典
+            # 取得 zettel_id：優先使用 YAML 的 id 欄位，否則從檔名提取
+            yaml_id = metadata.get('id', '')
+            if not yaml_id:
+                # 從檔名提取 zettel_id（例如 Adams-2020-002.md → Adams-2020-002）
+                filename = Path(file_path).stem  # 移除 .md 副檔名
+                yaml_id = filename
+
             result = {
-                'zettel_id': self.normalize_id(metadata.get('id', '')),
+                'zettel_id': self.normalize_id(yaml_id) if yaml_id else yaml_id,
                 'title': metadata.get('title', '').strip(),
                 'content': content,
                 'card_type': metadata.get('type', 'concept'),
-                'domain': self.extract_domain_from_id(metadata.get('id', '')),
+                'domain': self.extract_domain_from_id(yaml_id),
                 'tags': metadata.get('tags', []),
                 'source_info': metadata.get('source', ''),
                 'file_path': str(Path(file_path).resolve()),
@@ -1119,7 +1133,7 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             print(f"[ERROR] Failed to parse {file_path}: {e}")
             return None
 
-    def add_zettel_card(self, card_data: Dict) -> int:
+    def add_zettel_card(self, card_data: Dict) -> ZettelAddResult:
         """
         新增 Zettelkasten 卡片到資料庫
 
@@ -1127,10 +1141,15 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             card_data: 卡片數據（parse_zettel_card的返回值）
 
         Returns:
-            卡片 card_id
+            ZettelAddResult: 結構化結果
+            - status: 'inserted' | 'duplicate' | 'error'
+            - card_id: 卡片ID（inserted/duplicate時有效，error時為-1）
+            - message: 操作描述訊息
         """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
+
+        zettel_id = card_data.get('zettel_id', 'unknown')
 
         # 提取 zettel_folder 從 file_path
         file_path = Path(card_data['file_path'])
@@ -1166,6 +1185,15 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
             card_id = cursor.lastrowid
 
+            # 驗證插入成功
+            if cursor.rowcount != 1:
+                conn.rollback()
+                return ZettelAddResult(
+                    status='error',
+                    card_id=-1,
+                    message=f'INSERT rowcount={cursor.rowcount}, expected 1'
+                )
+
             # 插入連結信息
             for link in card_data.get('links', []):
                 for target_id in link['target_ids']:
@@ -1177,15 +1205,40 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                     """, (card_id, target_id, link['relation_type']))
 
             conn.commit()
-            return card_id
+            return ZettelAddResult(
+                status='inserted',
+                card_id=card_id,
+                message=f'Successfully inserted {zettel_id}'
+            )
 
         except sqlite3.IntegrityError as e:
-            print(f"[WARN] Card already exists or constraint violation: {e}")
-            # 如果卡片已存在，返回現有 card_id
-            cursor.execute("SELECT card_id FROM zettel_cards WHERE zettel_id=?",
-                          (card_data['zettel_id'],))
-            result = cursor.fetchone()
-            return result[0] if result else -1
+            # 區分「重複」與「其他約束錯誤」
+            error_msg = str(e).lower()
+            if 'unique constraint' in error_msg or 'zettel_id' in error_msg:
+                # 重複卡片 - 查詢現有 card_id
+                cursor.execute("SELECT card_id FROM zettel_cards WHERE zettel_id=?",
+                              (card_data['zettel_id'],))
+                result = cursor.fetchone()
+                existing_id = result[0] if result else -1
+                return ZettelAddResult(
+                    status='duplicate',
+                    card_id=existing_id,
+                    message=f'Card {zettel_id} already exists (card_id={existing_id})'
+                )
+            else:
+                # 其他約束錯誤
+                return ZettelAddResult(
+                    status='error',
+                    card_id=-1,
+                    message=f'IntegrityError: {e}'
+                )
+
+        except Exception as e:
+            return ZettelAddResult(
+                status='error',
+                card_id=-1,
+                message=f'Unexpected error: {e}'
+            )
 
         finally:
             conn.close()
@@ -1202,10 +1255,13 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             索引結果統計:
             {
                 'total': int,
-                'success': int,
-                'failed': int,
-                'skipped': int,
-                'cards': List[int]  # 成功的 card_ids
+                'inserted': int,    # 新插入的卡片數
+                'duplicate': int,   # 重複（已存在）的卡片數
+                'failed': int,      # 真正失敗的卡片數
+                'skipped': int,     # 因領域不符跳過的卡片數
+                'parse_error': int, # 解析失敗的卡片數
+                'cards': List[int], # 成功插入的 card_ids
+                'errors': List[str] # 錯誤訊息列表
             }
         """
         folder_path = Path(zettel_folder)
@@ -1213,17 +1269,23 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
         if not cards_dir.exists():
             print(f"[ERROR] Zettel cards directory not found: {cards_dir}")
-            return {'total': 0, 'success': 0, 'failed': 0, 'skipped': 0, 'cards': []}
+            return {
+                'total': 0, 'inserted': 0, 'duplicate': 0, 'failed': 0,
+                'skipped': 0, 'parse_error': 0, 'cards': [], 'errors': []
+            }
 
         # 查找所有 .md 文件
         card_files = list(cards_dir.glob("*.md"))
 
         stats = {
             'total': len(card_files),
-            'success': 0,
+            'inserted': 0,
+            'duplicate': 0,
             'failed': 0,
             'skipped': 0,
-            'cards': []
+            'parse_error': 0,
+            'cards': [],
+            'errors': []
         }
 
         for card_file in card_files:
@@ -1231,8 +1293,9 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             card_data = self.parse_zettel_card(str(card_file))
 
             if card_data is None:
-                stats['failed'] += 1
-                print(f"[FAILED] {card_file.name}")
+                stats['parse_error'] += 1
+                stats['errors'].append(f"Parse error: {card_file.name}")
+                print(f"[PARSE_ERROR] {card_file.name}")
                 continue
 
             # 檢查領域是否匹配（如果指定了domain參數）
@@ -1241,16 +1304,26 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 print(f"[SKIPPED] {card_file.name} (domain mismatch: {card_data['domain']} != {domain})")
                 continue
 
-            # 插入資料庫
-            card_id = self.add_zettel_card(card_data)
+            # 插入資料庫 - 使用新的結構化回傳
+            result = self.add_zettel_card(card_data)
 
-            if card_id > 0:
-                stats['success'] += 1
-                stats['cards'].append(card_id)
-                print(f"[SUCCESS] {card_file.name} → card_id={card_id}")
-            else:
+            if result['status'] == 'inserted':
+                stats['inserted'] += 1
+                stats['cards'].append(result['card_id'])
+                print(f"[INSERTED] {card_file.name} → card_id={result['card_id']}")
+            elif result['status'] == 'duplicate':
+                stats['duplicate'] += 1
+                print(f"[DUPLICATE] {card_file.name} ({result['message']})")
+            else:  # error
                 stats['failed'] += 1
-                print(f"[FAILED] {card_file.name}")
+                stats['errors'].append(f"{card_file.name}: {result['message']}")
+                print(f"[FAILED] {card_file.name}: {result['message']}")
+
+        # 輸出摘要
+        print(f"\n=== 索引摘要 ===")
+        print(f"總計: {stats['total']} | 新增: {stats['inserted']} | "
+              f"重複: {stats['duplicate']} | 失敗: {stats['failed']} | "
+              f"跳過: {stats['skipped']} | 解析錯誤: {stats['parse_error']}")
 
         return stats
 

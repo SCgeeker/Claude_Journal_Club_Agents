@@ -40,12 +40,13 @@ class PDFExtractor:
         elif method == "pypdf2" and not PYPDF2_AVAILABLE:
             raise ImportError("PyPDF2 not installed. Run: pip install PyPDF2")
 
-    def extract(self, pdf_path: str) -> Dict[str, Any]:
+    def extract(self, pdf_path: str, extract_tables: bool = True) -> Dict[str, Any]:
         """
         提取PDF內容和結構
 
         Args:
             pdf_path: PDF文件路徑
+            extract_tables: 是否提取表格（預設True）
 
         Returns:
             包含提取結果的字典
@@ -59,6 +60,11 @@ class PDFExtractor:
             full_text = self._extract_with_pdfplumber(pdf_path)
         else:
             full_text = self._extract_with_pypdf2(pdf_path)
+
+        # 提取表格（僅pdfplumber支援）
+        tables = []
+        if extract_tables and self.method == "pdfplumber":
+            tables = self._extract_tables_with_pdfplumber(pdf_path)
 
         # 限制字元數
         if len(full_text) > self.max_chars:
@@ -77,6 +83,8 @@ class PDFExtractor:
             "char_count": len(full_text),
             "truncated": truncated,
             "structure": structure,
+            "tables": tables,
+            "table_count": len(tables),
             "extraction_method": self.method
         }
 
@@ -91,6 +99,142 @@ class PDFExtractor:
                     text_parts.append(text)
 
         return "\n\n".join(text_parts)
+
+    def _extract_tables_with_pdfplumber(self, pdf_path: Path) -> List[Dict[str, Any]]:
+        """
+        使用pdfplumber提取PDF中的所有表格
+
+        Returns:
+            表格列表，每個表格包含:
+            - page: 頁碼
+            - index: 該頁表格索引
+            - rows: 行數
+            - cols: 列數
+            - data: 原始表格數據
+            - markdown: Markdown格式
+        """
+        tables = []
+
+        if not PDFPLUMBER_AVAILABLE:
+            return tables
+
+        try:
+            with pdfplumber.open(pdf_path) as pdf:
+                for page_num, page in enumerate(pdf.pages, 1):
+                    page_tables = page.extract_tables()
+
+                    if not page_tables:
+                        continue
+
+                    for table_idx, table_data in enumerate(page_tables):
+                        if not table_data or len(table_data) < 2:
+                            # 跳過空表格或只有一行的表格
+                            continue
+
+                        # 清理表格數據
+                        cleaned_table = self._clean_table_data(table_data)
+
+                        if cleaned_table:
+                            markdown = self._table_to_markdown(cleaned_table)
+                            tables.append({
+                                'page': page_num,
+                                'index': table_idx,
+                                'rows': len(cleaned_table),
+                                'cols': len(cleaned_table[0]) if cleaned_table else 0,
+                                'data': cleaned_table,
+                                'markdown': markdown
+                            })
+        except Exception as e:
+            # 表格提取失敗不影響主流程
+            print(f"[警告] 表格提取失敗: {e}")
+
+        return tables
+
+    def _clean_table_data(self, table: List[List]) -> List[List[str]]:
+        """
+        清理表格數據
+        - 移除空行空列
+        - 處理 None 值
+        - 合併多行文字
+        """
+        if not table:
+            return []
+
+        cleaned = []
+        for row in table:
+            if row is None:
+                continue
+
+            # 處理每個儲存格
+            cleaned_row = []
+            for cell in row:
+                if cell is None:
+                    cleaned_row.append('')
+                elif isinstance(cell, str):
+                    # 清理多餘空白和換行
+                    cleaned_row.append(' '.join(cell.split()))
+                else:
+                    cleaned_row.append(str(cell))
+
+            # 跳過完全空白的行
+            if any(cell.strip() for cell in cleaned_row):
+                cleaned.append(cleaned_row)
+
+        return cleaned
+
+    def _table_to_markdown(self, table: List[List[str]]) -> str:
+        """
+        將表格轉換為 Markdown 格式
+
+        Args:
+            table: 清理後的表格數據（二維列表）
+
+        Returns:
+            Markdown 格式的表格字串
+        """
+        if not table or len(table) < 1:
+            return ''
+
+        lines = []
+
+        # 計算每列最大寬度（用於對齊）
+        col_count = max(len(row) for row in table)
+        col_widths = [3] * col_count  # 最小寬度3
+
+        for row in table:
+            for i, cell in enumerate(row):
+                if i < col_count:
+                    col_widths[i] = max(col_widths[i], len(cell))
+
+        # 生成表頭（第一行）
+        header = table[0]
+        # 補齊列數
+        while len(header) < col_count:
+            header.append('')
+
+        header_line = '| ' + ' | '.join(
+            cell.ljust(col_widths[i]) for i, cell in enumerate(header)
+        ) + ' |'
+        lines.append(header_line)
+
+        # 生成分隔線
+        separator = '| ' + ' | '.join(
+            '-' * col_widths[i] for i in range(col_count)
+        ) + ' |'
+        lines.append(separator)
+
+        # 生成數據行
+        for row in table[1:]:
+            # 補齊列數
+            while len(row) < col_count:
+                row.append('')
+
+            row_line = '| ' + ' | '.join(
+                cell.ljust(col_widths[i]) for i, cell in enumerate(row)
+            ) + ' |'
+            lines.append(row_line)
+
+        return '\n'.join(lines)
 
     def _extract_with_pypdf2(self, pdf_path: Path) -> str:
         """使用PyPDF2提取文字"""
@@ -285,5 +429,19 @@ if __name__ == "__main__":
         print(f"關鍵詞: {', '.join(result['structure']['keywords'])}")
         print(f"\n=== 摘要 ===")
         print(result['structure']['abstract'][:500] if result['structure']['abstract'] else "未找到")
+
+        # 顯示表格資訊
+        print(f"\n=== 表格提取 ===")
+        print(f"表格數量: {result['table_count']}")
+        for i, table in enumerate(result['tables'], 1):
+            print(f"\n--- 表格 {i} (頁 {table['page']}) ---")
+            print(f"大小: {table['rows']} 行 × {table['cols']} 列")
+            print("Markdown 預覽:")
+            # 只顯示前10行
+            md_lines = table['markdown'].split('\n')
+            for line in md_lines[:10]:
+                print(f"  {line}")
+            if len(md_lines) > 10:
+                print(f"  ... (共 {len(md_lines)} 行)")
     else:
         print("用法: python pdf_extractor.py <pdf_file_path>")
