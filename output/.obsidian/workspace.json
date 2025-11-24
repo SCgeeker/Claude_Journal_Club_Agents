@@ -11,10 +11,14 @@
             "id": "d109c91e2dff4c16",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "zettelkasten_notes/zettel_Zeelenberg-2024_20251124/zettel_index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新分頁"
+              "title": "zettel_index"
             }
           }
         ]
@@ -168,6 +172,11 @@
   },
   "active": "d109c91e2dff4c16",
   "lastOpenFiles": [
+    "zettelkasten_notes/zettel_Zwaan-2002_20251124/zettel_index.md",
+    "zettelkasten_notes/zettel_Bocanegra-2022_20251124/zettel_index.md",
+    "zettelkasten_notes/zettel_Adams-2020_20251123/zettel_index.md",
+    "zettelkasten_notes/zettel_Vigly-2025_20251123/zettel_index.md",
+    "zettelkasten_notes/zettel_Woodley-2025_20251123/zettel_index.md",
     "debug_archive/card_link_analysis_before.txt",
     "debug_archive/card_link_analysis_after.txt",
     "debug_archive/debug_llm_output_Jones-2024_llama_3.3_70b_instruct.txt",
@@ -197,13 +206,8 @@
     "zettelkasten_notes/zettel_Jones-2024_20251110_deepseek_backup_20251112_212908",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-011.md",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-010.md",
-    "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-009.md",
-    "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-007.md",
-    "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-008.md",
-    "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-006.md",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct",
-    "debug_llm_output_Jones-2024_llama_3.3_70b_instruct.txt",
     "zettelkasten_notes/_archive_old_format/zettel_Research_20251029/Screenshot 2025-10-29 143515.png"
   ]
 }

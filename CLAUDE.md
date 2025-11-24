@@ -1328,36 +1328,48 @@ python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBa
 
 ## 下一步發展方向
 
-### 🚀 Zotero + Obsidian 整合 (Phase 3 規劃中)
+### 🔄 平行開發架構 (2025-11-24 確立)
 
-**設計文檔**: `D:/core/research/Program_verse/2025-11-09-Zotero-Obsidian-Integration-Design.md`
+**決策**: Claude Lit Workflow 與 ProgramVerse 採用**平行開發**模式，不再緊密整合。
 
-**核心目標**:
-- 從 Zotero BibTeX 和 PDF 庫生成 Papers + Zettelkasten
-- 輸出到 Obsidian vault (Program_verse/Atlas/Sources/)
-- 基於 Connection notes 的漸進式遷移策略
+**架構說明**:
+```
+Claude Lit Workflow (本專案)        ProgramVerse (平行專案)
+├── PDF + BibTeX 處理               ├── ACT 架構維護
+├── Zettelkasten 生成               │   ├── 0️⃣Annotation/{citekey}/
+├── MOC/概念網絡分析                │   ├── 1️⃣Conn/
+└── output/zettelkasten_notes/      │   └── 2️⃣Thought/
+         │                          │
+         └──── import_zettel.py ────┘  (橋接工具，在 ProgramVerse 端)
+```
 
-**試點計畫**:
-- 選定 2 個高品質 Connection notes（共 ~25 篇論文）
-- 生成完整的 Papers + Zettelkasten（~500 張卡片）
-- 驗證 MOC 自動生成功能
-- 評估是否可取代手動 Connection notes
+**橋接方式**:
+- ProgramVerse 端開發匯入工具 (`Atlas/tools/import_zettel.py`)
+- 從 Claude Lit output/ 匯入到 0️⃣Annotation/{citekey}/ 資料夾
+- 支援「新建」和「升級現有 Annotation」兩種模式
 
-**實施順序**:
-1. Phase A (1-2天): BibTeX 解析 + 路徑配置
-2. Phase B (2-3天): Papers 生成 + 重複檢測
-3. Phase C (3-5天): MOC 自動生成（基於 Phase 2.2 Concept Mapper）
+**相關文檔**:
+- `docs/EXPORT_FORMAT_SPEC.md` - 輸出格式規範（橋接介面）
+- `docs/IMPORT_TOOL_SPEC.md` - 匯入工具規格（供 ProgramVerse 參考）
+- `docs/QUICKADD_TEMPLATER_INTEGRATION_PLAN.md` - 階段 2 整合計畫
 
-**前置條件**:
-- ✅ Phase 2.3 完成（Zettelkasten 穩定）
-- ✅ Phase 0 清理完成（知識庫重置）
-- 🔄 等待驗證和開發
+**ProgramVerse 端文檔**: `Program_verse/Atlas/Sources/claude_lit_integration/`
+
+### 📋 待實作功能
+
+**本專案**:
+- Phase 2.4: RelationFinder 改進（詳見 `docs/RELATION_FINDER_IMPROVEMENTS.md`）
+- DOI 欄位支援（zettel_index frontmatter）
+
+**ProgramVerse 端**:
+- 階段 1: `import_zettel.py` 匯入工具
+- 階段 2: QuickAdd + Templater 整合（一鍵匯入）
 
 ---
 
-**最後更新**: 2025-11-12
-**版本**: 0.7.1-alpha
-**狀態**: Phase 0 清理完成 + Phase 3 規劃啟動
+**最後更新**: 2025-11-24
+**版本**: 0.8.0-alpha
+**狀態**: 平行開發架構確立
 
 ## 版本歷史
 
@@ -1365,12 +1377,15 @@ python -c "from src.knowledge_base import KnowledgeBaseManager; kb = KnowledgeBa
 
 ### 最近更新
 
+- **v0.8.0-alpha (2025-11-24)**: 平行開發架構確立
+  - ✅ 決定 Claude Lit Workflow 與 ProgramVerse 平行開發
+  - ✅ 設計橋接介面（EXPORT_FORMAT_SPEC.md）
+  - ✅ 規劃匯入工具規格（IMPORT_TOOL_SPEC.md）
+  - ✅ 規劃 QuickAdd 整合計畫（階段 2）
+  - ✅ 在 ProgramVerse 建立 Atlas/tools/ 和整合文檔
 - **v0.7.1-alpha (2025-11-12)**: Phase 0 清理 + Phase 3 規劃
-  - ✅ 完整清理知識庫和 output 資料夾（重新開始）
-  - ✅ 備份舊數據到 backups/20251112/
-  - ✅ 歸檔 26 個工作文件到 docs/archive/2025-11/
-  - ✅ Zotero-Obsidian 整合設計完成
-  - 📋 確定試點策略（2 個 Connection notes，漸進式遷移）
+  - ✅ 完整清理知識庫和 output 資料夾
+  - ✅ 歸檔工作文件到 docs/archive/2025-11/
 - **v0.7.0-alpha (2025-11-12)**: Phase 2.3 完成 - Zettelkasten 卡片生成系統改進
   - ✅ 修復連結網絡解析器（過濾錯誤連結）
   - ✅ 確立三個預設 LLM（Gemini 2.0 Flash, DeepSeek R1, Llama 3.3 70B）

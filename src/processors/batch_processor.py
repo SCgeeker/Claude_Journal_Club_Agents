@@ -390,8 +390,8 @@ class BatchProcessor:
                             paper_id,
                             domain
                         )
-                        zettel_imported = import_stats['imported']
-                        zettel_failed = import_stats['failed']
+                        zettel_imported = import_stats.get('inserted', 0) + import_stats.get('duplicate', 0)
+                        zettel_failed = import_stats.get('failed', 0)
                         print(f"  [DB] 已導入 {zettel_imported} 張卡片到數據庫（失敗: {zettel_failed}）")
                     else:
                         print(f"  [WARN] Zettelkasten 目錄不存在或無法解析: {zettel_dir}")

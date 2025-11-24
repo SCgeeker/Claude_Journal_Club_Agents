@@ -1,16 +1,16 @@
 ---
 title: Critical Artificial Intelligence Literacy for Psychologists
-authors: Intelligence Literacy, Critical Artificial
+authors: Critical Artificial, Intelligence Literacy
 year: N/A
 keywords: artificialintelligence, criticalAIliteracy, displacement, deskilling, statistics, modelling
-created: 2025-11-19 22:38:24
+created: 2025-11-23 18:07:00
 ---
 
 # Critical Artificial Intelligence Literacy for Psychologists
 
 ## 基本信息
 
-- **作者**: Intelligence Literacy, Critical Artificial
+- **作者**: Critical Artificial, Intelligence Literacy
 - **年份**: N/A
 - **關鍵詞**: artificialintelligence, criticalAIliteracy, displacement, deskilling, statistics, modelling
 

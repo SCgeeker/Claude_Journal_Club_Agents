@@ -1,16 +1,16 @@
 ---
 title: LLMS IN PSYCHOLINGUISTICS 1
-authors: German Research, Giovanni Cassani, Artificial Intelligence, Department Cognitive, Author Note, Large Language, Tilburg University
+authors: Giovanni Cassani, German Research, Large Language, Tilburg University, Artificial Intelligence, Author Note, Department Cognitive
 year: N/A
 keywords: Language Models, Large Language Models, computational modelling
-created: 2025-11-19 22:38:29
+created: 2025-11-23 18:08:01
 ---
 
 # LLMS IN PSYCHOLINGUISTICS 1
 
 ## 基本信息
 
-- **作者**: German Research, Giovanni Cassani, Artificial Intelligence, Department Cognitive, Author Note, Large Language, Tilburg University
+- **作者**: Giovanni Cassani, German Research, Large Language, Tilburg University, Artificial Intelligence, Author Note, Department Cognitive
 - **年份**: N/A
 - **關鍵詞**: Language Models, Large Language Models, computational modelling
 

@@ -1,0 +1,266 @@
+{
+  "total": 18,
+  "success": 0,
+  "failed": 18,
+  "errors": [
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Adams-2020.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Baruch-2016.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Créquit-2018.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Crockett-2025.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Guest-2025.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Guest-2025a.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Günther-2025a.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Hosseini-2015.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Leckel-2025.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Liao-2021.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Peer-2017.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Shapiro-2013.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Stewart-2017.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Strickland-2019.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Strickland-2022.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\vanRooij-2025.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Vigly-2025.pdf",
+      "error": "'imported'"
+    },
+    {
+      "file": "D:\\core\\research\\Program_verse\\+\\pdf\\Woodley-2025.pdf",
+      "error": "'imported'"
+    }
+  ],
+  "processing_time": "0:21:21",
+  "papers_added_to_kb": 0,
+  "zettel_generated": 0,
+  "start_time": "2025-11-23T18:00:58.139510",
+  "end_time": "2025-11-23T18:22:19.790496",
+  "results": [
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Adams-2020.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 72.42124056816101,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Baruch-2016.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 62.84800148010254,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Créquit-2018.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 73.29002046585083,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Crockett-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 70.99463319778442,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Guest-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 75.55063986778259,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Guest-2025a.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 65.51533675193787,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Günther-2025a.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 54.023451805114746,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Hosseini-2015.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 71.94775938987732,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Leckel-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 77.62806963920593,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Liao-2021.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 72.58115077018738,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Peer-2017.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 63.47317361831665,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Shapiro-2013.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 63.648048877716064,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Stewart-2017.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 65.42326307296753,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Strickland-2019.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 83.18546962738037,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Strickland-2022.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 59.34931802749634,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\vanRooij-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 52.2172749042511,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Vigly-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 128.06427121162415,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    },
+    {
+      "file_path": "D:\\core\\research\\Program_verse\\+\\pdf\\Woodley-2025.pdf",
+      "success": false,
+      "paper_id": null,
+      "zettel_dir": null,
+      "error": "'imported'",
+      "processing_time": 69.48186159133911,
+      "zettel_imported_to_db": 0,
+      "zettel_failed_import": 0
+    }
+  ]
+}

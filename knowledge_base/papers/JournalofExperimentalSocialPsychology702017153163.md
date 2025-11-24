@@ -1,0 +1,719 @@
+---
+title: JournalofExperimentalSocialPsychology70(2017)153–163
+authors: Experimental Social
+year: N/A
+keywords: 
+created: 2025-11-23 18:12:39
+---
+
+# JournalofExperimentalSocialPsychology70(2017)153–163
+
+## 基本信息
+
+- **作者**: Experimental Social
+- **年份**: N/A
+- **關鍵詞**: 
+
+## 摘要
+
+None
+
+## 研究背景
+
+## 研究方法
+
+## 主要結果
+
+## 討論與結論
+
+## 個人評論
+
+## 相關文獻
+
+## 完整內容
+
+JournalofExperimentalSocialPsychology70(2017)153–163
+ContentslistsavailableatScienceDirect
+Journal of Experimental Social Psychology
+journal homepage: www.elsevier.com/locate/jesp
+Beyond the Turk: Alternative platforms for crowdsourcing
+behavioral research
+EyalPeera,⁎ ,LauraBrandimarteb,SonamSamatc,AlessandroAcquistic
+aGraduateSchoolofBusinessAdministration,Bar-IlanUniversity,Ramat-Gan52900,Israel
+bEllerCollegeofManagement,UniversityofArizona,Tucson,AZ,UnitedStates
+cHeinzCollege,CarnegieMellonUniversity,Pittsburgh,PA,UnitedStates
+a r t i c l e i n f o a b s t r a c t
+Articlehistory: ThesuccessofAmazonMechanicalTurk(MTurk)asanonlineresearchplatformhascomeataprice:MTurkhas
+Received30May2016 sufferedfromslowingratesofpopulationreplenishment,andgrowingparticipantnon-naivety.Recently,anum-
+Revised19January2017 berofalternativeplatformshaveemerged,offeringcapabilitiessimilartoMTurkbutprovidingaccesstonewand
+Accepted21January2017
+more naïve populations. After surveying several options, we empirically examined two such platforms,
+Availableonline1February2017 CrowdFlower(CF)andProlificAcademic(ProA).Intwostudies,wefoundthatparticipantsonbothplatforms
+weremorenaïveandlessdishonestcomparedtoMTurkparticipants.Acrossthethreeplatforms,CFprovided
+Keywords:
+thebestresponserate,butCFparticipantsfailedmoreattention-checkquestionsanddidnotreproduceknown
+Onlineresearch
+Crowdsourcing effectsreplicatedonProAandMTurk.Moreover,ProAparticipantsproduceddataqualitythatwashigherthan
+Dataquality CF'sandcomparabletoMTurk's.ProAandCFparticipantswerealsomuchmorediversethanparticipantsfrom
+AmazonMechanicalTurk MTurk.
+ProlificAcademic ©2017ElsevierInc.Allrightsreserved.
+CrowdFlower
+Inrecentyears,agrowingnumberofresearchershaveusedAmazon community,andwhilethereareavarietyoftasks(orHITs,forHuman
+MechanicalTurk(MTurk),acrowdsourcingplatform,torecruitonline IntelligenceTasks)thatMTurkworkersundertakethatarenotassociat-
+humansubjectsforresearch(Paolacci&Chandler,2014).Alargebody edwithresearch,manyresearchstudiessampleparticipantsfromthis
+ofresearchhasdemonstratedthatMTurkcanbeareliableandcost-ef- platform,consequentlyaffectingthelevelofnaivetyoftheplatform.
+fectivesourceofhigh-qualityandrepresentativedata,formultiplere- Furthermore,MTurkworkerswhohavecompletedresearchtasksfora
+search purposes, in and outside the behavioral sciences (e.g., certainRequesterandhadapositiveexperience(intermsofadequacy
+Buhrmester,Kwang,&Gosling,2011;Crump,McDonnell,&Gureckis, andtimelinessinpayments,aswellastypesoftasks)maybemorelike-
+2013;Fort,Adda,&Cohen,2011;Goodman,Cryder,&Cheema,2013; lytocompleteotherstudieslaunchedbythesameRequester,oreven
+Mason&Suri,2012;Paolacci,Chandler,&Ipeirotis,2010;Rand,2012; similar studies based on the task description, thus reducing the
+Simcox&Fiez,2014;Sprouse,2011). platform'soveralllevelofnaivety.Thehighrateofnon-naivetyamong
+However,onegrowingconcernassociatedwiththeuseofMTurkfor MTurkparticipantshasrecentlybeenshowntohavethepotentialto
+scholarly work is the naivety, or lack thereof, of its participants significantly reduce the effect sizes of known research findings
+(Chandler,Paolacci,Peer,Mueller,&Ratliff,2015).SomeMTurkpartic- (Chandleretal.,2015).Exacerbatingthisissue,recentstudieshave
+ipants,ithasbeenclaimed,havebecome“professionalsurvey-takers,”1 shownthatatypicalresearchlabactuallysamplesfromaneffective
+completingcommonexperimentaltasksandquestionnaires,oftenuti- populationsizeofonlyaround7000participants(andnot500K,as
+lizedinbehavioralresearchstudies,onadailybasis,sometimesmore MTurkadvertises),becauseasmallnumberofMTurkworkersarehigh-
+than once. While MTurk does not specifically target the research lyactive,andconsequentlyusuallycompletemostHITsbeforeother,
+lessactiveworkershavehadachancetoseethem(Stewartetal.,2015).
+Recently,severalalternativeplatformshaveemerged,offeringser-
+vicessimilartoMTurkthatcouldbeusedforonlinebehavioralresearch.
+Thesealternativeplatformsofferaccesstonew,morenaïvepopulations
+⁎ Correspondingauthor.
+E-mailaddress:eyal.peer@biu.ac.il(E.Peer). thanMTurk's,andhavefewerrestrictionsonthetypesofassignments
+1 Seehttp://www.pbs.org/newshour/updates/inside-amazons-hidden-science-factory/. researchers may ask participants to undertake (Vakharia & Lease,
+http://dx.doi.org/10.1016/j.jesp.2017.01.006
+0022-1031/©2017ElsevierInc.Allrightsreserved.
+
+154 E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163
+2015;Woods,Velasco,Levitan,Wan,&Spence,2015).Forexample, participantsfromeachplatform.Welimitedrecruitmenttimetoone
+MTurk'stermsofserviceprohibittasksthataskparticipantstodown- week,inordertosetacommontimeframeforthestudy.Duringthat
+loadorinstallsoftwareorapplications,ortodiscloseidentifiableper- week,wewereabletoreachthegoalofrecruitingatleast200partici-
+sonal information (including email addresses). On the other hand, pantsfromeachplatforms,endingupwithatotalsampleof831partic-
+CrowdFlower(CF)–analternativeservice–allowsforsuchinformation ipants.Table2showsthesamplesizeobtainedfromeachplatform,the
+toberequested,andimposestheresponsibilityofduecareforconfiden- percentageofparticipantswhostartedbutdidnotcompletethestudy,
+tialdataontherequester.2Accesstoalternativecrowdsourcingplat- andthedistributionofgenderandageineachsample.Weconducted
+formsforrecruitinghumansubjectswithmorenaïvepopulationsand thesurveyonallplatformsinJanuary2016;surveysweresubmitted
+fewerlimitationscouldbehighlybeneficialforresearchersinterested onaThursdayduringthemorninghours(EST);wedidnotsetanyre-
+inconductingonlinesurveysandexperiments,aslongasthesenew strictions(suchaslocationorpreviousapprovalratings)onanyofthe
+platformsprovidehigh-qualitydata. platforms,becausewewantedtoassessdifferencesbetweentheplat-
+After searching for and testing several available crowdsourcing formsonthoseaspectstoo.ParticipantsonMTurkandCFwerepaid
+websites,weidentifiedandfocusedontwoplatforms,similartoMe- $1forsurveycompletion;participantsonProAreceived£1(equalto
+chanicalTurkindesignandpurpose:CrowdFlower(CF)andProlificAc- $1.47atthedayofthestudy;paymentscouldonlybemadeinthe
+ademic(ProA).3CF(https://www.crowdflower.com)wasfoundedin localcurrency,and£1wasequivalentto$1intermsofitsproportion
+2007andisrunbyexecutivesandaboardofdirectors.Thisplatform of the minimal wage recommended as payment to participants on
+isgearedtowardscompanies,andboastsalargecustomerbase(includ- thesesites).ParticipantsonCBDRweregiventhechancetowina$50
+ingeBay,Microsoft,Cisco,andsoon).Someoftheusecaseslistedon giftcard,awardedtooneoutofevery50participants.Whiletheexpect-
+CF'swebsiteincludetasksforsentimentanalysis,searchrelevance,con- edvalueofthepaymentwas$1,asinthefirsttwoplatforms,pilotsand
+tentmoderation,datacategorizationandtranscription.CFdrawsits previousexperiencewithCBDRsamplessuggestedthatthechanceof
+workforce from a number of different channel partners (such as winningalargerprizeprovidesahighermotivationforparticipation
+ClixSense,InstaGC,Persona.ly,andsoon),andclaimsthatitsworkforce thanacertainsmallpaymentof$1.Furthermore,theCBDRpooldoes
+includesabroadrangeofdemographics. notofferanonlinemechanismforcompensatingparticipants:theyei-
+ProA(http://www.prolific.ac)waslaunchedin2014,byagroupof therreceivecoursecreditpoints(iftheyarestudents),oraregivena
+graduatestudentsfromOxfordandSheffieldUniversities,asasoftware monetaryreward,suchasparticipationinalottery.
+incubatorcompany.ItissupportedbyIsisInnovation,partoftheUni- Wefoundstatisticallysignificantdifferencesbetweenthesamplesin
+versity of Oxford,andis primarily gearedtowardsresearchersand ethnicity,χ2(15)=92.64,pb0.01,education,χ2(6)=17.85,pb0.01,
+startups.ProAprovidesarangeofdemographicdetailaboutitspartici- andincome,χ2(18)=61.5,pb0.01(seeAppendixforfulldetails).In
+pantpoolonitswebsite,whichresearcherscanalsousetoscreenpartic- general,CaucasiansweremoreprevalentonMTurkandProAthanon
+ipants,suggestingthatabout60%ofitsparticipantsaremale,over70% CF,whichincludedahigherproportionofAsianandLatin/Hispanic
+areCaucasian,andabout50%arestudents.Table1summarizessome participants4;CFparticipantsweremoreeducatedthantheothersam-
+keypropertiesandfeaturesbetweenthesethreeplatforms. ples;andMTurkparticipantshadahigherincomethantheothersam-
+Intwostudies,weevaluatedthedataqualityoftheseplatforms.In ples.Regardinglocation,whilethevastmajorityofMTurk(andCBDR)
+thefirststudyofthispaper(Study1),wecomparedthedataquality participantsreported5thattheycurrentlyresidedinNorthAmerica
+ofMTurk,CFandProA,and,asacomparisongroup,participantsfrom (U.S.andCanada),CFandProAshowedamuchmorediversedistribu-
+theCenterforBehavioralDecisionResearch(CBDR)participantpool tionacrosstheglobe.Notsurprisingly,givenitslocation,manyProA
+(amoretraditionalparticipantpoolthatincludesstudentandnon-stu- participants were from the U.K. and Europe (56% combined), with
+dentparticipants,managedbyCarnegieMellonUniversity).Manyre- only30%fromNorthAmerica,andsmallpercentagesfromEastAsia
+searchinstitutionshaveaccesstoparticipantpoolsoftheirown.While (4%),Africa(5%)andSouthAmerica(4%).InCF,incontrast,only5%
+theymaydifferfromtheCBDRpool,theremayalsobemanycommon- camefromNorthAmerica,withthemajorityofparticipantsfromEu-
+alities,includingcompositionandretributionmodels.Thereis,there- rope(43%),andanother25%ofparticipantsfromEastAsiaorIndia.
+fore, much one can learn from by sampling from such a pool and ThevastmajorityofparticipantsonMTurk,ProA,andCBDRreported
+comparingittoparticipantsfromonlinecrowdsourcingplatforms.In thattheycouldreadEnglishata“verygood”or“excellent”level(99%,
+thesecondstudy(Study2),wefocusedonMTurkandProA,corroborat- 97.2%,91.8%,respectively),versusonly69.2%amongCFparticipants
+ingthefindingsfromthefirststudybutalsoexpandingthesetoftasks (therestratedtheirreadingabilityas“good”orworse).
+usedtocollectdata.Inbothstudies,wecompareservicesalongseveral
+criticaldimensionsofonlinebehavioralresearch.Allmeasures,manip- 1.1.2.Procedure
+ulations,andexclusionsinthestudyaredisclosed,aswellasthemethod Thestudyincorporatedseveralstages.Thefirststageconsistedof
+ofdeterminingthefinalsamplesize.Theauthorsdeclarenocompeting severalquestionnairesandexperimentaltasksadoptedfromprominent
+interests.Thedataandmaterialsforallthestudieshavebeenpublished studiesinpsychology,whichwereusedtoassessdataquality(adopted
+ontheOpenScienceFrameworkathttps://osf.io/murdt. fromKleinetal.,2014).Thesecondstageincludeddemographicand
+usage-relatedquestions,designedtobetterunderstandthedifferent
+populationsandtheiruseofthedifferentplatforms.Thelaststagein-
+1.Study1 cludedadie-rollingtask,designedtotestdishonestbehavior.
+1.1.Method 1.1.3.Materials
+Toexaminereliabilityofdataandindividualdifferencesbetween
+1.1.1.Samplingandparticipants platforms,weusedtwocommonscales:theNeedforCognitionscale
+Study1consistedofanonlinesurveydistributedonfourplatforms:
+CF, ProA, CBDR, and MTurk. Our target was to sample about 200
+4 ThecategoriesweusedtomeasureethnicitywerebasedonU.S.demographiclabels
+(i.e.,Caucasian,African-American,Asian,Latin/Hispanic,andOther).Weusedtheselabels
+2 Thetermsofservicecanbefoundhere:https://www.crowdflower.com/legal/. similarlyacrossallplatformsforthesakeofconsistency,butthesecategoriesmightnotbe
+3 InadditiontoCFandProA,wealsoexaminedMicroWorkers,RapidWorkers,MiniJobz, interpretedinthesamewaywhendealingwithnon-USpopulations.Forinstance,a
+ClickWorkerandShortTask.Thesewebsitesdidnotproveaseffectiveastheoneswehave “White”EuropeaninSpainmightidentifyas“Hispanic.”
+chosentoreporton–eitherintheirdataqualityorresponserateorthecostofrecruitment 5 Wecomparedparticipants'reportedlocationstothelocationoftheirIPaddresses,and
+–andsowedonotdiscusstheminthispaper.Thedetailsofthatpreliminarystudycanbe confirmedthatabout97%oflocationreportswerecompatiblewiththecoordinatesof
+foundathttps://osf.io/k2nh3/. theirIPaddress.
+
+E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163 155
+Table1
+Comparisonofplatforms'propertiesandfeatures(extractedfromtheplatforms'websites).
+MTurk CF ProA
+Populationsize Over500K Over10K About60K
+Researcherscanscreenparticipants
+a)bypreviousapprovalrate Yes,built-in Nooption Yes,built-in
+b)bydemographics Bylocation(orcreatingcustomqualifications) Bylocationandlanguageonly Yes,built-in
+c)fortakingpartinpreviousstudies Byusingqualifications Nooption Yes,built-in
+Submissionscanbeautomaticallycheckedand No(cansetautomaticapprovalforallsubmissionsafter Yes,usingacodeonsurvey Yes,usingacodeonsurvey
+approved presettime) completion completion
+Monetarybonusescanbegiventoparticipants Yes(individuallyorusingabatchfile) Yes,individually Yes(individuallyorusinga
+batchfile)
+(NFC,Cacioppo,Petty,&Kao,1984),andtheRosenbergSelf-Esteem (bothpersonshavebeenreportedtoexpressthisstatement);partici-
+Scale(RSES,Rosenberg,1979).Weselectedthesescalesbecause(a) pantswereaskedtoindicatehowmuch,ona7-pointscale,theyagreed
+theyarereliableandvalidatedscales,and(b)theyhavepreviously ordisagreedwiththequote(asusedinChandleretal.,2015).Theorder
+been used successfully to measure data quality on MTurk (Peer, ofthesetasks,aswellasthequestionswithineachtask,wasrandom-
+Vosgerau,&Acquisti,2014).TheNFCandRSESusearesponsescale izedbetweenparticipants,andallocationtoconditionswasrandomized
+from1(stronglydisagree)to5(stronglyagree).Theorderofthese withineachofthesetasks.
+scaleswasrandomizedbetweenparticipants. Aftercompletingallthetasks,participantsanswereddemographic
+Toexamineparticipants'attention,weusedfourattention-check questions,andquestionsthatpertainedtotheuseoftheirrespective
+questions(ACQs;Peeretal.,2014).ThedetailsoftheseACQsaregiven platformandotherplatforms.Thefinalstageofthestudyincludeda
+in the Appendix. To examine participants' non-naivety (defined as die-roll“cheating”task.Thistaskwasusedtoexaminewhetherpartic-
+their level of familiarity with commonly used research materials; ipantswouldbewillingtomisreporttheirperformanceforadditional
+Chandleretal.,2015),weaskedparticipantstoreport,aftereachques- reward.Participantsweretoldthatthesurveysoftwarewouldvirtually
+tionnaireorexperimentaltask,“Wasthisthefirsttimeyouwereasked rollasix-sideddie,andthattheresultingnumberwouldbemultiplied
+toanswersuchaquestion/questionnaire?”,withoptionsof“yes,”“no,” by10centstodeterminetheirbonusforcompletingthestudy.Howev-
+and“notsure.” er,participantswerealsotoldthat,beforerollingthedie,theyhadto
+Toexaminethereproducibilityofknowneffects,weincludedfour choosewhetherthebonuswouldbedeterminedusingtheupward-fac-
+judgmentanddecision-makingtasks.ThefirsttaskwastheAsianDis- ingnumberonthedie,orthenumberoppositetoit,facingdownwards.
+easeframingeffect(Tversky&Kahneman,1981),inwhichparticipants Thischoicewastobemadeintheirmindsbeforetherollofthedie.
+wereaskedtoimaginethattheUnitedStateswaspreparingfortheout- Then,thediewasrolled(usingarandomizer)andparticipantswere
+breakofadisease,andtoselectfromtwocoursesofactiondescribedin askedtoreportthenumbershownonthedieandwhethertheypicked
+eitherapositive(livessaved)ornegative(liveslost)frame:ProgramA, theupward-ordownward-facingside,followingwhichtheyweretold
+underwhich[200peoplewouldbesaved][400peoplewoulddie];or whattheirbonuswouldbeaccordingly.Becausenumbersonopposite
+ProgramB,underwhichtherewasa1/3probabilitythat600people sidesofaregularsix-sideddiesumupto7andcheatingisundetectable,
+wouldbesaved[noonewoulddie]and2/3probabilitythatnoone participantshadanincentivetocheat,bydeclaringthattheypickedthe
+wouldbesaved[600peoplewoulddie].Thesecondtaskwasbasedon downward-facingsidewhenthesidefacingupshowedalownumber,
+theSunkCostFallacy(followingOppenheimer,Meyvis,&Davidenko, orconversely,thattheypickedtheupward-facingsidewhenthedie
+2009),inwhichparticipantswereaskedto“Imaginethatyourfavorite rollshowedahighnumberonthatside.Thistaskwasemployedonly
+footballteamisplayinganimportantgame.Youhaveatickettothe ontheplatformsthatallowedforpost-completionmonetarybonuses:
+game that you [have paid handsomely for] [have received for free MTurk,ProAandCF.
+fromafriend].However,onthedayofthegame,ithappenstobefreez-
+ingcold.Whatdoyoudo?”Participantsratedtheirlikelihoodofattend-
+ingthegamefrom1(Definitelystayathome)to9(Definitelygotothe 1.2.Results
+game).ThethirdtaskwasbasedontheRetrospectiveGambler'sFallacy
+1.2.1.Responserates
+(Oppenheimer&Monin,2009),inwhichparticipantswereaskedto
+“Imaginethatyouareinacasinoandyouhappentopassamanrolling AsdetailedinTable2,dropoutrateswerearound10%forallplat-
+forms, with no significant differences between the platforms, χ2
+dice.Youobservehimrollthreediceandallthreecomeup6s[one
+(3)=3.43,p=0.33.Allofthesubsequentanalysesincludeonlypartic-
+comesup3andtwocomeup6s].Basedonyourimaginedscenario,
+ipantswhocompletedtheentirestudy.Fig.1showsthecumulativefre-
+howmanytimesdoyouthinkthemanhadrolledthedicebeforeyou
+walkedby?”ThefourthtaskwasaconceptualreplicationoftheQuote quency(absolutenumber)ofaccumulatedresponsesaccordingtothe
+time(inminutes)fromtheonsetofthesurvey,countedfromthestart
+Attributionquestion(Lorge&Curtis,1936)inwhichparticipantswere
+giventhefollowingquote:“Ihavesworntoonlylivefree,evenifI
+timeofthefirstrespondentforeachsampleuntilthefinishtimeof
+findbitterthetasteofdeath.”ThequotewasattributedtoGeorgeWash- thelastrespondentforeachsample(whichsometimesexceeded200,
+asdetailedinTable2).Ascanbeseen,CFshowedthefastestresponse
+ingtoninoneconditionandtoOsamaBinLadenintheothercondition
+rates,with200responsescollectedwithin44min,followedbyMTurk,
+whereittook1:48htocollect200responses.OnProA,ittook4:37h
+Table2 tocollect200responses,andcollectionwasstoppedafteraweekon
+Samplesizes,dropoutrates,workers'demographics. CBDR(whichhadprovided195responsesatthattime).Theaveragere-
+sponseratewasbestonCFandMTurk(3.85and5.62minrequiredfor
+Sample Started Completed Percentageof Percent Medianage
+thestudy dropouts males (inter-quartile 10responses),followedbyProA(12.94minper10responses)and
+range) CBDR(about9hper10responses).
+MTurk 220 201 8.6% 56.7% 32.0(27–38.5) Tosummarize,CFprovidedacomparable,orevensuperior,alterna-
+CF 238 221 7.1% 73.6% 31.0(25–38) tivetoMTurkintermsofresponserate,whileProAhadasomewhat
+ProA 243 214 11.9% 64.5% 27.0(23–37) slowerresponserateoverallthanthetwoonlineplatforms,butafaster
+CBDR 215 195 9.3% 29.2% 23.5(23–37)
+responseratethantheuniversitypool.However,ifoneconsidersthe
+
+156 E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163
+ACQreducesthesamplesizelessforallplatforms,butstillCF'ssample
+isreducedthemosttoaboutonly45%ofitsoriginalsize(χ2(3)=
+80.83,pb0.01).
+TheaveragenumberoffailedACQsalsodifferedsignificantlybe-
+tweentheplatforms,F(3,827)=37.41,pb0.01.WhereasMTurkpar-
+ticipants failed, on average, only 0.67 ACQs (SD = 0.96), ProA
+participants failed 0.81 ACQs (SD = 1.01); CBDR participants 1.04
+ACQs(SD=1.14);andCFparticipantsfailedthemost,1.76ACQsonav-
+erage(SD=1.44).Allpost-hocdifferences,exceptbetweenProAand
+CBDR,werestatisticallysignificantafterapplyingBonferroni'scorrec-
+tion(pb0.05).Thus,itappearsthatCFparticipantsshowedthehighest,
+andMTurkparticipantsthelowest,propensitytonotfollowinstructions
+andfailACQs;ProAandCBDRparticipantsperformedmuchbetterthan
+CF,andwereonlysomewhatinferiortoMTurk.Becausesomeofthe
+participantsfromCFreportedlowerlevelsofEnglishproficiency,weex-
+aminedwhetherthismightexplaintheirhigherpropensitytofailACQs.
+WeindeedfoundthatCFparticipantswhoratedtheirEnglishproficien-
+cyas“good”orless(N=68,30.8%)failed,onaverage,onmoreACQs
+(M=2.18vs.1.58,SD=1.38,1.42),t(219)=2.93,pb0.01.Inmost
+cases,failingACQsprobablymeansthatparticipantsdidnotreadthein-
+structions;butitmayalsosuggestthatparticipants'behaviorismore
+naïveandsincere.Thus,toexaminethis,weincludedthefactorof
+Fig.1.Responseratesacrossplatforms. howmanyACQsparticipantsfailedinoursubsequentanalysesofthe
+dataqualityaspectsexploredinthisstudy.
+timeittookeachofthethreecrowdsourcingplatformstoreachthe200-
+responsesgoal,thedifferencebetweenProAandMTurkwaslessnotice- 1.2.3.Reliability
+able.Wealsofoundsomedifferencesinthetimetakenbyparticipants Wecomparedinternalreliabilitymeasures(Cronbach'salpha)for
+fromthedifferentsamplestocompletethestudy.Becausethetimedis- theRSESandNFCscalesusedinthestudybetweenplatforms,andasa
+tributionwashighlyskewed,wecomparedmediansacrossgroupsand functionofexclusionpolicy.Overall,bothscalesshowedtheexpected
+found that it was lowest on CBDR (10 min), followed by MTurk highreliabilityscores(Cronbach'salpha=0.898,0.901respectively).
+(11min),ProA(14min),andhighestonCF(16min).AKruskal-Wallis AsshowninFig.3,reliabilitymeasuresfortheRSESwereadequately
+test showed that these differences were statistically significant high(aroundorabove0.90)onallplatformsexceptCF,andthatdid
+(pb0.01). notchangeconsiderablyunderthelenientorstrictexclusionpolicies.
+ForCF,reliabilityimprovedsignificantly(from0.837to0.901)whenap-
+plyingthelenientexclusionpolicy,anditwassimilarlyhigh(0.891)
+1.2.2.Attention underthestrictpolicy.ThispatternappearedsimilarlyfortheNFC:
+Usingthefourattention-checkquestions,wetestedwhetherpartic- Forallplatforms,exceptCF,reliabilitywashighfortheoverallsample
+ipantsreadandpaidattentiontoourinstructions.Inordertocapture andalsoafterexcludingbasedonACQs.ForCF,reliabilitywaslowerin
+howresearchersmightactuallyuseACQstoexcludeinattentivepartic- the overall sample (0.689) and improved significantly (to 0.836)
+ipants,weexaminedthepercentofparticipantremainingineachsam- underbothexclusionpolicies.UsingHakstianandWhalen's(1976)
+pleundertwopossibleexclusionpolicies:alenientexclusionpolicythat methodtocomparebetweenindependentreliabilitycoefficients,we
+excludesallparticipantsthatfailedmorethanoneACQ,andastrictex- foundthedifferencesinreliabilityamongCF,betweenthegroupsstated
+clusionpolicythatexcludesallparticipantsthatfailedanyACQ.Ascan above,werestatisticallysignificantforboththeRSESandNFC(χ2(2)=
+beseeninFig.2,thestrictexclusionpolicyreducesthesamplesizeby 8.21,17.95;p=0.02,pb0.01).Wedidnotfindanystatisticallysignif-
+aboutahalfforMTurk,ProAandCBDR,butitisevenmoredetrimental icantresultsbetweentheotherplatformsandtheirsub-groups.
+forCFwhereonly27.1%ofparticipantscanbeincluded(χ2(3)=45.19,
+pb0.01).Usingthelenientpolicyofallowingparticipantstofailone 1.2.4.Reproducibility
+Wenextexaminedtheeffectsizesofthefourexperimentaltasks
+usedinthestudy.Wefirstlookedatoverallreplicabilityand,asTable
+3shows,foundalleffectstobestatisticallysignificantinMTurkand
+ProAsamples.However,CFparticipantsdidnotshoweithertheSunk
+CostorGambler'sFallacyeffects.CBDRparticipantsdidnotexhibitthe
+Gambler'sFallacyeffecteither.Wethenexaminedwhetherapplying
+anexclusionpolicymadeanydifferenceinanyoftheplatforms.Theo-
+retically,excludingparticipantsthatfailedACQscouldhavetwooppos-
+ingimpactsoneffectsizes.Ononehand,excludingparticipantsreduces
+samplesizeandcouldincreasevariancethatwouldreduceeffectsizes.
+Ontheotherhand,excluding(presumably)inattentiveparticipants
+couldreducevarianceandthusincreaseeffectsizes.Similarly,regarding
+significancetesting,excludinginattentiveparticipantsreducessample
+sizeandstatisticalpowerwhile(potentially)reducingvariance.
+AscanbeseeninTable3,excludingparticipantsbasedonACQson
+MTurkhadlittletonoimpactontheobservedeffectsizes,anditsome-
+whatincreasedeffectsizesonProA.AmongCFparticipants,thestrict
+Fig.2.Percentofparticipantsincludedineachsamplebyexclusionpolicy(lenient=
+exclusionpolicyhadamixedeffectasitincreasedtheeffectsizeofthe
+excludingparticipantsthatfailedmorethanoneACQ;strict=excludingparticipants
+thatfailedanyACQ). AsianDiseaseandGambler'sFallacytasks,whileitreducedeffectsizes
+
+E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163 157
+Fig.3.a–bCronbach'salphafortheRSES(3a)andNFC(3b)betweentheplatformsandasafunctionexclusionpolicy(lenient=excludingparticipantsthatfailedmorethanoneACQ;
+strict=excludingparticipantsthatfailedanyACQ).
+ontheothertasks.AmongCBDRparticipants,excludingbasedonACQs whetheraparticularindividualparticipantcheatedornot,wecould
+generallyincreasedeffectsizesexceptforthecaseoftheQuoteAttribu- comparethemeanbonusclaimedineachsampleagainstthisbench-
+tiontask. mark.Wefoundstatisticallysignificantdegreesofover-reportinginall
+samples, M = 46.87, 42.29, 40.68, (SD = 12.67, 15.8, 16.18) for
+1.2.5.Non-naivety MTurk,ProA,andCFparticipants,respectively,t(200,213,220)=
+Participantswereasked,aftereachexperimentaltask,questionnaire, 13.27,6.75,5.22,pb0.01.However,theeffectsizesofcheatingdegree
+andthefirsttwoACQs,whetherthatwasthefirsttimethattheyhad weresignificantlyhigheston MTurk,followedbyProA,andlowest
+seenthattaskorquestion.Wecodedresponsesof“yes”asindicatingna- amongCFparticipants,Cohen'sd=1.88,0.92,0.70,respectively,F(2,
+ivetyandresponsesof“no”or“notsure”asindicatingfamiliarity.(Note 633)=9.49,pb0.01.Post-hoccomparisons,usingBonferroni'scorrec-
+that“notsure”percentageswereb10%acrossallinstances;thus,this tion,showedthatMTurk'scheatingratewassignificantlyhigherthan
+classification has little impact on the following results). As Fig. 4 bothProA'sandCF's(pb0.01),butthatthedifferencebetweenthelat-
+shows,themostfamiliartasksweretheRSESandNFCscales,followed tertwosampleswasnot(p=0.79).
+bytheAsianDiseaseproblem.Betweentheplatforms,MTurkpartici-
+pantsweretypicallymorefamiliarwiththetasks,whileCFparticipants 1.2.7.Overlapofparticipantsbetweenplatforms
+weremorenaïvetothetasks. Weaskedparticipantsthefrequencywithwhichtheyusedeachof
+Thereliabilityofalleighttasks'dichotomousscoresoffamiliarity theplatforms(excludingCBDR,whichisnotpopularamongpartici-
+wasadequatelyhigh(alpha=0.744),sowecomputedthepercentage pantsworldwide),from“never”to“manytimes.”Table4showsthe
+oftaskseachparticipantindicatedtheywereunfamiliarwithinorder percentage of participants from each platform who reported using
+toobtainanoverall“naivety”score.ANOVAonthemeanpercentage otherplatformsmorethan“afewtimes.”Generally,thedegreeofover-
+ofunfamiliartasksparticipantsreportedshowedstatisticallysignificant lapbetweenplatformsseemstobequitesmall,withthehighestoverlap
+differences in naivety between the platforms, F (3, 827) = 25.34, amongthe22%ofProAuserswhoalsousedMTurk.
+pb0.01.MTurkparticipantsweretheleastnaïve,withanaverageof
+60.3%oftasksreportedasseenforthefirsttime,followedbyProAand 1.2.8.Usagepatterns
+CBDR(68.3%,72.2%)participants;CFparticipantsseemedthemost AscanbeseeninFig.s5,77.2%ofMTurk,and84.2%ofCFparticipants
+naïve,astheyreportedameanof80.8%tasksseenforthefirsttime. reportedspending8ormorehoursperweekontheplatform.ProA
+usersspentconsiderablylesstime,with69.1%reportingspendingbe-
+1.2.6.Dishonestbehavior tween1and8hperweek.AsFig.6shows,thisdifferenceinusageclear-
+Inthelastsectionofthestudy,participantsinallplatformswere lyresultedinearningdifferencesbetweentheplatforms:whereasN70%
+giventheoptiontocheatbyselectingthe“up”or“down”sideofaran- ofMTurk-ersreportedearningmorethan$50aweek,about72%ofCF
+domlyrolleddietodeterminetheirbonusforcompletingthestudy.Ifall participantsreportedearning$5–$50aweek,and77%ofProApartici-
+participantswerehonest,wewouldexpectthemeanbonusclaimedby pantsreportedearninglessthan$10aweek(76%ofCBDRparticipants
+participantstobe35cents(themeanofauniformdistributionofadie reportedearninglessthan$5aweek,possiblyduetostudentsreceiving
+rollmultipliedby10cents).Thus,althoughwecouldnotdetermine academiccreditinsteadofmoney).Thedifferencesbetweenaverage
+Table3
+Effectsizes(Cohen'sd)betweenplatformsandexclusionpolicies.
+Platform Exclusionpolicy Asiandisease Sunkcost Gambler'sFallacya Quoteattribution
+MTurk None(allPs.) 0.82 0.27 0.28 0.73
+Lenientexclusion 0.99 0.34 0.29 0.75
+Strictexclusion 0.94 0.24 0.24 0.73
+ProA None(allPs.) 0.63 0.39 0.29 0.68
+Lenientexclusion 0.74 0.61 0.36 0.66
+Strictexclusion 0.82 0.53 0.31 0.72
+CF None(allPs.) 0.72 0.02 0.20 0.54
+Lenientexclusion 0.82 −0.29 0.39 0.38
+Strictexclusion 0.76 −0.62 0.35 0.25
+CBDR None(allPs.) 0.76 0.42 0.12 0.51
+Lenientexclusion 1.11 0.41 0.14 0.28
+Strictexclusion 1.12 0.56 0.25 −0.01
+Note:alleffectsizeswerestatisticallysignificant,pb0.05,exceptforthosethatareinitalics.
+a Weexcludedresponsesofabove100,whichconstitutedb5%ofthedata.
+
+158 E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163
+Fig.4.Percentageofnaïveparticipants(notfamiliarwiththetask)pertaskperplatform.
+pay/week between the samples were statistically significant, F (3, significantlyasweapproachedthe200-participantmark(forthefirst
+769)=371.46,pb0.01,asMTurkparticipantsreportedthehighestav- 180participants,ProAprovedtobethefastestroutetocollectdata).
+eragepay(M=$3.69,SD=$0.5),followedbyCF(M=$2.54,SD= ThismightbeasymptomofthesmalleroverallsizeofProA,ascom-
+$0.9), ProA (M = $1.81, SD = $0.81) and CBDR (M = $1.3, SD = paredtoCF(andMTurk).ProAusersalsoscoredsignificantlyhigher
+$0.57).Allthepairwisedifferencesbetweentheplatformswerestatisti- ontheattentionchecksascomparedtoCF.Thehigherratesofpassing
+callysignificant,pb0.01,afterBonferroni'scorrection.Consistently,the attention-checkquestionsonProA(andMTurk)couldbeduetopartic-
+mediannumberoftasksparticipantsreportedcompletingontheplat- ipants'pastexperiencewiththeseorsimilarattention-checkquestions
+form was highest among MTurk (7100), lower on CF (1000) and (Chandler,Mueller,&Paolacci,2014;Peeretal.,2014),andahighfail-
+muchloweronProA(30)andCBDR(6).Themedianapprovalscore ureratecouldactuallybeconsidereddesirablebecauseitimpliesnaive-
+(percentageofapprovedsubmissions)participantsreportedhaving tywithregardstoexperimentalmaterials.Notwithstandinghigher
+wascloseto100%forallplatformsexceptforCF(89%). naivety,oneshouldconsiderthefailureinreplicatingboththeSunk
+CostandtheGambler'sFallacyeffectsonCF,whichmaybeespecially
+1.3.Discussion worrisomeforthepsychologyresearchcommunity.
+Propensitytocheat,ontheotherhand,wasnotstatisticallydifferent
+Tosummarizethecomparisonofdataqualitybetweentheplat- betweenCFandProA:participantsonbothoftheseplatformsexhibited
+forms,wefoundthat,comparedtoMTurk,CFparticipantsshoweda alowerpropensitytowardscheating,ascomparedtoMTurk.Thiscould
+higherresponseratebutalsoamuchhigherrateoffailingattention- beduetoanumberofreasons,including(butnotlimitedto):thespecif-
+checkquestions,resultinginlowervaluesofinternalreliabilityforthe ictaskorincentiveschemeweused;participants'familiaritywiththe
+participantsonCFwhofailedACQs.Additionally,whileCFparticipants task;participants'suspicionthattheymightbemonitored;orpartici-
+reportedlessfamiliarity(highernaivety)regardingcommonexperi- pants'generalreluctancetoexposetheirtruebehavioraltendencies.Al-
+mentaltasks,theeffectsfortwoofthesetaskscouldnotbereplicated ternatively,thiscouldbeduetoindividualdifferencesbetweenthe
+onthatsample,whereaseffectsforalltasksreplicatedonProA.Inaddi- participantsinthedifferentsamples,oralsorelatedtotheplatformit-
+tion,ProAparticipantsreportedhighernaivetythanMTurkparticipants. self:whileProAadvertisesitselfasdesignedforacademicresearch,
+Lastly,bothProAandCFparticipantsshowedlowerdegreesofdishon- MTurk'sappealismoreaboutearningmoneyquickly.
+estbehavior,comparedtoMTurk.Asummarycomparisonofthediffer- Whenresearcherschoosebetweenplatforms,theyshouldconsider
+encesfoundbetweentheplatformsisgiveninTable5. twootherissuesraisedbyourdata.First,althoughwefoundnosubstan-
+TheseresultssuggestthatwhilebothCFandProAshowadequate
+tialoverlapbetweenparticipantsfromCFandMTurk(b10%ofpartici-
+dataquality,ProAseemstobethemostviablealternativetoMTurk. pantsreportedusingbothplatforms),someparticipants(about22%)
+ProAusersshowedonlyslightlylowerlevelsofattentionascompared fromProAindicatedthattheyuseMTurkaswell.Thisshouldnotbe
+toMTurk,whichdidnotsignificantlyaffectmeasuresofreliability.Fur- anissueifonerestrictsthestudytoasingleplatform,butshouldbe
+thermore,withahigherlevelofnaivetyandlowerfrequenciesofweek- takenintoaccountifthestudyistoberunonmultipleplatforms,orif
+lyparticipationascomparedtoMTurk,theProAsamplereproduced (forinstance)asimilarstudyhasalreadybeenconductedononeof
+knowneffectsofallthetestedtasks,whileonlyhalfwerereproduced theplatforms.Theotherissuetoconsideristhedemographiccomposi-
+onCF.Finally,weobservedalowerpropensityonthepartofProApar- tionoftheseplatforms.Themostsalientdifferenceliesinparticipants'
+ticipantstoengageindishonestbehavior,ascomparedtoMTurk.Over- ethnicityandcountryoforigin.WhereasCFparticipantsshowedthe
+all,ProAdemonstratedsuperiorityoverCF.However,ittooklongerto highestdiversityintermsofethnicity,ProA'sdistributionwassimilar
+collect all responses, and data collection on ProA slowed down toMTurk's,withalowerpercentageofnon-Caucasianparticipants.
+Moreover,alargeportionofCFandProAparticipantsresideoutside
+theU.S.(mainlyinEuropeandAsia),whileMTurkattractsmostlyU.S.
+residents.Thissuggeststhatthedifferentplatformstapintodifferent
+Table4 populations,andthisshouldbetakenintoaccountwhendetermining
+Percentageofparticipantsreportingusingplatformsmorethan“afewtimes.”
+whichplatformtouseforparticipantrecruitment.
+UsesMTurk UsesCF UsesProA Thesedifferencesindemographicandgeographicoriginbetween
+MTurk 98.50% 2.5% 14.5% theplatforms,andespeciallybetweenCFandMTurk,deservespecialat-
+CF 6.3% 94.1% 4.1% tention.Ononehand,thedifferencesinbothethnicityandcountryof
+ProA 22% 9.3% 88.8% residencebetweenthesetwoplatformssuggestthatoneisnotcompa-
+CBDR 8.3% 1.5% 1%
+rablewiththeother,andthusCFcannotbeconsideredacomparable
+
+E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163 159
+Fig.5.Distributionoffrequencyofusagebetweentheplatforms.
+alternativetoMTurk.Ontheotherhand,scholarshaveurgedthescien- completedtheentiresurvey.BecauseStudy2occurredayear after
+tificcommunitytoexpandbeyondwestern,industrialized,educated, Study1wascompleted,andbecausetasksdifferedacrossthetwostud-
+richanddemocraticparticipants(orWEIRD;seeHenrich,Heine,& ies,wedidnotscreenoutparticipantsthatcompletedStudy1.Partici-
+Norenzayan,2010),andspecificallybeyondU.S.-basedparticipants, pantswerepaid$1onMTurkand£1onProA(equalto$1.23atthe
+which,asourresultssuggest,areover-representedonMTurk.Inthat day of the study). Dropout rates were similar for MTurk and ProA
+sense,researchersmaychoosetotakeadvantageofCF'sorProA'saccess (12.6%and12.0%,respectively).Fromhereon,weanalyzedonlythere-
+tonon-U.S.populations.Indoingso,researchersmayalsobenefitfrom sultsofthosewhocompletedtheentirestudy.Therewerenodifferences
+thispopulation'srelativenaivetytowardsmanybehavioralandpsycho- ingenderbetweenthesites(53.1%vs.56.1%malesonMTurkvs.ProA,χ2
+logicalresearchmaterials,apointthathasbeensingledoutasoneof (1)=1.04,p=0.31)butMTurkparticipantsweresomewhatolderthan
+MTurk'smostpersistentdisadvantages(Chandleretal.,2014). ProA's(Md =32vs.28.5,inter-quartilerange=28–42,24–35,re-
+age
+Overall,theresultsofourfirststudysuggestthatProA(butnotCF) spectively,pb0.01).Wefoundstatisticallysignificantdifferencesbe-
+couldbeconsideredapotentialalternativetoMTurkasitproduced tweenthesitesinethnicity,χ2(5)=25.51,pb0.01,education,χ2
+dataqualityofcomparablelevels,withmorediverseandnaïvepartici- (9)=60.04,pb0.01,andincome,χ2(7)=147.02,pb0.01,butnotin
+pants,atareasonable(albeitslower)responserate.However,while Englishproficiency,t(0.05),p=0.96(seeAppendixformoredetails).
+manystudies haveexamined MTurk's data quality(asreviewedin Ingeneral,ProAparticipantsincludedslightlymoreAsiansandHis-
+Paolacci&Chandler,2014),thestudyaboveconstitutesthefirstsystem- panics, and slightly fewer African-American and Caucasians than
+aticexaminationofProA'sdataquality. MTurk;andtheyweresomewhatmoreeducatedandhadlowerincome
+Despitetheirvalue,though,wecannotandprobablyshouldnottreat comparedtoMTurk.Thereportedlocation6ofparticipantsdifferedsig-
+thesefindingsasfinal.Additionally,afterStudy1wasconducted,ProA nificantlybetweenthesites,χ2(6)=575.2,pb0.01.While90.5%of
+changedtheirpricingschemetosignificantlyraisethecommission MTurkparticipantswerefromNorthAmerica,and6.8%fromIndia(the
+paidbyresearchers.Itthusseemedpertinenttore-evaluateProAas restcamefromEurope,EastAsia,AfricaandtheU.K.),NorthAmericans
+somedimensions(e.g.,responserates)mayhavebeenaffectedbythat comprisedonly25.9%ofProA'sparticipants,whichalsoincluded30.8%
+change.InordertoverifythatProAmaybeconsideredasanalternative fromtheU.K.,another27.1%fromEurope,8.1%fromSouthAmerica,
+toMTurk,weconductedasecondstudy,inwhichwefocusedonProA and6%fromIndia(therestwerefromAfricaandEastAsia).
+andMTurkalone,andwithamuchlargersample.
+2.1.2.Procedure
+2.Study2
+Participantswereinvitedtocompleteanonlinestudythatconsisted
+ofthefollowingparts.Toassessreliability,weusedtheConsiderationfor
+2.1.Method
+FutureConsequencesscale(Strathman,Gleicher,Boninger,&Edwards,
+1994). To examine attention, we included three ACQs. One was an
+2.1.1.Samples'compositionandcharacteristics
+itemembeddedintotheCFCscale(“IthinkIhaveneverusedtheInternet
+Werecruited1374participantsfrombothsites(691fromMTurkand
+myselfatanytimethroughthecourseofmypersonallife”–anyanswer
+683fromProA),ofwhich1205(604fromMTurkand601fromProA)
+otherthan“1-extremelyuncharacteristic”wascodedasfailingtheACQ).
+AnotherACQwasafake“perceptualabilitiestask.”Wetoldparticipants
+thattheywouldseeanimagewithmanypeopleinitandthattheirtask
+wastocounthowmanypersonsappearinthepicturewithin10s.How-
+ever,inthetextdescribingthetaskweinstructedparticipantstoactually
+reportzero.ThethirdACQwasashortquestionnaireaboutlikingmath,
+thathadthreeitems.Intheintroductiontothequestionnaire,weasked
+participantstoanswer“six”forthefirstitem,todividethatnumberby
+twoandusetheresultastheanswerforthesecondandthirdquestions.
+Toexaminereproducibilityofknowneffectsweusedthe“simulation
+heuristic” (Kahneman & Tversky, 1982), in which participants read
+that“Mrs.CraneandMrs.Teeswerescheduledtoleavetheairportat
+thesametime,butondifferentflights.Eachofthemwokeupandleft
+Fig.6.Percentageofparticipantsindifferentquartilesofaverageweeklyearningbetween
+theplatforms(thecutoffsrepresentthequartilesofearningsintheoverallsample). 6 Participants'reportedlocationsmatchedtheirIPaddressesin94%ofthecases.
+
+160 E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163
+Table5
+Summaryofdifferencesbetweentheplatforms.
+MTurk CF ProA CBDR
+Dropoutrate Low Low Low Low
+Responserate Fast Fastest Fast Slowest
+ACQsfailurerate Lowest Highest Low Medium
+Reliability High Low High High
+Reproducibility Good Poor Good Fair
+Naivety Lowest Highest High High
+Dishonesty Highest Medium Medium –
+Ethnicdiversity Low High Low Medium
+Geographicorigin MostlyU.S. Mainly MostlyU.S. Mostly
+Europe U.S.
+Englishfluency High Low High High
+Incomelevel Low Low Medium Low
+Medianeducation Bachelor's Bachelor's Bachelor's Bachelor's
+level
+Usagefrequency High Highest Medium Lowest
+Overlapwithother Some Few Some Few
+(ProA) (MTurk)
+homeatthesametime,drovethesamedistancetotheairport,was
+caughtinatrafficjam,andarrivedattheairport30minutesafterthe Fig.7.Responseratesbetweenthetwoplatforms.
+scheduleddepartureoftheirflights.Mrs.Cranewastoldathergate
+thatherflightleftontime.Mrs.Teeswastoldathergatethatherflight
+wasdelayedandhadleftjustthreeminutesago.Theybothhaddawdled
+thanoneACQ,wouldresultinretaining86.6%ofthesampleonMTurk
+fortenminutesbeforeleavinghome.”Participantswereaskedtoindi-
+comparedtoonly67.6%onProA,χ2(1)=61.18,pb0.01
+catewho,betweenMrs.CraneandMrs.Tees,theyfeltherdawdlingto
+bemorefoolish(orirresponsible). Responseswereenteredona7-
+pointscalerangingfrom“Mrs.Teesfeltmorefoolishconsiderably”to
+2.2.3.Reliability
+“Mrs. Crane felt more foolish considerably.” Typically, respondents AftercodingtheCFCquestionsaccordingtothescale,weexamined
+thinkthepersonwhomissedtheflightbyashortdurationshouldfeel
+itsreliabilitybetweenthesitesandbetweenexclusionpolicies.Ascan
+moreregret,thusexhibitingcounterfactualthinking. beseeninFig.8,reliabilityonMTurkwasfoundtobeslightlyhigher
+Participantsthencompleteddemographicandusage-relatedques- thanonProAwhenusingallparticipants(Cronbach'salpha=0.89vs.
+tionssimilartoStudy1.Wealsoincludedquestionsthatweredesigned 0.821).Thisdifferencewasslightlyminimizedunderthelenientexclu-
+totestsomeotherhypotheses(forexample,weaskedparticipantshow sionpolicy(0.911vs.0.869)andthestrictpolicy(0.904vs.0.863).Using
+manyshoestheyownedinordertotestthehypothesisthatwomen HakstianandWhalen's(1976)method,wefoundthatthedifferences
+havemoreshoesthanmen).Thepurposeofthesequestionswasto between all reliability coefficients were statistically significant (χ2
+allowustoexaminetheeffectsizesofsuch“obvious”hypothesesthat (7)=153.58,pb0.001).However,itshouldbenotedthatinallin-
+couldthenbeusedtocalculatetheminimumsamplesizerequired,on stancesreliabilityremainedabovetheconventionalthresholdof0.8in-
+eachplatform,toobtainastatisticallysignificantresultforthathypoth-
+dicatingadequatereliability.
+esis.However,theseresultsendedupbeingambiguousininterpreta-
+tionand,undereditorialadvice,wedecidedtoexcludethemfromthe
+paper.Interestedreadersmayfindthefulldetailsofthesequestions 2.2.4.Reproducibility
+andresultsathttps://osf.io/7ut8h.Alloftheabovepartsweregivento Thesimulationheuristicpredictsthatpeoplewouldbelievethata
+participantsinrandomorder. personwhomissedtheirflightbyafewminuteswouldfeelmoreregret
+(i.e.,feelmorefoolishaboutdawdlingbeforeleavingfortheairport)
+thanapersonwhomissedtheirflightbyalongerduration.AsFig.9
+2.2.Results shows,theeffect,whichisindicatedbyameanregretratingthatissig-
+nificantlyhigherthanthescale'smidpoint(4),wasfoundonbothsites.
+2.2.1.Responserates Theeffectwasslightlystrongerundertheexclusionpolicies,butthese
+AsFig.7shows,theresponserateonMTurkwasmuchfasterthanon
+ProAinthisstudy.WhiledatacollectionwascompletedonMTurkin
+151min,it took almost10 htoreach600responseson ProA.This
+meanstheresponseratewasalmostfourtimesfasteronMTurk(3.99
+responsesperminuteonMTurkvs.1.01responsesperminuteonProA).
+2.2.2.Attention
+While60.6%ofparticipantsonMTurkpassedallthreeACQs,only
+48.4%ofProA'sparticipantspassedallACQs.Thepercentofparticipants
+failingone,twoorallACQsonMTurkwere26%,9.6%and3.8%whileon
+ProAthesewere19%,20%and12%.Thesedifferences,whichwerestatis-
+ticallysignificant,χ2(3)=64.03,pb0.01,suggestahigheroverallfail-
+Fig.8.Cronbach'salphafortheCFCscaleasafunctionofplatformsandexclusionpolicy
+urerateofACQsonProAcomparedtoMTurk.Respectively,wefound
+(lenient=excludingparticipantsthatfailedmorethanoneACQ,strict=excluding
+thatalenientexclusionpolicy,excludingparticipantswhofailedmore participantsthatfailedanyACQ).
+
+E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163 161
+Fig.11.Distributionofaverageweeklyearningbetweentheplatforms.
+remained consistently high when excluding participants who failed
+Fig.9.Relativeregretratingsasafunctionofplatformsandexclusionpolicy(higherscores ACQs,onbothsites.TheresultssuggestthatonbothMTurkandProA,
+indicategreaterexpectedregretonthepartofthepersonwhomissedtheflightbyalittle).
+mostoftheparticipantspayattentiontoinstructionsandconsistently
+completequestionnairescarefully.Wewerealsoabletoreplicatethesim-
+differenceswerenotstatisticallysignificant,asisevidentbytheoverlap ulationheuristiconbothplatforms,alsowhenexcludingparticipants
+ofthe95%confidenceintervalbarsinFig.9. basedonACQs.Thisshowsthatbothsites'participantsprovidehigh
+Tosummarizethusfar,itappearsthatProAhadasignificantlylower dataquality,evenwhensomefailsomeoftheACQs.Thisceilingeffect
+responserate,andProAparticipantsfailedACQssomewhatmoreoften ofACQsondataqualityisconsistentwithPeeretal.(2014)whichshowed
+thanMTurkparticipants.Reliabilitywashighonbothsites,withMTurk thatACQshavelowdiagnosticabilitywhendataqualityisalreadyhigh.
+showingsomewhathigherreliability.Excludingparticipantsbasedon IncontrasttoStudy1,responseratesbetweenMTurkandProAwere
+ACQsimprovedreliabilityonbothsites.Onbothsites,thesimulation considerablydifferent.WhereasinStudy1thedifferencebetweenthere-
+heuristicwasreplicatedsuccessfully,withnosignificantdifferencesbe- sponserateonMTurktoProAwasabout2.5timesinfavorofMTurk,that
+tweenthesites.Thus,itappearsthatbothsitesprovidehighdataquality ratioincreasedto4timesinfavorofMTurkinStudy2.Thiscouldbedue
+onalltheexaminedparameters. tothefactthatwesampledthreetimesmoreparticipantsinthisstudy,
+andalsobecauseofthefactthatintheperiodbetweenthestudies,
+2.2.5.Usagepatterns ProAchangeditspricingscheme.Thechangeinpricingscheme,which
+AscanbeseeninFig.10,mostMTurkparticipantsreportedspending
+significantlyraisedcommissionsforresearchers(froma10%flatrate
+between8and20hperweekontheplatform.ProAusersspentconsid-
+commissionto12.5%+10pperparticipant),mighthaveinfluenced
+erablylesstime,mostreportingspendingbetween1and2hperweek howresearchers,andparticipants,usethesite.Forinstance,researchers
+only.AsFig.11shows,thisclearlyresultsinearningdifferencesbetween mayhavebeguntorunstudiesinbulkbatches,inordertoreducetheef-
+theplatforms:whereasN70%ofparticipantsonMTurkreportedearning fectiveratesofcommissiontheypay.Ifso,thiswouldresultinfewerin-
+morethan$50aweek,about85%ofProAparticipantsreportedearning dividualstudiespostedonline,whichmayhaveincreasedtheshareof
+lessthan$10aweek.Consistently,themedianofthetotalnumberof lengthystudiesofferedtoparticipants;itisreasonabletospeculatethat
+tasksparticipantsreportedcompletingintheirlifetimeasaparticipant thismightdetersomeparticipantsfromusingthesite,whichwouldaf-
+onthatplatformwasmuchhigheronMTurk(5900),thanProA(10). fecttheresponserate.Itisalsopossiblethattheactualoverallnumber
+ThisisconsistentwiththefactthatMTurkhasbeenavailableforseveral ofactiveparticipantsonProAislessthanProA'sadvertisedrate.
+yearsbeforeProAwaslaunched.Themedianapprovalscore(percent- Tosummarize,ourstudiesshowthatthemajoradvantageofMTurk
+ageofapprovedsubmissions)participantsreportedwascloseto100% overProAliesinitsfasterresponsetimes.WhileslowerthanMTurk,
+forbothplatforms.
+ProAprovidesdataqualitythatiscomparableornotsignificantlydiffer-
+entthanMTurk's,andProA'sparticipantsseemtobemorenaïveto
+3.Generaldiscussion commonexperimentalresearchtasks,andofferamorediversepopula-
+tionintermsofgeographicallocation,ethnicity,etc.Thissuggeststo
+SomeoftheresultsofStudy2corroboratedthefindingsofStudy1, researcherswhoaremoreinterestedinobtainingresultsfaster,froma
+while others were different. Similar to Study 1, we found that both morehomogeneoussample,thattheyshoulduseMTurk,whilere-
+MTurkandProAproducedhigh-qualitydataformanyoftheaspectsex- searcherswhoprefernaivetyanddiversityintheirsample,couldturn
+aminedinthestudy.Therateofattentionwasquitehighonbothplat- toProAiftheyarewillingtowaitsomemorefordatacollectiontocom-
+forms,withamajorityofparticipantspassingallACQs(orfailingonly plete(dependingonsamplesize).
+one).Again,MTurkparticipantsshowedhigherratesofpassingACQs Whiletheresultsofthecurrentresearchcanservetopresentre-
+comparedtoProA.Reliabilityremainedhighonbothplatforms,andit searchers with a range of choices when venturing with online
+crowdsourcingresearch,additionalresearchisnecessarytoexplore
+someoftheunansweredquestionsemergingfromthecurrentstudies'
+limitations.First,therootsandcausesofthedifferencesfoundbetween
+theplatformsremainunclear,aswecouldonlycontrolthesampling
+(andnotallocation)ofparticipantsfromthedifferentplatforms.Sec-
+ond,itremainsanopenquestionhowconstantortransientanyofthe
+findingsmaybe.Whilesomedifferencesseemedtoberelativelystable
+(e.g.,demographics),manyothers(e.g.,responserates,naivety,andso
+forth) could be much more temporary. In this regard, the current
+paperoffersahelpfulframeworkthroughwhichplatformscanbeeval-
+uatedovertime(andalsofollowingcertainevents,suchasamajor
+changeinpricing).Thisframework,whichincludesmeasuresofatten-
+tion,reliability,reproducibility,naivetyanddishonesty,couldalsobe
+usedtoevaluatenewplatformsthatmayariseinthefuturetopresent
+researcherswithnewcapabilitiesforconductingexperimentalandbe-
+Fig.10.Distributionoffrequencyofusagebetweentheplatforms. havioralresearchonline.
+
+162 E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163
+AppendixA–Additionalfigures
+100%
+4%
+90% 4% 4% 6% 7%
+17%
+13% I prefer not to say
+15%
+80% 15% 16%
+29%
+Other
+70%
+60% 26% Latin/Hispanic
+50%
+Asian
+40%
+74% 73% 72% 69% African-American
+30% 59%
+46% Caucasian
+20%
+10%
+0%
+CBDR CF MTurk ProA MTurk S2 ProA S2
+Fig.A1.Ethnicitydistributions,fromStudies1and2(S2referstoStudy2).Note:thesamecategoriesandlabelswereusedonallplatforms.
+100%
+11% 3 6 % % 7% 8%
+90% 22% 3% 6%
+80% 17% Africa
+70% 14% 27% South America
+India
+60%
+12% East Asia
+50% 99% 40% Europe
+89% 91%
+40% 31% U.K.
+North America
+30%
+43%
+20%
+31%
+26%
+10%
+5%
+0%
+CBDR CF MTurk ProA MTurk S2 ProA S2
+Fig.A2.ReportedlocationdistributionsfromStudies1and2(S2referstoStudy2).
+100% 1% 2%
+90% 13% 10% 5% 11% 8% 13% I prefer not to say
+6% 5%
+80% 3% 17% 4% More than $150,000
+10% 9% 11% 16% 8%
+70% $100,000 -
+15% $150,000
+60% 20% 27% 20% $75,000 - $100,000
+36%
+50% 34%
+20% $50,000 - $75,000
+40% 13% 18%
+20% $25,000 - $50,000
+30%
+21% 22% $10,00 - $25,000
+20%
+35% 36% 33%
+25%
+10% Less than $10,000
+14% 12%
+0%
+CBDR CF MTurk ProA MTurk S2 ProA S2
+Fig.A3.ReportedincomedistributionsfromStudies1and2(S2referstoStudy2).
+
+E.Peeretal./JournalofExperimentalSocialPsychology70(2017)153–163 163
+100% I prefer not to say
+2% 1% 2% 1%
+90% 9% 10% 2%
+16% 16% Other
+18% 5% 16%
+80% 17% 5% Doctoral Degree
+7%
+7%
+70% 9%
+Other professional
+10%
+60% 30% 39% degree
+Master's degree
+31% 36%
+50% 32%
+Some graduate school
+34%
+40%
+6% 18% 4% 16% Bachelor's degree
+30% 6%
+5% Associate's degree
+20%
+31% 26% 31% 26% 26% High school
+10% 21%
+Some high school
+0%
+CBDR CF MTurk ProA MTurk S2 ProA S2
+Fig.A4.ReportededucationleveldistributionsfromStudies1and2(S2referstoStudy2).
+Mason,W.,&Suri,S.(2012).ConductingbehavioralresearchonAmazon'sMechanical
+AppendixB.Supplementarydata Turk.BehaviorResearchMethods,44(1),1–23.
+Oppenheimer,D.M.,&Monin,B.(2009).Theretrospectivegambler'sfallacy:Unlikely
+Supplementarydataandfullresearchmaterialstothisarticlecanbe events, constructing the past, and multiple universes. Judgment and Decision
+making,4(5),326.
+foundonlineathttps://osf.io/murdt.
+Oppenheimer,D.M.,Meyvis,T.,&Davidenko,N.(2009).Instructionalmanipulation
+checks:Detectingsatisficingtoincreasestatisticalpower.JournalofExperimental
+References SocialPsychology,45,867–872.
+Paolacci,G.,&Chandler,J.(2014).InsidetheTurk:UnderstandingMechanicalTurkasa
+Buhrmester,M.,Kwang,T.,&Gosling,S.D.(2011).Amazon'sMechanicalTurk:Anew
+participantpool.CurrentDirectionsinPsychologicalScience,23(3),184–188.
+sourceofinexpensive,yethigh-quality,data?PerspectivesonPsychologicalScience, Paolacci,G.,Chandler,J.,&Ipeirotis,P.G.(2010).RunningexperimentsonAmazonMe-
+6(1),3–5. chanicalTurk.JudgmentandDe
+
+## 引用
+
+```
+
+```

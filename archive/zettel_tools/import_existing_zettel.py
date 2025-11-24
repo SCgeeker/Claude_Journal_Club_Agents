@@ -190,15 +190,21 @@ def import_zettel_cards():
                     'links': []
                 }
 
-                # 加入知識庫
-                card_id = kb.add_zettel_card(zettel_data)
+                # 加入知識庫 - 使用結構化回傳
+                result = kb.add_zettel_card(zettel_data)
 
                 # 手動關聯到論文（因為 add_zettel_card 不會自動關聯）
-                if card_id > 0:
-                    kb.link_zettel_to_paper(card_id, paper_id)
+                if result['status'] == 'inserted':
+                    kb.link_zettel_to_paper(result['card_id'], paper_id)
                     imported += 1
+                elif result['status'] == 'duplicate':
+                    # 重複卡片也嘗試關聯
+                    if result['card_id'] > 0:
+                        kb.link_zettel_to_paper(result['card_id'], paper_id)
+                    print(f"    [DUPLICATE] {card_file.name}")
                 else:
                     failed += 1
+                    print(f"    [ERROR] {result['message']}")
             except Exception as e:
                 print(f"    [ERROR] {card_file.name}: {e}")
                 failed += 1

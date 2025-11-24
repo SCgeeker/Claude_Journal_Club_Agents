@@ -3,7 +3,7 @@ title: Comprehension effort as the cost of inference
 authors: 
 year: N/A
 keywords: 
-created: 2025-11-19 22:38:57
+created: 2025-11-23 18:19:38
 ---
 
 # Comprehension effort as the cost of inference

@@ -3,7 +3,7 @@ title: Combining Psychology with Artificial Intelligence:
 authors: Combining Psychology, Artificial Intelligence
 year: N/A
 keywords: theoreticalpsychology, artificialintelligence, cognitivescience, computationalism
-created: 2025-11-19 22:38:33
+created: 2025-11-23 18:18:12
 ---
 
 # Combining Psychology with Artificial Intelligence:
