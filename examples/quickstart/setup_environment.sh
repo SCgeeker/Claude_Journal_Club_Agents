@@ -1,8 +1,11 @@
 #!/bin/bash
 # 快速開始：環境設置
 
-# 安裝依賴
-pip install -r requirements.txt
+# 方式 1：使用 uv（推薦）
+uv sync
 
-# 初始化知識庫（首次使用）
-python -c "from src.knowledge_base import KnowledgeBaseManager; KnowledgeBaseManager()"
+# 方式 2：使用 pip（傳統方式）
+# pip install -r requirements.txt
+
+# 驗證安裝
+uv run kb stats
