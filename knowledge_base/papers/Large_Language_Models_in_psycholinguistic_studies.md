@@ -1,17 +1,17 @@
 ---
-title: LLMS IN PSYCHOLINGUISTICS 1
-authors: Giovanni Cassani, German Research, Large Language, Tilburg University, Artificial Intelligence, Author Note, Department Cognitive
-year: N/A
+title: Large Language Models in psycholinguistic studies
+authors: Fritz Guenther, Giovanni Cassani
+year: None
 keywords: Language Models, Large Language Models, computational modelling
-created: 2025-11-23 18:08:01
+created: 2025-11-28 15:38:20
 ---
 
-# LLMS IN PSYCHOLINGUISTICS 1
+# Large Language Models in psycholinguistic studies
 
 ## 基本信息
 
-- **作者**: Giovanni Cassani, German Research, Large Language, Tilburg University, Artificial Intelligence, Author Note, Department Cognitive
-- **年份**: N/A
+- **作者**: Fritz Guenther, Giovanni Cassani
+- **年份**: None
 - **關鍵詞**: Language Models, Large Language Models, computational modelling
 
 ## 摘要

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zettelkasten_notes/zettel_Zeelenberg-2024_20251124/zettel_index.md",
+                "file": "MSE replications_modern_academic_20251128_200344.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "zettel_index"
+              "title": "MSE replications_modern_academic_20251128_200344"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 534.5
+    "width": 534.5,
+    "collapsed": true
   },
   "right": {
     "id": "601c29831b6dfeb4",
@@ -172,6 +173,7 @@
   },
   "active": "d109c91e2dff4c16",
   "lastOpenFiles": [
+    "zettelkasten_notes/zettel_Zeelenberg-2024_20251124/zettel_index.md",
     "zettelkasten_notes/zettel_Zwaan-2002_20251124/zettel_index.md",
     "zettelkasten_notes/zettel_Bocanegra-2022_20251124/zettel_index.md",
     "zettelkasten_notes/zettel_Adams-2020_20251123/zettel_index.md",
@@ -205,7 +207,6 @@
     "zettelkasten_notes/zettel_Jones-2024_20251110_deepseek_backup_20251112_212908/zettel_cards",
     "zettelkasten_notes/zettel_Jones-2024_20251110_deepseek_backup_20251112_212908",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-011.md",
-    "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards/Jones-2024-010.md",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct/zettel_cards",
     "zettelkasten_notes/zettel_Jones-2024_20251112_llama_3.3_70b_instruct",
     "zettelkasten_notes/_archive_old_format/zettel_Research_20251029/Screenshot 2025-10-29 143515.png"

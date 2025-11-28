@@ -1,0 +1,20 @@
+{
+  "date": "2025-11-28",
+  "models": {
+    "google_gemini-2.0-flash-exp": {
+      "provider": "google",
+      "model": "gemini-2.0-flash-exp",
+      "requests": 1,
+      "successful": 1,
+      "failed": 0,
+      "tokens": 3544,
+      "cost": 0.0,
+      "avg_response_time": 19.7885901927948,
+      "task_types": {}
+    }
+  },
+  "total_cost": 0.0,
+  "total_requests": 1,
+  "total_tokens": 3544,
+  "errors": []
+}

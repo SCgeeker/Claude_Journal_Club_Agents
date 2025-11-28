@@ -57,7 +57,8 @@
       "Bash(rm:*)",
       "Bash(uv run kb --help:*)",
       "Bash(uv run slides --help:*)",
-      "Bash(uv run:*)"
+      "Bash(uv run:*)",
+      "WebSearch"
     ],
     "additionalDirectories": [
       "D:\\Apps\\LLM\\SciMaker",

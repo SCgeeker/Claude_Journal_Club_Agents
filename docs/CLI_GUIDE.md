@@ -289,6 +289,8 @@ uv run slides "主題" --pdf paper.pdf --llm-provider openai --model gpt-4
 | `detailed` | 詳細（5-6 點/張）|
 | `comprehensive` | 完整（6-8 點/張）|
 
+> 優化建議：（1) "主題" 改為選填，無填入以論文題名為預設；（2) --help並列uv run 與 python 指令模式; 
+
 ---
 
 ## embeddings - 向量嵌入

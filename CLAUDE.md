@@ -129,9 +129,9 @@ output/zettelkasten_notes/
 
 ---
 
-## ProgramVerse 整合
+## 彈性整合個人知識管理系統
 
-本專案與 ProgramVerse 採用**平行開發**模式。
+本專案初期與 ProgramVerse 整合，多輪測試後，決定採用**平行開發**模式。公開版本預設能整合任何支援 Markdown 的個人知識管理系統。
 
 ### 整合流程
 

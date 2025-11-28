@@ -1,16 +1,16 @@
 ---
-title: TICS2778No.ofPages13
-authors: Cognitive Sciences, J.Crockett
+title: AI Surrogates and illusions of generalizability in cognitive science
+authors: M.J. Crockett, Lisa Messeri
 year: 2025
 keywords: 
-created: 2025-11-28 14:52:03
+created: 2025-11-28 15:05:49
 ---
 
-# TICS2778No.ofPages13
+# AI Surrogates and illusions of generalizability in cognitive science
 
 ## 基本信息
 
-- **作者**: Cognitive Sciences, J.Crockett
+- **作者**: M.J. Crockett, Lisa Messeri
 - **年份**: 2025
 - **關鍵詞**: 
 
