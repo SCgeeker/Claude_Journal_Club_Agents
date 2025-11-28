@@ -1,7 +1,7 @@
 # CLI 操作指南
 
-**版本**: 0.8.0
-**更新日期**: 2025-11-27
+**版本**: 0.9.0
+**更新日期**: 2025-11-28
 
 本指南說明如何使用 `uv run` 操作 claude-lit-workflow 的各項工具。
 
@@ -70,14 +70,26 @@ uv run analyze paper.pdf --format json --output-json result.json
 # 指定 BibTeX 檔案（自動取得 citekey）
 uv run analyze paper.pdf --bib library.bib --add-to-kb
 
-# 🚧 [待實作] 指定 RIS 檔案
+# 指定 RIS 檔案
 uv run analyze paper.pdf --ris references.ris --add-to-kb
 
 # 手動指定 citekey（覆蓋書目檔）
 uv run analyze paper.pdf --citekey "Barsalou-1999" --add-to-kb
 
-# 🚧 [待實作] 指定 DOI
+# 指定 DOI（優先從 CrossRef 取得權威元數據）
 uv run analyze paper.pdf --doi "10.1017/S0140525X99002149" --add-to-kb
+```
+
+### DOI 優先查詢
+
+當提供 DOI 時，系統會優先從 CrossRef 取得權威元數據：
+
+```bash
+# DOI 資料優先於 PDF 提取和本地書目檔
+uv run analyze paper.pdf --doi "10.xxxx/xxxxx" --add-to-kb
+
+# 流程：DOI → CrossRef 查詢 → 使用權威資料
+# 若 CrossRef 查詢失敗，則使用 BibTeX/RIS 作為 fallback
 ```
 
 ### 參數說明
@@ -88,10 +100,10 @@ uv run analyze paper.pdf --doi "10.1017/S0140525X99002149" --add-to-kb
 | `--add-to-kb` | 加入知識庫 | False |
 | `--format` | 輸出格式 (text/json/both) | text |
 | `--output-json` | JSON 輸出路徑 | - |
-| `--bib` | BibTeX 檔案路徑 | 自動偵測 |
-| `--ris` | RIS 檔案路徑 🚧 | - |
+| `--bib` | BibTeX 檔案路徑 | - |
+| `--ris` | RIS 檔案路徑 | - |
 | `--citekey` | 手動指定 citekey | - |
-| `--doi` | 指定 DOI 🚧 | - |
+| `--doi` | 指定 DOI（優先查詢 CrossRef）| - |
 | `--validate` | 驗證元數據品質 | False |
 
 ---
@@ -105,6 +117,7 @@ uv run analyze paper.pdf --doi "10.1017/S0140525X99002149" --add-to-kb
 ```bash
 # 顯示知識庫統計
 uv run kb stats
+uv run kb stat    # 別名
 
 # 列出所有論文
 uv run kb list
@@ -132,28 +145,59 @@ uv run kb hybrid-search "grounded cognition"
 
 ```bash
 # 查看單篇論文詳情
-uv run kb get 42              # 依 paper_id
-uv run kb get Barsalou-1999   # 依 citekey
-
-# 🚧 [待實作] 依 DOI 查詢
-uv run kb get --doi "10.1017/S0140525X99002149"
+uv run kb get 42                                    # 依 ID
+uv run kb get Barsalou-1999                         # 依 citekey
+uv run kb get --doi "10.1017/S0140525X99002149"     # 依 DOI
+uv run kb get --citekey "Barsalou-1999"             # 明確指定 citekey
 
 # 刪除論文
 uv run kb delete 42
+uv run kb delete 42 --force    # 跳過確認
+
+# 更新論文元數據（Preprint 正式發表、修正錯誤等）
+uv run kb update 42 --refresh                       # 從 DOI 重新取得
+uv run kb update 42 --year 2025                     # 手動更新年份
+uv run kb update 42 --set-doi "10.new/xxx" --refresh  # 設置新 DOI 並刷新
+```
+
+### 更新論文（kb update）
+
+適用情境：
+- Preprint 正式發表後更新 DOI 和元數據
+- 修正錯誤的書目資訊
+- 補充缺失的年份或作者
+
+```bash
+# 從現有 DOI 重新取得元數據
+uv run kb update 42 --refresh
+uv run kb update --doi "10.xxx" --refresh
+
+# Preprint → 正式發表
+uv run kb update 42 --set-doi "10.published/xxx" --refresh
+
+# 手動更新特定欄位
+uv run kb update 42 --title "正式發表標題"
+uv run kb update 42 --authors "作者A, 作者B"
+uv run kb update 42 --year 2025
+uv run kb update 42 --set-citekey "Author-2025"
+
+# 組合使用
+uv run kb update 42 --set-doi "10.new/xxx" --refresh --set-citekey "Author-2025"
 ```
 
 ### 子指令一覽
 
 | 子指令 | 說明 | 狀態 |
 |--------|------|------|
-| `stats` | 顯示統計 | ✅ |
+| `stats` / `stat` | 顯示統計 | ✅ |
 | `list` | 列出論文 | ✅ |
 | `search` | 關鍵詞搜索 | ✅ |
 | `semantic-search` | 語義搜索 | ✅ |
 | `similar` | 相似論文 | ✅ |
 | `hybrid-search` | 混合搜索 | ✅ |
-| `get` | 查看詳情 | ✅ |
+| `get` / `show` | 查看詳情 | ✅ |
 | `delete` | 刪除論文 | ✅ |
+| `update` | 更新元數據 | ✅ |
 | `visualize-network` | 概念網絡 | ✅ (暫停使用) |
 
 ---
@@ -315,8 +359,8 @@ from src.generators.zettel_maker import ZettelMaker
 ### 流程 A：單篇論文完整處理
 
 ```bash
-# 1. 分析並入庫
-uv run analyze paper.pdf --bib library.bib --add-to-kb
+# 1. 分析並入庫（使用 DOI 取得正確元數據）
+uv run analyze paper.pdf --doi "10.xxxx/xxxxx" --add-to-kb
 
 # 2. 生成 Zettel 卡片（目前使用 Python 腳本）
 python generate_zettel_batch.py
@@ -341,7 +385,20 @@ uv run kb semantic-search "視覺模擬如何影響語言理解"
 uv run kb get <paper_id>
 ```
 
-### 流程 C：批次處理多篇論文
+### 流程 C：Preprint 更新為正式發表
+
+```bash
+# 1. 查看現有 Preprint 資訊
+uv run kb get <paper_id>
+
+# 2. 更新 DOI 並從 CrossRef 取得正式發表資訊
+uv run kb update <paper_id> --set-doi "10.published/xxx" --refresh
+
+# 3. 確認更新結果
+uv run kb get <paper_id>
+```
+
+### 流程 D：批次處理多篇論文
 
 ```bash
 # 1. 準備：將 PDF 和 .bib 放在同一資料夾
@@ -365,10 +422,7 @@ uv run embeddings
 | 功能 | 說明 | 優先級 |
 |------|------|--------|
 | `uv run zettel` | 單篇 Zettel 生成 CLI | P1 |
-| `--ris` 參數 | RIS 格式書目檔支援 | P1 |
-| `--doi` 參數 | DOI 指定與查詢 | P1 |
 | `--from-bib` 批次 | 從書目檔批次處理 | P2 |
-| `kb get --doi` | DOI 備案查詢 | P2 |
 
 ---
 
@@ -427,6 +481,7 @@ uv run slides "主題" --pdf paper.pdf --llm-provider ollama
 
 | 版本 | 日期 | 說明 |
 |------|------|------|
+| 0.9.0 | 2025-11-28 | 新增 RIS/DOI 支援、kb update、DOI 優先查詢 |
 | 0.8.0 | 2025-11-27 | 初版，建立 uv 整合 |
 
 ---

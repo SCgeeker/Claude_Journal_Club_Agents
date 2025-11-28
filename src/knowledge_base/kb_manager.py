@@ -278,6 +278,25 @@ class KnowledgeBaseManager:
                 ALTER TABLE papers ADD COLUMN url TEXT
             """)
 
+        # 添加 cite_key 欄位（Citekey 系統）
+        if 'cite_key' not in columns:
+            cursor.execute("""
+                ALTER TABLE papers ADD COLUMN cite_key TEXT
+            """)
+            # 為 cite_key 創建索引
+            cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_papers_cite_key ON papers(cite_key)
+            """)
+
+        # 添加 original_citekey 欄位（保存原始書目檔中的 citekey）
+        if 'original_citekey' not in columns:
+            cursor.execute("""
+                ALTER TABLE papers ADD COLUMN original_citekey TEXT
+            """)
+            cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_papers_original_citekey ON papers(original_citekey)
+            """)
+
         conn.commit()
         conn.close()
 
@@ -340,20 +359,183 @@ class KnowledgeBaseManager:
             conn.commit()
             return paper_id
 
-        except sqlite3.IntegrityError:
-            # 文件已存在，更新
-            cursor.execute("""
-                UPDATE papers
-                SET title=?, authors=?, year=?, abstract=?, keywords=?,
-                    cite_key=?, zotero_key=?, source=?, doi=?, url=?, updated_at=CURRENT_TIMESTAMP
-                WHERE file_path=?
-            """, (title, authors_str, year, abstract, keywords_str,
-                  cite_key, zotero_key, source, doi, url, file_path))
+        except sqlite3.IntegrityError as e:
+            # UNIQUE 約束衝突，嘗試更新現有記錄
+            error_msg = str(e).lower()
 
-            cursor.execute("SELECT id FROM papers WHERE file_path=?", (file_path,))
-            paper_id = cursor.fetchone()[0]
+            # 判斷是哪個欄位衝突
+            if 'doi' in error_msg and doi:
+                # DOI 重複，根據 DOI 更新
+                cursor.execute("""
+                    UPDATE papers
+                    SET title=?, authors=?, year=?, abstract=?, keywords=?,
+                        cite_key=?, zotero_key=?, source=?, file_path=?, url=?, updated_at=CURRENT_TIMESTAMP
+                    WHERE doi=?
+                """, (title, authors_str, year, abstract, keywords_str,
+                      cite_key, zotero_key, source, file_path, url, doi))
+                cursor.execute("SELECT id FROM papers WHERE doi=?", (doi,))
+            elif 'cite_key' in error_msg and cite_key:
+                # cite_key 重複，根據 cite_key 更新
+                cursor.execute("""
+                    UPDATE papers
+                    SET title=?, authors=?, year=?, abstract=?, keywords=?,
+                        zotero_key=?, source=?, file_path=?, doi=?, url=?, updated_at=CURRENT_TIMESTAMP
+                    WHERE cite_key=?
+                """, (title, authors_str, year, abstract, keywords_str,
+                      zotero_key, source, file_path, doi, url, cite_key))
+                cursor.execute("SELECT id FROM papers WHERE cite_key=?", (cite_key,))
+            else:
+                # file_path 重複，根據 file_path 更新
+                cursor.execute("""
+                    UPDATE papers
+                    SET title=?, authors=?, year=?, abstract=?, keywords=?,
+                        cite_key=?, zotero_key=?, source=?, doi=?, url=?, updated_at=CURRENT_TIMESTAMP
+                    WHERE file_path=?
+                """, (title, authors_str, year, abstract, keywords_str,
+                      cite_key, zotero_key, source, doi, url, file_path))
+                cursor.execute("SELECT id FROM papers WHERE file_path=?", (file_path,))
+
+            row = cursor.fetchone()
+            if row:
+                paper_id = row[0]
+                conn.commit()
+                return paper_id
+            else:
+                raise ValueError(f"無法更新論文記錄: {e}")
+
+        finally:
+            conn.close()
+
+    def delete_paper(self, paper_id: int) -> bool:
+        """
+        刪除論文
+
+        Args:
+            paper_id: 論文 ID
+
+        Returns:
+            是否成功刪除
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        try:
+            # 獲取論文資訊（用於刪除檔案）
+            cursor.execute("SELECT file_path FROM papers WHERE id=?", (paper_id,))
+            row = cursor.fetchone()
+
+            if not row:
+                return False
+
+            file_path = row[0]
+
+            # 刪除 FTS 索引
+            cursor.execute("DELETE FROM papers_fts WHERE rowid=?", (paper_id,))
+
+            # 刪除相關連結
+            cursor.execute("DELETE FROM paper_topics WHERE paper_id=?", (paper_id,))
+            cursor.execute("DELETE FROM citations WHERE source_paper_id=? OR target_paper_id=?", (paper_id, paper_id))
+
+            # 刪除論文記錄
+            cursor.execute("DELETE FROM papers WHERE id=?", (paper_id,))
+
             conn.commit()
-            return paper_id
+
+            # 刪除 Markdown 檔案（可選）
+            if file_path:
+                md_path = Path(file_path)
+                if md_path.exists():
+                    md_path.unlink()
+
+            return True
+
+        except Exception as e:
+            conn.rollback()
+            raise e
+
+        finally:
+            conn.close()
+
+    def update_paper(self, paper_id: int, **kwargs) -> bool:
+        """
+        更新論文元數據
+
+        Args:
+            paper_id: 論文 ID
+            **kwargs: 要更新的欄位
+                - title: 標題
+                - authors: 作者列表
+                - year: 年份
+                - abstract: 摘要
+                - keywords: 關鍵詞列表
+                - cite_key: Citekey
+                - doi: DOI
+                - url: URL
+
+        Returns:
+            是否成功更新
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        try:
+            # 構建更新語句
+            updates = []
+            values = []
+
+            field_mapping = {
+                'title': 'title',
+                'authors': 'authors',
+                'year': 'year',
+                'abstract': 'abstract',
+                'keywords': 'keywords',
+                'cite_key': 'cite_key',
+                'doi': 'doi',
+                'url': 'url',
+            }
+
+            for key, column in field_mapping.items():
+                if key in kwargs and kwargs[key] is not None:
+                    value = kwargs[key]
+                    # JSON 序列化列表類型
+                    if key in ['authors', 'keywords'] and isinstance(value, list):
+                        value = json.dumps(value, ensure_ascii=False)
+                    updates.append(f"{column}=?")
+                    values.append(value)
+
+            if not updates:
+                return False
+
+            # 添加更新時間
+            updates.append("updated_at=CURRENT_TIMESTAMP")
+
+            # 執行更新
+            sql = f"UPDATE papers SET {', '.join(updates)} WHERE id=?"
+            values.append(paper_id)
+            cursor.execute(sql, values)
+
+            # 更新 FTS 索引
+            paper = self.get_paper_by_id(paper_id)
+            if paper:
+                cursor.execute("DELETE FROM papers_fts WHERE rowid=?", (paper_id,))
+                cursor.execute("""
+                    INSERT INTO papers_fts (rowid, title, authors, abstract, content, keywords)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (
+                    paper_id,
+                    paper['title'],
+                    ', '.join(paper['authors']),
+                    paper.get('abstract') or '',
+                    '',  # content
+                    ', '.join(paper.get('keywords') or [])
+                ))
+
+            conn.commit()
+            return True
+
+        except Exception as e:
+            conn.rollback()
+            raise e
 
         finally:
             conn.close()
@@ -427,6 +609,112 @@ class KnowledgeBaseManager:
                 "doi": row[11],
                 "url": row[12],
                 "cite_key": row[13]  # ⭐ 新增：原始 bibtex key
+            }
+        return None
+
+    def get_paper_by_doi(self, doi: str) -> Optional[Dict[str, Any]]:
+        """
+        根據 DOI 獲取論文信息
+
+        Args:
+            doi: DOI 字串（支援帶或不帶 URL 前綴）
+
+        Returns:
+            論文信息字典，未找到返回 None
+        """
+        import re
+
+        # 清理 DOI（移除 URL 前綴）
+        doi_clean = re.sub(r'^https?://(?:dx\.)?doi\.org/', '', doi.strip())
+
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at,
+                   zotero_key, source, doi, url, cite_key
+            FROM papers
+            WHERE doi = ? OR doi LIKE ?
+        """, (doi_clean, f"%{doi_clean}%"))
+
+        row = cursor.fetchone()
+        conn.close()
+
+        if row:
+            return {
+                "id": row[0],
+                "file_path": row[1],
+                "title": row[2],
+                "authors": json.loads(row[3]) if row[3] else [],
+                "year": row[4],
+                "abstract": row[5],
+                "keywords": json.loads(row[6]) if row[6] else [],
+                "created_at": row[7],
+                "updated_at": row[8],
+                "zotero_key": row[9],
+                "source": row[10],
+                "doi": row[11],
+                "url": row[12],
+                "cite_key": row[13]
+            }
+        return None
+
+    def get_paper_by_citekey(self, citekey: str) -> Optional[Dict[str, Any]]:
+        """
+        根據 citekey 獲取論文信息
+
+        支援多種匹配方式：
+        1. cite_key 精確匹配
+        2. cite_key 模糊匹配（忽略大小寫和分隔符）
+
+        Args:
+            citekey: citekey 字串
+
+        Returns:
+            論文信息字典，未找到返回 None
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        # 精確匹配
+        cursor.execute("""
+            SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at,
+                   zotero_key, source, doi, url, cite_key
+            FROM papers
+            WHERE cite_key = ? OR cite_key = ? COLLATE NOCASE
+        """, (citekey, citekey))
+
+        row = cursor.fetchone()
+
+        if not row:
+            # 模糊匹配（移除分隔符）
+            citekey_normalized = citekey.replace('-', '').replace('_', '').lower()
+            cursor.execute("""
+                SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at,
+                       zotero_key, source, doi, url, cite_key
+                FROM papers
+                WHERE REPLACE(REPLACE(LOWER(cite_key), '-', ''), '_', '') = ?
+            """, (citekey_normalized,))
+            row = cursor.fetchone()
+
+        conn.close()
+
+        if row:
+            return {
+                "id": row[0],
+                "file_path": row[1],
+                "title": row[2],
+                "authors": json.loads(row[3]) if row[3] else [],
+                "year": row[4],
+                "abstract": row[5],
+                "keywords": json.loads(row[6]) if row[6] else [],
+                "created_at": row[7],
+                "updated_at": row[8],
+                "zotero_key": row[9],
+                "source": row[10],
+                "doi": row[11],
+                "url": row[12],
+                "cite_key": row[13]
             }
         return None
 

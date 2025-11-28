@@ -105,32 +105,202 @@ def cmd_search(args):
 
 
 def cmd_show(args):
-    """顯示論文詳情"""
+    """顯示論文詳情（支援 ID、citekey、DOI 查詢）"""
     kb = KnowledgeBaseManager()
-    paper = kb.get_paper_by_id(args.id)
+    paper = None
+    query_type = "ID"
+    query_value = ""
+
+    # 優先順序：DOI > citekey > ID
+    if hasattr(args, 'doi') and args.doi:
+        paper = kb.get_paper_by_doi(args.doi)
+        query_type = "DOI"
+        query_value = args.doi
+    elif hasattr(args, 'citekey') and args.citekey:
+        paper = kb.get_paper_by_citekey(args.citekey)
+        query_type = "Citekey"
+        query_value = args.citekey
+    elif hasattr(args, 'id') and args.id:
+        # 嘗試作為 ID 或 citekey 查詢
+        if isinstance(args.id, int) or args.id.isdigit():
+            paper = kb.get_paper_by_id(int(args.id))
+            query_type = "ID"
+            query_value = args.id
+        else:
+            # 可能是 citekey
+            paper = kb.get_paper_by_citekey(args.id)
+            query_type = "Citekey"
+            query_value = args.id
 
     print("\n" + "=" * 60)
-    print(f"📄 論文詳情 (ID: {args.id})")
+    print(f"📄 論文詳情 ({query_type}: {query_value})")
     print("=" * 60)
 
     if paper:
-        print(f"\n標題: {paper['title']}")
-        print(f"作者: {', '.join(paper['authors'])}")
-        print(f"年份: {paper['year'] or '未知'}")
-        print(f"檔案: {paper['file_path']}")
-        print(f"創建: {paper['created_at']}")
-        print(f"更新: {paper['updated_at']}")
+        print(f"\n🆔 ID: {paper['id']}")
+        print(f"📖 標題: {paper['title']}")
+        print(f"👥 作者: {', '.join(paper['authors'])}")
+        print(f"📅 年份: {paper['year'] or '未知'}")
+        print(f"📁 檔案: {paper['file_path']}")
+
+        if paper.get('cite_key'):
+            print(f"🔑 Citekey: {paper['cite_key']}")
+        if paper.get('doi'):
+            print(f"🔗 DOI: {paper['doi']}")
+
+        print(f"📆 創建: {paper['created_at']}")
+        print(f"📆 更新: {paper['updated_at']}")
 
         if paper['keywords']:
-            print(f"關鍵詞: {', '.join(paper['keywords'])}")
+            print(f"🏷️  關鍵詞: {', '.join(paper['keywords'])}")
 
         if paper['abstract']:
-            print(f"\n摘要:")
+            print(f"\n📝 摘要:")
             print(f"{paper['abstract'][:500]}")
             if len(paper['abstract']) > 500:
                 print("...")
     else:
-        print(f"\n❌ 找不到ID為 {args.id} 的論文")
+        print(f"\n❌ 找不到論文 ({query_type}: {query_value})")
+        print("\n💡 提示：")
+        print("   - 用 ID 查詢: python kb_manage.py show 42")
+        print("   - 用 Citekey 查詢: python kb_manage.py show Barsalou-1999")
+        print("   - 用 DOI 查詢: python kb_manage.py show --doi 10.1017/xxx")
+
+    print("\n" + "=" * 60 + "\n")
+
+
+def cmd_delete(args):
+    """刪除論文"""
+    kb = KnowledgeBaseManager()
+    paper = kb.get_paper_by_id(args.id)
+
+    if not paper:
+        print(f"\n❌ 找不到論文 (ID: {args.id})")
+        return
+
+    print("\n" + "=" * 60)
+    print(f"🗑️  刪除論文 (ID: {args.id})")
+    print("=" * 60)
+    print(f"\n📖 標題: {paper['title']}")
+    print(f"👥 作者: {', '.join(paper['authors'][:3])}")
+    if paper.get('cite_key'):
+        print(f"🔑 Citekey: {paper['cite_key']}")
+
+    if not args.force:
+        confirm = input("\n⚠️  確定要刪除此論文？(y/N): ")
+        if confirm.lower() != 'y':
+            print("\n❌ 已取消刪除")
+            return
+
+    try:
+        kb.delete_paper(args.id)
+        print(f"\n✅ 已刪除論文 (ID: {args.id})")
+    except Exception as e:
+        print(f"\n❌ 刪除失敗: {e}")
+
+    print("\n" + "=" * 60 + "\n")
+
+
+def cmd_update(args):
+    """更新論文元數據"""
+    kb = KnowledgeBaseManager()
+
+    # 查找論文
+    paper = None
+    if hasattr(args, 'id') and args.id:
+        paper = kb.get_paper_by_id(args.id)
+    elif hasattr(args, 'doi') and args.doi:
+        paper = kb.get_paper_by_doi(args.doi)
+    elif hasattr(args, 'citekey') and args.citekey:
+        paper = kb.get_paper_by_citekey(args.citekey)
+
+    if not paper:
+        print(f"\n❌ 找不到論文")
+        return
+
+    print("\n" + "=" * 60)
+    print(f"📝 更新論文 (ID: {paper['id']})")
+    print("=" * 60)
+    print(f"\n📖 現有標題: {paper['title']}")
+    print(f"👥 現有作者: {', '.join(paper['authors'][:3])}")
+    print(f"📅 現有年份: {paper['year'] or '未知'}")
+    if paper.get('doi'):
+        print(f"🔗 現有 DOI: {paper['doi']}")
+
+    # 準備更新資料
+    updates = {}
+    doi_for_refresh = None
+
+    # 設置新 DOI
+    if hasattr(args, 'set_doi') and args.set_doi:
+        updates['doi'] = args.set_doi
+        doi_for_refresh = args.set_doi
+        print(f"\n🔗 設置新 DOI: {args.set_doi}")
+
+    # 從 DOI 重新取得元數據
+    if hasattr(args, 'refresh') and args.refresh:
+        target_doi = doi_for_refresh or paper.get('doi')
+        if not target_doi:
+            print(f"\n⚠️  沒有 DOI，無法從 CrossRef 更新")
+        else:
+            print(f"\n🌐 從 CrossRef 查詢 DOI: {target_doi}...")
+            try:
+                from src.integrations.doi_resolver import DOIResolver
+                resolver = DOIResolver()
+                doi_metadata = resolver.resolve(target_doi)
+
+                if doi_metadata:
+                    print(f"   ✓ 查詢成功")
+                    if doi_metadata.title:
+                        updates['title'] = doi_metadata.title
+                        print(f"   → 標題: {doi_metadata.title[:60]}...")
+                    if doi_metadata.authors:
+                        updates['authors'] = doi_metadata.authors
+                        print(f"   → 作者: {', '.join(doi_metadata.authors[:3])}")
+                    if doi_metadata.year:
+                        updates['year'] = doi_metadata.year
+                        print(f"   → 年份: {doi_metadata.year}")
+                    if doi_metadata.abstract:
+                        updates['abstract'] = doi_metadata.abstract
+                        print(f"   → 摘要: 已更新")
+                    if doi_metadata.suggested_citekey:
+                        updates['cite_key'] = doi_metadata.suggested_citekey
+                        print(f"   → Citekey: {doi_metadata.suggested_citekey}")
+                else:
+                    print(f"   ⚠ CrossRef 查詢失敗")
+            except Exception as e:
+                print(f"   ❌ DOI 查詢錯誤: {e}")
+
+    # 手動指定欄位
+    if hasattr(args, 'title') and args.title:
+        updates['title'] = args.title
+    if hasattr(args, 'authors') and args.authors:
+        updates['authors'] = [a.strip() for a in args.authors.split(',')]
+    if hasattr(args, 'year') and args.year:
+        updates['year'] = args.year
+    if hasattr(args, 'citekey_new') and args.citekey_new:
+        updates['cite_key'] = args.citekey_new
+
+    if not updates:
+        print(f"\n⚠️  沒有指定更新內容")
+        return
+
+    # 執行更新
+    try:
+        kb.update_paper(paper['id'], **updates)
+        print(f"\n✅ 已更新論文 (ID: {paper['id']})")
+
+        # 顯示更新後的資訊
+        updated_paper = kb.get_paper_by_id(paper['id'])
+        print(f"\n📖 新標題: {updated_paper['title']}")
+        print(f"👥 新作者: {', '.join(updated_paper['authors'][:3])}")
+        print(f"📅 新年份: {updated_paper['year'] or '未知'}")
+        if updated_paper.get('cite_key'):
+            print(f"🔑 新 Citekey: {updated_paper['cite_key']}")
+        if updated_paper.get('doi'):
+            print(f"🔗 新 DOI: {updated_paper['doi']}")
+    except Exception as e:
+        print(f"\n❌ 更新失敗: {e}")
 
     print("\n" + "=" * 60 + "\n")
 
@@ -1586,8 +1756,8 @@ def main():
 
     subparsers = parser.add_subparsers(dest='command', help='可用命令')
 
-    # stats 命令
-    parser_stats = subparsers.add_parser('stats', help='顯示知識庫統計')
+    # stats 命令 (支援 stat 縮寫)
+    parser_stats = subparsers.add_parser('stats', aliases=['stat'], help='顯示知識庫統計')
     parser_stats.set_defaults(func=cmd_stats)
 
     # list 命令
@@ -1601,10 +1771,31 @@ def main():
     parser_search.add_argument('--limit', type=int, default=10, help='最多顯示數量')
     parser_search.set_defaults(func=cmd_search)
 
-    # show 命令
-    parser_show = subparsers.add_parser('show', help='顯示論文詳情')
-    parser_show.add_argument('id', type=int, help='論文ID')
+    # show/get 命令（支援 ID、citekey、DOI 查詢）
+    parser_show = subparsers.add_parser('show', aliases=['get'], help='顯示論文詳情（支援 ID、citekey、DOI）')
+    parser_show.add_argument('id', nargs='?', help='論文 ID 或 Citekey')
+    parser_show.add_argument('--doi', metavar='DOI', help='使用 DOI 查詢')
+    parser_show.add_argument('--citekey', '-k', metavar='KEY', help='使用 Citekey 查詢')
     parser_show.set_defaults(func=cmd_show)
+
+    # delete 命令
+    parser_delete = subparsers.add_parser('delete', help='刪除論文')
+    parser_delete.add_argument('id', type=int, help='論文 ID')
+    parser_delete.add_argument('--force', '-f', action='store_true', help='跳過確認')
+    parser_delete.set_defaults(func=cmd_delete)
+
+    # update 命令（更新論文元數據）
+    parser_update = subparsers.add_parser('update', help='更新論文元數據（支援從 DOI 重新取得）')
+    parser_update.add_argument('id', nargs='?', type=int, help='論文 ID')
+    parser_update.add_argument('--doi', metavar='DOI', help='使用現有 DOI 查詢論文')
+    parser_update.add_argument('--citekey', '-k', metavar='KEY', help='使用 Citekey 查詢論文')
+    parser_update.add_argument('--set-doi', metavar='DOI', help='設置新 DOI')
+    parser_update.add_argument('--refresh', '-r', action='store_true', help='從 CrossRef 重新取得元數據')
+    parser_update.add_argument('--title', metavar='TITLE', help='手動設置標題')
+    parser_update.add_argument('--authors', metavar='AUTHORS', help='手動設置作者（逗號分隔）')
+    parser_update.add_argument('--year', type=int, metavar='YEAR', help='手動設置年份')
+    parser_update.add_argument('--set-citekey', dest='citekey_new', metavar='KEY', help='手動設置 Citekey')
+    parser_update.set_defaults(func=cmd_update)
 
     # add-topic 命令
     parser_topic = subparsers.add_parser('add-topic', help='創建主題')

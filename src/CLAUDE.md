@@ -33,11 +33,11 @@ src/
 ### integrations/
 - `bibtex_parser.py` - BibTeX 解析
 - `zotero_scanner.py` - Zotero 整合
-- `ris_parser.py` - RIS 解析（待實作）
-- `doi_resolver.py` - DOI 查詢（待實作）
+- `ris_parser.py` - RIS 解析 ✅
+- `doi_resolver.py` - DOI/CrossRef 查詢 ✅
 
 ### utils/
-- `citekey_resolver.py` - Citekey 解析（待實作）
+- `citekey_resolver.py` - Citekey 解析 ✅
 
 ## 暫停模組
 

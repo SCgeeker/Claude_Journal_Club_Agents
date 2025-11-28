@@ -151,14 +151,22 @@ output/zettelkasten_notes/
 
 ---
 
+## 已完成功能（0.9.0）
+
+| 功能 | 狀態 | 說明 |
+|------|------|------|
+| citekey_resolver.py | ✅ | Citekey 解析模組 |
+| ris_parser.py | ✅ | RIS 格式支援 |
+| doi_resolver.py | ✅ | DOI/CrossRef 查詢 |
+| `kb update` | ✅ | 知識庫元數據更新 |
+| `kb delete` | ✅ | 論文刪除功能 |
+| DOI 優先查詢 | ✅ | analyze 自動使用 CrossRef 元數據 |
+
 ## 待實作功能
 
 | 功能 | 優先級 | 說明 |
 |------|--------|------|
 | `uv run zettel` | P1 | 單篇 Zettel 生成 CLI |
-| citekey_resolver.py | P1 | Citekey 解析模組 |
-| ris_parser.py | P1 | RIS 格式支援 |
-| doi_resolver.py | P1 | DOI 查詢支援 |
 
 ---
 
@@ -170,5 +178,5 @@ output/zettelkasten_notes/
 
 ---
 
-**版本**: 0.8.0
-**更新日期**: 2025-11-27
+**版本**: 0.9.0
+**更新日期**: 2025-11-28
