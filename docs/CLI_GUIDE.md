@@ -209,6 +209,36 @@ uv run kb import-zettel-all --embed
 - 重複的卡片會自動跳過（依 zettel_id 判斷）
 - 可選擇生成向量嵌入供語義搜索使用
 
+### 向量資料庫管理
+
+管理 ChromaDB 向量資料庫，確保與 SQLite 同步。
+
+```bash
+# 檢查向量庫狀態
+uv run kb vector-status
+uv run kb vector-status --verbose
+
+# 重置向量庫（清空後需重新生成）
+uv run kb vector-reset                    # 重置全部
+uv run kb vector-reset --type papers      # 只重置論文
+uv run kb vector-reset --type zettel      # 只重置 Zettel
+uv run kb vector-reset --force            # 跳過確認
+
+# 同步向量庫（補齊缺失的向量）
+uv run kb vector-sync                     # 同步全部
+uv run kb vector-sync --type papers       # 只同步論文
+uv run kb vector-sync --dry-run           # 預覽模式
+
+# 清理孤立向量（SQLite 已刪除但向量還在）
+uv run kb vector-cleanup
+uv run kb vector-cleanup --dry-run        # 預覽模式
+```
+
+建議工作流程：
+1. `vector-status` - 檢查同步狀態
+2. `vector-cleanup` - 清理孤立向量
+3. `vector-sync` 或 `uv run embeddings` - 補齊缺失向量
+
 ### 子指令一覽
 
 | 子指令 | 說明 | 狀態 |
@@ -224,6 +254,10 @@ uv run kb import-zettel-all --embed
 | `update` | 更新元數據 | ✅ |
 | `import-zettel` | 匯入 Zettel 資料夾 | ✅ |
 | `import-zettel-all` | 批次匯入所有 Zettel | ✅ |
+| `vector-status` | 檢查向量庫狀態 | ✅ |
+| `vector-reset` | 重置向量庫 | ✅ |
+| `vector-sync` | 同步向量庫 | ✅ |
+| `vector-cleanup` | 清理孤立向量 | ✅ |
 | `visualize-network` | 概念網絡 | ✅ (暫停使用) |
 
 ---

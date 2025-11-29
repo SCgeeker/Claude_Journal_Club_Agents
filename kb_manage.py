@@ -1749,6 +1749,294 @@ def cmd_import_zettel_all(args):
     print(f"   已關聯論文：{summary['linked_papers']}")
 
 
+def cmd_vector_status(args):
+    """檢查向量資料庫狀態"""
+    print("\n" + "=" * 60)
+    print("📊 向量資料庫狀態")
+    print("=" * 60)
+
+    try:
+        vector_db = VectorDatabase()
+        kb = KnowledgeBaseManager()
+
+        # 獲取 SQLite 中的數量
+        stats = kb.get_stats()
+        sqlite_papers = stats['total_papers']
+        sqlite_zettel = stats.get('total_zettel_cards', 0)
+
+        # 獲取向量庫中的數量
+        papers_col = vector_db.papers_collection
+        zettel_col = vector_db.zettel_collection
+
+        papers_result = papers_col.get()
+        zettel_result = zettel_col.get()
+
+        vector_papers = len(papers_result['ids']) if papers_result['ids'] else 0
+        vector_zettel = len(zettel_result['ids']) if zettel_result['ids'] else 0
+
+        print(f"\n📄 論文 (Papers)")
+        print(f"   SQLite:    {sqlite_papers:4d} 篇")
+        print(f"   向量庫:    {vector_papers:4d} 篇")
+        if sqlite_papers != vector_papers:
+            diff = sqlite_papers - vector_papers
+            print(f"   差異:      {diff:+4d} {'(需同步)' if diff > 0 else '(有孤立向量)'}")
+        else:
+            print(f"   狀態:      ✅ 同步")
+
+        print(f"\n🗂️  Zettel 卡片")
+        print(f"   SQLite:    {sqlite_zettel:4d} 張")
+        print(f"   向量庫:    {vector_zettel:4d} 張")
+        if sqlite_zettel != vector_zettel:
+            diff = sqlite_zettel - vector_zettel
+            print(f"   差異:      {diff:+4d} {'(需同步)' if diff > 0 else '(有孤立向量)'}")
+        else:
+            print(f"   狀態:      ✅ 同步")
+
+        # 顯示向量庫中的 ID 範圍
+        if args.verbose and vector_papers > 0:
+            paper_ids = sorted([int(pid.replace('paper_', '')) for pid in papers_result['ids']])
+            print(f"\n📋 論文向量 ID 範圍: {min(paper_ids)} ~ {max(paper_ids)}")
+
+        print("\n" + "=" * 60)
+
+    except Exception as e:
+        print(f"\n❌ 錯誤: {e}")
+        import traceback
+        traceback.print_exc()
+
+
+def cmd_vector_reset(args):
+    """重置向量資料庫"""
+    print("\n" + "=" * 60)
+    print("🗑️  重置向量資料庫")
+    print("=" * 60)
+
+    target_type = args.type
+
+    try:
+        vector_db = VectorDatabase()
+
+        # 獲取當前數量
+        papers_col = vector_db.papers_collection
+        zettel_col = vector_db.zettel_collection
+
+        papers_count = len(papers_col.get()['ids'] or [])
+        zettel_count = len(zettel_col.get()['ids'] or [])
+
+        print(f"\n目前向量數量:")
+        print(f"   論文:  {papers_count}")
+        print(f"   Zettel: {zettel_count}")
+
+        if not args.force:
+            confirm = input(f"\n⚠️  確定要重置 {target_type} 向量庫？(y/N): ")
+            if confirm.lower() != 'y':
+                print("\n❌ 已取消")
+                return
+
+        # 執行重置
+        deleted_papers = 0
+        deleted_zettel = 0
+
+        if target_type in ['papers', 'all']:
+            if papers_count > 0:
+                # 獲取所有 ID 並刪除
+                all_ids = papers_col.get()['ids']
+                if all_ids:
+                    papers_col.delete(ids=all_ids)
+                    deleted_papers = len(all_ids)
+            print(f"\n✅ 已清空論文向量: {deleted_papers} 筆")
+
+        if target_type in ['zettel', 'all']:
+            if zettel_count > 0:
+                all_ids = zettel_col.get()['ids']
+                if all_ids:
+                    zettel_col.delete(ids=all_ids)
+                    deleted_zettel = len(all_ids)
+            print(f"✅ 已清空 Zettel 向量: {deleted_zettel} 筆")
+
+        print(f"\n💡 提示: 執行 'uv run embeddings --type {target_type}' 重新生成向量")
+
+    except Exception as e:
+        print(f"\n❌ 錯誤: {e}")
+
+
+def cmd_vector_sync(args):
+    """同步向量資料庫（只處理缺失的）"""
+    from src.embeddings.providers import GeminiEmbedder
+
+    print("\n" + "=" * 60)
+    print("🔄 同步向量資料庫")
+    print("=" * 60)
+
+    target_type = args.type
+
+    try:
+        vector_db = VectorDatabase()
+        kb = KnowledgeBaseManager()
+        embedder = GeminiEmbedder()
+
+        # 同步論文
+        if target_type in ['papers', 'all']:
+            print(f"\n📄 同步論文向量...")
+
+            # 獲取 SQLite 中的所有論文 ID
+            conn = sqlite3.connect(kb.db_path)
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, title, abstract FROM papers")
+            all_papers = cursor.fetchall()
+            conn.close()
+
+            sqlite_ids = {f"paper_{p[0]}" for p in all_papers}
+
+            # 獲取向量庫中已有的 ID
+            existing = vector_db.papers_collection.get()
+            vector_ids = set(existing['ids']) if existing['ids'] else set()
+
+            # 找出缺失的
+            missing_ids = sqlite_ids - vector_ids
+            print(f"   SQLite: {len(sqlite_ids)} 篇")
+            print(f"   向量庫: {len(vector_ids)} 篇")
+            print(f"   缺失:   {len(missing_ids)} 篇")
+
+            if missing_ids and not args.dry_run:
+                added = 0
+                for paper_id, title, abstract in all_papers:
+                    vec_id = f"paper_{paper_id}"
+                    if vec_id in missing_ids:
+                        text = f"{title or ''}\n\n{abstract or ''}"
+                        if text.strip():
+                            embedding = embedder.embed(text[:2000], task_type="retrieval_document")
+                            vector_db.papers_collection.add(
+                                ids=[vec_id],
+                                embeddings=[embedding],
+                                documents=[text[:2000]],
+                                metadatas=[{"title": title or "", "paper_id": paper_id}]
+                            )
+                            added += 1
+                            print(f"   + {vec_id}: {title[:40] if title else 'N/A'}...")
+                print(f"\n   ✅ 新增 {added} 篇論文向量")
+
+        # 同步 Zettel
+        if target_type in ['zettel', 'all']:
+            print(f"\n🗂️  同步 Zettel 向量...")
+
+            conn = sqlite3.connect(kb.db_path)
+            cursor = conn.cursor()
+            cursor.execute("SELECT zettel_id, title, content FROM zettel_cards")
+            all_zettel = cursor.fetchall()
+            conn.close()
+
+            sqlite_ids = {z[0] for z in all_zettel}
+
+            existing = vector_db.zettel_collection.get()
+            vector_ids = set(existing['ids']) if existing['ids'] else set()
+
+            missing_ids = sqlite_ids - vector_ids
+            print(f"   SQLite: {len(sqlite_ids)} 張")
+            print(f"   向量庫: {len(vector_ids)} 張")
+            print(f"   缺失:   {len(missing_ids)} 張")
+
+            if missing_ids and not args.dry_run:
+                added = 0
+                for zettel_id, title, content in all_zettel:
+                    if zettel_id in missing_ids:
+                        text = f"{title or ''}\n\n{content or ''}"
+                        if text.strip():
+                            embedding = embedder.embed(text[:2000], task_type="retrieval_document")
+                            vector_db.zettel_collection.add(
+                                ids=[zettel_id],
+                                embeddings=[embedding],
+                                documents=[text[:2000]],
+                                metadatas=[{"title": title or ""}]
+                            )
+                            added += 1
+                print(f"\n   ✅ 新增 {added} 張 Zettel 向量")
+
+        if args.dry_run:
+            print(f"\n⚠️  預覽模式，未實際同步")
+
+    except Exception as e:
+        print(f"\n❌ 錯誤: {e}")
+        import traceback
+        traceback.print_exc()
+
+    print("\n" + "=" * 60)
+
+
+def cmd_vector_cleanup(args):
+    """清理孤立向量（SQLite 已刪除但向量還在）"""
+    print("\n" + "=" * 60)
+    print("🧹 清理孤立向量")
+    print("=" * 60)
+
+    try:
+        vector_db = VectorDatabase()
+        kb = KnowledgeBaseManager()
+
+        # 清理論文向量
+        print(f"\n📄 檢查論文向量...")
+
+        conn = sqlite3.connect(kb.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM papers")
+        sqlite_paper_ids = {f"paper_{row[0]}" for row in cursor.fetchall()}
+
+        existing = vector_db.papers_collection.get()
+        vector_paper_ids = set(existing['ids']) if existing['ids'] else set()
+
+        orphan_papers = vector_paper_ids - sqlite_paper_ids
+        print(f"   向量庫: {len(vector_paper_ids)} 篇")
+        print(f"   SQLite: {len(sqlite_paper_ids)} 篇")
+        print(f"   孤立:   {len(orphan_papers)} 篇")
+
+        if orphan_papers:
+            for oid in list(orphan_papers)[:5]:
+                print(f"   - {oid}")
+            if len(orphan_papers) > 5:
+                print(f"   ... 及其他 {len(orphan_papers) - 5} 筆")
+
+            if not args.dry_run:
+                vector_db.papers_collection.delete(ids=list(orphan_papers))
+                print(f"\n   ✅ 已刪除 {len(orphan_papers)} 筆孤立論文向量")
+
+        # 清理 Zettel 向量
+        print(f"\n🗂️  檢查 Zettel 向量...")
+
+        cursor.execute("SELECT zettel_id FROM zettel_cards")
+        sqlite_zettel_ids = {row[0] for row in cursor.fetchall()}
+        conn.close()
+
+        existing = vector_db.zettel_collection.get()
+        vector_zettel_ids = set(existing['ids']) if existing['ids'] else set()
+
+        orphan_zettel = vector_zettel_ids - sqlite_zettel_ids
+        print(f"   向量庫: {len(vector_zettel_ids)} 張")
+        print(f"   SQLite: {len(sqlite_zettel_ids)} 張")
+        print(f"   孤立:   {len(orphan_zettel)} 張")
+
+        if orphan_zettel:
+            for oid in list(orphan_zettel)[:5]:
+                print(f"   - {oid}")
+            if len(orphan_zettel) > 5:
+                print(f"   ... 及其他 {len(orphan_zettel) - 5} 筆")
+
+            if not args.dry_run:
+                vector_db.zettel_collection.delete(ids=list(orphan_zettel))
+                print(f"\n   ✅ 已刪除 {len(orphan_zettel)} 筆孤立 Zettel 向量")
+
+        if args.dry_run:
+            print(f"\n⚠️  預覽模式，未實際刪除")
+        elif not orphan_papers and not orphan_zettel:
+            print(f"\n✅ 沒有孤立向量需要清理")
+
+    except Exception as e:
+        print(f"\n❌ 錯誤: {e}")
+        import traceback
+        traceback.print_exc()
+
+    print("\n" + "=" * 60)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
@@ -2075,6 +2363,38 @@ def main():
     parser_import_all.add_argument('--dry-run', action='store_true',
                                   help='預覽模式（不實際匯入）')
     parser_import_all.set_defaults(func=cmd_import_zettel_all)
+
+    # vector-status 命令
+    parser_vector_status = subparsers.add_parser('vector-status',
+                                                  help='檢查向量資料庫狀態')
+    parser_vector_status.add_argument('--verbose', '-v', action='store_true',
+                                      help='顯示詳細資訊')
+    parser_vector_status.set_defaults(func=cmd_vector_status)
+
+    # vector-reset 命令
+    parser_vector_reset = subparsers.add_parser('vector-reset',
+                                                 help='重置向量資料庫')
+    parser_vector_reset.add_argument('--type', choices=['papers', 'zettel', 'all'],
+                                     default='all', help='重置類型（預設：all）')
+    parser_vector_reset.add_argument('--force', '-f', action='store_true',
+                                     help='跳過確認')
+    parser_vector_reset.set_defaults(func=cmd_vector_reset)
+
+    # vector-sync 命令
+    parser_vector_sync = subparsers.add_parser('vector-sync',
+                                                help='同步向量資料庫（補齊缺失的向量）')
+    parser_vector_sync.add_argument('--type', choices=['papers', 'zettel', 'all'],
+                                    default='all', help='同步類型（預設：all）')
+    parser_vector_sync.add_argument('--dry-run', action='store_true',
+                                    help='預覽模式（不實際同步）')
+    parser_vector_sync.set_defaults(func=cmd_vector_sync)
+
+    # vector-cleanup 命令
+    parser_vector_cleanup = subparsers.add_parser('vector-cleanup',
+                                                   help='清理孤立向量（SQLite 已刪除但向量還在）')
+    parser_vector_cleanup.add_argument('--dry-run', action='store_true',
+                                       help='預覽模式（不實際刪除）')
+    parser_vector_cleanup.set_defaults(func=cmd_vector_cleanup)
 
     args = parser.parse_args()
 
