@@ -45,36 +45,73 @@ def cmd_stats(args):
     kb = KnowledgeBaseManager()
     stats = kb.get_stats()
 
+    # 獲取待建立卡片的論文
+    papers_without_zettel = kb.get_papers_without_zettel()
+
     print("\n" + "=" * 60)
     print("📊 知識庫統計")
     print("=" * 60)
     print(f"論文總數: {stats['total_papers']}")
     print(f"主題總數: {stats['total_topics']}")
     print(f"引用總數: {stats['total_citations']}")
+    print("-" * 60)
+    print(f"Zettel 卡片: {stats['total_zettel_cards']}")
+    print(f"Zettel 連結: {stats['total_zettel_links']}")
+
+    # 顯示待建立卡片
+    papers_with_zettel = stats['total_papers'] - len(papers_without_zettel)
+    print("-" * 60)
+    print(f"有卡片論文: {papers_with_zettel}")
+    if papers_without_zettel:
+        print(f"⚠️  待建立卡片: {len(papers_without_zettel)}")
+        if len(papers_without_zettel) <= 5:
+            for p in papers_without_zettel:
+                print(f"   • [{p['id']}] {p['cite_key'] or p['title'][:30]}")
+        else:
+            print(f"   使用 'uv run kb list --no-zettel' 查看完整列表")
+    else:
+        print(f"✅ 待建立卡片: 0（全部論文皆有卡片）")
+
     print("=" * 60 + "\n")
 
 
 def cmd_list(args):
     """列出所有論文"""
     kb = KnowledgeBaseManager()
-    papers = kb.list_papers(limit=args.limit)
 
-    print("\n" + "=" * 60)
-    print(f"📄 論文列表 (最多 {args.limit} 篇)")
-    print("=" * 60)
+    # 如果指定 --no-zettel，只列出沒有卡片的論文
+    if hasattr(args, 'no_zettel') and args.no_zettel:
+        papers = kb.get_papers_without_zettel()
+        print("\n" + "=" * 60)
+        print(f"⚠️  待建立卡片的論文 ({len(papers)} 篇)")
+        print("=" * 60)
 
-    if papers:
-        for paper in papers:
-            print(f"\n[ID: {paper['id']}] {paper['title']}")
-            print(f"  作者: {', '.join(paper['authors'][:3])}")
-            if len(paper['authors']) > 3:
-                print(f"        (+{len(paper['authors'])-3} 位)")
-            print(f"  年份: {paper['year'] or '未知'}")
-            if paper['keywords']:
-                print(f"  關鍵詞: {', '.join(paper['keywords'][:5])}")
-            print(f"  時間: {paper['created_at']}")
+        if papers:
+            for paper in papers:
+                print(f"\n[ID: {paper['id']}] {paper['title'][:50]}")
+                print(f"  Citekey: {paper['cite_key'] or '未設定'}")
+                print(f"  年份: {paper['year'] or '未知'}")
+                print(f"  💡 生成卡片: uv run zettel --from-kb {paper['id']}")
+        else:
+            print("\n✅ 所有論文都已有 Zettelkasten 卡片！")
     else:
-        print("\n⚠️  知識庫中還沒有論文")
+        papers = kb.list_papers(limit=args.limit)
+        print("\n" + "=" * 60)
+        print(f"📄 論文列表 (最多 {args.limit} 篇)")
+        print("=" * 60)
+
+        if papers:
+            for paper in papers:
+                print(f"\n[ID: {paper['id']}] {paper['title']}")
+                print(f"  作者: {', '.join(paper['authors'][:3])}")
+                if len(paper['authors']) > 3:
+                    print(f"        (+{len(paper['authors'])-3} 位)")
+                print(f"  年份: {paper['year'] or '未知'}")
+                if paper['keywords']:
+                    print(f"  關鍵詞: {', '.join(paper['keywords'][:5])}")
+                print(f"  時間: {paper['created_at']}")
+        else:
+            print("\n⚠️  知識庫中還沒有論文")
 
     print("\n" + "=" * 60 + "\n")
 
@@ -169,8 +206,69 @@ def cmd_show(args):
     print("\n" + "=" * 60 + "\n")
 
 
+def cmd_export_zettel(args):
+    """匯出論文的 Zettelkasten 卡片"""
+    from pathlib import Path
+    from datetime import datetime
+
+    kb = KnowledgeBaseManager()
+    paper = kb.get_paper_by_id(args.id)
+
+    if not paper:
+        print(f"\n❌ 找不到論文 (ID: {args.id})")
+        return
+
+    print("\n" + "=" * 60)
+    print(f"📤 匯出 Zettelkasten 卡片")
+    print("=" * 60)
+    print(f"\n📖 標題: {paper['title']}")
+    print(f"🔑 Citekey: {paper.get('cite_key') or '未設定'}")
+
+    # 檢查卡片數量
+    cards = kb.get_zettel_by_paper(args.id)
+    if not cards:
+        print(f"\n⚠️  此論文沒有 Zettelkasten 卡片")
+        print(f"💡 使用 'uv run zettel --from-kb {args.id}' 生成卡片")
+        return
+
+    print(f"🗂️  卡片數量: {len(cards)}")
+
+    # 決定輸出目錄
+    if args.output:
+        output_dir = args.output
+    else:
+        cite_key = paper.get('cite_key') or f"paper_{args.id}"
+        date_str = datetime.now().strftime('%Y%m%d')
+        output_dir = f"output/export/{cite_key}_{date_str}"
+
+    print(f"📁 輸出目錄: {output_dir}")
+
+    if not args.force:
+        confirm = input("\n確定要匯出？(Y/n): ")
+        if confirm.lower() == 'n':
+            print("\n❌ 已取消匯出")
+            return
+
+    # 執行匯出
+    result = kb.export_zettel_cards(args.id, output_dir)
+
+    if result['success']:
+        print(f"\n✅ 匯出成功！")
+        print(f"   卡片數量: {result['card_count']}")
+        print(f"   輸出目錄: {result['output_dir']}")
+        print(f"\n📄 匯出檔案:")
+        for f in result['files'][:5]:
+            print(f"   • {Path(f).name}")
+        if len(result['files']) > 5:
+            print(f"   ... 及其他 {len(result['files']) - 5} 個檔案")
+    else:
+        print(f"\n❌ 匯出失敗: {result.get('error', '未知錯誤')}")
+
+    print("\n" + "=" * 60 + "\n")
+
+
 def cmd_delete(args):
-    """刪除論文"""
+    """刪除論文（含確認與匯出流程）"""
     kb = KnowledgeBaseManager()
     paper = kb.get_paper_by_id(args.id)
 
@@ -186,17 +284,81 @@ def cmd_delete(args):
     if paper.get('cite_key'):
         print(f"🔑 Citekey: {paper['cite_key']}")
 
-    if not args.force:
-        confirm = input("\n⚠️  確定要刪除此論文？(y/N): ")
-        if confirm.lower() != 'y':
-            print("\n❌ 已取消刪除")
-            return
+    # 檢查是否有關聯的 Zettelkasten 卡片
+    cards = kb.get_zettel_by_paper(args.id)
+    has_cards = len(cards) > 0
 
+    if has_cards:
+        print(f"\n⚠️  此論文有 {len(cards)} 張 Zettelkasten 卡片！")
+        for card in cards[:3]:
+            print(f"   • {card['zettel_id']}: {card['title'][:30]}")
+        if len(cards) > 3:
+            print(f"   ... 及其他 {len(cards) - 3} 張卡片")
+
+        if not args.force:
+            print("\n請選擇操作：")
+            print("  [1] 先匯出卡片再刪除")
+            print("  [2] 直接刪除（卡片已匯出至其他系統）")
+            print("  [3] 取消")
+
+            choice = input("\n選擇 (1/2/3): ").strip()
+
+            if choice == '1':
+                # 執行匯出
+                from datetime import datetime
+                cite_key = paper.get('cite_key') or f"paper_{args.id}"
+                date_str = datetime.now().strftime('%Y%m%d')
+                output_dir = f"output/export/{cite_key}_{date_str}"
+
+                print(f"\n📤 匯出卡片到: {output_dir}")
+                result = kb.export_zettel_cards(args.id, output_dir)
+
+                if result['success']:
+                    print(f"✅ 已匯出 {result['card_count']} 張卡片")
+                else:
+                    print(f"❌ 匯出失敗: {result.get('error')}")
+                    return
+
+                # 確認刪除
+                confirm = input("\n匯出完成，確定要刪除？(y/N): ")
+                if confirm.lower() != 'y':
+                    print("\n❌ 已取消刪除")
+                    return
+
+            elif choice == '2':
+                confirm = input("\n確認卡片已匯出，直接刪除？(y/N): ")
+                if confirm.lower() != 'y':
+                    print("\n❌ 已取消刪除")
+                    return
+
+            else:
+                print("\n❌ 已取消刪除")
+                return
+
+    else:
+        # 沒有卡片，直接確認刪除
+        if not args.force:
+            confirm = input("\n⚠️  確定要刪除此論文？(y/N): ")
+            if confirm.lower() != 'y':
+                print("\n❌ 已取消刪除")
+                return
+
+    # 執行刪除
     try:
+        # 如果有卡片，先刪除卡片和向量
+        if has_cards:
+            delete_result = kb.delete_zettel_cards_by_paper(args.id)
+            print(f"\n🗑️  已刪除 {delete_result['deleted_cards']} 張卡片")
+            print(f"   已刪除 {delete_result['deleted_embeddings']} 個向量嵌入")
+
+        # 刪除論文
         kb.delete_paper(args.id)
         print(f"\n✅ 已刪除論文 (ID: {args.id})")
+
     except Exception as e:
         print(f"\n❌ 刪除失敗: {e}")
+        import traceback
+        traceback.print_exc()
 
     print("\n" + "=" * 60 + "\n")
 
@@ -1683,6 +1845,39 @@ def cmd_check_llm(args):
     print()
 
 
+def _get_default_bib_path() -> str:
+    """從配置檔讀取預設 BibTeX 路徑"""
+    import yaml
+    config_path = Path("config/settings.yaml")
+    if config_path.exists():
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            return config.get('knowledge_base', {}).get('bibliography', {}).get('default_bib', '')
+        except Exception:
+            pass
+    return ''
+
+
+def _load_bib_entries(bib_path: str) -> dict:
+    """載入 BibTeX 檔案並返回 {cite_key: entry} 字典"""
+    from src.integrations.bibtex_parser import BibTeXParser
+    bib_path = Path(bib_path)
+    if not bib_path.exists():
+        print(f"⚠️  找不到 BibTeX 檔案：{bib_path}")
+        return None
+
+    try:
+        parser = BibTeXParser()
+        entries = parser.parse_file(str(bib_path))
+        bib_entries = {e.cite_key: e for e in entries}
+        print(f"📚 BibTeX：{bib_path.name}（{len(bib_entries)} 筆條目）")
+        return bib_entries
+    except Exception as e:
+        print(f"❌ 解析 BibTeX 檔案失敗：{e}")
+        return None
+
+
 def cmd_import_zettel(args):
     """匯入 Zettelkasten 卡片資料夾"""
     from pathlib import Path
@@ -1696,12 +1891,19 @@ def cmd_import_zettel(args):
     print(f"\n📁 匯入 Zettelkasten 卡片：{folder_path.name}")
     print("=" * 60)
 
+    # 載入 BibTeX（優先使用命令列參數，其次使用配置檔預設值）
+    bib_entries = None
+    bib_path = args.bib if hasattr(args, 'bib') and args.bib else _get_default_bib_path()
+    if bib_path:
+        bib_entries = _load_bib_entries(bib_path)
+
     kb = KnowledgeBaseManager()
     result = import_zettel_folder(
         folder_path=folder_path,
         kb=kb,
         embed=args.embed,
-        dry_run=args.dry_run
+        dry_run=args.dry_run,
+        bib_entries=bib_entries
     )
 
     if not args.dry_run:
@@ -1726,6 +1928,15 @@ def cmd_import_zettel_all(args):
 
     print(f"\n📚 批次匯入 Zettelkasten 卡片")
     print(f"   來源路徑：{base_path}")
+
+    # 載入 BibTeX（優先使用命令列參數，其次使用配置檔預設值）
+    bib_entries = None
+    bib_path = args.bib if args.bib else _get_default_bib_path()
+    if bib_path:
+        bib_entries = _load_bib_entries(bib_path)
+        if bib_entries is None:
+            return  # 載入失敗
+
     print("=" * 60)
 
     kb = KnowledgeBaseManager()
@@ -1733,7 +1944,8 @@ def cmd_import_zettel_all(args):
         base_path=base_path,
         kb=kb,
         embed=args.embed,
-        dry_run=args.dry_run
+        dry_run=args.dry_run,
+        bib_entries=bib_entries
     )
 
     # 顯示統計
@@ -2037,74 +2249,122 @@ def cmd_vector_cleanup(args):
     print("\n" + "=" * 60)
 
 
+def cmd_sync_zettel_links(args):
+    """同步所有 Zettelkasten 卡片的連結資訊"""
+    kb = KnowledgeBaseManager()
+
+    print("\n" + "=" * 60)
+    print("🔗 同步 Zettelkasten 連結資訊")
+    print("=" * 60)
+
+    if args.dry_run:
+        print("⚠️  預覽模式（不會實際修改）")
+
+    result = kb.sync_zettel_links(dry_run=args.dry_run)
+
+    print(f"\n📊 同步結果:")
+    print(f"   總卡片數: {result['total_cards']}")
+    print(f"   處理卡片: {result['processed']}")
+    print(f"   新增連結: {result['links_added']}")
+    if result['errors'] > 0:
+        print(f"   ⚠️  錯誤數: {result['errors']}")
+
+    if args.dry_run:
+        print(f"\n💡 移除 --dry-run 參數以實際執行同步")
+    else:
+        print(f"\n✅ 同步完成！")
+
+    print("\n" + "=" * 60 + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-示例:
+使用方式：
+  # 使用 uv（推薦）
+  uv run kb <命令> [選項]
+
+  # 或直接用 Python
+  python kb_manage.py <命令> [選項]
+
+範例：
   # 查看統計
-  python kb_manage.py stats
+  uv run kb stats
 
   # 列出論文
-  python kb_manage.py list
-  python kb_manage.py list --limit 5
+  uv run kb list
+  uv run kb list --limit 5
 
   # 搜索論文
-  python kb_manage.py search "deep learning"
-  python kb_manage.py search "AI" --limit 10
+  uv run kb search "deep learning"
+  uv run kb search "AI" --limit 10
 
   # 查看論文詳情
-  python kb_manage.py show 1
+  uv run kb show 1
 
   # 創建主題
-  python kb_manage.py add-topic "AI與認知科學" -d "AI技術在認知科學中的應用"
+  uv run kb add-topic "AI與認知科學" -d "AI技術在認知科學中的應用"
 
   # 連結論文到主題
-  python kb_manage.py link 1 1 --relevance 0.95
+  uv run kb link 1 1 --relevance 0.95
 
   # 按主題查看論文
-  python kb_manage.py topic-papers "AI與認知科學"
+  uv run kb topic-papers "AI與認知科學"
 
   # 添加引用關係
-  python kb_manage.py cite 1 2
+  uv run kb cite 1 2
 
   # 語義搜索
-  python kb_manage.py semantic-search "深度學習" --type papers --limit 5
-  python kb_manage.py semantic-search "認知科學" --type all --verbose
+  uv run kb semantic-search "深度學習" --type papers --limit 5
+  uv run kb semantic-search "認知科學" --type all --verbose
 
   # 尋找相似內容
-  python kb_manage.py similar 1 --limit 5
-  python kb_manage.py similar zettel_CogSci-20251029-001 --limit 3
+  uv run kb similar 1 --limit 5
+  uv run kb similar zettel_CogSci-20251029-001 --limit 3
 
   # 混合搜索
-  python kb_manage.py hybrid-search "machine learning" --limit 10
+  uv run kb hybrid-search "machine learning" --limit 10
 
   # 自動連結論文到Zettelkasten（基於向量相似度）
-  python kb_manage.py auto-link 14 --threshold 0.6 --max-links 5
+  uv run kb auto-link 14 --threshold 0.6 --max-links 5
 
   # 批次為所有論文建立連結
-  python kb_manage.py auto-link-all --threshold 0.6 --max-links 5
+  uv run kb auto-link-all --threshold 0.6 --max-links 5
 
   # 查看論文的Zettelkasten連結
-  python kb_manage.py show-links 14
-  python kb_manage.py show-links 14 --min-similarity 0.7
+  uv run kb show-links 14
+  uv run kb show-links 14 --min-similarity 0.7
+
+  # 匯入 Zettel 卡片
+  uv run kb import-zettel-all
+  uv run kb import-zettel-all --bib "My Library.bib"
+
+  # 向量資料庫管理
+  uv run kb vector-status
+  uv run kb vector-sync
+  uv run kb vector-cleanup
+
+  # Zettelkasten 連結同步
+  uv run kb sync-zettel-links
+  uv run kb sync-zettel-links --dry-run
 
   # 元數據管理
-  python kb_manage.py metadata-fix --field year --batch
-  python kb_manage.py metadata-fix --field all --batch --dry-run
-  python kb_manage.py metadata-sync-yaml
-  python kb_manage.py metadata-sync-yaml --dry-run
+  uv run kb metadata-fix --field year --batch
+  uv run kb metadata-fix --field all --batch --dry-run
+  uv run kb metadata-sync-yaml
+  uv run kb metadata-sync-yaml --dry-run
 
   # 資料庫維護
-  python kb_manage.py cleanup
-  python kb_manage.py cleanup --dry-run
-  python kb_manage.py import-papers
-  python kb_manage.py import-papers --dry-run
+  uv run kb cleanup
+  uv run kb cleanup --dry-run
+  uv run kb import-papers
+  uv run kb import-papers --dry-run
 
   # LLM 訪問檢查
-  python kb_manage.py check-llm
-  python kb_manage.py check-llm --verbose
+  uv run kb check-llm
+  uv run kb check-llm --verbose
         """
     )
 
@@ -2117,6 +2377,7 @@ def main():
     # list 命令
     parser_list = subparsers.add_parser('list', help='列出所有論文')
     parser_list.add_argument('--limit', type=int, default=50, help='最多顯示數量')
+    parser_list.add_argument('--no-zettel', action='store_true', help='只列出待建立卡片的論文')
     parser_list.set_defaults(func=cmd_list)
 
     # search 命令
@@ -2135,8 +2396,15 @@ def main():
     # delete 命令
     parser_delete = subparsers.add_parser('delete', help='刪除論文')
     parser_delete.add_argument('id', type=int, help='論文 ID')
-    parser_delete.add_argument('--force', '-f', action='store_true', help='跳過確認')
+    parser_delete.add_argument('--force', '-f', action='store_true', help='跳過確認（強制刪除）')
     parser_delete.set_defaults(func=cmd_delete)
+
+    # export-zettel 命令
+    parser_export = subparsers.add_parser('export-zettel', help='匯出論文的 Zettelkasten 卡片')
+    parser_export.add_argument('id', type=int, help='論文 ID')
+    parser_export.add_argument('--output', '-o', type=str, help='輸出目錄（預設：output/export/{citekey}_{date}）')
+    parser_export.add_argument('--force', '-f', action='store_true', help='跳過確認')
+    parser_export.set_defaults(func=cmd_export_zettel)
 
     # update 命令（更新論文元數據）
     parser_update = subparsers.add_parser('update', help='更新論文元數據（支援從 DOI 重新取得）')
@@ -2351,6 +2619,8 @@ def main():
                                      help='同時生成向量嵌入')
     parser_import_zettel.add_argument('--dry-run', action='store_true',
                                      help='預覽模式（不實際匯入）')
+    parser_import_zettel.add_argument('--bib', type=str,
+                                     help='BibTeX 檔案路徑（自動新增缺失論文，省略時使用配置檔預設值）')
     parser_import_zettel.set_defaults(func=cmd_import_zettel)
 
     # import-zettel-all 命令
@@ -2362,6 +2632,8 @@ def main():
                                   help='同時生成向量嵌入')
     parser_import_all.add_argument('--dry-run', action='store_true',
                                   help='預覽模式（不實際匯入）')
+    parser_import_all.add_argument('--bib', type=str,
+                                  help='BibTeX 檔案路徑（自動新增缺失論文）')
     parser_import_all.set_defaults(func=cmd_import_zettel_all)
 
     # vector-status 命令
@@ -2395,6 +2667,13 @@ def main():
     parser_vector_cleanup.add_argument('--dry-run', action='store_true',
                                        help='預覽模式（不實際刪除）')
     parser_vector_cleanup.set_defaults(func=cmd_vector_cleanup)
+
+    # sync-zettel-links 命令
+    parser_sync_links = subparsers.add_parser('sync-zettel-links',
+                                               help='同步 Zettelkasten 卡片連結資訊')
+    parser_sync_links.add_argument('--dry-run', action='store_true',
+                                   help='預覽模式（不實際修改）')
+    parser_sync_links.set_defaults(func=cmd_sync_zettel_links)
 
     args = parser.parse_args()
 

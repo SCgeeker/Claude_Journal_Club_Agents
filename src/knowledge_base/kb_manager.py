@@ -666,6 +666,7 @@ class KnowledgeBaseManager:
         支援多種匹配方式：
         1. cite_key 精確匹配
         2. cite_key 模糊匹配（忽略大小寫和分隔符）
+        3. Unicode 正規化匹配（處理 ü→u, é→e 等）
 
         Args:
             citekey: citekey 字串
@@ -673,6 +674,8 @@ class KnowledgeBaseManager:
         Returns:
             論文信息字典，未找到返回 None
         """
+        from src.utils.citekey_resolver import normalize_citekey
+
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
@@ -696,6 +699,20 @@ class KnowledgeBaseManager:
                 WHERE REPLACE(REPLACE(LOWER(cite_key), '-', ''), '_', '') = ?
             """, (citekey_normalized,))
             row = cursor.fetchone()
+
+        if not row:
+            # Unicode 正規化匹配（處理特殊字元如 ü, é）
+            query_normalized = normalize_citekey(citekey).lower()
+            cursor.execute("""
+                SELECT id, file_path, title, authors, year, abstract, keywords, created_at, updated_at,
+                       zotero_key, source, doi, url, cite_key
+                FROM papers
+            """)
+            for candidate in cursor.fetchall():
+                db_citekey = candidate[13] or ''
+                if normalize_citekey(db_citekey).lower() == query_normalized:
+                    row = candidate
+                    break
 
         conn.close()
 
@@ -1258,8 +1275,14 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
         範例輸入：
         ## 連結網絡
-        **導向** → [[Linguistics-20251029-002]], [[Linguistics-20251029-003]]
+        **導向** → [[Barsalou-1999-002]], [[Barsalou-1999-003]]
         **基於** → [[Linguistics-20251029-001]]
+
+        支援的 ID 格式：
+        - Author-YYYY-001 (如 Barsalou-1999-001)
+        - Author-YYYYa-001 (如 Barsalou-1999a-001)
+        - Domain-YYYYMMDD-001 (如 Linguistics-20251029-001)
+        - Multi-Word-Author-YYYY-001 (如 van-Rooij-2025-001)
 
         Args:
             markdown_content: Markdown內容
@@ -1267,7 +1290,7 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         Returns:
             連結列表，如:
             [
-                {'relation_type': '導向', 'target_ids': ['Linguistics-20251029-002', ...]},
+                {'relation_type': '導向', 'target_ids': ['Barsalou-1999-002', ...]},
                 {'relation_type': '基於', 'target_ids': ['Linguistics-20251029-001']}
             ]
         """
@@ -1282,14 +1305,21 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
         # 匹配每一行連結（寬容的空白處理）
         # 格式：**關係類型** → [[ID1]], [[ID2]]
-        link_pattern = r'\*\*(基於|導向|相關|對比|上位|下位)\*\*\s*→\s*(.+?)(?=\n\s*\n|\n\*\*|\n##|\Z)'
+        # 也支援 ↔ 符號（對比關係常用）
+        link_pattern = r'\*\*(基於|導向|相關|對比|上位|下位)\*\*\s*[→↔]\s*(.+?)(?=\n\s*\n|\n\*\*|\n##|\Z)'
 
         for match in re.finditer(link_pattern, network_text, re.DOTALL):
             relation_type = match.group(1)
             target_text = match.group(2)
 
-            # 提取所有目標 ID（支援多行）
-            target_ids = re.findall(r'\[\[([A-Za-z]+-\d{8}-\d{3})\]\]', target_text)
+            # 提取所有目標 ID（支援多種格式）
+            # 匹配: [[任意文字-數字序列-3位數字]]
+            # 例如: [[Barsalou-1999-001]], [[van-Rooij-2025a-002]], [[Linguistics-20251029-003]]
+            target_ids = re.findall(r'\[\[([A-Za-z][A-Za-z0-9-]*-\d{3,4}[a-z]?-\d{3})\]\]', target_text)
+
+            # 也嘗試匹配 8 位日期格式
+            if not target_ids:
+                target_ids = re.findall(r'\[\[([A-Za-z][A-Za-z0-9-]*-\d{8}-\d{3})\]\]', target_text)
 
             if target_ids:
                 links.append({
@@ -1881,6 +1911,76 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 "created_at": row[15]
             }
         return None
+
+    def sync_zettel_links(self, dry_run: bool = False) -> Dict[str, int]:
+        """
+        同步所有 Zettelkasten 卡片的連結資訊
+
+        從卡片檔案重新解析連結，更新 zettel_links 表。
+
+        Args:
+            dry_run: 預覽模式（不實際寫入）
+
+        Returns:
+            統計結果: {total_cards, processed, links_added, errors}
+        """
+        result = {
+            'total_cards': 0,
+            'processed': 0,
+            'links_added': 0,
+            'errors': 0
+        }
+
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        # 1. 獲取所有卡片
+        cursor.execute("""
+            SELECT card_id, zettel_id, file_path, content
+            FROM zettel_cards
+        """)
+        cards = cursor.fetchall()
+        result['total_cards'] = len(cards)
+
+        if not dry_run:
+            # 清空現有連結（重新建立）
+            cursor.execute("DELETE FROM zettel_links")
+
+        for card_id, zettel_id, file_path, content in cards:
+            try:
+                # 優先從檔案讀取（更準確）
+                if file_path and Path(file_path).exists():
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        markdown_content = f.read()
+                elif content:
+                    markdown_content = content
+                else:
+                    continue
+
+                # 解析連結
+                links = self.parse_zettel_links(markdown_content)
+
+                if links:
+                    result['processed'] += 1
+
+                    for link in links:
+                        for target_id in link['target_ids']:
+                            result['links_added'] += 1
+                            if not dry_run:
+                                cursor.execute("""
+                                    INSERT INTO zettel_links (
+                                        source_card_id, target_zettel_id, relation_type
+                                    ) VALUES (?, ?, ?)
+                                """, (card_id, target_id, link['relation_type']))
+
+            except Exception as e:
+                result['errors'] += 1
+
+        if not dry_run:
+            conn.commit()
+
+        conn.close()
+        return result
 
     def get_zettel_links(self, card_id: int) -> List[Dict[str, Any]]:
         """
@@ -2517,6 +2617,191 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
         conn.close()
         return results
+
+    def get_papers_without_zettel(self) -> List[Dict[str, Any]]:
+        """
+        獲取沒有 Zettelkasten 卡片的論文（待建立卡片）
+
+        Returns:
+            論文列表: [{id, title, cite_key, authors, year}, ...]
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT p.id, p.title, p.cite_key, p.authors, p.year
+            FROM papers p
+            LEFT JOIN zettel_cards z ON p.id = z.paper_id
+            LEFT JOIN paper_zettel_links pzl ON p.id = pzl.paper_id
+            WHERE z.card_id IS NULL AND pzl.paper_id IS NULL
+            ORDER BY p.id
+        """)
+
+        results = []
+        for row in cursor.fetchall():
+            paper_id, title, cite_key, authors, year = row
+            results.append({
+                'id': paper_id,
+                'title': title,
+                'cite_key': cite_key,
+                'authors': json.loads(authors) if authors else [],
+                'year': year
+            })
+
+        conn.close()
+        return results
+
+    def export_zettel_cards(self, paper_id: int, output_dir: str) -> Dict[str, Any]:
+        """
+        匯出論文的 Zettelkasten 卡片到指定目錄
+
+        按照 EXPORT_FORMAT_SPEC.md 格式輸出：
+        - zettel_index.md
+        - zettel_cards/{citekey}-001.md ...
+
+        Args:
+            paper_id: 論文 ID
+            output_dir: 輸出目錄
+
+        Returns:
+            匯出結果: {success, card_count, output_dir, files}
+        """
+        from pathlib import Path
+        from datetime import datetime
+
+        result = {
+            'success': False,
+            'card_count': 0,
+            'output_dir': output_dir,
+            'files': []
+        }
+
+        # 獲取論文資料
+        paper = self.get_paper_by_id(paper_id)
+        if not paper:
+            result['error'] = f'找不到論文 (ID: {paper_id})'
+            return result
+
+        # 獲取卡片資料
+        cards = self.get_zettel_by_paper(paper_id)
+        if not cards:
+            result['error'] = f'論文沒有 Zettelkasten 卡片'
+            return result
+
+        cite_key = paper.get('cite_key') or f"paper_{paper_id}"
+        output_path = Path(output_dir)
+        cards_dir = output_path / 'zettel_cards'
+        cards_dir.mkdir(parents=True, exist_ok=True)
+
+        # 生成索引檔
+        index_content = self._generate_zettel_index(paper, cards, cite_key)
+        index_file = output_path / 'zettel_index.md'
+        index_file.write_text(index_content, encoding='utf-8')
+        result['files'].append(str(index_file))
+
+        # 匯出每張卡片
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        for card in cards:
+            # 從資料庫讀取完整內容
+            cursor.execute("""
+                SELECT content, ai_notes, human_notes, source_info
+                FROM zettel_cards WHERE card_id = ?
+            """, (card['card_id'],))
+            row = cursor.fetchone()
+            content, ai_notes, human_notes, source_info = row if row else ('', '', '', '')
+
+            card_content = self._generate_zettel_card(
+                card, content, ai_notes, human_notes, source_info, cite_key
+            )
+            card_file = cards_dir / f"{card['zettel_id']}.md"
+            card_file.write_text(card_content, encoding='utf-8')
+            result['files'].append(str(card_file))
+
+        conn.close()
+
+        result['success'] = True
+        result['card_count'] = len(cards)
+        return result
+
+    def _generate_zettel_index(self, paper: Dict, cards: List[Dict], cite_key: str) -> str:
+        """生成 zettel_index.md 內容"""
+        from datetime import datetime
+
+        authors_str = ', '.join(paper['authors'][:3]) if paper['authors'] else ''
+        year = paper.get('year') or ''
+        doi = paper.get('doi') or ''
+        generated_date = datetime.now().strftime('%Y-%m-%d %H:%M')
+
+        # YAML Frontmatter
+        content = f'''---
+title: "{cite_key}"
+aliases:
+  - "{cite_key}"
+authors: "{authors_str}"
+year: "{year}"
+doi: "{doi}"
+generated_date: "{generated_date}"
+card_count: {len(cards)}
+---
+
+# {cite_key}
+
+**{paper['title']}**
+
+## 📚 卡片清單
+
+'''
+        # 卡片清單
+        for i, card in enumerate(cards, 1):
+            core = card.get('core_concept', '')[:80] or card.get('title', '')
+            content += f'''### {i}. [{card['title']}](zettel_cards/{card['zettel_id']}.md)
+- **ID**: `{card['zettel_id']}`
+- **核心**: "{core}"
+
+'''
+
+        # 閱讀建議順序
+        content += '## 📖 閱讀建議順序\n\n'
+        for i, card in enumerate(cards, 1):
+            content += f'{i}. [[{card["zettel_id"]}]] {card["title"]}\n'
+
+        return content
+
+    def _generate_zettel_card(self, card: Dict, content: str, ai_notes: str,
+                               human_notes: str, source_info: str, cite_key: str) -> str:
+        """生成單張卡片的 Markdown 內容"""
+        title = card.get('title', 'Untitled')
+        summary = card.get('core_concept', '')
+
+        card_content = f'''---
+title: "{title}"
+summary: |-
+  "{summary}"
+---
+
+## 說明
+
+{content or '（無內容）'}
+
+## 連結網絡
+
+（匯出時無法重建連結關係）
+
+## 來源脈絡
+
+- 📄 **文獻**: {cite_key}
+- 📍 **位置**: {source_info or '未知'}
+
+## 個人筆記
+
+🤖 **AI**: {ai_notes or '（無）'}
+
+✍️ **Human**: {human_notes or '（待填寫）'}
+
+'''
+        return card_content
 
 
 if __name__ == "__main__":

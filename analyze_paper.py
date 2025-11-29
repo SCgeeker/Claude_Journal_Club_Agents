@@ -308,31 +308,38 @@ def main():
         description="分析學術論文並提取關鍵信息",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-示例:
+使用方式：
+  # 使用 uv（推薦）
+  uv run analyze <pdf_path> [選項]
+
+  # 或直接用 Python
+  python analyze_paper.py <pdf_path> [選項]
+
+範例：
   # 基本分析
-  python analyze_paper.py paper.pdf
+  uv run analyze paper.pdf
 
   # 分析並加入知識庫
-  python analyze_paper.py paper.pdf --add-to-kb
+  uv run analyze paper.pdf --add-to-kb
 
   # 指定 BibTeX 書目檔（自動取得 citekey）
-  python analyze_paper.py paper.pdf --bib library.bib --add-to-kb
+  uv run analyze paper.pdf --bib library.bib --add-to-kb
 
   # 指定 RIS 書目檔
-  python analyze_paper.py paper.pdf --ris references.ris --add-to-kb
+  uv run analyze paper.pdf --ris references.ris --add-to-kb
 
   # 手動指定 citekey（覆蓋書目檔）
-  python analyze_paper.py paper.pdf --citekey "Barsalou-1999" --add-to-kb
+  uv run analyze paper.pdf --citekey "Barsalou-1999" --add-to-kb
 
   # 指定 DOI（用於查詢元數據）
-  python analyze_paper.py paper.pdf --doi "10.1017/S0140525X99002149" --add-to-kb
+  uv run analyze paper.pdf --doi "10.1017/S0140525X99002149" --add-to-kb
 
   # 分析並驗證質量
-  python analyze_paper.py paper.pdf --validate
+  uv run analyze paper.pdf --validate
 
   # 輸出JSON格式
-  python analyze_paper.py paper.pdf --format json
-  python analyze_paper.py paper.pdf --output-json result.json
+  uv run analyze paper.pdf --format json
+  uv run analyze paper.pdf --output-json result.json
         """
     )
 

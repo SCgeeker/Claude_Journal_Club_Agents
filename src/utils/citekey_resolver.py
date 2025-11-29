@@ -16,6 +16,57 @@ from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, field
 
 
+def normalize_citekey(citekey: str, german_umlaut: bool = True) -> str:
+    """
+    正規化 citekey（獨立函數，可直接匯入使用）
+
+    處理：
+    - 德語變音符號 (ü → ue, ö → oe, ä → ae, ß → ss)
+    - Unicode 重音符號 (é → e, etc.)
+    - 特殊字元移除
+    - 空白正規化
+
+    Args:
+        citekey: 原始 citekey
+        german_umlaut: 是否使用德語變音轉換（預設 True）
+
+    Returns:
+        正規化後的 citekey（ASCII 相容）
+
+    Example:
+        >>> normalize_citekey("Günther-2025a")
+        'Guenther-2025a'
+        >>> normalize_citekey("Créquit-2018")
+        'Crequit-2018'
+        >>> normalize_citekey("Müller-2020")
+        'Mueller-2020'
+    """
+    if not citekey:
+        return ""
+
+    result = citekey
+
+    # 德語變音符號轉換（必須在 NFD 正規化之前）
+    if german_umlaut:
+        umlaut_map = {
+            'ü': 'ue', 'Ü': 'Ue',
+            'ö': 'oe', 'Ö': 'Oe',
+            'ä': 'ae', 'Ä': 'Ae',
+            'ß': 'ss',
+        }
+        for char, replacement in umlaut_map.items():
+            result = result.replace(char, replacement)
+
+    # Unicode 正規化（NFD 分解，移除組合標記）- 處理其他重音
+    result = unicodedata.normalize('NFD', result)
+    result = ''.join(c for c in result if unicodedata.category(c) != 'Mn')
+
+    # 移除特殊字元（保留字母、數字、連字符、底線）
+    result = re.sub(r'[^\w\-]', '', result)
+
+    return result
+
+
 @dataclass
 class CitykeyResult:
     """Citekey 解析結果"""

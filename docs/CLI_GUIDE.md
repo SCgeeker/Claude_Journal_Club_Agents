@@ -190,8 +190,11 @@ uv run kb update 42 --set-doi "10.new/xxx" --refresh --set-citekey "Author-2025"
 將現有的 Zettelkasten 資料夾匯入知識庫。
 
 ```bash
-# 匯入單一資料夾
+# 匯入單一資料夾（自動使用配置檔中的預設 BibTeX）
 uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101
+
+# 指定 BibTeX 檔案（覆蓋預設值）
+uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101 --bib "path/to/library.bib"
 
 # 預覽模式（不實際寫入）
 uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101 --dry-run
@@ -199,13 +202,26 @@ uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101 
 # 批次匯入所有 Zettel 資料夾
 uv run kb import-zettel-all
 
+# 批次匯入並指定 BibTeX
+uv run kb import-zettel-all --bib "path/to/library.bib"
+
 # 批次匯入並生成向量嵌入
 uv run kb import-zettel-all --embed
+```
+
+**配置預設 BibTeX 路徑**（`config/settings.yaml`）：
+
+```yaml
+knowledge_base:
+  bibliography:
+    default_bib: "D:\\path\\to\\My Library.bib"
 ```
 
 匯入功能說明：
 - 自動解析 `zettel_index.md` 取得 cite_key 和元數據
 - 根據 cite_key 自動關聯到知識庫中的論文
+- **Unicode 正規化比對**：自動匹配 `Créquit-2018` ↔ `Crequit-2018`（支援 é→e, ü→ue 等）
+- 若知識庫無對應論文但 BibTeX 有，自動從 BibTeX 新增論文
 - 重複的卡片會自動跳過（依 zettel_id 判斷）
 - 可選擇生成向量嵌入供語義搜索使用
 
@@ -616,6 +632,7 @@ uv run slides "主題" --pdf paper.pdf --llm-provider ollama
 
 | 版本 | 日期 | 說明 |
 |------|------|------|
+| 0.10.1 | 2025-11-29 | import-zettel 新增 --bib 參數、配置檔預設 bib 路徑、Unicode 正規化比對 |
 | 0.10.0 | 2025-11-29 | 新增 zettel CLI、自訂需求檔案、import-zettel 指令 |
 | 0.9.0 | 2025-11-28 | 新增 RIS/DOI 支援、kb update、DOI 優先查詢 |
 | 0.8.0 | 2025-11-27 | 初版，建立 uv 整合 |

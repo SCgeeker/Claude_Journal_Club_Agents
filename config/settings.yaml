@@ -89,9 +89,9 @@ slides:
   styles_config: "templates/styles/academic_styles.yaml"
 
   output:
-    default_format: "pptx"
+    default_format: "markdown"
     save_directory: "output/slides"
-    filename_pattern: "{topic}_JournalClub_{timestamp}.pptx"
+    filename_pattern: "{topic}_JournalClub_{timestamp}.md"
 
 # === 筆記生成配置 ===
 notes:
@@ -115,6 +115,11 @@ notes:
 knowledge_base:
   root_directory: "knowledge_base"
   database_path: "knowledge_base/index.db"
+
+  # 書目檔案路徑（BibTeX/RIS）
+  bibliography:
+    default_bib: "D:\\core\\Research\\Program_verse\\+\\My Library.bib"
+    # default_ris: ""  # RIS 檔案路徑（可選）
 
   indexing:
     auto_index: true

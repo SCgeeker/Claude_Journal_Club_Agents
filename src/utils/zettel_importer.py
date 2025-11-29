@@ -89,11 +89,118 @@ def find_paper_by_citekey(kb, cite_key: str) -> Optional[int]:
         return None
 
 
+def _find_bib_entry(cite_key: str, bib_entries: Dict):
+    """
+    在 bib_entries 中查找對應的條目（支援 Unicode 正規化比對）
+
+    Args:
+        cite_key: 要查找的 cite_key
+        bib_entries: BibTeX 條目字典 {cite_key: BibTeXEntry}
+
+    Returns:
+        匹配的 BibTeXEntry 或 None
+    """
+    from src.utils.citekey_resolver import normalize_citekey
+
+    # 1. 精確匹配
+    if cite_key in bib_entries:
+        return bib_entries[cite_key]
+
+    # 2. 忽略大小寫匹配
+    cite_key_lower = cite_key.lower()
+    for key, entry in bib_entries.items():
+        if key.lower() == cite_key_lower:
+            return entry
+
+    # 3. Unicode 正規化匹配（處理 é→e, ü→ue 等）
+    cite_key_normalized = normalize_citekey(cite_key).lower()
+    for key, entry in bib_entries.items():
+        if normalize_citekey(key).lower() == cite_key_normalized:
+            return entry
+
+    return None
+
+
+def add_paper_from_bib(kb, cite_key: str, bib_entries: Dict) -> Optional[int]:
+    """
+    從 BibTeX 資料新增論文到知識庫
+
+    Args:
+        kb: KnowledgeBaseManager 實例
+        cite_key: 論文 cite_key
+        bib_entries: BibTeX 條目字典 {cite_key: BibTeXEntry}
+
+    Returns:
+        新增的 paper_id 或 None
+    """
+    entry = _find_bib_entry(cite_key, bib_entries)
+    if entry is None:
+        return None
+
+    try:
+        # 建立論文 Markdown 檔案路徑
+        from pathlib import Path
+        papers_dir = Path("knowledge_base/papers")
+        papers_dir.mkdir(parents=True, exist_ok=True)
+
+        # 建立檔案名稱
+        safe_key = re.sub(r'[^\w\-]', '_', cite_key)
+        file_path = papers_dir / f"{safe_key}.md"
+
+        # 建立基本 Markdown 內容
+        authors_str = ', '.join(entry.authors) if entry.authors else ''
+        keywords_str = ', '.join(entry.keywords) if entry.keywords else ''
+
+        content = f"""---
+title: "{entry.title}"
+authors: "{authors_str}"
+year: {entry.year or ''}
+keywords: [{keywords_str}]
+doi: "{entry.doi or ''}"
+cite_key: "{entry.cite_key}"
+---
+
+# {entry.title}
+
+## 摘要
+
+{entry.abstract or '（無摘要）'}
+
+## 來源
+
+- DOI: {entry.doi or 'N/A'}
+- 期刊: {entry.journal or entry.booktitle or 'N/A'}
+"""
+
+        # 寫入檔案
+        file_path.write_text(content, encoding='utf-8')
+
+        # 新增到知識庫
+        paper_id = kb.add_paper(
+            file_path=str(file_path),
+            title=entry.title,
+            authors=entry.authors,
+            year=entry.year,
+            keywords=entry.keywords,
+            doi=entry.doi,
+            cite_key=entry.cite_key,
+            abstract=entry.abstract,
+            source='bib_import'
+        )
+
+        return paper_id
+
+    except Exception as e:
+        print(f"  [ERROR] 從 bib 新增論文失敗: {e}")
+        return None
+
+
 def import_zettel_folder(
     folder_path: Path,
     kb,
     embed: bool = False,
-    dry_run: bool = False
+    dry_run: bool = False,
+    bib_entries: Dict = None
 ) -> ImportResult:
     """
     匯入單一 Zettelkasten 資料夾
@@ -103,6 +210,7 @@ def import_zettel_folder(
         kb: KnowledgeBaseManager 實例
         embed: 是否生成向量嵌入
         dry_run: 預覽模式（不實際寫入）
+        bib_entries: BibTeX 條目字典（用於自動新增缺失論文）
 
     Returns:
         ImportResult
@@ -132,10 +240,19 @@ def import_zettel_folder(
 
     # 2. 查找對應論文
     paper_id = find_paper_by_citekey(kb, index_data['cite_key'])
+
+    # 2.1 如果找不到且有 bib_entries，嘗試從 bib 新增
+    if not paper_id and bib_entries and not dry_run:
+        paper_id = add_paper_from_bib(kb, index_data['cite_key'], bib_entries)
+        if paper_id:
+            print(f"  📥 從 bib 新增論文 ID: {paper_id}")
+
     result.paper_id = paper_id
 
     if paper_id:
         print(f"  📄 關聯論文 ID: {paper_id}")
+    elif bib_entries and _find_bib_entry(index_data['cite_key'], bib_entries):
+        print(f"  📋 [DRY RUN] 將從 bib 新增論文（cite_key: {index_data['cite_key']}）")
     else:
         print(f"  ⚠️  未找到對應論文（cite_key: {index_data['cite_key']}）")
 
@@ -162,17 +279,17 @@ def import_zettel_folder(
 
         add_result = kb.add_zettel_card(card_data)
 
-        if add_result.status == 'inserted':
+        if add_result['status'] == 'inserted':
             result.imported += 1
-
-            # 建立論文-卡片關聯
-            if paper_id and add_result.card_id > 0:
-                kb.link_paper_to_zettel(paper_id, add_result.card_id, 1.0)
-
-        elif add_result.status == 'duplicate':
+        elif add_result['status'] == 'duplicate':
             result.skipped += 1
         else:
             result.errors += 1
+            continue
+
+        # 建立論文-卡片關聯（無論是新增或重複都嘗試建立）
+        if paper_id and add_result['card_id'] > 0:
+            kb.link_paper_to_zettel(paper_id, add_result['card_id'], 1.0)
 
     # 5. 向量嵌入（可選）
     if embed and result.imported > 0:
@@ -212,7 +329,8 @@ def import_all_zettel_folders(
     base_path: Path,
     kb,
     embed: bool = False,
-    dry_run: bool = False
+    dry_run: bool = False,
+    bib_entries: Dict = None
 ) -> List[ImportResult]:
     """
     批次匯入所有 Zettelkasten 資料夾
@@ -222,6 +340,7 @@ def import_all_zettel_folders(
         kb: KnowledgeBaseManager 實例
         embed: 是否生成向量嵌入
         dry_run: 預覽模式
+        bib_entries: BibTeX 條目字典（用於自動新增缺失論文）
 
     Returns:
         所有匯入結果列表
@@ -233,12 +352,15 @@ def import_all_zettel_folders(
 
     print(f"\n找到 {len(zettel_folders)} 個 Zettel 資料夾")
 
+    if bib_entries:
+        print(f"📚 已載入 {len(bib_entries)} 筆 BibTeX 條目")
+
     for folder in zettel_folders:
         if not folder.is_dir():
             continue
 
         print(f"\n📁 處理：{folder.name}")
-        result = import_zettel_folder(folder, kb, embed=embed, dry_run=dry_run)
+        result = import_zettel_folder(folder, kb, embed=embed, dry_run=dry_run, bib_entries=bib_entries)
         results.append(result)
 
         # 顯示結果

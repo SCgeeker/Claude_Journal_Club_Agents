@@ -345,7 +345,40 @@ class EmbeddingGenerator:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="批次生成知識庫嵌入向量")
+    parser = argparse.ArgumentParser(
+        description="批次生成知識庫嵌入向量",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+使用方式：
+  # 使用 uv（推薦）
+  uv run embeddings [選項]
+
+  # 或直接用 Python
+  python generate_embeddings.py [選項]
+
+範例：
+  # 為所有論文和卡片生成嵌入
+  uv run embeddings
+
+  # 僅處理論文
+  uv run embeddings --papers-only
+
+  # 僅處理 Zettelkasten 卡片
+  uv run embeddings --zettel-only
+
+  # 使用 Ollama 本地模型
+  uv run embeddings --provider ollama
+
+  # 測試模式（限制處理數量）
+  uv run embeddings --limit 5
+
+  # 自動確認（用於自動化腳本）
+  uv run embeddings -y
+
+  # 僅顯示統計信息
+  uv run embeddings --stats
+        """
+    )
 
     parser.add_argument(
         "--provider",

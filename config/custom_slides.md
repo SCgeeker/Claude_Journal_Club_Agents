@@ -28,3 +28,20 @@
 - 明確標註研究方法和樣本大小
 - 統計結果使用標準格式（p 值、效果量）
 - 討論部分包含研究限制
+
+## 專有名詞翻譯對照（必須嚴格遵守）
+
+**重要指示**：以下術語必須使用指定的中文翻譯，格式為「中文（English）」，例如「體現認知（Embodied Cognition）」。
+
+| 英文術語 | 中文翻譯 |
+|----------|----------|
+| Embodied Cognition | 體現認知 |
+| Perceptual Symbol | 知覺符號 |
+| Amodal Symbol | 非模態符號 |
+| Mental Simulation | 心智模擬 |
+| Grounded Cognition | 紮根認知 |
+| Sensorimotor | 感覺運動 |
+| Affordance | 可供性 |
+| Modality-specific | 模態特定 |
+
+**注意**：若遇到表中未列出的專業術語，請保持「中文翻譯（English）」的格式。

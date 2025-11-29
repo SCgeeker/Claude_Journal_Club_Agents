@@ -26,7 +26,7 @@ import subprocess
 import json
 
 
-# 可用的學術風格（8種）
+# 可用的學術風格（7種）
 AVAILABLE_STYLES = {
     'classic_academic': '經典學術 - 傳統學術語言，強調理論和研究方法',
     'modern_academic': '現代學術 - 結合視覺化和數據，清晰易懂',
@@ -34,8 +34,7 @@ AVAILABLE_STYLES = {
     'research_methods': '研究方法 - 著重研究設計和統計分析',
     'literature_review': '文獻回顧 - 系統性文獻整理，比較不同研究',
     'case_analysis': '案例分析 - 以具體案例為主，深入分析個案',
-    'teaching': '教學導向 - 循序漸進易懂，適合學習者',
-    'zettelkasten': 'Zettelkasten卡片盒 - 原子化筆記，每張投影片為獨立知識單元'
+    'teaching': '教學導向 - 循序漸進易懂，適合學習者'
 }
 
 # 可用的詳細程度（5種）
@@ -71,144 +70,45 @@ def print_available_options():
     print()
 
 
-def _query_related_cards(
-    paper_content: str,
-    cite_key: str,
-    limit: int = 10
-) -> list:
-    """
-    查詢知識庫中與當前論文相關的卡片（用於跨論文連結）
-
-    策略：
-    1. 使用向量搜索查詢語義相似的卡片
-    2. 排除同一論文的卡片（避免自我引用）
-    3. 返回 Top N 最相關的卡片
-
-    Args:
-        paper_content: 論文內容（用於語義搜索）
-        cite_key: 當前論文 cite_key（用於排除同一論文的卡片）
-        limit: 返回數量上限
-
-    Returns:
-        相關卡片列表，每個卡片包含:
-        - zettel_id: 卡片 ID
-        - title: 卡片標題
-        - core_concept: 核心概念
-        - card_type: 卡片類型
-        - source_paper: 來源論文 cite_key
-    """
-    try:
-        from src.integrations.vector_db import VectorDatabase
-        from src.integrations.embedder import get_embedder
-
-        vector_db = VectorDatabase()
-
-        # 提取論文摘要（前 1000 字）用於查詢
-        query_text = paper_content[:1000] if paper_content else ""
-
-        if not query_text:
-            return []
-
-        # 生成查詢嵌入
-        embedder = get_embedder(provider='google')  # 使用 Gemini embedder
-        query_embedding = embedder.embed(query_text, task_type="retrieval_query")
-
-        # 向量搜索相似卡片（查詢 2 倍數量以便過濾）
-        results = vector_db.semantic_search_zettel(
-            query_embedding=query_embedding,
-            n_results=limit * 2
-        )
-
-        if not results or not results.get('ids') or not results['ids'][0]:
-            return []
-
-        # 過濾並構建結果
-        related_cards = []
-        for i, zettel_id in enumerate(results['ids'][0]):
-            # 排除同一 cite_key 的卡片
-            if not zettel_id.startswith(cite_key):
-                metadata = results['metadatas'][0][i] if results.get('metadatas') else {}
-
-                # 構建卡片數據
-                card = {
-                    'zettel_id': zettel_id,
-                    'title': metadata.get('title', 'Unknown'),
-                    'core_concept': metadata.get('core_concept', ''),
-                    'card_type': metadata.get('card_type', 'concept'),
-                    'source_paper': zettel_id.split('-')[0] if '-' in zettel_id else 'Unknown'
-                }
-
-                related_cards.append(card)
-
-                if len(related_cards) >= limit:
-                    break
-
-        return related_cards
-
-    except Exception as e:
-        print(f"  [WARN] 無法查詢相關卡片: {e}")
-        return []
-
-
-def _get_cite_key_or_fallback(paper_data: dict) -> str:
-    """
-    獲取論文的 cite_key（嚴格模式）
-
-    Args:
-        paper_data: 論文資料字典（必須包含 cite_key）
-
-    Returns:
-        cite_key 字串
-
-    Raises:
-        ValueError: 如果缺少 cite_key
-    """
-    # ⭐ 只接受資料庫中的 cite_key，不提供備用方案
-    if paper_data.get('cite_key') and paper_data['cite_key'].strip():
-        return paper_data['cite_key'].strip()
-
-    # ❌ 不再提供備用生成
-    paper_id = paper_data.get('id', '未知')
-    raise ValueError(
-        f"\n論文 ID {paper_id} 缺少 cite_key。\n"
-        f"請執行以下命令修正：\n"
-        f"  1. python kb_manage.py check-cite-keys\n"
-        f"  2. python kb_manage.py update-from-bib 'My Library.bib'\n"
-    )
-
-
 def main():
     parser = argparse.ArgumentParser(
-        description='投影片生成工具 - 支援8種學術風格、5種詳細程度、3種語言',
+        description='投影片生成工具 - 支援7種學術風格、5種詳細程度、3種語言',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-範例用法：
-  # 基本用法：生成現代學術風格的投影片
-  python make_slides.py "深度學習應用" --style modern_academic --slides 15
+使用方式：
+  # 使用 uv（推薦）
+  uv run slides <主題> [選項]
 
-  # 從PDF生成投影片（直接提取文字）
-  python make_slides.py "論文摘要" --pdf paper.pdf --style research_methods
+  # 或直接用 Python
+  python make_slides.py <主題> [選項]
+
+範例：
+  # 基本用法：生成現代學術風格的投影片
+  uv run slides "深度學習應用" --style modern_academic --slides 15
+
+  # 從PDF生成投影片（主題自動從檔名推斷）
+  uv run slides --pdf paper.pdf --style modern_academic --detail comprehensive
+
+  # 從PDF生成投影片（指定主題）
+  uv run slides "論文摘要" --pdf paper.pdf --style research_methods
 
   # 先分析PDF並加入知識庫，再從結構化內容生成投影片
-  python make_slides.py "論文摘要" --pdf paper.pdf --analyze-first --style research_methods
+  uv run slides "論文摘要" --pdf paper.pdf --analyze-first --style research_methods
 
   # 從知識庫已有的論文生成投影片
-  python make_slides.py "論文簡報" --from-kb 1 --style modern_academic
-
-  # 使用Zettelkasten原子筆記風格生成Markdown（自動強制）
-  python make_slides.py "知識管理系統" --pdf paper.pdf --style zettelkasten --domain AI
+  uv run slides "論文簡報" --from-kb 1 --style modern_academic
 
   # 生成雙語教學投影片
-  python make_slides.py "機器學習入門" --style teaching --language bilingual --slides 20
+  uv run slides "機器學習入門" --style teaching --language bilingual --slides 20
 
   # 生成Markdown簡報格式（支援Marp/reveal.js）
-  python make_slides.py "深度學習" --pdf paper.pdf --format markdown --style modern_academic
+  uv run slides "深度學習" --pdf paper.pdf --format markdown --style modern_academic
 
   # 同時生成PPTX和Markdown
-  python make_slides.py "研究方法" --pdf paper.pdf --format both --style research_methods
+  uv run slides "研究方法" --pdf paper.pdf --format both --style research_methods
 
   # 列出所有可用選項
-  python make_slides.py --list-options
+  uv run slides --list-options
         """
     )
 
@@ -230,11 +130,9 @@ def main():
     parser.add_argument('--slides', type=int, default=15,
                        help='投影片數量（預設：15）')
     parser.add_argument('--output', type=str, help='輸出路徑（可選）')
-    parser.add_argument('--format', type=str, default='pptx',
+    parser.add_argument('--format', type=str, default='markdown',
                        choices=['pptx', 'markdown', 'both'],
-                       help='輸出格式：pptx(PowerPoint)、markdown或both（預設：pptx）')
-    parser.add_argument('--domain', type=str, default='Research',
-                       help='領域代碼（Zettelkasten用，如NeuroPsy、AI、CompBio等，預設：Research）')
+                       help='輸出格式：pptx(PowerPoint)、markdown或both（預設：markdown）')
     parser.add_argument('--model', type=str, default=None,
                        help='LLM模型名稱（預設：None，使用智能選擇）')
     parser.add_argument('--llm-provider', type=str, default='auto',
@@ -267,9 +165,9 @@ def main():
         return 0
 
     # 檢查參數邏輯
-    if not args.topic and not args.from_kb:
+    if not args.topic and not args.from_kb and not args.pdf:
         parser.print_help()
-        print("\n❌ 錯誤：請提供簡報主題或使用 --from-kb 從知識庫生成")
+        print("\n❌ 錯誤：請提供簡報主題、--from-kb 或 --pdf")
         print("💡 提示：使用 --list-options 查看所有可用選項")
         return 1
 
@@ -285,7 +183,16 @@ def main():
     print("=" * 70)
     print("📊 投影片生成工具")
     print("=" * 70)
-    print(f"\n主題：{args.topic or '（從知識庫論文標題）'}")
+    # 決定主題顯示
+    if args.topic:
+        topic_display = args.topic
+    elif args.from_kb:
+        topic_display = "（從知識庫論文標題）"
+    elif args.pdf:
+        topic_display = f"（從 PDF 推斷：{Path(args.pdf).stem}）"
+    else:
+        topic_display = "（未指定）"
+    print(f"\n主題：{topic_display}")
     print(f"風格：{args.style} - {AVAILABLE_STYLES[args.style]}")
     print(f"詳細程度：{args.detail} - {AVAILABLE_DETAILS[args.detail]}")
     print(f"語言：{args.language} - {AVAILABLE_LANGUAGES[args.language]}")
@@ -305,12 +212,10 @@ def main():
     # 載入自訂需求
     custom_requirements = None
     if not args.no_custom:
-        # 決定預設檔案（根據風格）
-        default_custom_file = 'config/custom_zettel.md' if args.style == 'zettelkasten' else 'config/custom_slides.md'
         custom_requirements = load_custom_requirements(
             custom_arg=args.custom,
             custom_file_arg=args.custom_file,
-            default_file=default_custom_file,
+            default_file='config/custom_slides.md',
             verbose=True
         )
     elif args.custom:
@@ -437,186 +342,56 @@ def main():
             pdf_result = extractor.extract(str(pdf_path))
             pdf_content = pdf_result['full_text']
 
+            # 如果沒有指定主題，從 PDF 檔名推斷
+            if not effective_topic:
+                effective_topic = pdf_path.stem  # 使用檔名（不含副檔名）作為主題
+                print(f"📌 自動推斷主題：{effective_topic}")
+
             if pdf_result['truncated']:
                 print(f"⚠️  警告：PDF內容已截斷（{pdf_result['char_count']} 字元 -> 10000 字元）")
             else:
                 print(f"✅ 成功提取 {pdf_result['char_count']} 字元")
 
-        # Zettelkasten模式：使用專用生成器
-        if args.style == 'zettelkasten':
-            print("\n🗂️  啟用Zettelkasten原子筆記模式...")
-            from generators.zettel_maker import ZettelMaker
-            from jinja2 import Template
-            from datetime import datetime
-
-            zettel_maker = ZettelMaker()
-
-            # 載入Zettelkasten prompt模板
-            zettel_template_path = Path(__file__).parent / "templates" / "prompts" / "zettelkasten_template.jinja2"
-            with open(zettel_template_path, 'r', encoding='utf-8') as f:
-                zettel_template = Template(f.read())
-
-            # 決定卡片數量
-            style_config = zettel_maker.styles_config['styles']['zettelkasten']
-            card_count = style_config['default_card_count'].get(args.detail, 12)
-
-            # 獲取 cite_key（用於卡片 ID）
-            cite_key_for_cards = "Unknown"  # 默認值
-            if args.from_kb and paper_data:
-                cite_key_for_cards = _get_cite_key_or_fallback(paper_data)
-            elif args.pdf:
-                # 從 PDF 文件名提取
-                cite_key_for_cards = Path(args.pdf).stem
-
-            # ✅ 查詢知識庫中的相關卡片（用於跨論文連結）
-            print("🔍 查詢知識庫相關概念...")
-            related_cards = _query_related_cards(
-                paper_content=pdf_content,
-                cite_key=cite_key_for_cards,
-                limit=10
-            )
-            if related_cards:
-                print(f"  找到 {len(related_cards)} 個相關概念（將用於建立跨論文連結）")
-            else:
-                print("  未找到相關概念（將只建立論文內連結）")
-
-            # 生成prompt
-            date_str = datetime.now().strftime("%Y%m%d")
-            zettel_prompt = zettel_template.render(
-                topic=effective_topic,
-                pdf_content=pdf_content,
-                card_count=card_count,
-                domain=args.domain,  # 保留 domain（用於 metadata）
-                date=date_str,       # 保留 date（可能用於顯示）
-                cite_key=cite_key_for_cards,  # 新增 cite_key（用於卡片 ID）
-                language=args.language,
-                existing_related_cards=related_cards,  # 相關卡片（用於跨論文連結）
-                custom_requirements=custom_requirements  # 自訂需求
-            )
-
-            # 調用LLM
-            print(f"🤖 正在生成{card_count}張原子筆記卡片...")
-            llm_output, used_provider = maker.call_llm(zettel_prompt, model=args.model)
-            print(f"✅ 使用 {used_provider} 生成完成")
-
-            # 解析並生成卡片
-            # 資料夾命名策略：優先使用 paper_id + short_title + domain（確保唯一性和可追溯性）
-            if args.output:
-                # 使用者指定輸出路徑
-                output_dir = Path(args.output)
-            elif args.from_kb and paper_data:
-                # 從知識庫：使用 cite_key + date（移除 domain，保留在 metadata 中）
-                # ⭐ 優先使用原始 bibtex cite_key
-                cite_key = _get_cite_key_or_fallback(paper_data)
-                output_dir = Path(f"output/zettelkasten_notes/zettel_{cite_key}_{date_str}")
-            elif args.pdf:
-                # 從PDF檔案：使用PDF檔名
-                pdf_stem = Path(args.pdf).stem
-                output_dir = Path(f"output/zettelkasten_notes/zettel_{pdf_stem}_{date_str}")
-            else:
-                # 回退：使用domain（僅當無法確定來源時）
-                output_dir = Path(f"output/zettelkasten_notes/zettel_{args.domain}_{date_str}")
-            # 準備論文資訊（優先使用 paper_data）
-            if paper_data:
-                paper_info = {
-                    'title': paper_data['title'],
-                    'authors': ', '.join(paper_data.get('authors', [])),
-                    'year': paper_data.get('year', datetime.now().year),
-                    'paper_id': args.from_kb if args.from_kb else '',
-                    'cite_key': paper_data.get('cite_key', ''),
-                    'citation': paper_data['title']
-                }
-            else:
-                # 從 PDF 文件名提取 cite_key
-                pdf_cite_key = Path(args.pdf).stem if args.pdf else ''
-                paper_info = {
-                    'title': effective_topic,
-                    'authors': '',
-                    'year': datetime.now().year,
-                    'paper_id': args.from_kb if args.from_kb else '',
-                    'cite_key': pdf_cite_key,
-                    'citation': effective_topic
-                }
-
-            result = zettel_maker.generate_zettelkasten(
-                llm_output=llm_output,
-                output_dir=output_dir,
-                paper_info=paper_info
-            )
-
-            # 添加額外信息
-            result['style'] = args.style
-            result['detail_level'] = args.detail
-            result['language'] = args.language
-            result['llm_provider'] = used_provider
-            result['output_format'] = 'zettelkasten_markdown'
-
-        # 一般模式：投影片生成
-        else:
-            # 決定輸出格式（Zettelkasten強制Markdown）
-            output_format = args.format
-            if args.style == 'zettelkasten' and output_format == 'pptx':
-                output_format = 'markdown'
-                print("ℹ️  Zettelkasten風格自動切換為Markdown輸出")
-
-            result = maker.generate_slides(
-                topic=effective_topic,
-                style=args.style,
-                detail_level=args.detail,
-                language=args.language,
-                slide_count=args.slides,
-                output_path=args.output,
-                output_format=output_format,
-                pdf_content=pdf_content,
-                custom_requirements=custom_requirements,
-                model=args.model
-            )
+        # 投影片生成
+        result = maker.generate_slides(
+            topic=effective_topic,
+            style=args.style,
+            detail_level=args.detail,
+            language=args.language,
+            slide_count=args.slides,
+            output_path=args.output,
+            output_format=args.format,
+            pdf_content=pdf_content,
+            custom_requirements=custom_requirements,
+            model=args.model
+        )
 
         # 顯示結果
         print("\n" + "=" * 70)
+        print("✅ 投影片生成完成！")
+        print("=" * 70)
 
-        if args.style == 'zettelkasten':
-            print("✅ Zettelkasten原子筆記生成完成！")
-            print("=" * 70)
-            print(f"\n📁 輸出目錄：{result['output_dir']}")
-            print(f"📄 索引文件：{result['index_file']}")
-            print(f"🗂️  卡片數量：{result['card_count']}")
-            print(f"🎨 學術風格：{result['style']}")
-            print(f"📝 詳細程度：{result['detail_level']}")
-            print(f"🌐 語言模式：{result['language']}")
-            print(f"🤖 使用LLM：{result.get('llm_provider', '未知')}")
-
-            print("\n📚 生成的卡片文件：")
-            for i, card_file in enumerate(result['card_files'][:5], 1):
-                print(f"   {i}. {Path(card_file).name}")
-            if len(result['card_files']) > 5:
-                print(f"   ... 以及其他 {len(result['card_files']) - 5} 張卡片")
-
+        # 顯示輸出文件
+        if isinstance(result.get('output_files'), list):
+            print(f"\n📁 輸出文件：")
+            for file in result['output_files']:
+                file_type = "PPTX" if file.endswith('.pptx') else "Markdown"
+                print(f"   • {file_type}: {file}")
         else:
-            print("✅ 投影片生成完成！")
-            print("=" * 70)
+            print(f"\n📁 輸出文件：{result['output_path']}")
 
-            # 顯示輸出文件
-            if isinstance(result.get('output_files'), list):
-                print(f"\n📁 輸出文件：")
-                for file in result['output_files']:
-                    file_type = "PPTX" if file.endswith('.pptx') else "Markdown"
-                    print(f"   • {file_type}: {file}")
-            else:
-                print(f"\n📁 輸出文件：{result['output_path']}")
+        print(f"📊 投影片數量：{result.get('slide_count', '未知')}")
+        print(f"🎨 學術風格：{result['style']}")
+        print(f"📝 詳細程度：{result['detail_level']}")
+        print(f"🌐 語言模式：{result['language']}")
+        print(f"📄 輸出格式：{result.get('output_format', args.format)}")
+        print(f"🤖 使用LLM：{result.get('llm_provider', '未知')}")
 
-            print(f"📊 投影片數量：{result.get('slide_count', '未知')}")
-            print(f"🎨 學術風格：{result['style']}")
-            print(f"📝 詳細程度：{result['detail_level']}")
-            print(f"🌐 語言模式：{result['language']}")
-            print(f"📄 輸出格式：{result.get('output_format', args.format)}")
-            print(f"🤖 使用LLM：{result.get('llm_provider', '未知')}")
-
-            if result.get('llm_output'):
-                print("\n💡 LLM輸出預覽：")
-                print("-" * 70)
-                print(result['llm_output'][:300] + "...")
-                print("-" * 70)
+        if result.get('llm_output'):
+            print("\n💡 LLM輸出預覽：")
+            print("-" * 70)
+            print(result['llm_output'][:300] + "...")
+            print("-" * 70)
 
         # 生成使用報告（如果請求）
         if args.usage_report:
