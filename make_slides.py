@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent / 'src'))
 from generators import SlideMaker
 from extractors import PDFExtractor
 from knowledge_base import KnowledgeBaseManager
+from utils.prompt_loader import load_custom_requirements
 import subprocess
 import json
 
@@ -243,7 +244,11 @@ def main():
                        help='API金鑰（Google/OpenAI/Anthropic用，或設置環境變數）')
     parser.add_argument('--ollama-url', type=str, default='http://localhost:11434',
                        help='Ollama API地址（預設：http://localhost:11434）')
-    parser.add_argument('--custom', type=str, help='自訂要求（可選）')
+    parser.add_argument('--custom', type=str, help='自訂要求（命令行直接輸入）')
+    parser.add_argument('--custom-file', type=str,
+                       help='自訂需求檔案路徑（.txt 或 .md）')
+    parser.add_argument('--no-custom', action='store_true',
+                       help='忽略預設自訂需求檔案')
     parser.add_argument('--list-options', action='store_true',
                        help='列出所有可用的風格、詳細程度和語言選項')
 
@@ -297,8 +302,21 @@ def main():
         if args.analyze_first:
             print(f"工作流：先分析並加入知識庫 → 從結構化內容生成投影片")
 
-    if args.custom:
-        print(f"自訂要求：{args.custom}")
+    # 載入自訂需求
+    custom_requirements = None
+    if not args.no_custom:
+        # 決定預設檔案（根據風格）
+        default_custom_file = 'config/custom_zettel.md' if args.style == 'zettelkasten' else 'config/custom_slides.md'
+        custom_requirements = load_custom_requirements(
+            custom_arg=args.custom,
+            custom_file_arg=args.custom_file,
+            default_file=default_custom_file,
+            verbose=True
+        )
+    elif args.custom:
+        # 即使 --no-custom，命令行參數仍有效
+        custom_requirements = args.custom
+        print(f"📋 使用命令行自訂需求（{len(args.custom)} 字元）")
 
     print("\n" + "=" * 70)
 
@@ -472,7 +490,8 @@ def main():
                 date=date_str,       # 保留 date（可能用於顯示）
                 cite_key=cite_key_for_cards,  # 新增 cite_key（用於卡片 ID）
                 language=args.language,
-                existing_related_cards=related_cards  # ✅ 新增：相關卡片（用於跨論文連結）
+                existing_related_cards=related_cards,  # 相關卡片（用於跨論文連結）
+                custom_requirements=custom_requirements  # 自訂需求
             )
 
             # 調用LLM
@@ -549,7 +568,7 @@ def main():
                 output_path=args.output,
                 output_format=output_format,
                 pdf_content=pdf_content,
-                custom_requirements=args.custom,
+                custom_requirements=custom_requirements,
                 model=args.model
             )
 

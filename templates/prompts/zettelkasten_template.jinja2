@@ -163,6 +163,18 @@ Please write all content in English.
    - 綜述文獻: concept (50%) > finding (30%) > question (15%) > method (5%)
 4. **連結建立**: 優先建立文獻內脈絡關聯（同文獻卡片間），自然延伸到相關概念
 
+{% if custom_requirements %}
+---
+
+**使用者特殊需求**：
+
+請在生成卡片時，額外遵循以下要求：
+
+{{ custom_requirements }}
+
+---
+{% endif %}
+
 **核心欄位範例**：
 ✅ 正確（直接擷取原文）：
 - "AI surrogates are AI models used to simulate human research participants to generate new knowledge about human cognition and behavior."

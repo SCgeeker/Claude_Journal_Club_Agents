@@ -1,7 +1,7 @@
 # CLI 操作指南
 
-**版本**: 0.9.0
-**更新日期**: 2025-11-28
+**版本**: 0.10.0
+**更新日期**: 2025-11-29
 
 本指南說明如何使用 `uv run` 操作 claude-lit-workflow 的各項工具。
 
@@ -43,7 +43,7 @@ uv run slides --help
 | `uv run kb` | 知識庫管理 | ✅ 可用 |
 | `uv run slides` | 投影片生成 | ✅ 可用 |
 | `uv run embeddings` | 向量嵌入生成 | ✅ 可用 |
-| `uv run zettel` | 單篇 Zettel 生成 | 🚧 待實作 |
+| `uv run zettel` | Zettelkasten 卡片生成 | ✅ 可用 |
 
 ---
 
@@ -185,6 +185,30 @@ uv run kb update 42 --set-citekey "Author-2025"
 uv run kb update 42 --set-doi "10.new/xxx" --refresh --set-citekey "Author-2025"
 ```
 
+### 匯入 Zettel 卡片
+
+將現有的 Zettelkasten 資料夾匯入知識庫。
+
+```bash
+# 匯入單一資料夾
+uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101
+
+# 預覽模式（不實際寫入）
+uv run kb import-zettel output/zettelkasten_notes/zettel_Barsalou-1999_20250101 --dry-run
+
+# 批次匯入所有 Zettel 資料夾
+uv run kb import-zettel-all
+
+# 批次匯入並生成向量嵌入
+uv run kb import-zettel-all --embed
+```
+
+匯入功能說明：
+- 自動解析 `zettel_index.md` 取得 cite_key 和元數據
+- 根據 cite_key 自動關聯到知識庫中的論文
+- 重複的卡片會自動跳過（依 zettel_id 判斷）
+- 可選擇生成向量嵌入供語義搜索使用
+
 ### 子指令一覽
 
 | 子指令 | 說明 | 狀態 |
@@ -198,6 +222,8 @@ uv run kb update 42 --set-doi "10.new/xxx" --refresh --set-citekey "Author-2025"
 | `get` / `show` | 查看詳情 | ✅ |
 | `delete` | 刪除論文 | ✅ |
 | `update` | 更新元數據 | ✅ |
+| `import-zettel` | 匯入 Zettel 資料夾 | ✅ |
+| `import-zettel-all` | 批次匯入所有 Zettel | ✅ |
 | `visualize-network` | 概念網絡 | ✅ (暫停使用) |
 
 ---
@@ -250,6 +276,19 @@ uv run slides "主題" --pdf paper.pdf --llm-provider ollama --model llama3.3
 uv run slides "主題" --pdf paper.pdf --llm-provider openai --model gpt-4
 ```
 
+### 自訂需求
+
+```bash
+# 使用自訂需求檔案
+uv run slides "主題" --pdf paper.pdf --custom-file my_requirements.md
+
+# 使用命令行自訂需求
+uv run slides "主題" --pdf paper.pdf --custom "請使用口語化表達"
+
+# 忽略預設需求檔案（config/custom_slides.md）
+uv run slides "主題" --pdf paper.pdf --no-custom
+```
+
 ### 參數說明
 
 | 參數 | 說明 | 預設值 |
@@ -262,6 +301,9 @@ uv run slides "主題" --pdf paper.pdf --llm-provider openai --model gpt-4
 | `--detail` | 詳細程度 | standard |
 | `--language` | 語言 | chinese |
 | `--slides` | 投影片數量 | 15 |
+| `--custom` | 命令行自訂需求 | - |
+| `--custom-file` | 自訂需求檔案路徑 | - |
+| `--no-custom` | 忽略預設需求檔案 | False |
 | `--llm-provider` | LLM 提供者 | auto |
 | `--model` | 模型名稱 | - |
 | `--output` | 輸出路徑 | 自動生成 |
@@ -289,7 +331,7 @@ uv run slides "主題" --pdf paper.pdf --llm-provider openai --model gpt-4
 | `detailed` | 詳細（5-6 點/張）|
 | `comprehensive` | 完整（6-8 點/張）|
 
-> 優化建議：（1) "主題" 改為選填，無填入以論文題名為預設；（2) --help並列uv run 與 python 指令模式; 
+
 
 ---
 
@@ -321,37 +363,95 @@ uv run embeddings --incremental
 
 ---
 
-## zettel - Zettelkasten 生成 🚧
+## zettel - Zettelkasten 卡片生成
 
-> **狀態**: 待實作
->
-> 目前請使用 `python generate_zettel_batch.py` 或在 Claude Code 中操作。
+從論文生成原子化知識卡片（Zettelkasten 方法）。
 
-### 預計功能
+### 基本使用
 
 ```bash
-# 🚧 [待實作] 從知識庫論文生成 Zettel
-uv run zettel --paper-id 42
-uv run zettel --citekey Barsalou-1999
+# 從 PDF 生成卡片（自動入庫）
+uv run zettel --pdf paper.pdf
 
-# 🚧 [待實作] 指定 LLM
-uv run zettel --citekey Barsalou-1999 --llm-provider google
+# 從知識庫論文生成
+uv run zettel --from-kb 42
 
-# 🚧 [待實作] 指定卡片數量
-uv run zettel --citekey Barsalou-1999 --cards 20
+# 指定詳細程度
+uv run zettel --pdf paper.pdf --detail comprehensive
+
+# 使用自訂需求檔案
+uv run zettel --pdf paper.pdf --custom-file my_style.md
+
+# 不入庫（僅生成檔案）
+uv run zettel --pdf paper.pdf --no-add-to-kb
+
+# 啟用跨論文連結
+uv run zettel --pdf paper.pdf --cross-link
 ```
 
-### 目前替代方案
+### LLM 選擇
 
 ```bash
-# 使用現有批次腳本
-python generate_zettel_batch.py
+# 使用 Gemini（預設）
+uv run zettel --pdf paper.pdf --llm-provider google
 
-# 或在 Python 中操作
-python -c "
-from src.generators.zettel_maker import ZettelMaker
-# ... 手動呼叫
-"
+# 使用 Ollama 本地模型
+uv run zettel --pdf paper.pdf --llm-provider ollama --model llama3.3
+
+# 使用 OpenAI
+uv run zettel --pdf paper.pdf --llm-provider openai --model gpt-4
+```
+
+### 自訂需求
+
+```bash
+# 使用自訂需求檔案
+uv run zettel --pdf paper.pdf --custom-file my_requirements.md
+
+# 忽略預設需求檔案（config/custom_zettel.md）
+uv run zettel --pdf paper.pdf --no-custom
+```
+
+### 參數說明
+
+| 參數 | 說明 | 預設值 |
+|------|------|--------|
+| `--pdf` | PDF 檔案路徑（與 --from-kb 二擇一）| - |
+| `--from-kb` | 知識庫論文 ID（與 --pdf 二擇一）| - |
+| `--detail` | 詳細程度 | standard |
+| `--language` | 語言模式 | chinese |
+| `--domain` | 領域代碼 | Research |
+| `--custom-file` | 自訂需求檔案路徑 | - |
+| `--no-custom` | 忽略預設需求檔案 | False |
+| `--no-add-to-kb` | 不加入知識庫 | False |
+| `--cross-link` | 啟用跨論文連結 | False |
+| `--no-embed` | 跳過向量嵌入 | False |
+| `--llm-provider` | LLM 提供者 | auto |
+| `--model` | 模型名稱 | - |
+| `--output` | 輸出路徑 | 自動生成 |
+
+### 詳細程度
+
+| 程度 | 說明 |
+|------|------|
+| `minimal` | 極簡（5 張卡片）|
+| `brief` | 簡要（8 張卡片）|
+| `standard` | 標準（12 張卡片）|
+| `detailed` | 詳細（20 張卡片）|
+| `comprehensive` | 完整（30+ 張卡片）|
+
+### 輸出結構
+
+生成的卡片會自動保存至：
+
+```
+output/zettelkasten_notes/
+└── zettel_{citekey}_{date}/
+    ├── zettel_index.md        # 索引文件
+    └── zettel_cards/
+        ├── {citekey}-001.md   # 原子卡片
+        ├── {citekey}-002.md
+        └── ...
 ```
 
 ---
@@ -364,8 +464,8 @@ from src.generators.zettel_maker import ZettelMaker
 # 1. 分析並入庫（使用 DOI 取得正確元數據）
 uv run analyze paper.pdf --doi "10.xxxx/xxxxx" --add-to-kb
 
-# 2. 生成 Zettel 卡片（目前使用 Python 腳本）
-python generate_zettel_batch.py
+# 2. 生成 Zettel 卡片
+uv run zettel --from-kb <paper_id>
 
 # 3. 生成投影片（可選）
 uv run slides "論文主題" --from-kb <paper_id>
@@ -411,7 +511,7 @@ for pdf in ./papers/*.pdf; do
 done
 
 # 3. 批次生成 Zettel
-python generate_zettel_batch.py
+uv run zettel --from-kb <paper_id>  # 對每篇論文執行
 
 # 4. 更新嵌入
 uv run embeddings
@@ -423,7 +523,6 @@ uv run embeddings
 
 | 功能 | 說明 | 優先級 |
 |------|------|--------|
-| `uv run zettel` | 單篇 Zettel 生成 CLI | P1 |
 | `--from-bib` 批次 | 從書目檔批次處理 | P2 |
 
 ---
@@ -483,6 +582,7 @@ uv run slides "主題" --pdf paper.pdf --llm-provider ollama
 
 | 版本 | 日期 | 說明 |
 |------|------|------|
+| 0.10.0 | 2025-11-29 | 新增 zettel CLI、自訂需求檔案、import-zettel 指令 |
 | 0.9.0 | 2025-11-28 | 新增 RIS/DOI 支援、kb update、DOI 優先查詢 |
 | 0.8.0 | 2025-11-27 | 初版，建立 uv 整合 |
 

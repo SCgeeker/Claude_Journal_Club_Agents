@@ -1683,6 +1683,72 @@ def cmd_check_llm(args):
     print()
 
 
+def cmd_import_zettel(args):
+    """匯入 Zettelkasten 卡片資料夾"""
+    from pathlib import Path
+    from utils.zettel_importer import import_zettel_folder
+
+    folder_path = Path(args.folder)
+    if not folder_path.exists():
+        print(f"❌ 找不到資料夾：{folder_path}")
+        return
+
+    print(f"\n📁 匯入 Zettelkasten 卡片：{folder_path.name}")
+    print("=" * 60)
+
+    kb = KnowledgeBaseManager()
+    result = import_zettel_folder(
+        folder_path=folder_path,
+        kb=kb,
+        embed=args.embed,
+        dry_run=args.dry_run
+    )
+
+    if not args.dry_run:
+        print(f"\n✅ 匯入完成")
+        print(f"   總卡片數：{result.total_cards}")
+        print(f"   新增：{result.imported}")
+        print(f"   跳過（重複）：{result.skipped}")
+        print(f"   錯誤：{result.errors}")
+        if result.paper_id:
+            print(f"   關聯論文 ID：{result.paper_id}")
+
+
+def cmd_import_zettel_all(args):
+    """批次匯入所有 Zettelkasten 卡片"""
+    from pathlib import Path
+    from utils.zettel_importer import import_all_zettel_folders, summarize_import_results
+
+    base_path = Path(args.path)
+    if not base_path.exists():
+        print(f"❌ 找不到路徑：{base_path}")
+        return
+
+    print(f"\n📚 批次匯入 Zettelkasten 卡片")
+    print(f"   來源路徑：{base_path}")
+    print("=" * 60)
+
+    kb = KnowledgeBaseManager()
+    results = import_all_zettel_folders(
+        base_path=base_path,
+        kb=kb,
+        embed=args.embed,
+        dry_run=args.dry_run
+    )
+
+    # 顯示統計
+    summary = summarize_import_results(results)
+    print("\n" + "=" * 60)
+    print("📊 匯入統計")
+    print("=" * 60)
+    print(f"   處理資料夾：{summary['folders']}")
+    print(f"   總卡片數：{summary['total_cards']}")
+    print(f"   新增：{summary['imported']}")
+    print(f"   跳過（重複）：{summary['skipped']}")
+    print(f"   錯誤：{summary['errors']}")
+    print(f"   已關聯論文：{summary['linked_papers']}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="知識庫管理工具",
@@ -1988,6 +2054,27 @@ def main():
     parser_check_llm.add_argument('--verbose', '-v', action='store_true',
                                  help='顯示詳細建議')
     parser_check_llm.set_defaults(func=cmd_check_llm)
+
+    # import-zettel 命令
+    parser_import_zettel = subparsers.add_parser('import-zettel',
+                                                  help='匯入 Zettelkasten 卡片資料夾')
+    parser_import_zettel.add_argument('folder', help='Zettel 資料夾路徑')
+    parser_import_zettel.add_argument('--embed', action='store_true',
+                                     help='同時生成向量嵌入')
+    parser_import_zettel.add_argument('--dry-run', action='store_true',
+                                     help='預覽模式（不實際匯入）')
+    parser_import_zettel.set_defaults(func=cmd_import_zettel)
+
+    # import-zettel-all 命令
+    parser_import_all = subparsers.add_parser('import-zettel-all',
+                                               help='批次匯入所有 Zettelkasten 卡片')
+    parser_import_all.add_argument('--path', default='output/zettelkasten_notes',
+                                  help='Zettel 根目錄（預設：output/zettelkasten_notes）')
+    parser_import_all.add_argument('--embed', action='store_true',
+                                  help='同時生成向量嵌入')
+    parser_import_all.add_argument('--dry-run', action='store_true',
+                                  help='預覽模式（不實際匯入）')
+    parser_import_all.set_defaults(func=cmd_import_zettel_all)
 
     args = parser.parse_args()
 

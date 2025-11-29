@@ -30,7 +30,7 @@ claude_lit_workflow/
 ├── make_slides.py         # 投影片生成 CLI
 ├── kb_manage.py           # 知識庫管理 CLI
 ├── generate_embeddings.py # 向量嵌入 CLI
-├── generate_zettel_batch.py # Zettel 生成腳本
+├── generate_zettel.py     # Zettel 生成 CLI
 ├── pyproject.toml         # uv 專案配置
 │
 ├── src/                   # 源碼模組 → src/CLAUDE.md
@@ -67,6 +67,9 @@ uv run kb semantic-search "語義查詢"
 
 # 投影片生成
 uv run slides "主題" --pdf paper.pdf
+
+# Zettel 卡片生成
+uv run zettel --pdf paper.pdf
 
 # 向量嵌入
 uv run embeddings
@@ -151,10 +154,14 @@ output/zettelkasten_notes/
 
 ---
 
-## 已完成功能（0.9.0）
+## 已完成功能（0.10.0）
 
 | 功能 | 狀態 | 說明 |
 |------|------|------|
+| `uv run zettel` | ✅ | Zettelkasten 卡片生成 CLI |
+| 自訂需求檔案 | ✅ | slides/zettel 支援 --custom-file |
+| `kb import-zettel` | ✅ | 匯入現有 Zettel 卡片 |
+| zettel_importer.py | ✅ | 批次匯入模組 |
 | citekey_resolver.py | ✅ | Citekey 解析模組 |
 | ris_parser.py | ✅ | RIS 格式支援 |
 | doi_resolver.py | ✅ | DOI/CrossRef 查詢 |
@@ -166,7 +173,7 @@ output/zettelkasten_notes/
 
 | 功能 | 優先級 | 說明 |
 |------|--------|------|
-| `uv run zettel` | P1 | 單篇 Zettel 生成 CLI |
+| `--from-bib` 批次 | P2 | 從書目檔批次處理 |
 
 ---
 
@@ -178,5 +185,5 @@ output/zettelkasten_notes/
 
 ---
 
-**版本**: 0.9.0
-**更新日期**: 2025-11-28
+**版本**: 0.10.0
+**更新日期**: 2025-11-29

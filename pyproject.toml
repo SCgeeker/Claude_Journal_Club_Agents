@@ -1,6 +1,6 @@
 [project]
 name = "claude-lit-workflow"
-version = "0.8.0"
+version = "0.10.0"
 description = "知識生產器 - Claude Code 驅動的學術文獻處理系統"
 readme = "README.md"
 license = { text = "MIT" }
@@ -60,9 +60,7 @@ analyze = "analyze_paper:main"
 slides = "make_slides:main"
 kb = "kb_manage:main"
 embeddings = "generate_embeddings:main"
-
-# Zettel 生成（待實作 cli/zettel.py 後啟用）
-# zettel = "cli.zettel:main"
+zettel = "generate_zettel:main"
 
 [build-system]
 requires = ["hatchling"]

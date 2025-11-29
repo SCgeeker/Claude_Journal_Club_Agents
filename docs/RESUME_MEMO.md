@@ -96,3 +96,11 @@ uv run slides "主題" --pdf paper.pdf
 - [MarkItDown GitHub](https://github.com/microsoft/markitdown)
 - [Marker GitHub](https://github.com/datalab-to/marker)
 - [MinerU GitHub](https://github.com/opendatalab/MinerU)
+
+## 其他優化建議及課題
+- 各工具的--help並列uv run 與 python 指令格式
+- make_slides.py 的參數"主題" 改為選填，無填入以論文題名為主題
+- make_slides.py 的預設簡報格式為markdown，預設輸出路徑為 outpput/slides
+- 設定生成zettel 卡片後，論文及卡片資訊必須列入知識庫，要實現此設定是否應該讓生成zettel卡片功能獨立出make_slides.py?
+- 知識庫只有論文資訊，新增zettel卡片也要加入知識庫，現有工具要如何修改？
+- 其他以上未列出，也需要考慮的項目有哪些？
