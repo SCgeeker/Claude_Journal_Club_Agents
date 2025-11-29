@@ -1686,7 +1686,7 @@ def cmd_check_llm(args):
 def cmd_import_zettel(args):
     """匯入 Zettelkasten 卡片資料夾"""
     from pathlib import Path
-    from utils.zettel_importer import import_zettel_folder
+    from src.utils.zettel_importer import import_zettel_folder
 
     folder_path = Path(args.folder)
     if not folder_path.exists():
@@ -1717,7 +1717,7 @@ def cmd_import_zettel(args):
 def cmd_import_zettel_all(args):
     """批次匯入所有 Zettelkasten 卡片"""
     from pathlib import Path
-    from utils.zettel_importer import import_all_zettel_folders, summarize_import_results
+    from src.utils.zettel_importer import import_all_zettel_folders, summarize_import_results
 
     base_path = Path(args.path)
     if not base_path.exists():
