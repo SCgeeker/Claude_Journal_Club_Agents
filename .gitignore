@@ -79,9 +79,8 @@ downloads/
 *.tar.gz
 *.rar
 
-# Archive tools (keep in git, but exclude large archives)
-archive/**/*.zip
-archive/**/*.tar.gz
+# Archive (personal use)
+archive/
 
 # System files
 Thumbs.db
@@ -107,5 +106,7 @@ Thumbs.db
 
 # Note: Keep index_public.db in git (public examples for demonstration)
 # Note: Exclude index.db from git (contains embargo research papers)
-# Note: Keep output/zettelkasten_notes in git (Zettelkasten output is important)
-# Note: Keep knowledge_base/papers/ in git (paper notes are important)
+# Note: Exclude output/, archive/, knowledge_base/papers/ (personal use)
+
+# Paper analysis notes (ensure this is at the end)
+**/papers/*.md
