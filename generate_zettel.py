@@ -191,6 +191,9 @@ def main():
   # 不入庫（僅生成檔案）
   uv run zettel --pdf paper.pdf --no-add-to-kb
 
+  # 強制重新生成（刪除舊卡片後重新入庫）
+  uv run zettel --from-kb 1 --force
+
   # 啟用跨論文連結
   uv run zettel --pdf paper.pdf --cross-link
         """
@@ -221,6 +224,8 @@ def main():
     # 知識庫整合
     parser.add_argument('--no-add-to-kb', action='store_true',
                         help='不將卡片加入知識庫（僅生成檔案）')
+    parser.add_argument('--force', action='store_true',
+                        help='強制重新生成（刪除舊卡片後重新入庫）')
     parser.add_argument('--cross-link', action='store_true',
                         help='啟用跨論文連結（查詢知識庫相關概念）')
 
@@ -274,7 +279,12 @@ def main():
     print(f"語言：{args.language} - {AVAILABLE_LANGUAGES[args.language]}")
     print(f"領域：{args.domain}")
     print(f"LLM 提供者：{args.llm_provider}")
-    print(f"入庫：{'否' if args.no_add_to_kb else '是'}")
+    if args.no_add_to_kb:
+        print(f"入庫：否")
+    elif args.force:
+        print(f"入庫：是（強制模式 - 將刪除舊卡片）")
+    else:
+        print(f"入庫：是")
     print(f"跨論文連結：{'是' if args.cross_link else '否'}")
     if custom_requirements:
         print(f"自訂需求：已載入（{len(custom_requirements)} 字元）")
@@ -447,6 +457,21 @@ def main():
 
             # 獲取 paper_id（如果從知識庫生成）
             paper_id = args.from_kb if args.from_kb else None
+
+            # 強制模式：先刪除舊卡片
+            if args.force:
+                print("   🗑️  強制模式：刪除舊卡片...")
+                if paper_id:
+                    # 從知識庫生成 → 根據 paper_id 刪除
+                    delete_result = kb.delete_zettel_cards_by_paper(paper_id)
+                else:
+                    # 從 PDF 生成 → 根據 cite_key 刪除
+                    delete_result = kb.delete_zettel_cards_by_citekey(cite_key)
+
+                if delete_result['deleted_cards'] > 0:
+                    print(f"   ✅ 已刪除 {delete_result['deleted_cards']} 張舊卡片")
+                else:
+                    print(f"   ℹ️  無舊卡片需刪除")
 
             added_count = 0
             skipped_count = 0

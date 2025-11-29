@@ -1531,6 +1531,166 @@ created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         finally:
             conn.close()
 
+    def delete_zettel_cards_by_paper(self, paper_id: int) -> Dict:
+        """
+        刪除指定論文的所有 Zettel 卡片（用於重新生成）
+
+        Args:
+            paper_id: 論文 ID
+
+        Returns:
+            刪除結果:
+            {
+                'deleted_cards': int,      # 刪除的卡片數
+                'deleted_links': int,      # 刪除的連結數
+                'deleted_embeddings': int, # 刪除的向量嵌入數
+                'zettel_ids': List[str]    # 被刪除的 zettel_id 列表
+            }
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        result = {
+            'deleted_cards': 0,
+            'deleted_links': 0,
+            'deleted_embeddings': 0,
+            'zettel_ids': []
+        }
+
+        try:
+            # 1. 查詢該論文關聯的所有卡片
+            cursor.execute("""
+                SELECT zc.card_id, zc.zettel_id
+                FROM zettel_cards zc
+                JOIN paper_zettel_links pzl ON zc.card_id = pzl.card_id
+                WHERE pzl.paper_id = ?
+            """, (paper_id,))
+            cards = cursor.fetchall()
+
+            if not cards:
+                return result
+
+            card_ids = [c[0] for c in cards]
+            result['zettel_ids'] = [c[1] for c in cards]
+
+            # 2. 刪除連結（zettel_links 會因 CASCADE 自動刪除）
+            cursor.execute("""
+                SELECT COUNT(*) FROM zettel_links
+                WHERE source_card_id IN ({})
+            """.format(','.join('?' * len(card_ids))), card_ids)
+            result['deleted_links'] = cursor.fetchone()[0]
+
+            # 3. 刪除論文-卡片關聯
+            cursor.execute("""
+                DELETE FROM paper_zettel_links WHERE paper_id = ?
+            """, (paper_id,))
+
+            # 4. 刪除卡片（會觸發 CASCADE 刪除 zettel_links）
+            cursor.execute("""
+                DELETE FROM zettel_cards
+                WHERE card_id IN ({})
+            """.format(','.join('?' * len(card_ids))), card_ids)
+            result['deleted_cards'] = cursor.rowcount
+
+            conn.commit()
+
+            # 5. 刪除向量嵌入（在 commit 後執行，因為是外部資料庫）
+            try:
+                from embeddings.vector_db import VectorDatabase
+                vector_db = VectorDatabase()
+                for zettel_id in result['zettel_ids']:
+                    vector_db.delete_zettel(zettel_id)
+                    result['deleted_embeddings'] += 1
+            except Exception as e:
+                # 向量嵌入刪除失敗不影響主流程
+                print(f"  [WARN] 向量嵌入刪除失敗: {e}")
+
+            return result
+
+        except Exception as e:
+            conn.rollback()
+            print(f"[ERROR] 刪除卡片失敗: {e}")
+            return result
+
+        finally:
+            conn.close()
+
+    def delete_zettel_cards_by_citekey(self, cite_key: str) -> Dict:
+        """
+        根據 cite_key 刪除所有相關 Zettel 卡片（用於重新生成）
+
+        Args:
+            cite_key: 論文 cite_key（如 'Barsalou-1999'）
+
+        Returns:
+            刪除結果（同 delete_zettel_cards_by_paper）
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+
+        result = {
+            'deleted_cards': 0,
+            'deleted_links': 0,
+            'deleted_embeddings': 0,
+            'zettel_ids': []
+        }
+
+        try:
+            # 1. 查詢所有以該 cite_key 開頭的卡片
+            cursor.execute("""
+                SELECT card_id, zettel_id FROM zettel_cards
+                WHERE zettel_id LIKE ?
+            """, (f"{cite_key}-%",))
+            cards = cursor.fetchall()
+
+            if not cards:
+                return result
+
+            card_ids = [c[0] for c in cards]
+            result['zettel_ids'] = [c[1] for c in cards]
+
+            # 2. 統計連結數
+            cursor.execute("""
+                SELECT COUNT(*) FROM zettel_links
+                WHERE source_card_id IN ({})
+            """.format(','.join('?' * len(card_ids))), card_ids)
+            result['deleted_links'] = cursor.fetchone()[0]
+
+            # 3. 刪除論文-卡片關聯
+            cursor.execute("""
+                DELETE FROM paper_zettel_links
+                WHERE card_id IN ({})
+            """.format(','.join('?' * len(card_ids))), card_ids)
+
+            # 4. 刪除卡片
+            cursor.execute("""
+                DELETE FROM zettel_cards
+                WHERE card_id IN ({})
+            """.format(','.join('?' * len(card_ids))), card_ids)
+            result['deleted_cards'] = cursor.rowcount
+
+            conn.commit()
+
+            # 5. 刪除向量嵌入
+            try:
+                from embeddings.vector_db import VectorDatabase
+                vector_db = VectorDatabase()
+                for zettel_id in result['zettel_ids']:
+                    vector_db.delete_zettel(zettel_id)
+                    result['deleted_embeddings'] += 1
+            except Exception as e:
+                print(f"  [WARN] 向量嵌入刪除失敗: {e}")
+
+            return result
+
+        except Exception as e:
+            conn.rollback()
+            print(f"[ERROR] 刪除卡片失敗: {e}")
+            return result
+
+        finally:
+            conn.close()
+
     def index_zettelkasten(self, zettel_folder: str, domain: str = None) -> Dict:
         """
         批次索引 Zettelkasten 卡片資料夾
