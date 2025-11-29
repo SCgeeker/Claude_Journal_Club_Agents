@@ -104,3 +104,5 @@ uv run slides "主題" --pdf paper.pdf
 - 設定生成zettel 卡片後，論文及卡片資訊必須列入知識庫，要實現此設定是否應該讓生成zettel卡片功能獨立出make_slides.py?
 - 知識庫只有論文資訊，新增zettel卡片也要加入知識庫，現有工具要如何修改？
 - 其他以上未列出，也需要考慮的項目有哪些？
+
+main的主要README quick start 與CLI指令 換成生成簡報,生成zettel卡片,分析論文,管理知識庫。進階功能指向CLI_CUIDE.md。
